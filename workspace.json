@@ -1,0 +1,79 @@
+{
+  "version": 2,
+  "projects": {
+    "nx-plugin-typegraphql": {
+      "root": "packages/nx-plugin-typegraphql",
+      "sourceRoot": "packages/nx-plugin-typegraphql/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/nx-plugin-typegraphql/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/nx-plugin-typegraphql"
+          ],
+          "options": {
+            "jestConfig": "packages/nx-plugin-typegraphql/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-typegraphql",
+            "tsConfig": "packages/nx-plugin-typegraphql/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-typegraphql/package.json",
+            "main": "packages/nx-plugin-typegraphql/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-typegraphql/*.md",
+              {
+                "input": "./packages/nx-plugin-typegraphql/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-typegraphql",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-typegraphql",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-typegraphql-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-plugin-typegraphql-e2e",
+      "sourceRoot": "e2e\\nx-plugin-typegraphql-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-typegraphql:build",
+            "npmPackageName": "@penumbra/nx-plugin-typegraphql",
+            "pluginOutputPath": "dist/packages/nx-plugin-typegraphql",
+            "jestConfig": "e2e/nx-plugin-typegraphql-e2e/jest.config.js"
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
+  }
+}
