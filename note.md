@@ -20,3 +20,4 @@
   - [x] Integrate TypeORM `BaseEntity`.
   - [x] Specify namespace export in index file, e.g: `export * as UserType from "./user.type.ts"`.
   - [ ] Generate primitive props with ObjectType & DTO.
+- [ ] middleware

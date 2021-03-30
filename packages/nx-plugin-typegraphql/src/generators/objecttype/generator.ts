@@ -21,7 +21,6 @@ import { libraryGenerator } from '@nrwl/workspace/generators';
 import {
   Project,
   StructureKind,
-  SourceFileStructure,
   ExportDeclarationStructure,
   OptionalKind,
 } from 'ts-morph';
