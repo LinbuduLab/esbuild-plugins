@@ -18,7 +18,13 @@ import {
 } from '@nrwl/devkit';
 
 import { libraryGenerator } from '@nrwl/workspace/generators';
-import { Project, StructureKind, SourceFileStructure } from 'ts-morph';
+import {
+  Project,
+  StructureKind,
+  SourceFileStructure,
+  ExportDeclarationStructure,
+  OptionalKind,
+} from 'ts-morph';
 import path from 'path';
 import chalk from 'chalk';
 import { TypeGraphQLObjectTypeSchema, AvaliableLib } from './schema';
@@ -75,7 +81,8 @@ export default async function (
   const updatedIndexFileContent = appendExportToIndexFile(
     libSourceIndexFilePath,
     libSourceIndexFileContent,
-    fileName
+    fileName,
+    normalizedSchema?.namespaceExport ?? null
   );
 
   host.write(libSourceIndexFilePath, updatedIndexFileContent);
@@ -114,6 +121,13 @@ function normalizeSchema(
     );
     schema.useTypeormEntityDecorator = true;
   }
+
+  // TODO: "1" "true" ...
+  // if (typeof schema.namespaceExport !== 'string') {
+  //   throw new Error(
+  //     `invalid namespaceExport, got ${typeof schema.namespaceExport}`
+  //   );
+  // }
 
   // const { className } = names(schema.objectTypeName);
 
@@ -161,22 +175,37 @@ function composeDevDepsList(
 function appendExportToIndexFile(
   path: string,
   content: string,
-  fileName: string
+  fileName: string,
+  namespace?: string
 ): string {
   const project = new Project();
+  let formattedNamespace = '';
 
   const sourceFile = project.createSourceFile(path, content, {
     overwrite: true,
   });
 
-  sourceFile.addExportDeclaration({
+  const { className } = names(namespace);
+
+  if (
+    className.toLocaleUpperCase().indexOf('OBJECT') === -1 &&
+    className.toLocaleUpperCase().indexOf('OBJECTTYPE') === -1 &&
+    className.toLocaleUpperCase().indexOf('TYPE') === -1
+  ) {
+    formattedNamespace = `${className}Type`;
+  }
+
+  const exportDeclaration: OptionalKind<ExportDeclarationStructure> = {
     kind: StructureKind.ExportDeclaration,
     isTypeOnly: false,
-    // TODO: support namespace option
-    // namespaceExport: 'x',
-    // namedExports: ['*'],
     moduleSpecifier: `./lib/${fileName}`,
-  });
+  };
+
+  if (namespace) {
+    exportDeclaration.namespaceExport = formattedNamespace;
+  }
+
+  sourceFile.addExportDeclaration(exportDeclaration);
 
   return sourceFile.getFullText();
 }

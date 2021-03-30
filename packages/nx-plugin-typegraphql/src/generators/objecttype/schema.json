@@ -64,6 +64,12 @@
       "description": "Create lib to store the file if lib doesn't exist",
       "default": true
     },
+    "namespaceExport": {
+      "type": "string",
+      "x-prompt": "object type class export namespace(will be exported as * if not specified)",
+      "description": "object type class export namespace",
+      "default": ""
+    },
     "props": {
       "type": "array",
       "TODO_x-prompt": "Schema Props",
@@ -92,6 +98,7 @@
     "useTypeormEntityDecorator",
     "extendTypeormBaseEntity",
     "lib",
-    "createLibOnInexist"
+    "createLibOnInexist",
+    "namespaceExport"
   ]
 }
