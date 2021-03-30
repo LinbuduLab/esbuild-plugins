@@ -26,32 +26,27 @@ import {
   OptionalKind,
 } from 'ts-morph';
 import path from 'path';
-import chalk from 'chalk';
-import { TypeGraphQLObjectTypeSchema, AvaliableLib } from './schema';
+import {
+  getAvailableLibs,
+  devInfo,
+  devWarn,
+  isValidNamespace,
+  generateDTONames,
+} from '../../utils';
+import { TypeGraphQLObjectTypeSchema } from './schema';
 
 export default async function (
   host: Tree,
   schema: TypeGraphQLObjectTypeSchema
 ) {
   console.log('schema: ', schema);
-  const projects = getProjects(host);
-  const libs: Array<AvaliableLib> = [];
-
-  projects.forEach((project, libName) => {
-    if (project.projectType === 'library') {
-      libs.push({
-        libName,
-        root: project.root,
-        sourceRoot: project.sourceRoot,
-      });
-    }
-  });
-  const libNames = libs.map((lib) => lib.libName);
+  const avaliableLibs = getAvailableLibs(host);
+  const libNames = avaliableLibs.map((lib) => lib.libName);
 
   const normalizedSchema = normalizeSchema(schema, libNames);
 
   if (!libNames.includes(normalizedSchema.lib)) {
-    console.log(`Create New Lib ${normalizedSchema.lib}`);
+    devInfo(`creating new lib: ${normalizedSchema.lib}`);
     await libraryGenerator(host, { name: normalizedSchema.lib });
   }
 
@@ -59,8 +54,11 @@ export default async function (
 
   const { className, fileName } = names(normalizedSchema.objectTypeName);
 
+  // libs/lib1/src
   const libSourceRoot = joinPathFragments(libConfig.sourceRoot);
+  // libs/lib1/src/lib
   const libSourceLib = joinPathFragments(libConfig.sourceRoot, 'lib');
+  // libs/lib1/src/lib/index.ts
   const libSourceIndexFilePath = path.join(libSourceRoot, './index.ts');
 
   const libSourceIndexFileContent = host
@@ -108,38 +106,26 @@ function normalizeSchema(
   }
 
   if (!schema.lib && !libNames.includes('graphql')) {
-    console.log("Lib name not specified, using 'graphql'");
+    devInfo("lib name not specified, creating new lib 'graphql'");
     schema.lib = 'graphql';
-  } else if (libNames.includes('graphql')) {
-    console.log("lib 'graphql' exist, use it as target");
+  } else if (!schema.lib && libNames.includes('graphql')) {
+    devInfo("lib name not specified and lib 'graphql' exist, use it as target");
     schema.lib = 'graphql';
   }
 
   if (schema.extendTypeormBaseEntity && !schema.useTypeormEntityDecorator) {
-    console.warn(
+    devWarn(
       "'extendTypeormBaseEntity' option require 'useTypeormEntityDecorator' to be true, set it automatically"
     );
     schema.useTypeormEntityDecorator = true;
   }
 
-  // TODO: "1" "true" ...
-  // if (typeof schema.namespaceExport !== 'string') {
-  //   throw new Error(
-  //     `invalid namespaceExport, got ${typeof schema.namespaceExport}`
-  //   );
-  // }
-
-  // const { className } = names(schema.objectTypeName);
+  if (!isValidNamespace(schema.namespaceExport)) {
+    devWarn(`invalid namespaceExport, got ${schema.namespaceExport}, ignore`);
+    schema.namespaceExport = undefined;
+  }
 
   return schema as TypeGraphQLObjectTypeSchema;
-}
-
-function generateDTONames(className: string) {
-  return {
-    CreateDTOClassName: `Create${className}DTO`,
-    UpdateDTOClassName: `Update${className}DTO`,
-    DeleteDTOClassName: `Deleete${className}DTO`,
-  };
 }
 
 function composeDepsList(

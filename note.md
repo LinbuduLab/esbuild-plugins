@@ -18,5 +18,5 @@
   - [x] Use `Class-Validator` / `Joi` as schema validator.
   - [x] Integrate TypeORM `@Entity()`.
   - [x] Integrate TypeORM `BaseEntity`.
-  - [x] Specify namespace export in index file, e.g: `export * as UserObjectType from "./user.type.ts"`.
+  - [x] Specify namespace export in index file, e.g: `export * as UserType from "./user.type.ts"`.
   - [ ] Generate primitive props with ObjectType & DTO.
