@@ -20,7 +20,8 @@
     "nx-plugin-typegraphql-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-typegraphql"]
-    }
+    },
+    "d": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

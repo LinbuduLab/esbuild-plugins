@@ -1,6 +1,6 @@
 {
   "name": "@penumbra/nx-plugin-typegraphql",
-  "version": "0.0.1",
+  "version": "0.0.1-2",
   "main": "src/index.js",
   "generators": "./generators.json",
   "executors": "./executors.json"

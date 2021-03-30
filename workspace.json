@@ -9,16 +9,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/nx-plugin-typegraphql/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/nx-plugin-typegraphql/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/nx-plugin-typegraphql"
-          ],
+          "outputs": ["coverage/packages/nx-plugin-typegraphql"],
           "options": {
             "jestConfig": "packages/nx-plugin-typegraphql/jest.config.js",
             "passWithNoTests": true
@@ -26,9 +22,7 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/packages/nx-plugin-typegraphql",
             "tsConfig": "packages/nx-plugin-typegraphql/tsconfig.lib.json",
@@ -71,9 +65,13 @@
           }
         }
       }
+    },
+    "d": {
+      "root": "packages/d",
+      "projectType": "library",
+      "sourceRoot": "packages/d/src",
+      "targets": { "build": { "executor": "@penumbra/objecttype:build" } }
     }
   },
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+  "cli": { "defaultCollection": "@nrwl/workspace" }
 }

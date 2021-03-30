@@ -7,6 +7,11 @@
       "factory": "./src/generators/nx-plugin-typegraphql/generator",
       "schema": "./src/generators/nx-plugin-typegraphql/schema.json",
       "description": "nx-plugin-typegraphql generator"
+    },
+    "objecttype": {
+      "factory": "./src/generators/objecttype/generator",
+      "schema": "./src/generators/objecttype/schema.json",
+      "description": "objecttype generator"
     }
   }
 }
