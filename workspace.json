@@ -9,12 +9,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/nx-plugin-typegraphql/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/nx-plugin-typegraphql/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-typegraphql"],
+          "outputs": [
+            "coverage/packages/nx-plugin-typegraphql"
+          ],
           "options": {
             "jestConfig": "packages/nx-plugin-typegraphql/jest.config.js",
             "passWithNoTests": true
@@ -22,7 +26,9 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/packages/nx-plugin-typegraphql",
             "tsConfig": "packages/nx-plugin-typegraphql/tsconfig.lib.json",
@@ -70,8 +76,85 @@
       "root": "packages/d",
       "projectType": "library",
       "sourceRoot": "packages/d/src",
-      "targets": { "build": { "executor": "@penumbra/objecttype:build" } }
+      "targets": {
+        "build": {
+          "executor": "@penumbra/objecttype:build"
+        }
+      }
+    },
+    "nx-plugin-midway": {
+      "root": "packages/nx-plugin-midway",
+      "sourceRoot": "packages/nx-plugin-midway/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/nx-plugin-midway/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/nx-plugin-midway"
+          ],
+          "options": {
+            "jestConfig": "packages/nx-plugin-midway/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-midway",
+            "tsConfig": "packages/nx-plugin-midway/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-midway/package.json",
+            "main": "packages/nx-plugin-midway/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-midway/*.md",
+              {
+                "input": "./packages/nx-plugin-midway/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-midway",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-midway",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-midway-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-plugin-midway-e2e",
+      "sourceRoot": "e2e\\nx-plugin-midway-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-midway:build",
+            "npmPackageName": "@penumbra/nx-plugin-midway",
+            "pluginOutputPath": "dist/packages/nx-plugin-midway",
+            "jestConfig": "e2e/nx-plugin-midway-e2e/jest.config.js"
+          }
+        }
+      }
     }
   },
-  "cli": { "defaultCollection": "@nrwl/workspace" }
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
+  }
 }

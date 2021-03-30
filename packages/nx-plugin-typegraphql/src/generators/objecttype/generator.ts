@@ -1,74 +1,182 @@
 import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  getWorkspaceLayout,
-  names,
-  offsetFromRoot,
   Tree,
+  formatFiles,
+  installPackagesTask,
+  readProjectConfiguration,
+  addProjectConfiguration,
+  readWorkspaceConfiguration,
+  updateWorkspaceConfiguration,
+  getProjects,
+  generateFiles,
+  addDependenciesToPackageJson,
+  getWorkspaceLayout,
+  offsetFromRoot,
+  normalizePath,
+  applyChangesToString,
+  joinPathFragments,
+  names,
 } from '@nrwl/devkit';
-import * as path from 'path';
-import { ObjecttypeGeneratorSchema } from './schema';
-console.log('xxxxxxxxxxx');
-interface NormalizedSchema extends ObjecttypeGeneratorSchema {
-  projectName: string;
-  projectRoot: string;
-  projectDirectory: string;
-  parsedTags: string[];
-}
 
-function normalizeOptions(
+import { libraryGenerator } from '@nrwl/workspace/generators';
+import { Project, StructureKind, SourceFileStructure } from 'ts-morph';
+import path from 'path';
+import chalk from 'chalk';
+import { TypeGraphQLObjectTypeSchema, AvaliableLib } from './schema';
+
+export default async function (
   host: Tree,
-  options: ObjecttypeGeneratorSchema
-): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-  const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-  const projectRoot = `${getWorkspaceLayout(host).libsDir}/${projectDirectory}`;
-  const parsedTags = options.tags
-    ? options.tags.split(',').map((s) => s.trim())
-    : [];
+  schema: TypeGraphQLObjectTypeSchema
+) {
+  console.log('schema: ', schema);
+  const projects = getProjects(host);
+  const libs: Array<AvaliableLib> = [];
 
-  return {
-    ...options,
-    projectName,
-    projectRoot,
-    projectDirectory,
-    parsedTags,
-  };
-}
-
-function addFiles(host: Tree, options: NormalizedSchema) {
-  const templateOptions = {
-    ...options,
-    ...names(options.name),
-    offsetFromRoot: offsetFromRoot(options.projectRoot),
-    template: '',
-  };
-  generateFiles(
-    host,
-    path.join(__dirname, 'files'),
-    options.projectRoot,
-    templateOptions
-  );
-}
-
-export default async function (host: Tree, options: ObjecttypeGeneratorSchema) {
-  console.log('options: ', options);
-  const normalizedOptions = normalizeOptions(host, options);
-  addProjectConfiguration(host, normalizedOptions.projectName, {
-    root: normalizedOptions.projectRoot,
-    projectType: 'library',
-    sourceRoot: `${normalizedOptions.projectRoot}/src`,
-    targets: {
-      build: {
-        executor: '@penumbra/objecttype:build',
-      },
-    },
-    tags: normalizedOptions.parsedTags,
+  projects.forEach((project, libName) => {
+    if (project.projectType === 'library') {
+      libs.push({
+        libName,
+        root: project.root,
+        sourceRoot: project.sourceRoot,
+      });
+    }
   });
-  addFiles(host, normalizedOptions);
+  const libNames = libs.map((lib) => lib.libName);
+
+  const normalizedSchema = normalizeSchema(schema, libNames);
+
+  if (!libNames.includes(normalizedSchema.lib)) {
+    console.log(`Create New Lib ${normalizedSchema.lib}`);
+    await libraryGenerator(host, { name: normalizedSchema.lib });
+  }
+
+  const libConfig = readProjectConfiguration(host, normalizedSchema.lib);
+
+  const { className, fileName } = names(normalizedSchema.objectTypeName);
+
+  const libSourceRoot = joinPathFragments(libConfig.sourceRoot);
+  const libSourceLib = joinPathFragments(libConfig.sourceRoot, 'lib');
+  const libSourceIndexFilePath = path.join(libSourceRoot, './index.ts');
+
+  const libSourceIndexFileContent = host
+    .read(libSourceIndexFilePath)
+    .toString('utf-8');
+
+  const dtoNames = generateDTONames(className);
+
+  generateFiles(host, path.join(__dirname, './files'), libSourceLib, {
+    tmpl: '',
+    ObjectType: fileName,
+    componentName: className,
+    interfaceName: `I${className}`,
+    ...normalizedSchema,
+    ...dtoNames,
+  });
+
+  const updatedIndexFileContent = appendExportToIndexFile(
+    libSourceIndexFilePath,
+    libSourceIndexFileContent,
+    fileName
+  );
+
+  host.write(libSourceIndexFilePath, updatedIndexFileContent);
+
   await formatFiles(host);
+
+  const deps = composeDepsList(normalizedSchema);
+  const devDeps = composeDevDepsList(normalizedSchema);
+
+  addDependenciesToPackageJson(host, deps, devDeps);
+
+  return () => {
+    installPackagesTask(host);
+  };
+}
+
+function normalizeSchema(
+  schema: Partial<TypeGraphQLObjectTypeSchema>,
+  libNames: Array<string>
+): TypeGraphQLObjectTypeSchema {
+  if (!schema.objectTypeName) {
+    throw new Error('ObjectType name required!');
+  }
+
+  if (!schema.lib && !libNames.includes('graphql')) {
+    console.log("Lib name not specified, using 'graphql'");
+    schema.lib = 'graphql';
+  } else if (libNames.includes('graphql')) {
+    console.log("lib 'graphql' exist, use it as target");
+    schema.lib = 'graphql';
+  }
+
+  if (schema.extendTypeormBaseEntity && !schema.useTypeormEntityDecorator) {
+    console.warn(
+      "'extendTypeormBaseEntity' option require 'useTypeormEntityDecorator' to be true, set it automatically"
+    );
+    schema.useTypeormEntityDecorator = true;
+  }
+
+  // const { className } = names(schema.objectTypeName);
+
+  return schema as TypeGraphQLObjectTypeSchema;
+}
+
+function generateDTONames(className: string) {
+  return {
+    CreateDTOClassName: `Create${className}DTO`,
+    UpdateDTOClassName: `Update${className}DTO`,
+    DeleteDTOClassName: `Deleete${className}DTO`,
+  };
+}
+
+function composeDepsList(
+  schema: TypeGraphQLObjectTypeSchema
+): Record<string, string> {
+  let basic: Record<string, string> = {
+    'type-graphql': 'latest',
+    graphql: 'latest',
+    'reflect-metadata': 'latest',
+    [schema.dtoHandler === 'ClassValidator'
+      ? 'class-validator'
+      : 'joi']: 'latest',
+  };
+
+  if (schema.useTypeormEntityDecorator || schema.extendTypeormBaseEntity) {
+    basic = {
+      ...basic,
+      typeorm: 'latest',
+    };
+  }
+
+  return basic;
+}
+
+function composeDevDepsList(
+  schema: TypeGraphQLObjectTypeSchema
+): Record<string, string> {
+  const basic = {};
+
+  return basic;
+}
+
+function appendExportToIndexFile(
+  path: string,
+  content: string,
+  fileName: string
+): string {
+  const project = new Project();
+
+  const sourceFile = project.createSourceFile(path, content, {
+    overwrite: true,
+  });
+
+  sourceFile.addExportDeclaration({
+    kind: StructureKind.ExportDeclaration,
+    isTypeOnly: false,
+    // TODO: support namespace option
+    // namespaceExport: 'x',
+    // namedExports: ['*'],
+    moduleSpecifier: `./lib/${fileName}`,
+  });
+
+  return sourceFile.getFullText();
 }

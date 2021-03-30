@@ -7,6 +7,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
@@ -17,7 +18,8 @@
     "paths": {
       "penumbra/nx-plugin-typegraphql": [
         "packages/nx-plugin-typegraphql/src/index.ts"
-      ]
+      ],
+      "@penumbra/nx-plugin-midway": ["packages/nx-plugin-midway/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

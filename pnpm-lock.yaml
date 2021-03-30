@@ -1,4 +1,5 @@
 dependencies:
+  ts-morph: 10.0.2
   tslib: 2.1.0
 devDependencies:
   '@nrwl/cli': 11.6.0
@@ -14,6 +15,7 @@ devDependencies:
   '@types/node': 14.14.33
   '@typescript-eslint/eslint-plugin': 4.3.0_994d979c051549b216df6838c5973d27
   '@typescript-eslint/parser': 4.3.0_eslint@7.10.0+typescript@4.0.7
+  chalk: 4.1.0
   dotenv: 8.2.0
   eslint: 7.10.0
   eslint-config-prettier: 8.1.0_eslint@7.10.0
@@ -656,14 +658,12 @@ packages:
     dependencies:
       '@nodelib/fs.stat': 2.0.4
       run-parallel: 1.2.0
-    dev: true
     engines:
       node: '>= 8'
     resolution:
       integrity: sha1-1LNUml213iaD4MEHGrTxQJBLv2k=
       tarball: '@nodelib/fs.scandir/download/@nodelib/fs.scandir-2.1.4.tgz'
   /@nodelib/fs.stat/2.0.4:
-    dev: true
     engines:
       node: '>= 8'
     resolution:
@@ -673,7 +673,6 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.4
       fastq: 1.11.0
-    dev: true
     engines:
       node: '>= 8'
     resolution:
@@ -869,6 +868,15 @@ packages:
     resolution:
       integrity: sha1-KTZ0/MsyYqx4LHqt/eyoaxDHXEA=
       tarball: '@sinonjs/fake-timers/download/@sinonjs/fake-timers-6.0.1.tgz'
+  /@ts-morph/common/0.9.0:
+    dependencies:
+      fast-glob: 3.2.5
+      minimatch: 3.0.4
+      mkdirp: 1.0.4
+    dev: false
+    resolution:
+      integrity: sha1-owY1W62Cz/IqGIH38vLHELu01p0=
+      tarball: '@ts-morph/common/download/@ts-morph/common-0.9.0.tgz'
   /@types/babel__core/7.1.14:
     dependencies:
       '@babel/parser': 7.13.13
@@ -1024,6 +1032,7 @@ packages:
       regexpp: 3.1.0
       semver: 7.3.5
       tsutils: 3.21.0_typescript@4.0.7
+      typescript: 4.0.7
     dev: true
     engines:
       node: ^10.12.0 || >=12.0.0
@@ -1031,6 +1040,9 @@ packages:
       '@typescript-eslint/parser': ^4.0.0
       eslint: ^5.0.0 || ^6.0.0 || ^7.0.0
       typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     resolution:
       integrity: sha1-GiPZBL+OokjQncN2GvUw2Q85yPo=
       tarball: '@typescript-eslint/eslint-plugin/download/@typescript-eslint/eslint-plugin-4.3.0.tgz'
@@ -1077,12 +1089,16 @@ packages:
       '@typescript-eslint/typescript-estree': 4.3.0_typescript@4.0.7
       debug: 4.3.1
       eslint: 7.10.0
+      typescript: 4.0.7
     dev: true
     engines:
       node: ^10.12.0 || >=12.0.0
     peerDependencies:
       eslint: ^5.0.0 || ^6.0.0 || ^7.0.0
       typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     resolution:
       integrity: sha1-aE/AvmVRor/LJTmR7sPHhqjAY6M=
       tarball: '@typescript-eslint/parser/download/@typescript-eslint/parser-4.3.0.tgz'
@@ -1129,11 +1145,15 @@ packages:
       is-glob: 4.0.1
       semver: 7.3.5
       tsutils: 3.21.0_typescript@4.0.7
+      typescript: 4.0.7
     dev: true
     engines:
       node: ^10.12.0 || >=12.0.0
     peerDependencies:
       typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     resolution:
       integrity: sha1-izsI+F8YqNpdiPZctADwE+iKt74=
       tarball: '@typescript-eslint/typescript-estree/download/@typescript-eslint/typescript-estree-4.20.0.tgz'
@@ -1147,11 +1167,15 @@ packages:
       lodash: 4.17.21
       semver: 7.3.5
       tsutils: 3.21.0_typescript@4.0.7
+      typescript: 4.0.7
     dev: true
     engines:
       node: ^10.12.0 || >=12.0.0
     peerDependencies:
       typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     resolution:
       integrity: sha1-DtwQaOay5Mf9xU1h4yn852JBzug=
       tarball: '@typescript-eslint/typescript-estree/download/@typescript-eslint/typescript-estree-4.3.0.tgz'
@@ -1805,7 +1829,6 @@ packages:
       integrity: sha1-dHhysRcd8DIlJCZYaIHWLTF5j+4=
       tarball: babel-preset-jest/download/babel-preset-jest-26.6.2.tgz
   /balanced-match/1.0.0:
-    dev: true
     resolution:
       integrity: sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
       tarball: balanced-match/download/balanced-match-1.0.0.tgz
@@ -1926,7 +1949,6 @@ packages:
     dependencies:
       balanced-match: 1.0.0
       concat-map: 0.0.1
-    dev: true
     resolution:
       integrity: sha1-PH/L9SnYcibz0vUrlm/1Jx60Qd0=
       tarball: brace-expansion/download/brace-expansion-1.1.11.tgz
@@ -1951,7 +1973,6 @@ packages:
   /braces/3.0.2:
     dependencies:
       fill-range: 7.0.1
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -2445,6 +2466,11 @@ packages:
     resolution:
       integrity: sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=
       tarball: co/download/co-4.6.0.tgz
+  /code-block-writer/10.1.1:
+    dev: false
+    resolution:
+      integrity: sha1-rVaE7Uv7KweDyLExKBroTuZApC8=
+      tarball: code-block-writer/download/code-block-writer-10.1.1.tgz
   /collect-v8-coverage/1.0.1:
     dev: true
     resolution:
@@ -2540,7 +2566,6 @@ packages:
       integrity: sha1-lVI+/xcMpXwpoMpB5v4TH0Hlu48=
       tarball: compression/download/compression-1.7.4.tgz
   /concat-map/0.0.1:
-    dev: true
     resolution:
       integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
       tarball: concat-map/download/concat-map-0.0.1.tgz
@@ -2812,6 +2837,26 @@ packages:
     dev: true
     engines:
       node: '>=6.0'
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    resolution:
+      integrity: sha1-8NIpxQXgxtjEmsVT0bE9wYP2su4=
+      tarball: debug/download/debug-4.3.1.tgz
+  /debug/4.3.1_supports-color@6.1.0:
+    dependencies:
+      ms: 2.1.2
+      supports-color: 6.1.0
+    dev: true
+    engines:
+      node: '>=6.0'
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     resolution:
       integrity: sha1-8NIpxQXgxtjEmsVT0bE9wYP2su4=
       tarball: debug/download/debug-4.3.1.tgz
@@ -3633,7 +3678,6 @@ packages:
       merge2: 1.4.1
       micromatch: 4.0.2
       picomatch: 2.2.2
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -3652,7 +3696,6 @@ packages:
   /fastq/1.11.0:
     dependencies:
       reusify: 1.0.4
-    dev: true
     resolution:
       integrity: sha1-u5+5VaBxMKkY62PB9RYcwypdCFg=
       tarball: fastq/download/fastq-1.11.0.tgz
@@ -3732,7 +3775,6 @@ packages:
   /fill-range/7.0.1:
     dependencies:
       to-regex-range: 5.0.1
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -4041,7 +4083,6 @@ packages:
   /glob-parent/5.1.2:
     dependencies:
       is-glob: 4.0.1
-    dev: true
     engines:
       node: '>= 6'
     resolution:
@@ -4723,7 +4764,6 @@ packages:
       integrity: sha1-p0cPnkJnM9gb2B4RVSZOOjUHyrQ=
       tarball: is-extendable/download/is-extendable-1.0.1.tgz
   /is-extglob/2.1.1:
-    dev: true
     engines:
       node: '>=0.10.0'
     resolution:
@@ -4762,7 +4802,6 @@ packages:
   /is-glob/4.0.1:
     dependencies:
       is-extglob: 2.1.1
-    dev: true
     engines:
       node: '>=0.10.0'
     resolution:
@@ -4799,7 +4838,6 @@ packages:
       integrity: sha1-JP1iAaR4LPUFYcgQJ2r8fRLXEZU=
       tarball: is-number/download/is-number-3.0.0.tgz
   /is-number/7.0.0:
-    dev: true
     engines:
       node: '>=0.12.0'
     resolution:
@@ -5074,6 +5112,9 @@ packages:
       node: '>= 10.14.2'
     peerDependencies:
       ts-node: '>=9.0.0'
+    peerDependenciesMeta:
+      ts-node:
+        optional: true
     resolution:
       integrity: sha1-ZPQURO756wPcUdXFO3XIxx9kU0k=
       tarball: jest-config/download/jest-config-26.6.3.tgz
@@ -5274,6 +5315,9 @@ packages:
       node: '>=6'
     peerDependencies:
       jest-resolve: '*'
+    peerDependenciesMeta:
+      jest-resolve:
+        optional: true
     resolution:
       integrity: sha1-twSsCuAoqJEIpNBAs/kZ393I4zw=
       tarball: jest-pnp-resolver/download/jest-pnp-resolver-1.2.2.tgz
@@ -5538,6 +5582,9 @@ packages:
       node: '>=10'
     peerDependencies:
       canvas: ^2.5.0
+    peerDependenciesMeta:
+      canvas:
+        optional: true
     resolution:
       integrity: sha1-WD+siaCuox2/Yjfn5L7czZvqtHI=
       tarball: jsdom/download/jsdom-16.5.2.tgz
@@ -5919,7 +5966,6 @@ packages:
       integrity: sha1-UoI2KaFN0AyXcPtq1H3GMQ8sH2A=
       tarball: merge-stream/download/merge-stream-2.0.0.tgz
   /merge2/1.4.1:
-    dev: true
     engines:
       node: '>= 8'
     resolution:
@@ -5962,7 +6008,6 @@ packages:
     dependencies:
       braces: 3.0.2
       picomatch: 2.2.2
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -6036,7 +6081,6 @@ packages:
   /minimatch/3.0.4:
     dependencies:
       brace-expansion: 1.1.11
-    dev: true
     resolution:
       integrity: sha1-UWbihkV/AzBgZL5Ul+jbsMPTIIM=
       tarball: minimatch/download/minimatch-3.0.4.tgz
@@ -6128,7 +6172,6 @@ packages:
       integrity: sha1-2Rzv1i0UNsoPQWIOJRKI1CAJne8=
       tarball: mkdirp/download/mkdirp-0.5.5.tgz
   /mkdirp/1.0.4:
-    dev: true
     engines:
       node: '>=10'
     hasBin: true
@@ -6811,7 +6854,6 @@ packages:
       integrity: sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
       tarball: performance-now/download/performance-now-2.1.0.tgz
   /picomatch/2.2.2:
-    dev: true
     engines:
       node: '>=8.6'
     resolution:
@@ -7095,7 +7137,6 @@ packages:
       integrity: sha1-M0WUG0FTy50ILY7uTNogFqmu9/Y=
       tarball: querystringify/download/querystringify-2.2.0.tgz
   /queue-microtask/1.2.3:
-    dev: true
     resolution:
       integrity: sha1-SSkii7xyTfrEPg77BYyve2z7YkM=
       tarball: queue-microtask/download/queue-microtask-1.2.3.tgz?cache=0&sync_timestamp=1616392663793&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fqueue-microtask%2Fdownload%2Fqueue-microtask-1.2.3.tgz
@@ -7442,7 +7483,6 @@ packages:
       integrity: sha1-G0KmJmoh8HQh0bC1S33BZ7AcATs=
       tarball: retry/download/retry-0.12.0.tgz
   /reusify/1.0.4:
-    dev: true
     engines:
       iojs: '>=1.0.0'
       node: '>=0.10.0'
@@ -7498,7 +7538,6 @@ packages:
   /run-parallel/1.2.0:
     dependencies:
       queue-microtask: 1.2.3
-    dev: true
     resolution:
       integrity: sha1-ZtE2jae9+SHrnZW9GpIp5/IaQ+4=
       tarball: run-parallel/download/run-parallel-1.2.0.tgz
@@ -7964,28 +8003,32 @@ packages:
     resolution:
       integrity: sha1-6cGKQQ5e1+EkQqVJ+9ivp2cDjWU=
       tarball: spdx-license-ids/download/spdx-license-ids-3.0.7.tgz
-  /spdy-transport/3.0.0:
+  /spdy-transport/3.0.0_supports-color@6.1.0:
     dependencies:
-      debug: 4.3.1
+      debug: 4.3.1_supports-color@6.1.0
       detect-node: 2.0.5
       hpack.js: 2.1.6
       obuf: 1.1.2
       readable-stream: 3.6.0
       wbuf: 1.7.3
     dev: true
+    peerDependencies:
+      supports-color: '*'
     resolution:
       integrity: sha1-ANSGOmQArXXfkzYaFghgXl3NzzE=
       tarball: spdy-transport/download/spdy-transport-3.0.0.tgz
-  /spdy/4.0.2:
+  /spdy/4.0.2_supports-color@6.1.0:
     dependencies:
-      debug: 4.3.1
+      debug: 4.3.1_supports-color@6.1.0
       handle-thing: 2.0.1
       http-deceiver: 1.2.7
       select-hose: 2.0.0
-      spdy-transport: 3.0.0
+      spdy-transport: 3.0.0_supports-color@6.1.0
     dev: true
     engines:
       node: '>=6.0.0'
+    peerDependencies:
+      supports-color: '*'
     resolution:
       integrity: sha1-t09GYgOj7aRSwCSSuR+56EonZ3s=
       tarball: spdy/download/spdy-4.0.2.tgz
@@ -8483,7 +8526,6 @@ packages:
   /to-regex-range/5.0.1:
     dependencies:
       is-number: 7.0.0
-    dev: true
     engines:
       node: '>=8.0'
     resolution:
@@ -8585,6 +8627,14 @@ packages:
     resolution:
       integrity: sha1-oMHwNLAXqTRM7wlhv9l8wZJJK4s=
       tarball: ts-loader/download/ts-loader-5.4.5.tgz
+  /ts-morph/10.0.2:
+    dependencies:
+      '@ts-morph/common': 0.9.0
+      code-block-writer: 10.1.1
+    dev: false
+    resolution:
+      integrity: sha1-KSQYIH20ZzJiMbK+koKLXileeUY=
+      tarball: ts-morph/download/ts-morph-10.0.2.tgz
   /ts-node/9.1.1_typescript@4.0.7:
     dependencies:
       arg: 4.1.3
@@ -9018,7 +9068,7 @@ packages:
       chokidar: 2.1.8
       compression: 1.7.4
       connect-history-api-fallback: 1.6.0
-      debug: 4.3.1
+      debug: 4.3.1_supports-color@6.1.0
       del: 4.1.1
       express: 4.17.1
       html-entities: 1.4.0
@@ -9038,7 +9088,7 @@ packages:
       serve-index: 1.9.1
       sockjs: 0.3.20
       sockjs-client: 1.4.0
-      spdy: 4.0.2
+      spdy: 4.0.2_supports-color@6.1.0
       strip-ansi: 3.0.1
       supports-color: 6.1.0
       url: 0.11.0
@@ -9053,6 +9103,10 @@ packages:
     hasBin: true
     peerDependencies:
       webpack: ^4.0.0 || ^5.0.0
+      webpack-cli: '*'
+    peerDependenciesMeta:
+      webpack-cli:
+        optional: true
     resolution:
       integrity: sha1-jxVKO84bz9HMYY705wMniFXn/4w=
       tarball: webpack-dev-server/download/webpack-dev-server-3.11.0.tgz?cache=0&sync_timestamp=1610591796621&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack-dev-server%2Fdownload%2Fwebpack-dev-server-3.11.0.tgz
@@ -9283,6 +9337,11 @@ packages:
     peerDependencies:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
     resolution:
       integrity: sha1-ODvJdCyyAikskHfOq29gR7F/LVk=
       tarball: ws/download/ws-7.4.4.tgz
@@ -9413,12 +9472,14 @@ specifiers:
   '@types/node': 14.14.33
   '@typescript-eslint/eslint-plugin': 4.3.0
   '@typescript-eslint/parser': 4.3.0
+  chalk: ^4.1.0
   dotenv: 8.2.0
   eslint: 7.10.0
   eslint-config-prettier: 8.1.0
   jest: 26.2.2
   prettier: 2.2.1
   ts-jest: 26.4.0
+  ts-morph: ^10.0.2
   ts-node: ~9.1.1
   tslib: ^2.0.0
   typescript: ~4.0.3
