@@ -1,29 +1,31 @@
 {
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "id": "Resolver",
-  "title": "",
+  "id": "type-graphql-resolver",
+  "title": "Create TypeGraphQL Resolver",
   "type": "object",
   "properties": {
-    "name": {
+    "resolverName": {
       "type": "string",
-      "description": "",
+      "x-prompt": "What ResolverName name would you like to use?",
+      "description": "What ResolverName name would you like to use?",
       "$default": {
         "$source": "argv",
         "index": 0
-      },
-      "x-prompt": "What name would you like to use?"
+      }
     },
-    "tags": {
-      "type": "string",
-      "description": "Add tags to the project (used for linting)",
-      "alias": "t"
-    }, 
-    "directory": {
-      "type": "string",
-      "description": "A directory where the project is placed",
-      "alias": "d"
+    "fullImport": {
+      "type": "boolean",
+      "x-prompt": "Should import all useful decorator/types from type-graphql?",
+      "description": "Should import all useful decorator/types from type-graphql?",
+      "default": false
+    },
+    "fieldResolver": {
+      "type": "boolean",
+      "x-prompt": "Should include FieldResolver?",
+      "description": "Should include FieldResolver?",
+      "default": true
     }
   },
-  "required": ["name"]
+  "required": ["resolverName", "fullImport", "fieldResolver"]
 }

@@ -24,4 +24,8 @@
   - [x] Functional / Class
   - [x] Dependency Injection(TypeDI / Inversify)
   - [x] Generate to apps/libs directory
-  - [x] Higher order (`@UseMiddleware` wrapper) 
+  - [x] Higher order (`@UseMiddleware` wrapper)
+- resolver
+  - [ ] Operation Included: Query/Mutation/Subscription
+  - [ ] Full import from type-graphql: @Arg...
+  - [ ] FieldResolver
