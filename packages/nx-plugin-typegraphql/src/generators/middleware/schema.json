@@ -47,6 +47,11 @@
         ]
       },
       "description": "Dependency Injection lib where middleware was registered in"
+    },
+    "higherOrder": {
+      "type": "boolean",
+      "x-prompt": "Use higher order middleware?",
+      "description": "Use higher order middleware?"
     }
   },
   "required": [

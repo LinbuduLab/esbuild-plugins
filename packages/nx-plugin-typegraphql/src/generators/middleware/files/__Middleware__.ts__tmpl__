@@ -1,18 +1,21 @@
-<% if (asDIProvider && diLibs === "TypeDI") { -%>
+<% if (asDIProvider && diLibs === "TypeDI" && !higherOrder) { -%>
 import { Service } from "typedi";
 <% } -%>
-<% if (asDIProvider && diLibs === "Inversify") { -%>
+<% if (asDIProvider && diLibs === "Inversify" && !higherOrder) { -%>
 import { injectable } from "inversify";
 <% } -%>
 
-<% if (useFunctional) { -%>
+<% if (useFunctional && !higherOrder) { -%>
 import { MiddlewareFn, ResolverData, NextFn } from "type-graphql";
 <% } -%>
-<% if (!useFunctional) { -%>
+<% if (higherOrder) { -%>
+import { UseMiddleware, ResolverData, NextFn } from "type-graphql";
+<% } -%>
+<% if (!useFunctional && !higherOrder) { -%>
 import { MiddlewareInterface, ResolverData, NextFn } from "type-graphql";
 <% } -%>
 
-<% if (useFunctional) { -%>
+<% if (useFunctional && !higherOrder) { -%>
 const <%= middlewareName %>Middleware: MiddlewareFn = async (
   { root, args, context, info }: ResolverData,
   next: NextFn
@@ -23,11 +26,11 @@ const <%= middlewareName %>Middleware: MiddlewareFn = async (
 export default <%= middlewareName %>Middleware;
 <% } -%>
 
-<% if (!useFunctional) { -%>
-<% if (asDIProvider && diLibs === "TypeDI") { -%>
+<% if (!useFunctional && !higherOrder) { -%>
+<% if (asDIProvider && diLibs === "TypeDI" && !higherOrder) { -%>
 @Service()
 <% } -%>
-<% if (asDIProvider && diLibs === "Inversify") { -%>
+<% if (asDIProvider && diLibs === "Inversify" && !higherOrder) { -%>
 @injectable()
 <% } -%>
 export default class <%= middlewareName %>Middleware implements MiddlewareInterface {
@@ -38,3 +41,13 @@ export default class <%= middlewareName %>Middleware implements MiddlewareInterf
 <% } -%>
 
 
+<% if (higherOrder) { -%>
+const <%= camelCaseMiddlewareName %> = () => {
+  return UseMiddleware(({ root, args, context, info }: ResolverData, next: NextFn) => {
+
+    return next();
+  });
+};
+
+export default <%= camelCaseMiddlewareName %>;
+<% } -%>

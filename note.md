@@ -21,7 +21,7 @@
   - [x] Specify namespace export in index file, e.g: `export * as UserType from "./user.type.ts"`.
   - [ ] Generate primitive props with ObjectType & DTO.
 - middleware
-  - [ ] Functional / Class
-  - [ ] Dependency Injection(TypeDI / Inversify)
-  - [ ] Generate to apps/libs directory
-  - [ ] Specify GraphQL Context type definition directory
+  - [x] Functional / Class
+  - [x] Dependency Injection(TypeDI / Inversify)
+  - [x] Generate to apps/libs directory
+  - [x] Higher order (`@UseMiddleware` wrapper) 

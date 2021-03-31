@@ -61,6 +61,7 @@ export default async function (
   generateFiles(host, path.join(__dirname, './files'), middlewareDirectory, {
     tmpl: '',
     Middleware: fileName,
+    camelCaseMiddlewareName: className,
     ...normalizedSchema,
   });
 
