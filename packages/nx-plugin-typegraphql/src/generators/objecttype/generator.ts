@@ -39,6 +39,7 @@ export default async function (
   schema: TypeGraphQLObjectTypeSchema
 ) {
   console.log('schema: ', schema);
+  // TODO: lib name 校验也移到normalizeSchema中
   const avaliableLibs = getAvailableLibs(host);
   const libNames = avaliableLibs.map((lib) => lib.libName);
 
