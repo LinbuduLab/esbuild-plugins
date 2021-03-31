@@ -1,0 +1,40 @@
+<% if (asDIProvider && diLibs === "TypeDI") { -%>
+import { Service } from "typedi";
+<% } -%>
+<% if (asDIProvider && diLibs === "Inversify") { -%>
+import { injectable } from "inversify";
+<% } -%>
+
+<% if (useFunctional) { -%>
+import { MiddlewareFn, ResolverData, NextFn } from "type-graphql";
+<% } -%>
+<% if (!useFunctional) { -%>
+import { MiddlewareInterface, ResolverData, NextFn } from "type-graphql";
+<% } -%>
+
+<% if (useFunctional) { -%>
+const <%= middlewareName %>Middleware: MiddlewareFn = async (
+  { root, args, context, info }: ResolverData,
+  next: NextFn
+) => {
+  await next();
+};
+
+export default <%= middlewareName %>Middleware;
+<% } -%>
+
+<% if (!useFunctional) { -%>
+<% if (asDIProvider && diLibs === "TypeDI") { -%>
+@Service()
+<% } -%>
+<% if (asDIProvider && diLibs === "Inversify") { -%>
+@injectable()
+<% } -%>
+export default class <%= middlewareName %>Middleware implements MiddlewareInterface {
+  async use({ root, args, context, info }: ResolverData, next: NextFn) {
+    return await next();
+  }
+}
+<% } -%>
+
+

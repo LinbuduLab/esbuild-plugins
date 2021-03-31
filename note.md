@@ -20,4 +20,8 @@
   - [x] Integrate TypeORM `BaseEntity`.
   - [x] Specify namespace export in index file, e.g: `export * as UserType from "./user.type.ts"`.
   - [ ] Generate primitive props with ObjectType & DTO.
-- [ ] middleware
+- middleware
+  - [ ] Functional / Class
+  - [ ] Dependency Injection(TypeDI / Inversify)
+  - [ ] Generate to apps/libs directory
+  - [ ] Specify GraphQL Context type definition directory
