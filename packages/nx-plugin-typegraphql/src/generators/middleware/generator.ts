@@ -13,6 +13,12 @@ import {
   joinPathFragments,
 } from '@nrwl/devkit';
 import path from 'path';
+import {
+  Project,
+  StructureKind,
+  ExportDeclarationStructure,
+  OptionalKind,
+} from 'ts-morph';
 import { libraryGenerator } from '@nrwl/workspace/generators';
 import {
   MiddlewareGeneratorSchema,
@@ -64,6 +70,22 @@ export default async function (
     camelCaseMiddlewareName: className,
     ...normalizedSchema,
   });
+
+  if (appOrLibConfig.projectType === 'library') {
+    const libSourceIndexFilePath = path.join(appOrLibSourceRoot, './index.ts');
+    const libSourceIndexFileContent = host
+      .read(libSourceIndexFilePath)
+      .toString('utf-8');
+
+    const updatedIndexFileContent = appendExportToIndexFile(
+      libSourceIndexFilePath,
+      libSourceIndexFileContent,
+      normalizedSchema.directory,
+      fileName
+    );
+
+    host.write(libSourceIndexFilePath, updatedIndexFileContent);
+  }
 
   await formatFiles(host);
 
@@ -124,4 +146,27 @@ function composeDevDepsList(
   const basic = {};
 
   return basic;
+}
+
+function appendExportToIndexFile(
+  path: string,
+  content: string,
+  directory: string,
+  fileName: string
+): string {
+  const project = new Project();
+
+  const sourceFile = project.createSourceFile(path, content, {
+    overwrite: true,
+  });
+
+  const exportDeclaration: OptionalKind<ExportDeclarationStructure> = {
+    kind: StructureKind.ExportDeclaration,
+    isTypeOnly: false,
+    moduleSpecifier: `./${directory}/${fileName}`,
+  };
+
+  sourceFile.addExportDeclaration(exportDeclaration);
+
+  return sourceFile.getFullText();
 }
