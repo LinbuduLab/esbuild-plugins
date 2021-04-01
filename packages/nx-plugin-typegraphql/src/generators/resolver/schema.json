@@ -14,6 +14,24 @@
         "index": 0
       }
     },
+    "appOrLibName": {
+      "type": "string",
+      "x-prompt": "Which app or lib would you like to use?",
+      "description": "Which app or lib would you like to use?",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      }
+    },
+    "directory": {
+      "type": "string",
+      "x-prompt": "Which directory inside app or lib would you like to use?",
+      "description": "Which directory inside app or lib would you like to use?",
+      "$default": {
+        "$source": "argv",
+        "index": 2
+      }
+    },
     "fullImport": {
       "type": "boolean",
       "x-prompt": "Should import all useful decorator/types from type-graphql?",

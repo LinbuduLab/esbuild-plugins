@@ -1,69 +1,132 @@
 import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  getWorkspaceLayout,
-  names,
-  offsetFromRoot,
   Tree,
+  formatFiles,
+  installPackagesTask,
+  readProjectConfiguration,
+  addProjectConfiguration,
+  readWorkspaceConfiguration,
+  updateWorkspaceConfiguration,
+  getProjects,
+  generateFiles,
+  addDependenciesToPackageJson,
+  getWorkspaceLayout,
+  offsetFromRoot,
+  normalizePath,
+  applyChangesToString,
+  joinPathFragments,
+  names,
 } from '@nrwl/devkit';
-import * as path from 'path';
-import { ResolverGeneratorSchema } from './schema';
+import {
+  Project,
+  StructureKind,
+  ExportDeclarationStructure,
+  OptionalKind,
+} from 'ts-morph';
+import path from 'path';
+import {
+  getAvailableLibs,
+  devInfo,
+  devWarn,
+  isValidNamespace,
+  generateDTONames,
+  getAvailableAppsOrLibs,
+} from '../../utils';
+import { ResolverGeneratorSchema, TypeGraphQLResolverSchema } from './schema';
 
-interface NormalizedSchema extends ResolverGeneratorSchema {
-  projectName: string;
-  projectRoot: string;
-  projectDirectory: string;
-  parsedTags: string[]
-}
+export default async function (host: Tree, schema: TypeGraphQLResolverSchema) {
+  console.log('schema: ', schema);
 
-function normalizeOptions(host: Tree, options: ResolverGeneratorSchema): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-  const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-  const projectRoot = `${getWorkspaceLayout(host).libsDir}/${projectDirectory}`;
-  const parsedTags = options.tags
-    ? options.tags.split(',').map((s) => s.trim())
-    : [];
+  const normalizedSchema = normalizeGenSchema(host, schema);
+  const appOrLibConfig = readProjectConfiguration(
+    host,
+    normalizedSchema.appOrLibName
+  );
 
-  return {
-    ...options,
-    projectName,
-    projectRoot,
-    projectDirectory,
-    parsedTags,
+  const { className, fileName } = names(normalizedSchema.resolverName);
+
+  // libs/lib1
+  const appOrLibRoot = joinPathFragments(appOrLibConfig.root);
+  // libs/lib1/src
+  const appOrLibSourceRoot = joinPathFragments(appOrLibConfig.sourceRoot);
+
+  const resolverDirectory = joinPathFragments(
+    appOrLibSourceRoot,
+    normalizedSchema.directory
+  );
+
+  generateFiles(host, path.join(__dirname, './files'), resolverDirectory, {
+    tmpl: '',
+    Resolver: fileName,
+    ...normalizedSchema,
+    resolverName: className,
+  });
+
+  if (appOrLibConfig.projectType === 'library') {
+    const libSourceIndexFilePath = path.join(appOrLibSourceRoot, './index.ts');
+    const libSourceIndexFileContent = host
+      .read(libSourceIndexFilePath)
+      .toString('utf-8');
+
+    const updatedIndexFileContent = appendExportToIndexFile(
+      libSourceIndexFilePath,
+      libSourceIndexFileContent,
+      normalizedSchema.directory,
+      fileName
+    );
+
+    host.write(libSourceIndexFilePath, updatedIndexFileContent);
+  }
+
+  await formatFiles(host);
+
+  return () => {
+    installPackagesTask(host);
   };
 }
 
-function addFiles(host: Tree, options: NormalizedSchema) {
-    const templateOptions = {
-      ...options,
-      ...names(options.name),
-      offsetFromRoot: offsetFromRoot(options.projectRoot),
-      template: ''
-    };
-    generateFiles(host, path.join(__dirname, 'files'), options.projectRoot, templateOptions);
+function normalizeGenSchema(
+  host: Tree,
+  schema: Partial<TypeGraphQLResolverSchema>
+): TypeGraphQLResolverSchema {
+  const { apps, libs } = getAvailableAppsOrLibs(host);
+
+  const appNames = apps.map((app) => app.appName);
+  const libNames = libs.map((lib) => lib.libName);
+
+  if (
+    !appNames.includes(schema.appOrLibName) &&
+    !libNames.includes(schema.appOrLibName)
+  ) {
+    throw new Error(`App or Lib ${schema.appOrLibName} dose not exist`);
+  }
+
+  if (!schema.directory) {
+    schema.directory = 'resolvers';
+  }
+
+  return schema as TypeGraphQLResolverSchema;
 }
 
-export default async function (host: Tree, options: ResolverGeneratorSchema) {
-  const normalizedOptions = normalizeOptions(host, options);
-  addProjectConfiguration(
-    host,
-    normalizedOptions.projectName,
-    {
-      root: normalizedOptions.projectRoot,
-      projectType: 'library',
-      sourceRoot: `${normalizedOptions.projectRoot}/src`,
-      targets: {
-        build: {
-          executor: "@penumbra/resolver:build",
-        },
-      },
-      tags: normalizedOptions.parsedTags,
-    }
-  );
-  addFiles(host, normalizedOptions);
-  await formatFiles(host);
+// append on lib only
+function appendExportToIndexFile(
+  path: string,
+  content: string,
+  directory: string,
+  fileName: string
+): string {
+  const project = new Project();
+
+  const sourceFile = project.createSourceFile(path, content, {
+    overwrite: true,
+  });
+
+  const exportDeclaration: OptionalKind<ExportDeclarationStructure> = {
+    kind: StructureKind.ExportDeclaration,
+    isTypeOnly: false,
+    moduleSpecifier: `./${directory}/${fileName}.resolver`,
+  };
+
+  sourceFile.addExportDeclaration(exportDeclaration);
+
+  return sourceFile.getFullText();
 }

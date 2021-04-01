@@ -4,8 +4,10 @@ export interface ResolverGeneratorSchema {
   directory?: string;
 }
 
-export interface TypeGraphQLGeneratorSchema {
+export interface TypeGraphQLResolverSchema {
   resolverName: string;
   fullImport: boolean;
   fieldResolver: boolean;
+  appOrLibName: string;
+  directory: string;
 }

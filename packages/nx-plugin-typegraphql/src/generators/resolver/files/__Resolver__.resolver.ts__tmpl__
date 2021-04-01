@@ -21,7 +21,6 @@ import {
   Subscription,
   ResolverFilterData,
   <% } -%>
-
 } from "type-graphql";
 
 
@@ -29,19 +28,27 @@ import {
 export default class <%= resolverName %>Resolver {
 
   @Query()
-  async <%= resolverName %>Query() { }
+  async <%= resolverName %>Query() {
+    return {};
+  }
 
   @Mutation()
-  async <%= resolverName %>Mutation() { }
+  async <%= resolverName %>Mutation() {
+    return {};
+  }
 
 
   <% if (subscription) { -%>
-  @Subscription()
-  async <%= resolverName %>Subscription() { }
+  @Subscription({topics:""})
+  async <%= resolverName %>Subscription() {
+    return {};
+  }
   <% } -%>
 
   <% if (fieldResolver) { -%>
   @FieldResolver()
-  async <%= resolverName %>FieldResolver() { }
+  async <%= resolverName %>FieldResolver() {
+    return {};
+  }
   <% } -%>
 }
