@@ -25,7 +25,13 @@
       "x-prompt": "Should include FieldResolver?",
       "description": "Should include FieldResolver?",
       "default": true
+    },
+    "subscription": {
+      "type": "boolean",
+      "x-prompt": "Should include subscription?",
+      "description": "Should include subscription?",
+      "default": false
     }
   },
-  "required": ["resolverName", "fullImport", "fieldResolver"]
+  "required": ["resolverName", "fullImport", "fieldResolver", "subscription"]
 }
