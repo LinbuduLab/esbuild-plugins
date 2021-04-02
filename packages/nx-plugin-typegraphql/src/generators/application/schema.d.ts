@@ -1,8 +1,4 @@
-export interface ApplicationGeneratorSchema {
-  name: string;
-  tags?: string;
-  directory?: string;
-}
+import type { Linter } from '@nrwl/linter';
 
 type Tools =
   | 'Apollo-Server-Plugin'
@@ -30,6 +26,15 @@ export interface TypeGraphQLApplicationSchema {
   tools: Tools[];
   ability: Abilities[];
   directory: string;
-  parsedTags: string[];
+  frontendProject: string;
+  tags: string;
+}
+
+export interface NormalizedTypeGraphQLResolverSchema
+  extends TypeGraphQLApplicationSchema {
+  name: string;
   appProjectRoot: string;
+  parsedTags: string[];
+  linter?: Linter.EsLint;
+  unitTestRunner: 'jest';
 }

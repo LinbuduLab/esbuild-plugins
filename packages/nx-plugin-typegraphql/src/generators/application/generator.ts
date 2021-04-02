@@ -34,9 +34,10 @@ import {
   devWarn,
   isValidNamespace,
   generateDTONames,
+  updateDependencies,
 } from '../../utils';
 import {
-  ApplicationGeneratorSchema,
+  NormalizedTypeGraphQLResolverSchema,
   TypeGraphQLApplicationSchema,
 } from './schema';
 import { nxVersion } from '@nrwl/node/src/utils/versions';
@@ -46,16 +47,10 @@ import resolverGenerator from '../resolver/generator';
 import middlewareGenerator from '../middleware/generator';
 import objectTypeGenerator from '../objecttype/generator';
 
-function updateDependencies(host: Tree) {
-  updateJson(host, 'package.json', (json) => {
-    delete json.dependencies['@nrwl/node'];
-    return json;
-  });
-
-  return addDependenciesToPackageJson(host, {}, { '@nrwl/node': nxVersion });
-}
-
-async function initialize(host: Tree, schema: TypeGraphQLApplicationSchema) {
+async function initialize(
+  host: Tree,
+  schema: NormalizedTypeGraphQLResolverSchema
+) {
   setDefaultCollection(host, '@nrwl/node');
 
   const initInstallTask = updateDependencies(host);
@@ -66,7 +61,7 @@ async function initialize(host: Tree, schema: TypeGraphQLApplicationSchema) {
 
 function createAppBuildConfig(
   project: ProjectConfiguration,
-  schema: TypeGraphQLApplicationSchema
+  schema: NormalizedTypeGraphQLResolverSchema
 ): TargetConfiguration {
   return {
     executor: '@nrwl/node:build',
@@ -100,7 +95,7 @@ function createAppBuildConfig(
 }
 
 function createAppServeConfig(
-  schema: TypeGraphQLApplicationSchema
+  schema: NormalizedTypeGraphQLResolverSchema
 ): TargetConfiguration {
   return {
     executor: '@nrwl/node:execute',
@@ -110,7 +105,10 @@ function createAppServeConfig(
   };
 }
 
-function createAppAsProject(host: Tree, schema: TypeGraphQLApplicationSchema) {
+function createAppAsProject(
+  host: Tree,
+  schema: NormalizedTypeGraphQLResolverSchema
+) {
   const project: ProjectConfiguration & NxJsonProjectConfiguration = {
     root: schema.appProjectRoot,
     sourceRoot: path.join(schema.appProjectRoot, 'src'),
@@ -132,7 +130,10 @@ function createAppAsProject(host: Tree, schema: TypeGraphQLApplicationSchema) {
   }
 }
 
-function createAppFiles(host: Tree, schema: TypeGraphQLApplicationSchema) {
+function createAppFiles(
+  host: Tree,
+  schema: NormalizedTypeGraphQLResolverSchema
+) {
   console.log('schema: ', schema);
   generateFiles(host, path.join(__dirname, './files'), schema.appProjectRoot, {
     tmpl: '',
@@ -144,7 +145,7 @@ function createAppFiles(host: Tree, schema: TypeGraphQLApplicationSchema) {
 
 async function createAppLinter(
   host: Tree,
-  schema: TypeGraphQLApplicationSchema
+  schema: NormalizedTypeGraphQLResolverSchema
 ) {
   const lintTask = await lintProjectGenerator(host, {
     linter: Linter.EsLint,
@@ -161,7 +162,7 @@ async function createAppLinter(
 
 export default async function (
   host: Tree,
-  schema: TypeGraphQLApplicationSchema
+  schema: NormalizedTypeGraphQLResolverSchema
 ) {
   // initTask
   // addAppFiles
@@ -195,20 +196,27 @@ export default async function (
 
   tasks.push(jestTask);
 
-  const appConfig = readProjectConfiguration(host, normalizedSchema.name);
-  console.log('appConfig: ', appConfig);
+  // const appConfig = readProjectConfiguration(host, normalizedSchema.name);
 
   const resolverGeneratorTask = await resolverGenerator(host, {
     resolverName: normalizedSchema.app,
     fullImport: false,
     appOrLibName: normalizedSchema.app,
     fieldResolver: true,
-    // FIXME:
     directory: 'app/resolvers',
     subscription: false,
   });
 
   tasks.push(resolverGeneratorTask);
+
+  // const objectTypeGeneratorTask = await objectTypeGenerator(host, {
+  //   objectTypeName: normalizedSchema.app,
+  //   extendInterfaceType: false,
+  //   generateDTO: false,
+  //   dtoHandler: "ClassValidator",
+  //   useTypeormEntityDecorator: false,
+  //   extendTypeormBaseEntity:false
+  // });
 
   await formatFiles(host);
 
@@ -217,7 +225,10 @@ export default async function (
   };
 }
 
-function normalizeSchema(host: Tree, schema: TypeGraphQLApplicationSchema) {
+function normalizeSchema(
+  host: Tree,
+  schema: TypeGraphQLApplicationSchema
+): NormalizedTypeGraphQLResolverSchema {
   const { appsDir } = getWorkspaceLayout(host);
 
   // directory可以与app不一致
@@ -231,21 +242,19 @@ function normalizeSchema(host: Tree, schema: TypeGraphQLApplicationSchema) {
 
   const appProjectRoot = joinPathFragments(appsDir, appDirectory);
 
-  const parsedTags = [];
-  // const parsedTags = schema.tags
-  //   ? schema.tags.split(',').map((s) => s.trim())
-  //   : [];
+  const parsedTags = schema.tags
+    ? schema.tags.split(',').map((s) => s.trim())
+    : [];
 
   return {
     ...schema,
     name: names(appProjectName).fileName,
-    // frontendProject: schema.frontendProject
-    //   ? names(schema.frontendProject).fileName
-    //   : undefined,
+    frontendProject: schema.frontendProject
+      ? names(schema.frontendProject).fileName
+      : undefined,
     appProjectRoot,
     parsedTags,
-
-    // linter: schema.linter ?? Linter.EsLint,
-    // unitTestRunner: schema.unitTestRunner ?? 'jest',
+    linter: Linter.EsLint,
+    unitTestRunner: 'jest',
   };
 }

@@ -15,8 +15,9 @@ import {
   applyChangesToString,
   joinPathFragments,
   names,
+  updateJson,
 } from '@nrwl/devkit';
-
+import { nxVersion } from '@nrwl/node/src/utils/versions';
 import chalk from 'chalk';
 
 export interface AvaliableAppOrLib {
@@ -91,6 +92,15 @@ export function isValidNamespace(namespace: string): boolean {
     // isNaN(Number(namespace)) &&
     namespace !== 'true' && namespace !== 'false'
   );
+}
+
+export function updateDependencies(host: Tree) {
+  updateJson(host, 'package.json', (json) => {
+    delete json.dependencies['@nrwl/node'];
+    return json;
+  });
+
+  return addDependenciesToPackageJson(host, {}, { '@nrwl/node': nxVersion });
 }
 
 export function devLog(str: string): void {

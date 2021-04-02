@@ -22,6 +22,7 @@ export interface TypeGraphQLObjectTypeSchema {
   useTypeormEntityDecorator: boolean;
   extendTypeormBaseEntity: boolean;
   lib: string;
+  directory: string;
   createLibOnInexist: boolean;
   namespaceExport: string;
 }
