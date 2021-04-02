@@ -21,11 +21,15 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-typegraphql"]
     },
-    "d": { "tags": [] },
     "nx-plugin-midway": { "tags": [] },
     "nx-plugin-midway-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-midway"]
+    },
+    "nx-plugin-prisma": { "tags": [] },
+    "nx-plugin-prisma-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-prisma"]
     }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }

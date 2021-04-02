@@ -4,5 +4,7 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-typegraphql-e2e',
     '<rootDir>/packages/nx-plugin-midway',
     '<rootDir>/e2e\\nx-plugin-midway-e2e',
+    '<rootDir>/packages/nx-plugin-prisma',
+    '<rootDir>/e2e\\nx-plugin-prisma-e2e',
   ],
 };

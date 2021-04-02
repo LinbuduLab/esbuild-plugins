@@ -24,7 +24,9 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "dev:typegraphql": " nx run nx-plugin-typegraphql:build && cd .\\dist\\packages\\nx-plugin-typegraphql\\ && pnpm link"
+    "dev:typegraphql": " nx run nx-plugin-typegraphql:build && cd .\\dist\\packages\\nx-plugin-typegraphql\\ && pnpm link",
+    "dev:midway": " nx run nx-plugin-midway:build && cd .\\dist\\packages\\nx-plugin-midway\\ && pnpm link",
+    "dev:prisma": " nx run nx-plugin-prisma:build && cd .\\dist\\packages\\nx-plugin-prisma\\ && pnpm link"
   },
   "private": true,
   "dependencies": {

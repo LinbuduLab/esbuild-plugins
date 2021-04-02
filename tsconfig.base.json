@@ -19,7 +19,8 @@
       "penumbra/nx-plugin-typegraphql": [
         "packages/nx-plugin-typegraphql/src/index.ts"
       ],
-      "@penumbra/nx-plugin-midway": ["packages/nx-plugin-midway/src/index.ts"]
+      "@penumbra/nx-plugin-midway": ["packages/nx-plugin-midway/src/index.ts"],
+      "@penumbra/nx-plugin-prisma": ["packages/nx-plugin-prisma/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

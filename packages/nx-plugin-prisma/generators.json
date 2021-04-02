@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-plugin-prisma",
+  "version": "0.0.1",
+  "generators": {
+    "nx-plugin-prisma": {
+      "factory": "./src/generators/nx-plugin-prisma/generator",
+      "schema": "./src/generators/nx-plugin-prisma/schema.json",
+      "description": "nx-plugin-prisma generator"
+    }
+  }
+}
