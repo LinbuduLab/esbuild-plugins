@@ -1,29 +1,98 @@
 {
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "id": "Application",
-  "title": "",
+  "id": "type-graphql-application",
+  "title": "Create TypeGraphQL Based GraphQL Server",
   "type": "object",
   "properties": {
-    "name": {
+    "app": {
       "type": "string",
-      "description": "",
+      "x-prompt": "What Application name would you like to use?",
+      "description": "What Application name would you like to use?",
       "$default": {
         "$source": "argv",
         "index": 0
-      },
-      "x-prompt": "What name would you like to use?"
+      }
     },
-    "tags": {
+    "minimal": {
+      "type": "boolean",
+      "x-prompt": "Create minimal application with TypeGraphQL only?",
+      "description": "Create minimal application with TypeGraphQL only?"
+    },
+    "database": {
       "type": "string",
-      "description": "Add tags to the project (used for linting)",
-      "alias": "t"
-    }, 
-    "directory": {
+      "x-prompt": {
+        "message": "Which database would you like to use?",
+        "type": "list",
+        "items": [
+          { "value": "SQLite", "label": "SQLite" },
+          { "value": "MySQL", "label": "MySQL" },
+          { "value": "PostgreSQL", "label": "PostgreSQL" }
+        ]
+      },
+      "description": "Which database would you like to use?"
+    },
+    "orm": {
       "type": "string",
-      "description": "A directory where the project is placed",
-      "alias": "d"
+      "x-prompt": {
+        "message": "Which ORM would you like to use?",
+        "type": "list",
+        "items": [
+          { "value": "TypeORM", "label": "TypeORM" },
+          { "value": "Prisma", "label": "Prisma" }
+        ]
+      },
+      "description": "Which ORM would you like to use?"
+    },
+    "server": {
+      "type": "string",
+      "x-prompt": {
+        "message": "Which Server would you like to use?",
+        "type": "list",
+        "items": [
+          { "value": "Apollo-Server", "label": "Apollo-Server" },
+          {
+            "value": "GraphQL-Yoga(Not Support Yet)",
+            "label": "GraphQL-Yoga(Not Support Yet)"
+          }
+        ]
+      },
+      "description": "Which Server would you like to use?"
+    },
+    "tools": {
+      "type": "array",
+      "x-prompt": {
+        "message": "Choose Tool you want to add?",
+        "type": "list",
+        "multiselect": true,
+        "items": [
+          "Apollo-Server-Plugin",
+          "Directives",
+          "Extensions",
+          "DataLoader",
+          "GraphQL-Voyager",
+          "PM2"
+        ]
+      },
+      "description": "Choose Tool you want to add?"
+    },
+    "ability": {
+      "type": "array",
+      "x-prompt": {
+        "message": "Choose ability you want to use?",
+        "type": "list",
+        "multiselect": true,
+        "items": [
+          "GraphQL-Code-Generator",
+          "GenQL",
+          "Jest",
+          "DataLoader",
+          "GraphQL-Voyager",
+          "PM2"
+        ]
+      },
+      "description": "Choose ability you want to use?"
     }
   },
-  "required": ["name"]
+  "required": ["tools", "ability"]
 }

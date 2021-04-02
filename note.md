@@ -26,6 +26,11 @@
   - [x] Generate to apps/libs directory
   - [x] Higher order (`@UseMiddleware` wrapper)
 - resolver
-  - [ ] Operation Included: Query/Mutation/Subscription
-  - [ ] Full import from type-graphql: @Arg...
-  - [ ] FieldResolver
+  - [x] Operation Included: Query/Mutation/Subscription
+  - [x] Full import from type-graphql: @Arg...
+  - [x] FieldResolver
+- application
+  - 要怎么直接复用generator
+  - 只支持生成为app吧
+  - database 和 orm应该都支持空
+  - 有多选吗？
