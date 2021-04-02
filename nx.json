@@ -30,6 +30,11 @@
     "nx-plugin-prisma-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-prisma"]
+    },
+    "nx-plugin-serverless": { "tags": [] },
+    "nx-plugin-serverless-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-serverless"]
     }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }

@@ -9,12 +9,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/nx-plugin-typegraphql/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/nx-plugin-typegraphql/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-typegraphql"],
+          "outputs": [
+            "coverage/packages/nx-plugin-typegraphql"
+          ],
           "options": {
             "jestConfig": "packages/nx-plugin-typegraphql/jest.config.js",
             "passWithNoTests": true
@@ -22,7 +26,9 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/packages/nx-plugin-typegraphql",
             "tsConfig": "packages/nx-plugin-typegraphql/tsconfig.lib.json",
@@ -74,12 +80,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/nx-plugin-midway/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/nx-plugin-midway/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-midway"],
+          "outputs": [
+            "coverage/packages/nx-plugin-midway"
+          ],
           "options": {
             "jestConfig": "packages/nx-plugin-midway/jest.config.js",
             "passWithNoTests": true
@@ -87,7 +97,9 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/packages/nx-plugin-midway",
             "tsConfig": "packages/nx-plugin-midway/tsconfig.lib.json",
@@ -139,12 +151,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/nx-plugin-prisma/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/nx-plugin-prisma/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-prisma"],
+          "outputs": [
+            "coverage/packages/nx-plugin-prisma"
+          ],
           "options": {
             "jestConfig": "packages/nx-plugin-prisma/jest.config.js",
             "passWithNoTests": true
@@ -152,7 +168,9 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/packages/nx-plugin-prisma",
             "tsConfig": "packages/nx-plugin-prisma/tsconfig.lib.json",
@@ -192,6 +210,77 @@
             "npmPackageName": "@penumbra/nx-plugin-prisma",
             "pluginOutputPath": "dist/packages/nx-plugin-prisma",
             "jestConfig": "e2e/nx-plugin-prisma-e2e/jest.config.js"
+          }
+        }
+      }
+    },
+    "nx-plugin-serverless": {
+      "root": "packages/nx-plugin-serverless",
+      "sourceRoot": "packages/nx-plugin-serverless/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/nx-plugin-serverless/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/nx-plugin-serverless"
+          ],
+          "options": {
+            "jestConfig": "packages/nx-plugin-serverless/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-serverless",
+            "tsConfig": "packages/nx-plugin-serverless/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-serverless/package.json",
+            "main": "packages/nx-plugin-serverless/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-serverless/*.md",
+              {
+                "input": "./packages/nx-plugin-serverless/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-serverless",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-serverless",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-serverless-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-plugin-serverless-e2e",
+      "sourceRoot": "e2e\\nx-plugin-serverless-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-serverless:build",
+            "npmPackageName": "@penumbra/nx-plugin-serverless",
+            "pluginOutputPath": "dist/packages/nx-plugin-serverless",
+            "jestConfig": "e2e/nx-plugin-serverless-e2e/jest.config.js"
           }
         }
       }
