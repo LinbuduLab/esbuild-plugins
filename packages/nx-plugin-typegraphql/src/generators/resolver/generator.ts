@@ -42,11 +42,13 @@ export default async function (host: Tree, schema: TypeGraphQLResolverSchema) {
     normalizedSchema.appOrLibName
   );
 
+  console.log('appOrLibConfig: ', appOrLibConfig);
+
   const { className, fileName } = names(normalizedSchema.resolverName);
 
   // libs/lib1
   const appOrLibRoot = joinPathFragments(appOrLibConfig.root);
-  // libs/lib1/src
+  // libs/lib1/src apps/app1/src
   const appOrLibSourceRoot = joinPathFragments(appOrLibConfig.sourceRoot);
 
   const resolverDirectory = joinPathFragments(

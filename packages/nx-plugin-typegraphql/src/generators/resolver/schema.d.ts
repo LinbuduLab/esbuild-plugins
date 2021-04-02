@@ -10,4 +10,5 @@ export interface TypeGraphQLResolverSchema {
   fieldResolver: boolean;
   appOrLibName: string;
   directory: string;
+  subscription: boolean;
 }

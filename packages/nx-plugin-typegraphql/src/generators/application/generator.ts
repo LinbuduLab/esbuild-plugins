@@ -14,8 +14,13 @@ import {
   joinPathFragments,
   TargetConfiguration,
   readWorkspaceConfiguration,
+  readProjectConfiguration,
   updateWorkspaceConfiguration,
 } from '@nrwl/devkit';
+import { jestProjectGenerator } from '@nrwl/jest';
+import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+
+import { Linter, lintProjectGenerator } from '@nrwl/linter';
 import path from 'path';
 import {
   Project,
@@ -36,9 +41,10 @@ import {
 } from './schema';
 import { nxVersion } from '@nrwl/node/src/utils/versions';
 import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
-import ResolverGenerator from '../resolver/generator';
-import MiddlewareGenerator from '../middleware/generator';
-import ObjectTypeGenerator from '../objecttype/generator';
+
+import resolverGenerator from '../resolver/generator';
+import middlewareGenerator from '../middleware/generator';
+import objectTypeGenerator from '../objecttype/generator';
 
 function updateDependencies(host: Tree) {
   updateJson(host, 'package.json', (json) => {
@@ -57,15 +63,6 @@ async function initialize(host: Tree, schema: TypeGraphQLApplicationSchema) {
     await initInstallTask();
   };
 }
-
-// function generateAppMainFiles(host: Tree, schema: TypeGraphQLApplicationSchema) {
-//    generateFiles(host, path.join(__dirname, './files/app'), schema.appProjectRoot, {
-//      tmpl: '',
-//      name: schema.name,
-//      root: schema.appProjectRoot,
-//      offset: offsetFromRoot(schema.appProjectRoot),
-//    });
-// }
 
 function createAppBuildConfig(
   project: ProjectConfiguration,
@@ -136,17 +133,30 @@ function createAppAsProject(host: Tree, schema: TypeGraphQLApplicationSchema) {
 }
 
 function createAppFiles(host: Tree, schema: TypeGraphQLApplicationSchema) {
-  generateFiles(
-    host,
-    path.join(__dirname, './files/app'),
-    schema.appProjectRoot,
-    {
-      tmpl: '',
-      name: schema.app,
-      root: schema.appProjectRoot,
-      offset: offsetFromRoot(schema.appProjectRoot),
-    }
-  );
+  console.log('schema: ', schema);
+  generateFiles(host, path.join(__dirname, './files'), schema.appProjectRoot, {
+    tmpl: '',
+    name: schema.app,
+    root: schema.appProjectRoot,
+    offset: offsetFromRoot(schema.appProjectRoot),
+  });
+}
+
+async function createAppLinter(
+  host: Tree,
+  schema: TypeGraphQLApplicationSchema
+) {
+  const lintTask = await lintProjectGenerator(host, {
+    linter: Linter.EsLint,
+    project: schema.app,
+    tsConfigPaths: [
+      joinPathFragments(schema.appProjectRoot, 'tsconfig.app.json'),
+    ],
+    eslintFilePatterns: [`${schema.appProjectRoot}/**/*.ts`],
+    skipFormat: true,
+  });
+
+  return lintTask;
 }
 
 export default async function (
@@ -167,6 +177,44 @@ export default async function (
   const tasks: GeneratorCallback[] = [];
 
   const initTask = await initialize(host, normalizedSchema);
+  tasks.push(initTask);
+
+  createAppFiles(host, normalizedSchema);
+  createAppAsProject(host, normalizedSchema);
+
+  const lintTask = await createAppLinter(host, normalizedSchema);
+  tasks.push(lintTask);
+
+  const jestTask = await jestProjectGenerator(host, {
+    project: normalizedSchema.app,
+    setupFile: 'none',
+    supportTsx: true,
+    babelJest: true,
+    testEnvironment: 'node',
+  });
+
+  tasks.push(jestTask);
+
+  const appConfig = readProjectConfiguration(host, normalizedSchema.name);
+  console.log('appConfig: ', appConfig);
+
+  const resolverGeneratorTask = await resolverGenerator(host, {
+    resolverName: normalizedSchema.app,
+    fullImport: false,
+    appOrLibName: normalizedSchema.app,
+    fieldResolver: true,
+    // FIXME:
+    directory: 'app/resolvers',
+    subscription: false,
+  });
+
+  tasks.push(resolverGeneratorTask);
+
+  await formatFiles(host);
+
+  return () => {
+    runTasksInSerial(...tasks);
+  };
 }
 
 function normalizeSchema(host: Tree, schema: TypeGraphQLApplicationSchema) {
@@ -196,6 +244,7 @@ function normalizeSchema(host: Tree, schema: TypeGraphQLApplicationSchema) {
     //   : undefined,
     appProjectRoot,
     parsedTags,
+
     // linter: schema.linter ?? Linter.EsLint,
     // unitTestRunner: schema.unitTestRunner ?? 'jest',
   };

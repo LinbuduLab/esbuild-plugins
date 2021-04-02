@@ -14,6 +14,11 @@
         "index": 0
       }
     },
+    "directory": {
+      "type": "string",
+      "x-prompt": "Which directory name would you like to use?",
+      "description": "Which directory name would you like to use?"
+    },
     "minimal": {
       "type": "boolean",
       "x-prompt": "Create minimal application with TypeGraphQL only?",
@@ -94,5 +99,5 @@
       "description": "Choose ability you want to use?"
     }
   },
-  "required": ["tools", "ability"]
+  "required": ["app", "ability"]
 }
