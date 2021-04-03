@@ -134,13 +134,17 @@ function createAppFiles(
   host: Tree,
   schema: NormalizedTypeGraphQLResolverSchema
 ) {
-  console.log('schema: ', schema);
-  generateFiles(host, path.join(__dirname, './files'), schema.appProjectRoot, {
-    tmpl: '',
-    name: schema.app,
-    root: schema.appProjectRoot,
-    offset: offsetFromRoot(schema.appProjectRoot),
-  });
+  generateFiles(
+    host,
+    path.join(__dirname, './files/app'),
+    schema.appProjectRoot,
+    {
+      tmpl: '',
+      name: schema.app,
+      root: schema.appProjectRoot,
+      offset: offsetFromRoot(schema.appProjectRoot),
+    }
+  );
 }
 
 async function createAppLinter(
@@ -174,6 +178,7 @@ export default async function (
   // runTaskInSerial
   console.log('schema: ', schema);
   const normalizedSchema = normalizeSchema(host, schema);
+  console.log('normalizedSchema: ', normalizedSchema);
 
   const tasks: GeneratorCallback[] = [];
 
@@ -198,25 +203,30 @@ export default async function (
 
   // const appConfig = readProjectConfiguration(host, normalizedSchema.name);
 
-  const resolverGeneratorTask = await resolverGenerator(host, {
-    resolverName: normalizedSchema.app,
-    fullImport: false,
-    appOrLibName: normalizedSchema.app,
-    fieldResolver: true,
-    directory: 'app/resolvers',
-    subscription: false,
-  });
+  // const resolverGeneratorTask = await resolverGenerator(host, {
+  //   resolverName: normalizedSchema.app,
+  //   fullImport: false,
+  //   appOrLibName: normalizedSchema.app,
+  //   fieldResolver: true,
+  //   directory: 'app/resolvers',
+  //   subscription: false,
+  // });
 
-  tasks.push(resolverGeneratorTask);
+  // tasks.push(resolverGeneratorTask);
 
   // const objectTypeGeneratorTask = await objectTypeGenerator(host, {
   //   objectTypeName: normalizedSchema.app,
+  //   appOrLib: normalizedSchema.app,
+  //   directory: 'graphql',
   //   extendInterfaceType: false,
   //   generateDTO: false,
-  //   dtoHandler: "ClassValidator",
+  //   dtoHandler: 'ClassValidator',
   //   useTypeormEntityDecorator: false,
-  //   extendTypeormBaseEntity:false
+  //   extendTypeormBaseEntity: false,
+  //   createLibOnInexist: false,
   // });
+
+  // tasks.push(objectTypeGeneratorTask);
 
   await formatFiles(host);
 

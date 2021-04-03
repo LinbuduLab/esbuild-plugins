@@ -24,7 +24,7 @@ export interface TypeGraphQLObjectTypeSchema {
   appOrLib: string;
   directory: string;
   createLibOnInexist: boolean;
-  namespaceExport: string;
+  namespaceExport?: string;
 }
 export interface NormalTypeGraphQLObjectTypeSchema
   extends TypeGraphQLObjectTypeSchema {

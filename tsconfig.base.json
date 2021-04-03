@@ -16,15 +16,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "penumbra/nx-plugin-typegraphql": [
-        "packages/nx-plugin-typegraphql/src/index.ts"
-      ],
-      "@penumbra/nx-plugin-midway": ["packages/nx-plugin-midway/src/index.ts"],
-      "@penumbra/nx-plugin-prisma": ["packages/nx-plugin-prisma/src/index.ts"],
-      "@penumbra/serverless": ["packages/serverless/src/index.ts"],
-      "@penumbra/nx-plugin-serverless": [
-        "packages/nx-plugin-serverless/src/index.ts"
-      ]
+      "nx-plugin-typegraphql": ["packages/nx-plugin-typegraphql/src/index.ts"],
+      "nx-plugin-midway": ["packages/nx-plugin-midway/src/index.ts"],
+      "nx-plugin-prisma": ["packages/nx-plugin-prisma/src/index.ts"],
+      "serverless": ["packages/serverless/src/index.ts"],
+      "nx-plugin-serverless": ["packages/nx-plugin-serverless/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
