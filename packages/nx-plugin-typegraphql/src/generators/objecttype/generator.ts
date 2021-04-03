@@ -47,19 +47,13 @@ export default async function (
 
   console.log('schema: ', schema);
 
-  const avaliableLibs = getAvailableLibs(host);
-  const libNames = avaliableLibs.map((lib) => lib.libName);
-
   const normalizedSchema = normalizeSchema(host, schema);
 
+  const dir = normalizedSchema.generateDirectory;
+  const { className, fileName } = names(normalizedSchema.objectTypeName);
+
+  const dtoNames = generateDTONames(className);
   if (normalizedSchema.generateAtApp) {
-    console.log('Generate At App');
-    const dir = normalizedSchema.generateDirectory;
-    console.log('dir: ', dir);
-
-    const { className, fileName } = names(normalizedSchema.objectTypeName);
-    const dtoNames = generateDTONames(className);
-
     generateFiles(host, path.join(__dirname, './files'), dir, {
       tmpl: '',
       ObjectType: fileName,
@@ -69,31 +63,21 @@ export default async function (
       ...dtoNames,
     });
   } else {
-    console.log('Generate At Lib');
-    if (!libNames.includes(normalizedSchema.appOrLib)) {
-      devInfo(`creating new lib: ${normalizedSchema.appOrLib}`);
-      await libraryGenerator(host, { name: normalizedSchema.appOrLib });
-    }
-
-    const dir = normalizedSchema.generateDirectory;
-    console.log('dir: ', dir);
-
     const libConfig = readProjectConfiguration(host, normalizedSchema.appOrLib);
-
-    const { className, fileName } = names(normalizedSchema.objectTypeName);
 
     // libs/lib1/src
     const libSourceRoot = joinPathFragments(libConfig.sourceRoot);
     // libs/lib1/src/lib
     const libSourceLib = joinPathFragments(libConfig.sourceRoot, 'lib');
     // libs/lib1/src/index.ts
-    const libSourceIndexFilePath = path.join(libSourceRoot, './index.ts');
+    const libSourceIndexFilePath = path.join(
+      libConfig.sourceRoot,
+      './index.ts'
+    );
 
     const libSourceIndexFileContent = host
       .read(libSourceIndexFilePath)
       .toString('utf-8');
-
-    const dtoNames = generateDTONames(className);
 
     generateFiles(host, path.join(__dirname, './files'), dir, {
       tmpl: '',
@@ -147,21 +131,18 @@ function normalizeSchema(
     throw new Error(`app or lib ${schema.appOrLib} does not exist!`);
   }
 
-  const { appsDir, libsDir } = getWorkspaceLayout(host);
-
   const appOrLibConfig = readProjectConfiguration(host, schema.appOrLib);
-  console.log('appOrLibConfig: ', appOrLibConfig);
 
-  const generateDirectory =
+  const generateDirectory = joinPathFragments(
+    appOrLibConfig.sourceRoot,
     appOrLibConfig.projectType === 'library'
-      ? joinPathFragments(
-          appOrLibConfig.sourceRoot,
-          schema.directory ? schema.directory : 'lib'
-        )
-      : joinPathFragments(
-          appOrLibConfig.sourceRoot,
-          schema.directory ? schema.directory : 'graphql'
-        );
+      ? schema.directory
+        ? schema.directory
+        : 'lib'
+      : schema.directory
+      ? schema.directory
+      : 'graphql'
+  );
 
   // TODO:
   // 指定的app/lib 不存在时 抛出错误
@@ -175,6 +156,11 @@ function normalizeSchema(
   //   devInfo("lib name not specified and lib 'graphql' exist, use it as target");
   //   schema.appOrLib = 'graphql';
   // }
+
+  //  if (!libNames.includes(normalizedSchema.appOrLib)) {
+  //     devInfo(`Creating new lib: ${normalizedSchema.appOrLib}`);
+  //     await libraryGenerator(host, { name: normalizedSchema.appOrLib });
+  //   }
 
   if (schema.extendTypeormBaseEntity && !schema.useTypeormEntityDecorator) {
     devWarn(
