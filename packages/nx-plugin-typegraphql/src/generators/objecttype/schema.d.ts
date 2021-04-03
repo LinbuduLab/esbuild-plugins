@@ -21,8 +21,13 @@ export interface TypeGraphQLObjectTypeSchema {
   dtoHandler: 'ClassValidator' | 'Joi';
   useTypeormEntityDecorator: boolean;
   extendTypeormBaseEntity: boolean;
-  lib: string;
+  appOrLib: string;
   directory: string;
   createLibOnInexist: boolean;
   namespaceExport: string;
+}
+export interface NormalTypeGraphQLObjectTypeSchema
+  extends TypeGraphQLObjectTypeSchema {
+  generateDirectory: string;
+  generateAtApp: boolean;
 }

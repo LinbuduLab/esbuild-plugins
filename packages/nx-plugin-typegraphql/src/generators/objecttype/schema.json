@@ -14,6 +14,19 @@
         "index": 0
       }
     },
+    "appOrLib": {
+      "type": "string",
+      "format": "path",
+      "x-prompt": "The app/lib to create the file in",
+      "description": "The app/lib to create the file in",
+      "default": ""
+    },
+    "directory": {
+      "type": "string",
+      "format": "path",
+      "x-prompt": "The directory to create the file in",
+      "description": "The directory to create the file in"
+    },
     "extendInterfaceType": {
       "type": "boolean",
       "x-prompt": "Should created ObjectType extend InterfaceType",
@@ -50,13 +63,7 @@
       "description": "Should extend TypeORM BaseEntity(Active Record)",
       "default": false
     },
-    "lib": {
-      "type": "string",
-      "format": "path",
-      "x-prompt": "The lib name to create the file in",
-      "description": "The lib name to create the file in",
-      "default": ""
-    },
+
     "createLibOnInexist": {
       "type": "boolean",
       "x-prompt": "Create lib to store the file if lib doesn't exist",
@@ -96,7 +103,8 @@
     "dtoHandler",
     "useTypeormEntityDecorator",
     "extendTypeormBaseEntity",
-    "lib",
+    "appOrLib",
+    "directory",
     "createLibOnInexist",
     "namespaceExport"
   ]
