@@ -1,29 +1,44 @@
 {
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "id": "Util",
-  "title": "",
+  "id": "type-graphql-util",
+  "title": "Create TypeGraphQL Utility",
   "type": "object",
   "properties": {
+    "type": {
+      "type": "string",
+      "x-prompt": {
+        "message": "Which utility would you like to create?",
+        "type": "list",
+        "items": [
+          { "value": "Directive", "label": "Directive" },
+          { "value": "Scalar", "label": "Scalar" },
+          { "value": "Apollo Plugin", "label": "Apollo Plugin" },
+          { "value": "Extension", "label": "Extension" },
+          { "value": "Decorator", "label": "Decorator" }
+        ]
+      },
+      "description": "Which utility would you like to create？"
+    },
     "name": {
       "type": "string",
-      "description": "",
+      "x-prompt": "Which name would you like to use?",
+      "description": "Which name would you like to use?"
+    },
+    "appOrLibName": {
+      "type": "string",
+      "x-prompt": "Which app or lib would you like to use?",
+      "description": "Which app or lib would you like to use?",
       "$default": {
         "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "What name would you like to use?"
+        "index": 1
+      }
     },
-    "tags": {
-      "type": "string",
-      "description": "Add tags to the project (used for linting)",
-      "alias": "t"
-    }, 
     "directory": {
       "type": "string",
-      "description": "A directory where the project is placed",
-      "alias": "d"
+      "x-prompt": "Which name would you like to use?",
+      "description": "A directory where the util is placed"
     }
   },
-  "required": ["name"]
+  "required": ["type", "name", "directory"]
 }

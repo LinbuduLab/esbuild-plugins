@@ -14,9 +14,9 @@ export interface TypeGraphQLApplicationSchema {
   app: string;
   directory: string;
   minimal: boolean;
-  database: 'SQLite' | 'MySQL' | 'PostgreSQL';
-  orm: 'TypeORM' | 'Prisma';
-  server: 'Apollo-Server' | 'GraphQL-Yoga';
+  database: 'SQLite' | 'MySQL' | 'PostgreSQL' | 'none';
+  orm: 'TypeORM' | 'Prisma' | 'none';
+  server: 'Apollo-Server' | 'Express-GraphQL';
   tools: Tools[];
   directory: string;
   // frontendProject: string;
