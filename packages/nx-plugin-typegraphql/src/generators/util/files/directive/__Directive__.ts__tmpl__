@@ -1,0 +1,85 @@
+import {
+  GraphQLField,
+  defaultFieldResolver,
+  DirectiveLocation,
+  GraphQLDirective,
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLArgument,
+  GraphQLInterfaceType,
+  GraphQLInputObjectType,
+  GraphQLInputField,
+  GraphQLScalarType,
+  GraphQLUnionType,
+  GraphQLEnumType,
+  GraphQLEnumValue,
+} from 'graphql';
+import { SchemaDirectiveVisitor } from 'graphql-tools';
+
+export type <%= directiveName %>Transformer = (...args: any[]) => any;
+
+/**
+ * @param {string} directiveNameArg Directive Name Appeared In DSL
+ * @param {StringTransformer} transformer transformer function
+ * @return {*}  {typeof SchemaDirectiveVisitor}
+ */
+const Createt<%= directiveName %>DirectiveMixin = (
+  directiveNameArg: string,
+  transformer: <%= directiveName %>Transformer
+): typeof SchemaDirectiveVisitor => {
+  class XDirective extends SchemaDirectiveVisitor {
+    // use visitXXX method to define directive logic
+    visitFieldDefinition(field: GraphQLField<any, any>) {
+      const { resolve = defaultFieldResolver } = field;
+      field.resolve = async (...args) => {
+        console.log(
+          `@${directiveNameArg} invoked on ${args[3].parentType}.${args[3].fieldName}`
+        );
+        const result = await resolve.apply(this, args);
+
+        // directive can invoke at specific result types
+        // if (typeof result === 'string') {
+        return transformer(result);
+        // }
+
+        // return result;
+      };
+    }
+
+    // visitSchema(schema: GraphQLSchema) {}
+    // visitObject(object: GraphQLObjectType) {}
+    // visitArgumentDefinition(argument: GraphQLArgument) {}
+    // visitInterface(iface: GraphQLInterfaceType) {}
+    // visitInputObject(object: GraphQLInputObjectType) {}
+    // visitInputFieldDefinition(field: GraphQLInputField) {}
+    // visitScalar(scalar: GraphQLScalarType) {}
+    // visitUnion(union: GraphQLUnionType) {}
+    // visitEnum(type: GraphQLEnumType) {}
+    // visitEnumValue(value: GraphQLEnumValue) {}
+
+    public static getDirectiveDeclaration(
+      directiveName: string,
+      schema: GraphQLSchema
+    ): GraphQLDirective {
+      const previousDirective = schema.getDirective(directiveName);
+
+      if (previousDirective) {
+        return previousDirective;
+      }
+
+      return new GraphQLDirective({
+        name: directiveNameArg,
+        locations: [DirectiveLocation.FIELD_DEFINITION],
+      });
+    }
+  }
+
+  return XDirective;
+};
+
+export const Sample<%= directiveName %>Directive = Createt<%= directiveName %>DirectiveMixin(
+  '__INVALID_DIRECTIVE_NAME__',
+  () => {
+    console.log('DIRECTIVE TRANSFORMER');
+  }
+);

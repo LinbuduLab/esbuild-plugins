@@ -1,0 +1,38 @@
+import { validate } from 'class-validator';
+import {
+  createParamDecorator,
+  createMethodDecorator,
+  ClassType,
+  ArgumentValidationError,
+  MiddlewareFn,
+} from 'type-graphql';
+
+// should provide Context Type for createParamDecorator:
+// createParamDecorator<IContext>()
+export const <%= decoratorName _%> = () =>
+  createParamDecorator(({ context }) => {
+    console.log(context);
+  });
+
+/**
+ * @desc  custom schema for validation
+ * @example `@CustomArgsValidation(ExecutorQueryArgs)`
+ * @requires Disable vaidation handled by `@Arg`: `@Args({ validate: false })`
+ */
+export const CustomArgsValidation = <T extends any>(
+  ValidateSchema: ClassType<T>
+) => {
+  const executeValidate: MiddlewareFn = async ({ args }, next) => {
+    const ins = Object.assign(new ValidateSchema(), args);
+    const validationErrors = await validate(ins);
+    const hasValidationErrors = validationErrors.length > 0;
+
+    if (hasValidationErrors) {
+      throw new ArgumentValidationError(validationErrors);
+    }
+
+    return await next();
+  };
+
+  return createMethodDecorator(executeValidate);
+};
