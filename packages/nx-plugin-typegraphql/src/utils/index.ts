@@ -17,8 +17,12 @@ import {
   names,
   updateJson,
 } from '@nrwl/devkit';
+import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
+
 import { nxVersion } from '@nrwl/node/src/utils/versions';
 import chalk from 'chalk';
+
+// TODO: separate methods into various files
 
 export interface AvaliableAppOrLib {
   root: string;
@@ -101,6 +105,15 @@ export function updateDependencies(host: Tree) {
   });
 
   return addDependenciesToPackageJson(host, {}, { '@nrwl/node': nxVersion });
+}
+
+export async function initializeNodeApp(host: Tree) {
+  setDefaultCollection(host, '@nrwl/node');
+
+  const initInstallTask = updateDependencies(host);
+  return async () => {
+    await initInstallTask();
+  };
 }
 
 export function devLog(str: string): void {

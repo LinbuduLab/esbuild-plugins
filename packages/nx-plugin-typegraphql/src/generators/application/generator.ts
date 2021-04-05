@@ -35,6 +35,7 @@ import {
   isValidNamespace,
   generateDTONames,
   updateDependencies,
+  initializeNodeApp,
 } from '../../utils';
 import {
   NormalizedTypeGraphQLResolverSchema,
@@ -46,18 +47,6 @@ import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-
 import resolverGenerator from '../resolver/generator';
 import middlewareGenerator from '../middleware/generator';
 import objectTypeGenerator from '../objecttype/generator';
-
-async function initialize(
-  host: Tree,
-  schema: NormalizedTypeGraphQLResolverSchema
-) {
-  setDefaultCollection(host, '@nrwl/node');
-
-  const initInstallTask = updateDependencies(host);
-  return async () => {
-    await initInstallTask();
-  };
-}
 
 function createAppBuildConfig(
   project: ProjectConfiguration,
@@ -176,13 +165,12 @@ export default async function (
   // addProxy
   // formatFiles
   // runTaskInSerial
-  console.log('schema: ', schema);
   const normalizedSchema = normalizeSchema(host, schema);
   console.log('normalizedSchema: ', normalizedSchema);
 
   const tasks: GeneratorCallback[] = [];
 
-  const initTask = await initialize(host, normalizedSchema);
+  const initTask = await initializeNodeApp(host);
   tasks.push(initTask);
 
   createAppFiles(host, normalizedSchema);
@@ -193,6 +181,7 @@ export default async function (
 
   const jestTask = await jestProjectGenerator(host, {
     project: normalizedSchema.app,
+    // TODO: set up Apollo Testing Utils
     setupFile: 'none',
     supportTsx: true,
     babelJest: true,
@@ -201,32 +190,34 @@ export default async function (
 
   tasks.push(jestTask);
 
-  // const appConfig = readProjectConfiguration(host, normalizedSchema.name);
+  const appConfig = readProjectConfiguration(host, normalizedSchema.name);
 
-  // const resolverGeneratorTask = await resolverGenerator(host, {
-  //   resolverName: normalizedSchema.app,
-  //   fullImport: false,
-  //   appOrLibName: normalizedSchema.app,
-  //   fieldResolver: true,
-  //   directory: 'app/resolvers',
-  //   subscription: false,
-  // });
+  // app/app1/src/app/resolvers/app1.resolver.ts
+  const resolverGeneratorTask = await resolverGenerator(host, {
+    resolverName: normalizedSchema.app,
+    fullImport: false,
+    appOrLibName: normalizedSchema.app,
+    fieldResolver: true,
+    directory: 'app/resolvers',
+    subscription: false,
+  });
 
-  // tasks.push(resolverGeneratorTask);
+  tasks.push(resolverGeneratorTask);
 
-  // const objectTypeGeneratorTask = await objectTypeGenerator(host, {
-  //   objectTypeName: normalizedSchema.app,
-  //   appOrLib: normalizedSchema.app,
-  //   directory: 'graphql',
-  //   extendInterfaceType: false,
-  //   generateDTO: false,
-  //   dtoHandler: 'ClassValidator',
-  //   useTypeormEntityDecorator: false,
-  //   extendTypeormBaseEntity: false,
-  //   createLibOnInexist: false,
-  // });
+  // app/app1/src/app/graphql/app1.ts
+  const objectTypeGeneratorTask = await objectTypeGenerator(host, {
+    objectTypeName: normalizedSchema.app,
+    appOrLib: normalizedSchema.app,
+    directory: 'app/graphql',
+    extendInterfaceType: false,
+    generateDTO: false,
+    dtoHandler: 'ClassValidator',
+    useTypeormEntityDecorator: false,
+    extendTypeormBaseEntity: false,
+    createLibOnInexist: false,
+  });
 
-  // tasks.push(objectTypeGeneratorTask);
+  tasks.push(objectTypeGeneratorTask);
 
   await formatFiles(host);
 
@@ -242,7 +233,7 @@ function normalizeSchema(
   const { appsDir } = getWorkspaceLayout(host);
 
   // directory可以与app不一致
-  // app1 dir -> apps/dir/app1
+  // app1 dir -> apps/dir/app1 dir-app1
   // dir目录下可以存在多个app... 项目名会被注册为dir-app1的形式
   const appDirectory = schema.directory
     ? `${names(schema.directory).fileName}/${names(schema.app).fileName}`
@@ -259,9 +250,9 @@ function normalizeSchema(
   return {
     ...schema,
     name: names(appProjectName).fileName,
-    frontendProject: schema.frontendProject
-      ? names(schema.frontendProject).fileName
-      : undefined,
+    // frontendProject: schema.frontendProject
+    //   ? names(schema.frontendProject).fileName
+    //   : undefined,
     appProjectRoot,
     parsedTags,
     linter: Linter.EsLint,

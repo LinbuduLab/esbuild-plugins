@@ -133,6 +133,10 @@ function normalizeSchema(
 
   const appOrLibConfig = readProjectConfiguration(host, schema.appOrLib);
 
+  // lib + undefined >>> CREATE libs/lib1/src/lib/x.ts (UPDATE libs/lib1/src/index.ts)
+  // lib + types >>> CREATE libs/lib1/src/types/x.ts
+  // app + undefined >>> CREATE apps/app1/src/app/graphql/x.ts
+  // app + types >>> CREATE apps/app1/src/app/types/x.ts
   const generateDirectory = joinPathFragments(
     appOrLibConfig.sourceRoot,
     appOrLibConfig.projectType === 'library'
@@ -140,8 +144,8 @@ function normalizeSchema(
         ? schema.directory
         : 'lib'
       : schema.directory
-      ? schema.directory
-      : 'graphql'
+      ? joinPathFragments('app', schema.directory)
+      : 'app/graphql'
   );
 
   // TODO:

@@ -57,7 +57,7 @@
         "items": [
           { "value": "Apollo-Server", "label": "Apollo-Server" },
           {
-            "value": "GraphQL-Yoga(Not Support Yet)",
+            "value": "GraphQL-Yoga",
             "label": "GraphQL-Yoga(Not Support Yet)"
           }
         ]
@@ -72,32 +72,18 @@
         "multiselect": true,
         "items": [
           "Apollo-Server-Plugin",
-          "Directives",
-          "Extensions",
+          "GraphQL-Code-Generator",
+          "GraphQL-Tools",
+          "GraphQL-Extensions",
           "DataLoader",
+          "GenQL",
           "GraphQL-Voyager",
+          "GraphQL-Doc",
           "PM2"
         ]
       },
       "description": "Choose Tool you want to add?"
-    },
-    "ability": {
-      "type": "array",
-      "x-prompt": {
-        "message": "Choose ability you want to use?",
-        "type": "list",
-        "multiselect": true,
-        "items": [
-          "GraphQL-Code-Generator",
-          "GenQL",
-          "Jest",
-          "DataLoader",
-          "GraphQL-Voyager",
-          "PM2"
-        ]
-      },
-      "description": "Choose ability you want to use?"
     }
   },
-  "required": ["app", "ability"]
+  "required": ["app"]
 }

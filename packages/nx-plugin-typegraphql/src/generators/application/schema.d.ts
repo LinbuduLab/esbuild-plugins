@@ -2,18 +2,12 @@ import type { Linter } from '@nrwl/linter';
 
 type Tools =
   | 'Apollo-Server-Plugin'
-  | 'Directives'
-  | 'Extensions'
+  | 'GraphQL-Tools'
+  | 'GraphQL-Extensions'
   | 'DataLoader'
   | 'GraphQL-Voyager'
-  | 'PM2';
-
-type Abilities =
-  | 'GraphQL-Code-Generator'
   | 'GenQL'
-  | 'Jest'
-  | 'DataLoader'
-  | 'GraphQL-Voyager'
+  | 'GraphQL-Doc'
   | 'PM2';
 
 export interface TypeGraphQLApplicationSchema {
@@ -24,9 +18,8 @@ export interface TypeGraphQLApplicationSchema {
   orm: 'TypeORM' | 'Prisma';
   server: 'Apollo-Server' | 'GraphQL-Yoga';
   tools: Tools[];
-  ability: Abilities[];
   directory: string;
-  frontendProject: string;
+  // frontendProject: string;
   tags: string;
 }
 
@@ -35,6 +28,7 @@ export interface NormalizedTypeGraphQLResolverSchema
   name: string;
   appProjectRoot: string;
   parsedTags: string[];
-  linter?: Linter.EsLint;
+  // locked
+  linter: Linter.EsLint;
   unitTestRunner: 'jest';
 }
