@@ -3,21 +3,12 @@ import {
   formatFiles,
   installPackagesTask,
   readProjectConfiguration,
-  addProjectConfiguration,
-  readWorkspaceConfiguration,
-  updateWorkspaceConfiguration,
-  getProjects,
   generateFiles,
   addDependenciesToPackageJson,
-  getWorkspaceLayout,
-  offsetFromRoot,
-  normalizePath,
-  applyChangesToString,
   joinPathFragments,
   names,
 } from '@nrwl/devkit';
 
-import { libraryGenerator } from '@nrwl/workspace/generators';
 import {
   Project,
   StructureKind,
@@ -26,7 +17,6 @@ import {
 } from 'ts-morph';
 import path from 'path';
 import {
-  getAvailableLibs,
   getAvailableAppsOrLibs,
   devInfo,
   devWarn,
@@ -42,34 +32,28 @@ export default async function (
   host: Tree,
   schema: TypeGraphQLObjectTypeSchema
 ) {
-  // lib + 未指定directory >>> libs/lib1/src/lib
-  // app + 未指定directory >>> apps/app1/types
-
-  console.log('schema: ', schema);
-
   const normalizedSchema = normalizeSchema(host, schema);
+  // console.log('normalizedSchema: ', normalizedSchema);
 
   const dir = normalizedSchema.generateDirectory;
   const { className, fileName } = names(normalizedSchema.objectTypeName);
 
   const dtoNames = generateDTONames(className);
+
+  const substitutions = {
+    tmpl: '',
+    ObjectType: fileName,
+    componentName: className,
+    interfaceName: `I${className}`,
+    ...normalizedSchema,
+    ...dtoNames,
+  };
+
   if (normalizedSchema.generateAtApp) {
-    generateFiles(host, path.join(__dirname, './files'), dir, {
-      tmpl: '',
-      ObjectType: fileName,
-      componentName: className,
-      interfaceName: `I${className}`,
-      ...normalizedSchema,
-      ...dtoNames,
-    });
+    generateFiles(host, path.join(__dirname, './files'), dir, substitutions);
   } else {
     const libConfig = readProjectConfiguration(host, normalizedSchema.appOrLib);
 
-    // libs/lib1/src
-    const libSourceRoot = joinPathFragments(libConfig.sourceRoot);
-    // libs/lib1/src/lib
-    const libSourceLib = joinPathFragments(libConfig.sourceRoot, 'lib');
-    // libs/lib1/src/index.ts
     const libSourceIndexFilePath = path.join(
       libConfig.sourceRoot,
       './index.ts'
@@ -79,14 +63,7 @@ export default async function (
       .read(libSourceIndexFilePath)
       .toString('utf-8');
 
-    generateFiles(host, path.join(__dirname, './files'), dir, {
-      tmpl: '',
-      ObjectType: fileName,
-      componentName: className,
-      interfaceName: `I${className}`,
-      ...normalizedSchema,
-      ...dtoNames,
-    });
+    generateFiles(host, path.join(__dirname, './files'), dir, substitutions);
 
     const updatedIndexFileContent = appendExportToIndexFile(
       libSourceIndexFilePath,
@@ -237,6 +214,8 @@ function appendExportToIndexFile(
     className.toLocaleUpperCase().indexOf('TYPE') === -1
   ) {
     formattedNamespace = `${className}Type`;
+  } else {
+    formattedNamespace = className;
   }
 
   const exportDeclaration: OptionalKind<ExportDeclarationStructure> = {

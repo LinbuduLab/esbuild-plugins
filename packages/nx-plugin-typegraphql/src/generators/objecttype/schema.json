@@ -73,8 +73,7 @@
     "namespaceExport": {
       "type": "string",
       "x-prompt": "object type class export namespace(will be exported as * if not specified)",
-      "description": "object type class export namespace",
-      "default": ""
+      "description": "object type class export namespace"
     },
     "props": {
       "type": "array",
