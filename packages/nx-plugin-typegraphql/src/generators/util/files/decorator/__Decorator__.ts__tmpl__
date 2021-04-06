@@ -9,7 +9,7 @@ import {
 
 // should provide Context Type for createParamDecorator:
 // createParamDecorator<IContext>()
-export const <%= decoratorName _%> = () =>
+export const <%= name _%> = () =>
   createParamDecorator(({ context }) => {
     console.log(context);
   });

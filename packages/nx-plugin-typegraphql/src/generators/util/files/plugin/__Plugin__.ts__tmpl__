@@ -17,7 +17,7 @@ type IContext = {
   KEY: 'VALUE';
 };
 
-const <%= pluginName %>Plugin: PluginDefinition = {
+const <%= name %>Plugin: PluginDefinition = {
   async serverWillStart(service: GraphQLServiceContext) {
     return {
       serverWillStop: async () => {
@@ -70,4 +70,4 @@ const <%= pluginName %>Plugin: PluginDefinition = {
   },
 };
 
-export default <%= pluginName %>Plugin;
+export default <%= name %>Plugin;

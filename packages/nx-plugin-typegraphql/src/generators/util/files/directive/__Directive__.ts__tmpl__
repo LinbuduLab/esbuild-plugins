@@ -16,16 +16,16 @@ import {
 } from 'graphql';
 import { SchemaDirectiveVisitor } from 'graphql-tools';
 
-export type <%= directiveName %>Transformer = (...args: any[]) => any;
+export type <%= name %>Transformer = (...args: any[]) => any;
 
 /**
- * @param {string} directiveNameArg Directive Name Appeared In DSL
+ * @param {string} nameArg Directive Name Appeared In DSL
  * @param {StringTransformer} transformer transformer function
  * @return {*}  {typeof SchemaDirectiveVisitor}
  */
-const Createt<%= directiveName %>DirectiveMixin = (
-  directiveNameArg: string,
-  transformer: <%= directiveName %>Transformer
+const Createt<%= name %>DirectiveMixin = (
+  nameArg: string,
+  transformer: <%= name %>Transformer
 ): typeof SchemaDirectiveVisitor => {
   class XDirective extends SchemaDirectiveVisitor {
     // use visitXXX method to define directive logic
@@ -33,7 +33,7 @@ const Createt<%= directiveName %>DirectiveMixin = (
       const { resolve = defaultFieldResolver } = field;
       field.resolve = async (...args) => {
         console.log(
-          `@${directiveNameArg} invoked on ${args[3].parentType}.${args[3].fieldName}`
+          `@${nameArg} invoked on ${args[3].parentType}.${args[3].fieldName}`
         );
         const result = await resolve.apply(this, args);
 
@@ -58,17 +58,17 @@ const Createt<%= directiveName %>DirectiveMixin = (
     // visitEnumValue(value: GraphQLEnumValue) {}
 
     public static getDirectiveDeclaration(
-      directiveName: string,
+      name: string,
       schema: GraphQLSchema
     ): GraphQLDirective {
-      const previousDirective = schema.getDirective(directiveName);
+      const previousDirective = schema.getDirective(name);
 
       if (previousDirective) {
         return previousDirective;
       }
 
       return new GraphQLDirective({
-        name: directiveNameArg,
+        name: nameArg,
         locations: [DirectiveLocation.FIELD_DEFINITION],
       });
     }
@@ -77,7 +77,7 @@ const Createt<%= directiveName %>DirectiveMixin = (
   return XDirective;
 };
 
-export const Sample<%= directiveName %>Directive = Createt<%= directiveName %>DirectiveMixin(
+export const Sample<%= name %>Directive = Createt<%= name %>DirectiveMixin(
   '__INVALID_DIRECTIVE_NAME__',
   () => {
     console.log('DIRECTIVE TRANSFORMER');

@@ -1,25 +1,27 @@
-export interface UtilGeneratorSchema {
-  name: string;
-  tags?: string;
-  directory?: string;
-}
-
-type UtilType =
+export type UtilType =
   | 'Directive'
   | 'Scalar'
-  | 'Apollo Plugin'
+  | 'Plugin'
   | 'Extension'
   | 'Decorator';
+
+export enum UtilTypeEnum {
+  Directive = 'Directive',
+  Scalar = 'Scalar',
+  Plugin = 'Plugin',
+  Extension = 'Extension',
+  Decorator = 'Decorator',
+}
 
 export interface TypeGraphQLUtilSchema {
   name: string;
   type: UtilType;
-  appOrLibName: string;
+  appOrLib: string;
   directory?: string;
 }
 
 export interface NormalizedTypeGraphQLUtilSchema extends TypeGraphQLUtilSchema {
-  projectRoot: string;
+  projectSourceRoot: string;
   generateAtApp: boolean;
   generateDirectory: string;
 }

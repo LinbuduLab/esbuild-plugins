@@ -13,7 +13,7 @@
         "items": [
           { "value": "Directive", "label": "Directive" },
           { "value": "Scalar", "label": "Scalar" },
-          { "value": "Apollo Plugin", "label": "Apollo Plugin" },
+          { "value": "Plugin", "label": "Plugin" },
           { "value": "Extension", "label": "Extension" },
           { "value": "Decorator", "label": "Decorator" }
         ]

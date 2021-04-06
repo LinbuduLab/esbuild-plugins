@@ -1,9 +1,9 @@
 import { GraphQLScalarType } from 'graphql';
 
-export class <%= scalarName %>ScalarType extends GraphQLScalarType {
+export class <%= name %>ScalarType extends GraphQLScalarType {
   constructor(type: GraphQLScalarType, ...customArgs: any[]) {
     super({
-      name: `<%= scalarName %>`,
+      name: `<%= name %>`,
 
       serialize(value) {
         const serialized = type.serialize(value);
