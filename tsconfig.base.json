@@ -21,7 +21,8 @@
       "nx-plugin-prisma": ["packages/nx-plugin-prisma/src/index.ts"],
       "nx-plugin-serverless": ["packages/nx-plugin-serverless/src/index.ts"],
       "nx-plugin-esbuild": ["packages/nx-plugin-esbuild/src/index.ts"],
-      "nx-plugin-swc": ["packages/nx-plugin-swc/src/index.ts"]
+      "nx-plugin-swc": ["packages/nx-plugin-swc/src/index.ts"],
+      "@penumbra/nx-plugin-vite": ["packages/nx-plugin-vite/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

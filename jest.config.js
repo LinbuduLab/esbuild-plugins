@@ -12,5 +12,7 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-esbuild-e2e',
     '<rootDir>/packages/nx-plugin-swc',
     '<rootDir>/e2e\\nx-plugin-swc-e2e',
+    '<rootDir>/packages/nx-plugin-vite',
+    '<rootDir>/e2e\\nx-plugin-vite-e2e',
   ],
 };

@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-plugin-vite",
+  "version": "0.0.1",
+  "generators": {
+    "nx-plugin-vite": {
+      "factory": "./src/generators/nx-plugin-vite/generator",
+      "schema": "./src/generators/nx-plugin-vite/schema.json",
+      "description": "nx-plugin-vite generator"
+    }
+  }
+}

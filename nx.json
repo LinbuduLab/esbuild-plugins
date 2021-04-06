@@ -45,6 +45,11 @@
     "nx-plugin-swc-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-swc"]
+    },
+    "nx-plugin-vite": { "tags": [] },
+    "nx-plugin-vite-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-vite"]
     }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
