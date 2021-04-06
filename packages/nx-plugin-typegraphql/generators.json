@@ -3,11 +3,6 @@
   "name": "nx-plugin-typegraphql",
   "version": "0.0.1",
   "generators": {
-    "nx-plugin-typegraphql": {
-      "factory": "./src/generators/nx-plugin-typegraphql/generator",
-      "schema": "./src/generators/nx-plugin-typegraphql/schema.json",
-      "description": "nx-plugin-typegraphql generator"
-    },
     "objecttype": {
       "factory": "./src/generators/objecttype/generator",
       "schema": "./src/generators/objecttype/schema.json",

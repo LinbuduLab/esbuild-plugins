@@ -185,6 +185,7 @@ function composeDepsList(
       basic = {
         ...basic,
         ['graphql-extensions']: 'latest',
+        ['apollo-server-plugin-base']: 'latest',
       };
       break;
     default:
