@@ -28,7 +28,8 @@
     "dev:midway": " nx run nx-plugin-midway:build && cd .\\dist\\packages\\nx-plugin-midway\\ && pnpm link",
     "dev:prisma": " nx run nx-plugin-prisma:build && cd .\\dist\\packages\\nx-plugin-prisma\\ && pnpm link",
     "dev:serverless": " nx run nx-plugin-serverless:build && cd .\\dist\\packages\\nx-plugin-serverless\\ && pnpm link",
-    "dev:esbuild": " nx run nx-plugin-esbuild:build && cd .\\dist\\packages\\nx-plugin-esbuild\\ && pnpm link"
+    "dev:esbuild": " nx run nx-plugin-esbuild:build && cd .\\dist\\packages\\nx-plugin-esbuild\\ && pnpm link",
+    "dev:swc": " nx run nx-plugin-swc:build && cd .\\dist\\packages\\nx-plugin-swc\\ && pnpm link"
   },
   "private": true,
   "dependencies": {

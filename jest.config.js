@@ -10,5 +10,7 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-serverless-e2e',
     '<rootDir>/packages/nx-plugin-esbuild',
     '<rootDir>/e2e\\nx-plugin-esbuild-e2e',
+    '<rootDir>/packages/nx-plugin-swc',
+    '<rootDir>/e2e\\nx-plugin-swc-e2e',
   ],
 };

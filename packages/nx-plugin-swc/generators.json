@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-plugin-swc",
+  "version": "0.0.1",
+  "generators": {
+    "nx-plugin-swc": {
+      "factory": "./src/generators/nx-plugin-swc/generator",
+      "schema": "./src/generators/nx-plugin-swc/schema.json",
+      "description": "nx-plugin-swc generator"
+    }
+  }
+}
