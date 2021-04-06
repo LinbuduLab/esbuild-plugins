@@ -34,8 +34,9 @@
   },
   "private": true,
   "dependencies": {
+    "esbuild": "^0.11.5",
     "ts-morph": "^10.0.2",
-    "tslib": "^2.0.0"
+    "tslib": "^2.2.0"
   },
   "devDependencies": {
     "@nrwl/cli": "11.6.0",
@@ -49,6 +50,7 @@
     "@nrwl/workspace": "11.6.0",
     "@types/jest": "26.0.8",
     "@types/node": "14.14.33",
+    "@types/strip-comments": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
     "chalk": "^4.1.0",
@@ -57,6 +59,7 @@
     "eslint-config-prettier": "8.1.0",
     "jest": "26.2.2",
     "prettier": "2.2.1",
+    "strip-comments": "^2.0.1",
     "ts-jest": "26.4.0",
     "ts-node": "~9.1.1",
     "tslib": "^2.0.0",

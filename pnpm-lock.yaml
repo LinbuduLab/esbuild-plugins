@@ -1,6 +1,7 @@
 dependencies:
+  esbuild: 0.11.5
   ts-morph: 10.0.2
-  tslib: 2.1.0
+  tslib: 2.2.0
 devDependencies:
   '@nrwl/cli': 11.6.0
   '@nrwl/devkit': 11.6.0
@@ -13,6 +14,7 @@ devDependencies:
   '@nrwl/workspace': 11.6.0_prettier@2.2.1
   '@types/jest': 26.0.8
   '@types/node': 14.14.33
+  '@types/strip-comments': 2.0.0
   '@typescript-eslint/eslint-plugin': 4.3.0_994d979c051549b216df6838c5973d27
   '@typescript-eslint/parser': 4.3.0_eslint@7.10.0+typescript@4.0.7
   chalk: 4.1.0
@@ -21,6 +23,7 @@ devDependencies:
   eslint-config-prettier: 8.1.0_eslint@7.10.0
   jest: 26.2.2_ts-node@9.1.1
   prettier: 2.2.1
+  strip-comments: 2.0.1
   ts-jest: 26.4.0_jest@26.2.2+typescript@4.0.7
   ts-node: 9.1.1_typescript@4.0.7
   typescript: 4.0.7
@@ -1000,6 +1003,10 @@ packages:
     resolution:
       integrity: sha1-cDZkC04hzC8lmugmzoQ9J32tjP8=
       tarball: '@types/stack-utils/download/@types/stack-utils-2.0.0.tgz'
+  /@types/strip-comments/2.0.0:
+    dev: true
+    resolution:
+      integrity: sha512-B0PNDZ+50qubrXFZsLN+DVnJdSqv1u80YiLIZuFmrtmf/yC57R2C2S3fUjsuqjFuFcu2kCNOoImVhXNK/+xBvQ==
   /@types/webpack-sources/0.1.8:
     dependencies:
       '@types/node': 14.14.33
@@ -3262,6 +3269,12 @@ packages:
     resolution:
       integrity: sha1-5VzUyc3BiLzvsDs2bHNjI/xciYo=
       tarball: es-to-primitive/download/es-to-primitive-1.2.1.tgz
+  /esbuild/0.11.5:
+    dev: false
+    hasBin: true
+    requiresBuild: true
+    resolution:
+      integrity: sha512-aRs6jAE+bVRp1tyfzUugAw1T/Y0Fwzp4Z2ROikF3h+UifoD5QlEbEYQGc6orNnnSIRhWR5VWBH7LozlAumaLHg==
   /escalade/3.1.1:
     dev: true
     engines:
@@ -8278,6 +8291,12 @@ packages:
     resolution:
       integrity: sha1-nDUFwdtFvO3KPZz3oW9cWqOQGHg=
       tarball: strip-bom/download/strip-bom-4.0.0.tgz
+  /strip-comments/2.0.1:
+    dev: true
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-ZprKx+bBLXv067WTCALv8SSz5l2+XhpYCsVtSqlMnkAXMWDq+/ekVbl1ghqP9rUHTzv6sm/DwCOiYutU/yp1fw==
   /strip-eof/1.0.0:
     dev: true
     engines:
@@ -8678,9 +8697,14 @@ packages:
       integrity: sha1-zy04vcNKE0vK8QkcQfZhni9nLQA=
       tarball: tslib/download/tslib-1.14.1.tgz
   /tslib/2.1.0:
+    dev: true
     resolution:
       integrity: sha1-2mCGDxwuyqVwOrfTm8Bba/mIuXo=
       tarball: tslib/download/tslib-2.1.0.tgz
+  /tslib/2.2.0:
+    dev: false
+    resolution:
+      integrity: sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w==
   /tsutils/3.21.0_typescript@4.0.7:
     dependencies:
       tslib: 1.14.1
@@ -9470,16 +9494,19 @@ specifiers:
   '@nrwl/workspace': 11.6.0
   '@types/jest': 26.0.8
   '@types/node': 14.14.33
+  '@types/strip-comments': ^2.0.0
   '@typescript-eslint/eslint-plugin': 4.3.0
   '@typescript-eslint/parser': 4.3.0
   chalk: ^4.1.0
   dotenv: 8.2.0
+  esbuild: ^0.11.5
   eslint: 7.10.0
   eslint-config-prettier: 8.1.0
   jest: 26.2.2
   prettier: 2.2.1
+  strip-comments: ^2.0.1
   ts-jest: 26.4.0
   ts-morph: ^10.0.2
   ts-node: ~9.1.1
-  tslib: ^2.0.0
+  tslib: ^2.2.0
   typescript: ~4.0.3

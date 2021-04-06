@@ -9,6 +9,13 @@
 - nx g @penumbra/nx-plugin-typegraphql:objecttype
 - nx g @nrwl/nx-plugin:plugin [pluginName]
 
+## executors
+
+- nx g @nrwl/nx-plugin:executor  my-executor --project=my-plugin
+- 在workspace.json project.targets 中添加
+- \[packageName]:\[command]
+- 需要executor的：esbuild swc prisma midway serverless vite
+
 ## type-graphql
 
 - object type
@@ -39,3 +46,8 @@
   - directives
   - scalars
   - decorator
+
+## esbuild
+
+- executor:build(tsc)
+- executor:serve(etsc)
