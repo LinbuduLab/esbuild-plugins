@@ -20,7 +20,8 @@
       "nx-plugin-midway": ["packages/nx-plugin-midway/src/index.ts"],
       "nx-plugin-prisma": ["packages/nx-plugin-prisma/src/index.ts"],
       "serverless": ["packages/serverless/src/index.ts"],
-      "nx-plugin-serverless": ["packages/nx-plugin-serverless/src/index.ts"]
+      "nx-plugin-serverless": ["packages/nx-plugin-serverless/src/index.ts"],
+      "@penumbra/nx-plugin-esbuild": ["packages/nx-plugin-esbuild/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

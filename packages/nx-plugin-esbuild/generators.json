@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-plugin-esbuild",
+  "version": "0.0.1",
+  "generators": {
+    "nx-plugin-esbuild": {
+      "factory": "./src/generators/nx-plugin-esbuild/generator",
+      "schema": "./src/generators/nx-plugin-esbuild/schema.json",
+      "description": "nx-plugin-esbuild generator"
+    }
+  }
+}

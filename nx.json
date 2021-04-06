@@ -35,6 +35,11 @@
     "nx-plugin-serverless-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-serverless"]
+    },
+    "nx-plugin-esbuild": { "tags": [] },
+    "nx-plugin-esbuild-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-esbuild"]
     }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }

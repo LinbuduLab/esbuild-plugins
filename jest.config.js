@@ -8,5 +8,7 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-prisma-e2e',
     '<rootDir>/packages/nx-plugin-serverless',
     '<rootDir>/e2e\\nx-plugin-serverless-e2e',
+    '<rootDir>/packages/nx-plugin-esbuild',
+    '<rootDir>/e2e\\nx-plugin-esbuild-e2e',
   ],
 };
