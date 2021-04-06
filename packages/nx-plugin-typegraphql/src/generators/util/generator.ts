@@ -33,9 +33,13 @@ import {
 
 export default async function (host: Tree, schema: TypeGraphQLUtilSchema) {
   const normalizedSchema = normalizeOptions(host, schema);
+  console.log('normalizedSchema: ', normalizedSchema);
   const atApp = normalizedSchema.generateAtApp;
   const dir = normalizedSchema.generateDirectory;
   const { className, fileName } = names(normalizedSchema.name);
+  const { className: typeClassName, fileName: typeFileName } = names(
+    normalizedSchema.type
+  );
 
   atApp
     ? handleAppFileGeneration(
@@ -49,7 +53,10 @@ export default async function (host: Tree, schema: TypeGraphQLUtilSchema) {
         normalizedSchema.type,
         normalizedSchema.name,
         normalizedSchema.projectSourceRoot,
-        dir
+        dir,
+        normalizedSchema.directory
+          ? normalizedSchema.directory
+          : `${typeFileName}s`
       );
 
   await formatFiles(host);
@@ -92,7 +99,8 @@ function handleLibFileGeneration(
   type: string,
   name: string,
   sourceRoot: string,
-  dir: string
+  dir: string,
+  exportFrom: string
 ) {
   const { className, fileName } = names(type);
 
@@ -117,8 +125,8 @@ function handleLibFileGeneration(
   const updatedIndexFileContent = appendExportToIndexFile(
     libSourceIndexFilePath,
     libSourceIndexFileContent,
-    fileName,
-    `${fileName}s`
+    exportFrom,
+    name
   );
 
   host.write(libSourceIndexFilePath, updatedIndexFileContent);
@@ -127,8 +135,8 @@ function handleLibFileGeneration(
 function appendExportToIndexFile(
   path: string,
   content: string,
-  fileName: string,
-  exportFrom: string
+  exportFrom: string,
+  fileName: string
 ): string {
   const project = new Project();
 
@@ -136,7 +144,7 @@ function appendExportToIndexFile(
     overwrite: true,
   });
 
-  // export * from "./directives/x.ts"
+  // export * from "./directives/x"
   const exportDeclaration: OptionalKind<ExportDeclarationStructure> = {
     kind: StructureKind.ExportDeclaration,
     isTypeOnly: false,
@@ -158,22 +166,22 @@ function composeDepsList(
   };
 
   switch (schema.type) {
-    case UtilTypeEnum.Directive:
+    case 'Directive':
       basic = {
         ...basic,
         'graphql-tools': 'latest',
       };
       break;
-    case UtilTypeEnum.Decorator:
+    case 'Decorator':
       break;
-    case UtilTypeEnum.Plugin:
+    case 'Plugin':
       basic = {
         ...basic,
         ['apollo-server-core']: 'latest',
         ['apollo-server-plugin-base']: 'latest',
       };
       break;
-    case UtilTypeEnum.Extension:
+    case 'Extension':
       basic = {
         ...basic,
         ['graphql-extensions']: 'latest',
@@ -192,16 +200,16 @@ function composeDevDepsList(
   let basic: Record<string, string> = {};
 
   switch (schema.type) {
-    case UtilTypeEnum.Plugin:
+    case 'Plugin':
       basic = {
         ...basic,
         ['apollo-server-core']: 'latest',
         ['apollo-server-plugin-base']: 'latest',
       };
       break;
-    case UtilTypeEnum.Directive:
-    case UtilTypeEnum.Decorator:
-    case UtilTypeEnum.Extension:
+    case 'Directive':
+    case 'Decorator':
+    case 'Extension':
       break;
     default:
       break;
@@ -232,11 +240,11 @@ function normalizeOptions(
 
   const appOrLibConfig = readProjectConfiguration(host, schema.appOrLib);
 
-  // lib + undefined + directive >>> CREATE libs/lib1/src/lib/directives/x.ts (UPDATE libs/lib1/src/index.ts)
-  // lib + undefined + plugin >>> CREATE libs/lib1/src/lib/plugins/x.ts (UPDATE libs/lib1/src/index.ts)
-  // lib + undefined + extensions >>> CREATE libs/lib1/src/lib/extensions/x.ts (UPDATE libs/lib1/src/index.ts)
-  // lib + undefined + decorator >>> CREATE libs/lib1/src/lib/decorators/x.ts (UPDATE libs/lib1/src/index.ts)
-  // lib + undefined + scalar >>> CREATE libs/lib1/src/lib/scalars/x.ts (UPDATE libs/lib1/src/index.ts)
+  // lib + undefined + directive >>> CREATE libs/lib1/src/directives/x.ts (UPDATE libs/lib1/src/index.ts)
+  // lib + undefined + plugin >>> CREATE libs/lib1/src/plugins/x.ts (UPDATE libs/lib1/src/index.ts)
+  // lib + undefined + extensions >>> CREATE libs/lib1/src/extensions/x.ts (UPDATE libs/lib1/src/index.ts)
+  // lib + undefined + decorator >>> CREATE libs/lib1/src/decorators/x.ts (UPDATE libs/lib1/src/index.ts)
+  // lib + undefined + scalar >>> CREATE libs/lib1/src/scalars/x.ts (UPDATE libs/lib1/src/index.ts)
 
   // lib + someDir + directive >>> CREATE libs/lib1/src/someDir/x.ts
 

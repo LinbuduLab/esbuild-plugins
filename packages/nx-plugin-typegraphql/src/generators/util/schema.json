@@ -23,9 +23,13 @@
     "name": {
       "type": "string",
       "x-prompt": "Which name would you like to use?",
-      "description": "Which name would you like to use?"
+      "description": "Which name would you like to use?",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
     },
-    "appOrLibName": {
+    "appOrLib": {
       "type": "string",
       "x-prompt": "Which app or lib would you like to use?",
       "description": "Which app or lib would you like to use?",
@@ -36,7 +40,7 @@
     },
     "directory": {
       "type": "string",
-      "x-prompt": "Which name would you like to use?",
+      "x-prompt": "A directory where the util is placed",
       "description": "A directory where the util is placed"
     }
   },
