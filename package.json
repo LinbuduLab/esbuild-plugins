@@ -59,6 +59,8 @@
     "eslint-config-prettier": "8.1.0",
     "jest": "26.2.2",
     "prettier": "2.2.1",
+    "rxjs": "^6.6.7",
+    "rxjs-for-await": "^0.0.2",
     "strip-comments": "^2.0.1",
     "ts-jest": "26.4.0",
     "ts-node": "~9.1.1",

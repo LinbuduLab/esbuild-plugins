@@ -23,6 +23,8 @@ devDependencies:
   eslint-config-prettier: 8.1.0_eslint@7.10.0
   jest: 26.2.2_ts-node@9.1.1
   prettier: 2.2.1
+  rxjs: 6.6.7
+  rxjs-for-await: 0.0.2_rxjs@6.6.7
   strip-comments: 2.0.1
   ts-jest: 26.4.0_jest@26.2.2+typescript@4.0.7
   ts-node: 9.1.1_typescript@4.0.7
@@ -7568,8 +7570,7 @@ packages:
     peerDependencies:
       rxjs: ^6.0.0
     resolution:
-      integrity: sha1-JlmKHWFnFHzBkhcpcOfu1OYgOEs=
-      tarball: rxjs-for-await/download/rxjs-for-await-0.0.2.tgz
+      integrity: sha512-IJ8R/ZCFMHOcDIqoABs82jal00VrZx8Xkgfe7TOKoaRPAW5nH/VFlG23bXpeGdrmtqI9UobFPgUKgCuFc7Lncw==
   /rxjs/6.6.3:
     dependencies:
       tslib: 1.14.1
@@ -7586,8 +7587,7 @@ packages:
     engines:
       npm: '>=2.0.0'
     resolution:
-      integrity: sha1-kKwBisq/SRv2UEQjXVhjxNq4BMk=
-      tarball: rxjs/download/rxjs-6.6.7.tgz
+      integrity: sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==
   /safe-buffer/5.1.2:
     dev: true
     resolution:
@@ -8694,8 +8694,7 @@ packages:
   /tslib/1.14.1:
     dev: true
     resolution:
-      integrity: sha1-zy04vcNKE0vK8QkcQfZhni9nLQA=
-      tarball: tslib/download/tslib-1.14.1.tgz
+      integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
   /tslib/2.1.0:
     dev: true
     resolution:
@@ -9504,6 +9503,8 @@ specifiers:
   eslint-config-prettier: 8.1.0
   jest: 26.2.2
   prettier: 2.2.1
+  rxjs: ^6.6.7
+  rxjs-for-await: ^0.0.2
   strip-comments: ^2.0.1
   ts-jest: 26.4.0
   ts-morph: ^10.0.2
