@@ -57,6 +57,7 @@ export function buildExecutor(
   // apps/app1/src
   const watchDir = `${options.root}/${options.sourceRoot}`;
 
+  // esbuild 构建配置
   const esbuildOptions: BuildOptions = {
     logLevel: 'silent',
     platform: 'node',
@@ -84,6 +85,7 @@ export function buildExecutor(
     incremental: options.watch || false,
   };
 
+  // 已执行构建的次数？
   let buildCounter = 1;
   const buildSubscriber = runBuild(esbuildOptions, watchDir).pipe(
     map(({ buildResult, buildFailure }) => {
@@ -188,6 +190,7 @@ export function buildExecutor(
   );
 }
 
+// ESBuild 构建结果
 interface RunBuildResponse {
   buildResult: BuildResult | null;
   buildFailure: BuildFailure | null;
@@ -202,19 +205,24 @@ function runBuild(
     // We will use the org watch settings with node-watch for better refresh performance
     const { watch: buildWatch, ...opts } = options;
 
+    // 为啥不能直接of 从这里生成ob
     build(opts)
       .then((buildResult) => {
+        // 发送一次构建结果
         subscriber.next({ buildResult, buildFailure: null });
         // Helper to send back data for watch events & supporting existing esbuild settings
+        // 一个被单独抽离出来的函数 用于emit ob的值
         const watchNext = ({ buildFailure, buildResult }: RunBuildResponse) => {
           subscriber.next({ buildFailure, buildResult });
+          // esbuild构建选项watch中指定了onRebuild
           if (typeof buildWatch === 'object' && buildWatch.onRebuild) {
             buildWatch.onRebuild(buildFailure, buildResult);
           }
         };
         // When in watch mode, it will continue to report back
         if (buildWatch) {
-          watch(cwd, { recursive: true }, () => {
+          // TODO: 支持像nodemon那样显示触发重新构建的文件
+          watch(cwd, { recursive: true }, (eventtType, triggerPath) => {
             buildResult
               .rebuild()
               .then((watchResult) => {

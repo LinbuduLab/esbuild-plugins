@@ -3,6 +3,7 @@ dependencies:
   ts-morph: 10.0.2
   tslib: 2.2.0
 devDependencies:
+  '@anatine/esbuild-decorators': 0.2.6_esbuild@0.11.5
   '@nrwl/cli': 11.6.0
   '@nrwl/devkit': 11.6.0
   '@nrwl/eslint-plugin-nx': 11.6.0_109fe8a100a1cc8a264bc9a404c53b55
@@ -18,10 +19,13 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 4.3.0_994d979c051549b216df6838c5973d27
   '@typescript-eslint/parser': 4.3.0_eslint@7.10.0+typescript@4.0.7
   chalk: 4.1.0
+  date-fns: 2.19.0
   dotenv: 8.2.0
   eslint: 7.10.0
   eslint-config-prettier: 8.1.0_eslint@7.10.0
+  fs-extra: 9.1.0
   jest: 26.2.2_ts-node@9.1.1
+  node-watch: 0.7.1
   prettier: 2.2.1
   rxjs: 6.6.7
   rxjs-for-await: 0.0.2_rxjs@6.6.7
@@ -31,6 +35,14 @@ devDependencies:
   typescript: 4.0.7
 lockfileVersion: 5.2
 packages:
+  /@anatine/esbuild-decorators/0.2.6_esbuild@0.11.5:
+    dependencies:
+      esbuild: 0.11.5
+    dev: true
+    peerDependencies:
+      esbuild: ~0.11.2
+    resolution:
+      integrity: sha512-/hmWTPKSkGX8smcwIHR+LQbeS+LXyr7+sFrwgam0tgqXa3dllU19/L3FVA4vL/KvyVv9aDiqRwjQuernSmPlow==
   /@angular-devkit/architect/0.1102.6:
     dependencies:
       '@angular-devkit/core': 11.2.6
@@ -1725,6 +1737,12 @@ packages:
     resolution:
       integrity: sha1-x57Zf380y48robyXkLzDZkdLS3k=
       tarball: asynckit/download/asynckit-0.4.0.tgz
+  /at-least-node/1.0.0:
+    dev: true
+    engines:
+      node: '>= 4.0.0'
+    resolution:
+      integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
   /atob/2.1.2:
     dev: true
     engines:
@@ -2826,6 +2844,12 @@ packages:
     resolution:
       integrity: sha1-FWSFpyljqXD11YIar2Qr7yvy25s=
       tarball: data-urls/download/data-urls-2.0.0.tgz
+  /date-fns/2.19.0:
+    dev: true
+    engines:
+      node: '>=0.11'
+    resolution:
+      integrity: sha512-X3bf2iTPgCAQp9wvjOQytnf5vO5rESYRXlPIVcgSbtT5OTScPcsf9eZU+B/YIkKAtYr5WeCii58BgATrNitlWg==
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -3970,6 +3994,17 @@ packages:
     resolution:
       integrity: sha1-TxicRKoSO4lfcigE9V6iPq3DSOk=
       tarball: fs-extra/download/fs-extra-7.0.1.tgz
+  /fs-extra/9.1.0:
+    dependencies:
+      at-least-node: 1.0.0
+      graceful-fs: 4.2.6
+      jsonfile: 6.1.0
+      universalify: 2.0.0
+    dev: true
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==
   /fs-minipass/2.1.0:
     dependencies:
       minipass: 3.1.3
@@ -4173,8 +4208,7 @@ packages:
   /graceful-fs/4.2.6:
     dev: true
     resolution:
-      integrity: sha1-/wQLKwhTsjw9MQJ1I3BvGIXXa+4=
-      tarball: graceful-fs/download/graceful-fs-4.2.6.tgz
+      integrity: sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==
   /growly/1.3.0:
     dev: true
     optional: true
@@ -5671,6 +5705,14 @@ packages:
     resolution:
       integrity: sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=
       tarball: jsonfile/download/jsonfile-4.0.0.tgz
+  /jsonfile/6.1.0:
+    dependencies:
+      universalify: 2.0.0
+    dev: true
+    optionalDependencies:
+      graceful-fs: 4.2.6
+    resolution:
+      integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==
   /jsprim/1.4.1:
     dependencies:
       assert-plus: 1.0.0
@@ -6357,6 +6399,12 @@ packages:
     resolution:
       integrity: sha1-yxM0sXmJaxyJ7P3UtyX7e738fbs=
       tarball: node-releases/download/node-releases-1.1.71.tgz
+  /node-watch/0.7.1:
+    dev: true
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-UWblPYuZYrkCQCW5PxAwYSxaELNBLUckrTBBk8xr1/bUgyOkYYTsUcV4e3ytcazFEOyiRyiUrsG37pu6I0I05g==
   /normalize-package-data/2.5.0:
     dependencies:
       hosted-git-info: 2.8.8
@@ -8852,6 +8900,12 @@ packages:
     resolution:
       integrity: sha1-tkb2m+OULavOzJ1mOcgNwQXvqmY=
       tarball: universalify/download/universalify-0.1.2.tgz
+  /universalify/2.0.0:
+    dev: true
+    engines:
+      node: '>= 10.0.0'
+    resolution:
+      integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==
   /unpipe/1.0.0:
     dev: true
     engines:
@@ -9482,6 +9536,7 @@ packages:
       integrity: sha1-ApTrPe4FAo0x7hpfosVWpqrxChs=
       tarball: yocto-queue/download/yocto-queue-0.1.0.tgz
 specifiers:
+  '@anatine/esbuild-decorators': ^0.2.6
   '@nrwl/cli': 11.6.0
   '@nrwl/devkit': 11.6.0
   '@nrwl/eslint-plugin-nx': 11.6.0
@@ -9497,11 +9552,14 @@ specifiers:
   '@typescript-eslint/eslint-plugin': 4.3.0
   '@typescript-eslint/parser': 4.3.0
   chalk: ^4.1.0
+  date-fns: ^2.19.0
   dotenv: 8.2.0
   esbuild: ^0.11.5
   eslint: 7.10.0
   eslint-config-prettier: 8.1.0
+  fs-extra: ^9.1.0
   jest: 26.2.2
+  node-watch: ^0.7.1
   prettier: 2.2.1
   rxjs: ^6.6.7
   rxjs-for-await: ^0.0.2
