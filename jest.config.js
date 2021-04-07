@@ -14,5 +14,9 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-swc-e2e',
     '<rootDir>/packages/nx-plugin-vite',
     '<rootDir>/e2e\\nx-plugin-vite-e2e',
+    '<rootDir>/packages/nx-plugin-umi',
+    '<rootDir>/e2e\\nx-plugin-umi-e2e',
+    '<rootDir>/packages/nx-plugin-ice',
+    '<rootDir>/e2e\\nx-plugin-ice-e2e',
   ],
 };

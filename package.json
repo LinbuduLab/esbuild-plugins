@@ -30,7 +30,9 @@
     "dev:serverless": " nx run nx-plugin-serverless:build && cd .\\dist\\packages\\nx-plugin-serverless\\ && pnpm link",
     "dev:esbuild": " nx run nx-plugin-esbuild:build && cd .\\dist\\packages\\nx-plugin-esbuild\\ && pnpm link",
     "dev:swc": " nx run nx-plugin-swc:build && cd .\\dist\\packages\\nx-plugin-swc\\ && pnpm link",
-    "dev:vite": " nx run nx-plugin-vite:build && cd .\\dist\\packages\\nx-plugin-vite\\ && pnpm link"
+    "dev:vite": " nx run nx-plugin-vite:build && cd .\\dist\\packages\\nx-plugin-vite\\ && pnpm link",
+    "dev:umi": " nx run nx-plugin-umi:build && cd .\\dist\\packages\\nx-plugin-umi\\ && pnpm link",
+    "dev:ice": " nx run nx-plugin-ice:build && cd .\\dist\\packages\\nx-plugin-ice\\ && pnpm link"
   },
   "private": true,
   "dependencies": {

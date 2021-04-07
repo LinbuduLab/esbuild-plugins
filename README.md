@@ -28,6 +28,8 @@ nx g nx-plugin-prisma:application prisma-app --graphql --sqlite
 - `nx-plugin-serverless`:
 - `nx-plugin-esbuild`:
 - `nx-plugin-swc`:
+- `nx-plugin-umi`:
+- `nx-plugin-ice`:
 
 ## Plugins
 

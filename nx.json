@@ -50,6 +50,16 @@
     "nx-plugin-vite-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-vite"]
+    },
+    "nx-plugin-umi": { "tags": [] },
+    "nx-plugin-umi-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-umi"]
+    },
+    "nx-plugin-ice": { "tags": [] },
+    "nx-plugin-ice-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-ice"]
     }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
