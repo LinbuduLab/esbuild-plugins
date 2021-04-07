@@ -1,0 +1,18 @@
+import { Resolver, Query } from "type-graphql";
+
+import { Item } from "../graphql/item";
+
+@Resolver((of) => Item)
+export default class ItemResolver {
+  constructor() {}
+
+  @Query(() => [Item])
+  async AllItems(): Promise<Item[]> {
+    return [{ id: 1 }];
+  }
+
+  @Query(() => String)
+  async Sample(): Promise<string> {
+    return "nx-plugin-typegraphql";
+  }
+}

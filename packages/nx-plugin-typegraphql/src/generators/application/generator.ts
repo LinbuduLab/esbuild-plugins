@@ -6,6 +6,7 @@ import {
   names,
   offsetFromRoot,
   Tree,
+  installPackagesTask,
   updateJson,
   GeneratorCallback,
   addDependenciesToPackageJson,
@@ -125,7 +126,7 @@ function createAppFiles(
 ) {
   generateFiles(
     host,
-    path.join(__dirname, './files/app'),
+    path.join(__dirname, './files/apollo'),
     schema.appProjectRoot,
     {
       tmpl: '',
@@ -193,37 +194,70 @@ export default async function (
   const appConfig = readProjectConfiguration(host, normalizedSchema.name);
 
   // app/app1/src/app/resolvers/app1.resolver.ts
-  const resolverGeneratorTask = await resolverGenerator(host, {
-    resolverName: normalizedSchema.app,
-    fullImport: false,
-    appOrLibName: normalizedSchema.app,
-    fieldResolver: true,
-    directory: 'app/resolvers',
-    subscription: false,
-  });
+  // const resolverGeneratorTask = await resolverGenerator(host, {
+  //   resolverName: normalizedSchema.app,
+  //   fullImport: false,
+  //   appOrLibName: normalizedSchema.app,
+  //   fieldResolver: true,
+  //   directory: 'app/resolvers',
+  //   subscription: false,
+  // });
 
-  tasks.push(resolverGeneratorTask);
+  // tasks.push(resolverGeneratorTask);
 
-  // app/app1/src/app/graphql/app1.ts
-  const objectTypeGeneratorTask = await objectTypeGenerator(host, {
-    objectTypeName: normalizedSchema.app,
-    appOrLib: normalizedSchema.app,
-    directory: 'app/graphql',
-    extendInterfaceType: false,
-    generateDTO: false,
-    dtoHandler: 'ClassValidator',
-    useTypeormEntityDecorator: false,
-    extendTypeormBaseEntity: false,
-    createLibOnInexist: false,
-  });
+  // // app/app1/src/app/graphql/app1.ts
+  // const objectTypeGeneratorTask = await objectTypeGenerator(host, {
+  //   objectTypeName: normalizedSchema.app,
+  //   appOrLib: normalizedSchema.app,
+  //   directory: 'app/graphql',
+  //   extendInterfaceType: false,
+  //   generateDTO: false,
+  //   dtoHandler: 'ClassValidator',
+  //   useTypeormEntityDecorator: false,
+  //   extendTypeormBaseEntity: false,
+  //   createLibOnInexist: false,
+  // });
 
-  tasks.push(objectTypeGeneratorTask);
+  // tasks.push(objectTypeGeneratorTask);
 
   await formatFiles(host);
 
+  const deps = composeDepsList(normalizedSchema);
+  const devDeps = composeDevDepsList(normalizedSchema);
+
+  const installTask = addDependenciesToPackageJson(host, deps, devDeps);
+
+  tasks.push(installTask);
+
   return () => {
+    installPackagesTask(host);
     runTasksInSerial(...tasks);
   };
+}
+
+function composeDepsList(
+  schema: NormalizedTypeGraphQLResolverSchema
+): Record<string, string> {
+  const basic: Record<string, string> = {
+    'type-graphql': 'latest',
+    graphql: 'latest',
+    'reflect-metadata': 'latest',
+    'apollo-server-koa': 'latest',
+    koa: 'latest',
+  };
+
+  return basic;
+}
+
+function composeDevDepsList(
+  schema: NormalizedTypeGraphQLResolverSchema
+): Record<string, string> {
+  const basic = {
+    chalk: 'latest',
+    'source-map-support': 'latest',
+  };
+
+  return basic;
 }
 
 function normalizeSchema(
