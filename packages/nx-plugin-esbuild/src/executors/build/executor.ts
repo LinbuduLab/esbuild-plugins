@@ -13,9 +13,9 @@ import {
 
 import stripComments from 'strip-comments';
 
-import { BuildExecutorSchema } from './schema';
+import { ESBuildExecutorSchema } from './schema';
 
-export default async function runExecutor(options: BuildExecutorSchema) {
+export default async function runExecutor(options: ESBuildExecutorSchema) {
   console.log('Executor ran for Build', options);
   return {
     success: true,
