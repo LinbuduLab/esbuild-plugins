@@ -88,6 +88,8 @@ export function buildExecutor(
     outdir,
     // outfile,
     ...esbuildConfig,
+    // FIXME:
+    external: ['@nestjs/common', '@nestjs/core'],
     incremental: options.watch || false,
   };
 
@@ -190,8 +192,8 @@ export function buildExecutor(
     zip(buildSubscriber, tscSubscriber).pipe(
       map(([buildResults, tscResults]) => {
         console.log('\x1Bc');
-        // console.log(tscResults.message);
-        // console.log(buildResults.message);
+        console.log(tscResults.message);
+        console.log(buildResults.message);
         return {
           success: buildResults?.success && tscResults?.success,
         };
