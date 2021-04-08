@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { spawn, fork } from 'child_process';
 import { build } from 'esbuild';
+import path from 'path';
 import watch from 'node-watch';
 
 interface RunTscOptions {
@@ -23,21 +24,23 @@ export function runTSC({
     end?: string;
   }>((subscriber) => {
     // FIXME:
-    const modeModulesPath =
-      (root ? root + '/' : './') + 'node_modules/typescript/bin/';
-    const command = `${modeModulesPath}tsc`;
+    const modeModulesPath = path.join(root, 'node_modules', '.bin', 'tsc');
+
+    const command = `${modeModulesPath}`;
+
     const args: string[] = ['--noEmit'];
     if (watch) {
       args.push('-w');
     }
-    args.push(`-p ${tsconfigPath}`);
+    args.push('-p');
+    args.push(tsconfigPath);
 
     let errorCount = 0;
     const child = spawn(command, args, { shell: true });
 
-    // tsc是找到一个错误输出一次？
     child.stdout.on('data', (data) => {
       const decoded = data.toString();
+      console.log('decoded: ', decoded);
       // eslint-disable-next-line no-control-regex
       if (decoded.match(/\x1Bc/g)) return;
       if (decoded.includes('error TS')) {

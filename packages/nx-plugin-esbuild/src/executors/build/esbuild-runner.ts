@@ -48,6 +48,9 @@ export function runESBuild(
                     buildFailure: watchFailure,
                     buildResult: null,
                   });
+                })
+                .finally(() => {
+                  console.log('ESBuild Re-Compilation Done');
                 });
             })
           : subscriber.complete();

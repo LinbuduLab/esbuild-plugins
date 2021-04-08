@@ -1,6 +1,6 @@
 import { ESBuildExecutorSchema } from './schema';
 import { ExecutorContext } from '@nrwl/devkit';
-import { normalizeBuildExecutorOptions } from '../utils';
+import { normalizeBuildExecutorOptions, bufferUntil } from '../utils';
 import { pathExistsSync } from 'fs-extra';
 import { readJsonFile } from '@nrwl/workspace';
 import {
@@ -15,7 +15,7 @@ import { esbuildDecorators } from '@anatine/esbuild-decorators';
 import { gray, green, red, yellow } from 'chalk';
 import watch from 'node-watch';
 import { Observable, OperatorFunction, Subject, zip } from 'rxjs';
-import { buffer, delay, filter, map, share } from 'rxjs/operators';
+import { buffer, delay, filter, map, share, tap } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
 import { format } from 'date-fns';
 import { runESBuild } from './esbuild-runner';
@@ -54,6 +54,8 @@ export function buildExecutor(
     sourceRoot,
     root
   );
+
+  console.log('options: ', options);
 
   // dist/apps/app1
   const outdir = `${options.outputPath}`;
@@ -96,7 +98,7 @@ export function buildExecutor(
       let message = '';
       const timeString = format(new Date(), 'h:mm:ss a');
       const count = gray(`[${buildCounter}]`);
-      const prefix = `esbuild ${count} ${timeString}`;
+      const prefix = ` [nx-plugin-esbuild] esbuild ${count} ${timeString}`;
 
       // const warnings: string[] = [];
 
@@ -143,24 +145,30 @@ export function buildExecutor(
     watch: options.watch || !!esbuildOptions.watch,
     root: options.root,
   }).pipe(
+    tap(({ info, error, end }) => {
+      // console.log('{ info, error, end }: ', { info, error, end });
+    }),
+
     map(({ info, error, end }) => {
       let message = '';
       let hasErrors = Boolean(error);
       const count = gray(`[${typeCounter}]`);
-      const prefix = `tsc ${count}`;
+      const prefix = ` [nx-plugin-esbuild] tsc ${count}`;
       if (error) {
+        // FIXME: 多条错误时的格式化
         message += red(`${prefix} ${error.replace(/\n/g, '')} \n`);
       } else if (info) {
+        console.log('info: ', info);
         if (info.match(/Found\s\d*\serror/)) {
           if (info.includes('Found 0 errors')) {
-            message += green(`${prefix} ${info.replace(/\n/g, '')} \n`);
+            message += green(`${prefix} ${info.replace(/\r\n/g, '')} \n`);
           } else {
             hasErrors = true;
-            message += yellow(`${prefix} ${info.replace(/\n/g, '')} \n`);
+            message += yellow(`${prefix} ${info.replace(/\r\n/g, '')} \n`);
           }
           tscBufferTrigger.next(true);
         } else {
-          message += green(`${prefix} ${info.replace(/\n/g, '')} \n`);
+          message += green(`${prefix} ${info.replace(/\r\n/g, '')} \n`);
         }
       }
       return { info, error, end, message, hasErrors };
@@ -182,24 +190,14 @@ export function buildExecutor(
     zip(buildSubscriber, tscSubscriber).pipe(
       map(([buildResults, tscResults]) => {
         console.log('\x1Bc');
-        console.log(tscResults.message);
-        console.log(buildResults.message);
+        // console.log(tscResults.message);
+        // console.log(buildResults.message);
         return {
           success: buildResults?.success && tscResults?.success,
         };
       })
     )
   );
-}
-
-function bufferUntil<T>(
-  predicate: (value: T) => boolean
-): OperatorFunction<T, T[]> {
-  return function (source) {
-    const share$ = source.pipe(share());
-    const until$ = share$.pipe(filter(predicate), delay(0));
-    return share$.pipe(buffer(until$));
-  };
 }
 
 export default buildExecutor;
