@@ -11,7 +11,7 @@ import {
   InitializeOptions,
 } from 'esbuild';
 import { spawn } from 'child_process';
-import { esbuildDecorators } from '@anatine/esbuild-decorators';
+import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
 import { gray, green, red, yellow } from 'chalk';
 import watch from 'node-watch';
 import { Observable, OperatorFunction, Subject, zip } from 'rxjs';
@@ -76,7 +76,7 @@ export function buildExecutor(
     absWorkingDir: options.root,
     plugins: [
       // 使用装饰器插件
-      esbuildDecorators({
+      esbuildDecoratorPlugin({
         cwd: options.root,
       }),
     ],

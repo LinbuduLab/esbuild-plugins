@@ -51,3 +51,8 @@
 
 - executor:build(tsc)
 - executor:serve(etsc)
+
+## issues
+
+-  File 'D:/nx-plugin-typegraphql/packages/esbuild-plugin-decorator/src/lib/parse-config.ts' is not under 'rootDir' 'packages/nx-plugin-esbuild'. 'rootDir' is expected to contain all source files.
+  - https://github.com/nrwl/nx/blob/master/packages/node/src/executors/package/schema.json

@@ -578,6 +578,38 @@
         }
       }
     },
+    "esbuild-plugin-decorator": {
+      "root": "packages/esbuild-plugin-decorator",
+      "sourceRoot": "packages/esbuild-plugin-decorator/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-decorator/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-decorator"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-decorator/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-decorator",
+            "tsConfig": "packages/esbuild-plugin-decorator/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-decorator/package.json",
+            "main": "packages/esbuild-plugin-decorator/src/index.ts",
+            "assets": ["packages/esbuild-plugin-decorator/*.md"]
+          }
+        }
+      }
+    },
     "esbuild-plugin-node-externals": {
       "root": "packages/esbuild-plugin-node-externals",
       "sourceRoot": "packages/esbuild-plugin-node-externals/src",
@@ -607,53 +639,7 @@
             "tsConfig": "packages/esbuild-plugin-node-externals/tsconfig.lib.json",
             "packageJson": "packages/esbuild-plugin-node-externals/package.json",
             "main": "packages/esbuild-plugin-node-externals/src/index.ts",
-            "assets": [
-              "packages/esbuild-plugin-node-externals/*.md",
-              {
-                "input": "./packages/esbuild-plugin-node-externals/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              }
-            ]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-decorator": {
-      "root": "packages/esbuild-plugin-decorator",
-      "sourceRoot": "packages/esbuild-plugin-decorator/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-decorator/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-decorator"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-decorator/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-decorator",
-            "tsConfig": "packages/esbuild-plugin-decorator/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-decorator/package.json",
-            "main": "packages/esbuild-plugin-decorator/src/index.ts",
-            "assets": [
-              "packages/esbuild-plugin-decorator/*.md",
-              {
-                "input": "./packages/esbuild-plugin-decorator/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              }
-            ]
+            "assets": ["packages/esbuild-plugin-node-externals/*.md"]
           }
         }
       }

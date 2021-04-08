@@ -1,24 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { inspect } from 'util';
 import type { Plugin } from 'esbuild';
-import {
-  ParsedCommandLine,
-  transpileModule,
-  findConfigFile,
-  sys,
-  parseConfigFileTextToJson,
-  parseJsonConfigFileContent,
-} from 'typescript';
+import { transpileModule } from 'typescript';
 
-import stripComments from 'strip-comments';
-
-const theFinder = new RegExp(
-  /((?<![(\s]\s*['"])@\w*[\w\d]\s*(?![;])[((?=\s)])/
-);
-
-const findDecorators = (fileContent: string | void) =>
-  fileContent ? theFinder.test(stripComments(fileContent)) : false;
+import { parseTsConfig } from './parse-config';
+import { findDecorators } from './find-decorator';
 
 export type ESBuildPluginDecoratorOptions = {
   tsconfigPath?: string;
@@ -41,12 +27,12 @@ export const esbuildDecoratorPlugin = (
     build.onLoad({ filter: /\.ts$/ }, async ({ path }) => {
       if (!parsedTsConfig) {
         parsedTsConfig = parseTsConfig(tsconfigPath, process.cwd());
+        // TODO: source map related
         // if (parsedTsConfig.sourcemap) {
         //   parsedTsConfig.sourcemap = false;
         //   parsedTsConfig.inlineSources = true;
         //   parsedTsConfig.inlineSourceMap = true;
         // }
-        console.log('parsedTsConfig: ', parsedTsConfig);
       }
 
       const shouldSkipThisPlugin =
@@ -72,40 +58,3 @@ export const esbuildDecoratorPlugin = (
     });
   },
 });
-
-function parseTsConfig(tsconfigPath: string, cwd: string) {
-  // path >>> name
-  const fileName = findConfigFile(cwd, sys.fileExists, tsconfigPath);
-
-  // if the value was provided, but no file, fail hard
-  if (tsconfigPath !== undefined && !fileName)
-    throw new Error(`Failed to open '${fileName}'`);
-
-  let loadedConfig = {};
-  let baseDir = cwd;
-
-  if (fileName) {
-    const text = sys.readFile(fileName);
-    if (text === undefined) throw new Error(`Failed to read '${fileName}'`);
-
-    const result = parseConfigFileTextToJson(fileName, text);
-
-    if (result.error !== undefined) {
-      printDiagnostics(result.error);
-      throw new Error(`Failed to parse '${fileName}'`);
-    }
-
-    loadedConfig = result.config;
-    baseDir = path.dirname(fileName);
-  }
-
-  const parsedTsConfig = parseJsonConfigFileContent(loadedConfig, sys, baseDir);
-
-  if (parsedTsConfig.errors[0]) printDiagnostics(parsedTsConfig.errors);
-
-  return parsedTsConfig;
-}
-
-function printDiagnostics(...args: any[]) {
-  console.log(inspect(args, false, 10, true));
-}

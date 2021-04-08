@@ -61,8 +61,8 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-ice"]
     },
-    "esbuild-plugin-node-externals": { "tags": [] },
-    "esbuild-plugin-decorator": { "tags": [] }
+    "esbuild-plugin-decorator": { "tags": [] },
+    "esbuild-plugin-node-externals": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }
