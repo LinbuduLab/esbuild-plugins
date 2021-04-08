@@ -1,0 +1,5 @@
+{
+  "name": "esbuild-plugin-decorators",
+  "version": "0.0.1-1",
+  "main": "src/index.js"
+}

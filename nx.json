@@ -60,7 +60,9 @@
     "nx-plugin-ice-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-ice"]
-    }
+    },
+    "esbuild-plugin-node-externals": { "tags": [] },
+    "esbuild-plugin-decorator": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

@@ -13,3 +13,4 @@
 - external https://github.com/evanw/esbuild/issues/619
   - https://github.com/liady/webpack-node-externals/blob/master/index.js
 - esbuild plugin... 感觉可以单独作为一个独立的包
+- https://github.com/pradel/esbuild-node-externals/blob/main/esbuild-node-externals/src/index.ts
