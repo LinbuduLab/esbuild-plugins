@@ -12,7 +12,7 @@ import { statSync } from 'fs';
 import { red } from 'chalk';
 
 // normalizeBuildExecutorOptions
-function normalizeBuildExecutorOptions(
+export function normalizeBuildExecutorOptions(
   // partial or generic types
   options: ESBuildExecutorSchema,
   esbuildOptions: InitializeOptions,
@@ -122,8 +122,10 @@ function normalizeFileReplacements(
   root: string,
   fileReplacements: FileReplacement[]
 ): FileReplacement[] {
-  return fileReplacements.map((fileReplacement) => ({
-    replace: resolve(root, fileReplacement.replace),
-    with: resolve(root, fileReplacement.with),
-  }));
+  return fileReplacements
+    ? fileReplacements.map((fileReplacement) => ({
+        replace: resolve(root, fileReplacement.replace),
+        with: resolve(root, fileReplacement.with),
+      }))
+    : [];
 }

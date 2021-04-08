@@ -1,6 +1,6 @@
-import { BuildExecutorSchema } from './schema';
+import { ESBuildExecutorSchema } from './schema';
 import { ExecutorContext } from '@nrwl/devkit';
-import { normalizeBuildOptions } from '../../utils/normalize-options';
+import { normalizeBuildExecutorOptions } from '../utils';
 import { pathExistsSync } from 'fs-extra';
 import { readJsonFile } from '@nrwl/workspace';
 import {
@@ -18,9 +18,12 @@ import { Observable, OperatorFunction, Subject, zip } from 'rxjs';
 import { buffer, delay, filter, map, share } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
 import { format } from 'date-fns';
+import { runESBuild } from './esbuild-runner';
+import { runTSC } from './tsc-runner';
 
 export function buildExecutor(
-  rawOptions: BuildExecutorSchema,
+  rawOptions: ESBuildExecutorSchema,
+
   context: ExecutorContext
 ): AsyncIterableIterator<{ success: boolean }> {
   const { sourceRoot, root } = context.workspace.projects[context.projectName];
@@ -44,7 +47,7 @@ export function buildExecutor(
     : {};
 
   // 处理过的配置
-  const options = normalizeBuildOptions(
+  const options = normalizeBuildExecutorOptions(
     rawOptions,
     esbuildConfig,
     context.root,
@@ -52,6 +55,7 @@ export function buildExecutor(
     root
   );
 
+  // dist/apps/app1
   const outdir = `${options.outputPath}`;
 
   // apps/app1/src
@@ -87,7 +91,7 @@ export function buildExecutor(
 
   // 已执行构建的次数？
   let buildCounter = 1;
-  const buildSubscriber = runBuild(esbuildOptions, watchDir).pipe(
+  const buildSubscriber = runESBuild(esbuildOptions, watchDir).pipe(
     map(({ buildResult, buildFailure }) => {
       let message = '';
       const timeString = format(new Date(), 'h:mm:ss a');
@@ -134,11 +138,10 @@ export function buildExecutor(
 
   let typeCounter = 1;
   const tscBufferTrigger = new Subject<boolean>();
-  const tscSubscriber = runTsc({
+  const tscSubscriber = runTSC({
     tsconfigPath: options.tsConfig,
     watch: options.watch || !!esbuildOptions.watch,
     root: options.root,
-    useGlobal: false,
   }).pipe(
     map(({ info, error, end }) => {
       let message = '';
@@ -163,7 +166,6 @@ export function buildExecutor(
       return { info, error, end, message, hasErrors };
     }),
     bufferUntil(({ info }) => !!info?.match(/Found\s\d*\serror/)),
-    // bufferUntil(({ info }) => true),
     map((values) => {
       typeCounter++;
       let message = '';
@@ -188,116 +190,6 @@ export function buildExecutor(
       })
     )
   );
-}
-
-// ESBuild 构建结果
-interface RunBuildResponse {
-  buildResult: BuildResult | null;
-  buildFailure: BuildFailure | null;
-}
-
-function runBuild(
-  options: BuildOptions,
-  watchDir?: string
-): Observable<RunBuildResponse> {
-  return new Observable<RunBuildResponse>((subscriber) => {
-    const cwd = watchDir || options.absWorkingDir || process.cwd();
-    // We will use the org watch settings with node-watch for better refresh performance
-    const { watch: buildWatch, ...opts } = options;
-
-    // 为啥不能直接of 从这里生成ob
-    build(opts)
-      .then((buildResult) => {
-        // 发送一次构建结果
-        subscriber.next({ buildResult, buildFailure: null });
-        // Helper to send back data for watch events & supporting existing esbuild settings
-        // 一个被单独抽离出来的函数 用于emit ob的值
-        const watchNext = ({ buildFailure, buildResult }: RunBuildResponse) => {
-          subscriber.next({ buildFailure, buildResult });
-          // esbuild构建选项watch中指定了onRebuild
-          if (typeof buildWatch === 'object' && buildWatch.onRebuild) {
-            buildWatch.onRebuild(buildFailure, buildResult);
-          }
-        };
-        // When in watch mode, it will continue to report back
-        if (buildWatch) {
-          // TODO: 支持像nodemon那样显示触发重新构建的文件
-          watch(cwd, { recursive: true }, (eventtType, triggerPath) => {
-            buildResult
-              .rebuild()
-              .then((watchResult) => {
-                watchNext({
-                  buildFailure: null,
-                  buildResult: watchResult,
-                });
-              })
-              .catch((watchFailure: BuildFailure) => {
-                watchNext({
-                  buildFailure: watchFailure,
-                  buildResult: null,
-                });
-              });
-          });
-        } else {
-          subscriber.complete();
-        }
-      })
-      .catch((buildFailure: BuildFailure) => {
-        subscriber.next({ buildResult: null, buildFailure });
-        subscriber.complete();
-      });
-  });
-}
-
-interface RunTscOptions {
-  tsconfigPath: string;
-  watch?: boolean;
-  root?: string;
-  useGlobal?: boolean;
-}
-
-function runTsc({ tsconfigPath, watch, root, useGlobal }: RunTscOptions) {
-  return new Observable<{
-    info?: string;
-    error?: string;
-    tscError?: Error;
-    end?: string;
-  }>((subscriber) => {
-    // Build command
-    const modeModulesPath = useGlobal
-      ? ''
-      : (root ? root + '/' : './') + 'node_modules/typescript/bin/';
-    const command = `${modeModulesPath}tsc`;
-    // Build arguments
-    const args: string[] = ['--noEmit']; // --noEmit so as to not save out data
-    if (watch) {
-      args.push('-w');
-    }
-    args.push('-p');
-    args.push(tsconfigPath);
-    let errorCount = 0;
-    // Run command
-    const child = spawn(command, args, { shell: true });
-    child.stdout.on('data', (data) => {
-      const decoded = data.toString();
-      // eslint-disable-next-line no-control-regex
-      if (decoded.match(/\x1Bc/g)) return;
-      if (decoded.includes('): error T')) {
-        errorCount++;
-        subscriber.next({ error: decoded });
-      } else {
-        subscriber.next({ info: decoded });
-      }
-    });
-    child.stderr.on('error', (tscError) => {
-      subscriber.next({ tscError });
-    });
-    child.stdout.on('end', () => {
-      subscriber.next({
-        info: `Type check complete. Found ${errorCount} errors`,
-      });
-    });
-  });
 }
 
 function bufferUntil<T>(
