@@ -1,3 +1,4 @@
+import fs from 'fs/promises';
 import { NormalizedOptions } from './parse-option';
 import jsonfile from 'jsonfile';
 
@@ -15,10 +16,9 @@ export const collectDepsToExclude = (options: NormalizedOptions): string[] => {
     .map((packagePath) => {
       let parsedPackageJsonData: Record<string, string>;
       try {
-        const packageJsonString = jsonfile.readFileSync(packagePath, {
+        parsedPackageJsonData = jsonfile.readFileSync(packagePath, {
           encoding: 'utf-8',
         });
-        parsedPackageJsonData = JSON.parse(packageJsonString);
       } catch (error) {
         console.error(error);
         throw new Error(

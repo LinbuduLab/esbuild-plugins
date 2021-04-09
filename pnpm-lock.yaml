@@ -13,6 +13,7 @@ devDependencies:
   '@nrwl/nx-plugin': 11.6.0_prettier@2.2.1+typescript@4.0.7
   '@nrwl/tao': 11.6.0
   '@nrwl/workspace': 11.6.0_prettier@2.2.1
+  '@types/fs-extra': 9.0.10
   '@types/jest': 26.0.8
   '@types/jsonfile': 6.0.0
   '@types/node': 14.14.33
@@ -930,6 +931,12 @@ packages:
     resolution:
       integrity: sha1-ZU9sT2dWjiTCOzZ+lHCYxiBvpjk=
       tarball: '@types/babel__traverse/download/@types/babel__traverse-7.11.1.tgz'
+  /@types/fs-extra/9.0.10:
+    dependencies:
+      '@types/node': 14.14.33
+    dev: true
+    resolution:
+      integrity: sha512-O9T2LLkRDiTlalOBdjEkcnT0MRdT2+wglCl7pJUJ3mkWkR8hX4K+5bg2raQNJcLv4V8zGuTXe7Ud3wSqkTyuyQ==
   /@types/glob/7.1.3:
     dependencies:
       '@types/minimatch': 3.0.4
@@ -9579,6 +9586,7 @@ specifiers:
   '@nrwl/nx-plugin': ^11.6.0
   '@nrwl/tao': 11.6.0
   '@nrwl/workspace': 11.6.0
+  '@types/fs-extra': ^9.0.10
   '@types/jest': 26.0.8
   '@types/jsonfile': ^6.0.0
   '@types/node': 14.14.33

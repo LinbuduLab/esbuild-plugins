@@ -14,6 +14,8 @@ import { spawn } from 'child_process';
 import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
 import { gray, green, red, yellow } from 'chalk';
 import watch from 'node-watch';
+import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
+
 import { Observable, OperatorFunction, Subject, zip } from 'rxjs';
 import { buffer, delay, filter, map, share, tap } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
@@ -78,6 +80,9 @@ export function buildExecutor(
       // 使用装饰器插件
       esbuildDecoratorPlugin({
         cwd: options.root,
+      }),
+      esbuildPluginNodeExternals({
+        packagePaths: options.packageJson ?? undefined,
       }),
     ],
     // banner: {
