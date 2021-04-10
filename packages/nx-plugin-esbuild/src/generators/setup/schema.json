@@ -1,29 +1,57 @@
 {
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "id": "Setup",
-  "title": "",
+  "id": "Nx-Plugin-ESBuild-Setup",
+  "title": "Setup ESBuild targets for existing projects",
   "type": "object",
   "properties": {
-    "name": {
+    "appOrLib": {
       "type": "string",
       "description": "",
       "$default": {
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What name would you like to use?"
+      "x-prompt": "Which App or Lib would you like to setup ESBuild?"
     },
-    "tags": {
+    "override": {
+      "type": "boolean",
+      "alias": "r",
+      "x-prompt": "Should override build/serve command?(if not, will use esbuild-build and esbuild-serve instead)",
+      "default": false
+    },
+    "entry": {
       "type": "string",
-      "description": "Add tags to the project (used for linting)",
-      "alias": "t"
-    }, 
-    "directory": {
+      "alias": "e",
+      "description": "Which file should be used as entry point?",
+      "x-prompt": "Which file should be used as entry point?(src/main.ts by default)"
+    },
+    "watch": {
+      "type": "boolean",
+      "alias": "w",
+      "description": "Enable Build Watching?",
+      "x-prompt": "Enable Build Watching?",
+      "default": false
+    },
+    "tsConfigPath": {
       "type": "string",
-      "description": "A directory where the project is placed",
-      "alias": "d"
+      "alias": "p",
+      "description": "Specify tsconfig path(absolute path like `apps/your-app/tsconfig.specific.json`)",
+      "x-prompt": "Specify tsconfig path(absolute path like `apps/your-app/tsconfig.specific.json`)"
+    },
+    "outputPath": {
+      "type": "string",
+      "alias": "o",
+      "description": "Specify output path(absolute path like `specified-dist/apps/your-app`)",
+      "x-prompt": "Specify output path(absolute path like `specified-dist/apps/your-app`)"
+    },
+    "useTSCPluginForDecorator": {
+      "type": "boolean",
+      "alias": "d",
+      "description": "Use TSC for decorator compilation(or will throw an error if decorators detected)",
+      "x-prompt": "Use TSC for decorator compilation(or will throw an error if decorators detected)",
+      "default": true
     }
   },
-  "required": ["name"]
+  "required": ["appOrLib"]
 }

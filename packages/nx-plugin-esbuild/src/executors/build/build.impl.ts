@@ -16,8 +16,8 @@ import dayjs from 'dayjs';
 import { runESBuild } from './lib/esbuild-runner';
 import { runTSC } from './lib/tsc-runner';
 
-import { normalizeBuildExecutorOptions } from '../utils/normalize-option';
-import { bufferUntil } from '../utils/buffer-until';
+import { normalizeBuildExecutorOptions } from './lib/normalize-option';
+import { bufferUntil } from './lib/buffer-until';
 
 export function buildExecutor(
   rawOptions: ESBuildExecutorSchema,

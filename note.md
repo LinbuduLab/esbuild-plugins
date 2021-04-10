@@ -51,6 +51,8 @@
 
 - executor:build(tsc)
 - executor:serve(etsc)
+- generator:setup；为已经存在的项目，新增esbuild-build命令，使用nx-plugin-esbuild:build进行构建，新增esbuild-serve命令，使用nx-plugin-esbuild:serve
+- generator:init：创建一个全新的项目
 
 ## issues
 
