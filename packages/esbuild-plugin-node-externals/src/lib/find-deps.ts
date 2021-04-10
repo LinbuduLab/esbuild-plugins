@@ -1,4 +1,3 @@
-import fs from 'fs/promises';
 import { NormalizedOptions } from './parse-option';
 import jsonfile from 'jsonfile';
 

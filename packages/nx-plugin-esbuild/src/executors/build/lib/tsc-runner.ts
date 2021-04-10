@@ -1,39 +1,31 @@
 import { Observable } from 'rxjs';
-import { spawn, fork } from 'child_process';
-import { build } from 'esbuild';
+import { spawn } from 'child_process';
 import path from 'path';
-import watch from 'node-watch';
 
 interface RunTscOptions {
   tsconfigPath: string;
-  watch?: boolean;
-  root?: string;
+  watch: boolean;
+  root: string;
   useGlobal?: boolean;
 }
 
-export function runTSC({
-  tsconfigPath,
-  watch,
-  root,
-  useGlobal,
-}: RunTscOptions) {
-  return new Observable<{
-    info?: string;
-    error?: string;
-    tscError?: Error;
-    end?: string;
-  }>((subscriber) => {
-    // FIXME:
-    const modeModulesPath = path.join(root, 'node_modules', '.bin', 'tsc');
+interface TSCEmit {
+  info?: string;
+  error?: string;
+  tscError?: Error;
+  end?: string;
+}
 
-    const command = `${modeModulesPath}`;
+export function runTSC({ tsconfigPath, watch, root }: RunTscOptions) {
+  return new Observable<TSCEmit>((subscriber) => {
+    const command = path.join(root, 'node_modules', '.bin', 'tsc');
 
     const args: string[] = ['--noEmit'];
+
     if (watch) {
       args.push('-w');
     }
-    args.push('-p');
-    args.push(tsconfigPath);
+    args.push(`-p ${tsconfigPath}`);
 
     let errorCount = 0;
     const child = spawn(command, args, { shell: true });

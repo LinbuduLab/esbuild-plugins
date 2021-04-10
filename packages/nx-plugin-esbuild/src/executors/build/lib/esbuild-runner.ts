@@ -1,9 +1,7 @@
 import type { BuildResult, BuildFailure, BuildOptions } from 'esbuild';
 import { Observable } from 'rxjs';
-import { of } from 'rxjs';
-import {} from 'rxjs/operators';
 import { build } from 'esbuild';
-import watch from 'node-watch';
+import chokidar from 'chokidar';
 
 interface RunBuildResponse {
   buildResult: BuildResult | null;
@@ -16,6 +14,13 @@ export function runESBuild(
 ): Observable<RunBuildResponse> {
   return new Observable<RunBuildResponse>((subscriber) => {
     const cwd = watchDir || options.absWorkingDir || process.cwd();
+
+    const watcher = chokidar.watch(cwd, {
+      ignored: ['node_modules'],
+      cwd,
+      ignorePermissionErrors: false,
+      depth: 99,
+    });
 
     // 不使用esbuild原本的watch能力
     const { watch: buildWatch, ...opts } = options;
@@ -32,9 +37,10 @@ export function runESBuild(
         };
 
         buildWatch
-          ? watch(cwd, { recursive: true }, (eventtType, triggerPath) => {
-              console.log('eventtType: ', eventtType);
-              console.log('triggerPath: ', triggerPath);
+          ? watcher.on('all', (eventName, path) => {
+              console.log('eventName: ', eventName);
+              console.log('path: ', path);
+
               buildResult
                 .rebuild()
                 .then((watchResult) => {
@@ -48,9 +54,6 @@ export function runESBuild(
                     buildFailure: watchFailure,
                     buildResult: null,
                   });
-                })
-                .finally(() => {
-                  console.log('ESBuild Re-Compilation Done');
                 });
             })
           : subscriber.complete();
