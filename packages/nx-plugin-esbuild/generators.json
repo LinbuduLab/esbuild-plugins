@@ -3,10 +3,15 @@
   "name": "nx-plugin-esbuild",
   "version": "0.0.1",
   "generators": {
-    "nx-plugin-esbuild": {
-      "factory": "./src/generators/nx-plugin-esbuild/generator",
-      "schema": "./src/generators/nx-plugin-esbuild/schema.json",
-      "description": "nx-plugin-esbuild generator"
+    "setup": {
+      "factory": "./src/generators/setup/generator",
+      "schema": "./src/generators/setup/schema.json",
+      "description": "setup generator"
+    },
+    "init": {
+      "factory": "./src/generators/init/generator",
+      "schema": "./src/generators/init/schema.json",
+      "description": "init generator"
     }
   }
 }

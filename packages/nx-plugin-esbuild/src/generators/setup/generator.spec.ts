@@ -2,11 +2,11 @@ import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
 import { Tree, readProjectConfiguration } from '@nrwl/devkit';
 
 import generator from './generator';
-import { NxPluginEsbuildGeneratorSchema } from './schema';
+import { SetupGeneratorSchema } from './schema';
 
-describe('nx-plugin-esbuild generator', () => {
+describe('setup generator', () => {
   let appTree: Tree;
-  const options: NxPluginEsbuildGeneratorSchema = { name: 'test' };
+  const options: SetupGeneratorSchema = { name: 'test' };
 
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace();
@@ -16,5 +16,5 @@ describe('nx-plugin-esbuild generator', () => {
     await generator(appTree, options);
     const config = readProjectConfiguration(appTree, 'test');
     expect(config).toBeDefined();
-  });
+  })
 });
