@@ -29,23 +29,29 @@ export function normalizeSchema(
   // FIXME: use outputPath / main / tsConfig / assets in existing build target option first
   // if there is no build target, then compose the path like below
 
+  const existBuildTargetOptions = targets['build'].options;
+
   // src/xxx.ts
   schema.entry = schema.entry
     ? joinPathFragments(root, schema.entry)
-    : joinPathFragments(sourceRoot, 'main.ts');
+    : existBuildTargetOptions?.main ?? joinPathFragments(sourceRoot, 'main.ts');
 
   schema.tsconfigPath = schema.tsconfigPath
     ? joinPathFragments(root, schema.tsconfigPath)
-    : joinPathFragments(root, 'tsconfig.app.json');
+    : existBuildTargetOptions?.tsConfig ??
+      joinPathFragments(root, 'tsconfig.app.json');
 
   schema.outputPath = schema.outputPath
     ? schema.outputPath
-    : joinPathFragments('dist', root);
+    : existBuildTargetOptions?.outputPath ?? joinPathFragments('dist', root);
+
+  const assets = existBuildTargetOptions?.assets ?? [];
 
   return {
     ...schema,
     projectRoot: root,
     projectSourceRoot: sourceRoot,
     buildTargetConfig: targets['build'],
+    assets,
   };
 }

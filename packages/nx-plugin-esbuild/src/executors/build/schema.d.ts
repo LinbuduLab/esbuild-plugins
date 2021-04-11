@@ -44,15 +44,8 @@ export interface ESBuildExecutorSchema {
 
   // assets should be copied
   fileReplacements: FileReplacement[];
-  assets?: any[];
+  // TODO: support AssetsItem[]
+  assets?: string[];
 
-  // ?
   externalDependencies: 'all' | 'none' | string[];
-}
-
-export interface BuildExecutorSchema {
-  entryPoint: string;
-  outDir: string;
-  tsConfig: string;
-  assets: string[];
 }

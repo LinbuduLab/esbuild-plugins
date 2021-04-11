@@ -34,6 +34,7 @@ export default async function (
         tsConfig: normalizedSchema.tsconfigPath,
         outputPath: normalizedSchema.outputPath,
         watch: normalizedSchema.watch,
+        assets: normalizedSchema.assets,
       },
       configurations: {
         ...(normalizedSchema.buildTargetConfig?.configurations ?? {}),

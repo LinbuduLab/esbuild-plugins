@@ -84,7 +84,13 @@ export function buildExecutor(
 
   // 已执行构建的次数？
   let buildCounter = 1;
-  const buildSubscriber = runESBuild(esbuildOptions, watchDir).pipe(
+  const buildSubscriber = runESBuild(
+    {
+      ...esbuildOptions,
+      assets: options.assets,
+    },
+    watchDir
+  ).pipe(
     map(({ buildResult, buildFailure }) => {
       let message = '';
       const timeString = dayjs().format('H:mm:ss A');

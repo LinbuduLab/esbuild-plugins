@@ -21,4 +21,5 @@ export interface NormalizedESBuildSetupGeneratorSchema
   projectRoot: string;
   projectSourceRoot: string;
   buildTargetConfig: TargetConfiguration;
+  assets: string[];
 }
