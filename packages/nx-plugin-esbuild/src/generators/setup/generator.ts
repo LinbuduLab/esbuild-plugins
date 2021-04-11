@@ -1,24 +1,15 @@
 import {
-  addProjectConfiguration,
   formatFiles,
-  generateFiles,
-  getWorkspaceLayout,
-  names,
-  offsetFromRoot,
   Tree,
-  updateJson,
+  installPackagesTask,
   addDependenciesToPackageJson,
-  joinPathFragments,
   updateProjectConfiguration,
   readProjectConfiguration,
 } from '@nrwl/devkit';
-import path from 'path';
 
-import {
-  ESBuildSetupGeneratorSchema,
-  NormalizedESBuildSetupGeneratorSchema,
-} from './schema';
-import { getAvailableAppsOrLibs } from '../../utils';
+import { NormalizedESBuildSetupGeneratorSchema } from './schema';
+import { normalizeSchema } from './lib/normalize-schema';
+import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
 
 export default async function (
   host: Tree,
@@ -27,10 +18,7 @@ export default async function (
   const normalizedSchema = normalizeSchema(host, schema);
   console.log('schema: ', normalizedSchema);
 
-  const projectConfig = readProjectConfiguration(
-    host,
-    normalizedSchema.appOrLib
-  );
+  const projectConfig = readProjectConfiguration(host, normalizedSchema.app);
 
   if (normalizedSchema.override) {
     projectConfig.targets['build'] = {
@@ -41,7 +29,7 @@ export default async function (
     projectConfig.targets['esbuild-build'] = {
       executor: 'nx-plugin-esbuild:build',
       options: {
-        ...normalizedSchema.buildTargetConfig.options,
+        ...(normalizedSchema.buildTargetConfig?.options ?? {}),
         main: normalizedSchema.entry,
         tsConfig: normalizedSchema.tsconfigPath,
         outputPath: normalizedSchema.outputPath,
@@ -53,66 +41,16 @@ export default async function (
     };
   }
 
-  updateProjectConfiguration(host, normalizedSchema.appOrLib, projectConfig);
+  updateProjectConfiguration(host, normalizedSchema.app, projectConfig);
 
   await formatFiles(host);
 
-  // console.log(projectConfig.targets['esbuild-build']);
-  // console.log(projectConfig.targets['build']);
-}
+  const deps = composeDepsList(normalizedSchema);
+  const devDeps = composeDevDepsList(normalizedSchema);
 
-export function normalizeSchema(
-  host: Tree,
-  schema: ESBuildSetupGeneratorSchema
-): NormalizedESBuildSetupGeneratorSchema {
-  const { apps, libs } = getAvailableAppsOrLibs(host);
+  addDependenciesToPackageJson(host, deps, devDeps);
 
-  const appNames = apps.map((app) => app.appName);
-  const libNames = libs.map((lib) => lib.libName);
-
-  if (
-    !appNames.includes(schema.appOrLib) &&
-    !libNames.includes(schema.appOrLib)
-  ) {
-    throw new Error(`App or Lib ${schema.appOrLib} dose not exist`);
-  }
-
-  const { projectType, root, sourceRoot, targets } = readProjectConfiguration(
-    host,
-    schema.appOrLib
-  );
-
-  // console.log(
-  //   'projectType, root, sourceRoot, targets: ',
-  //   projectType,
-  //   root,
-  //   sourceRoot,
-  //   targets
-  // );
-
-  // FIXME: use outputPath / main / tsConfig / assets in existing build target option first
-  // if there is no build target, then compose the path like below
-
-  const isApp = projectType === 'application';
-
-  // src/xxx.ts
-  schema.entry = schema.entry
-    ? joinPathFragments(root, schema.entry)
-    : joinPathFragments(sourceRoot, isApp ? 'main.ts' : 'index.ts');
-
-  schema.tsconfigPath = schema.tsconfigPath
-    ? joinPathFragments(root, schema.tsconfigPath)
-    : joinPathFragments(root, `tsconfig.${isApp ? 'app' : 'lib'}.json`);
-
-  schema.outputPath = schema.outputPath
-    ? schema.outputPath
-    : joinPathFragments('dist', root);
-
-  return {
-    ...schema,
-    projectRoot: root,
-    projectSourceRoot: sourceRoot,
-    isApp,
-    buildTargetConfig: targets['build'],
+  return () => {
+    installPackagesTask(host);
   };
 }

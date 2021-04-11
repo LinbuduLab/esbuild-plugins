@@ -15,3 +15,5 @@
     "description": "Override origin build/serve target, or specific prefix",
       "oneOf": [{ "type": "boolean" }, { "type": "string" }]
   - 检测文件是否存在、是否是文件、目录类型
+- build executor: 移除对lib支持
+- build executor: target exist

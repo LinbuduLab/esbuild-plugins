@@ -7,7 +7,7 @@ export interface SetupGeneratorSchema {
 }
 
 export interface ESBuildSetupGeneratorSchema {
-  appOrLib: string;
+  app: string;
   override: boolean;
   entry: string;
   watch: boolean;
@@ -20,6 +20,5 @@ export interface NormalizedESBuildSetupGeneratorSchema
   extends ESBuildSetupGeneratorSchema {
   projectRoot: string;
   projectSourceRoot: string;
-  isApp: boolean;
   buildTargetConfig: TargetConfiguration;
 }

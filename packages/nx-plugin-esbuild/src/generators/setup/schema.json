@@ -5,14 +5,14 @@
   "title": "Setup ESBuild targets for existing projects",
   "type": "object",
   "properties": {
-    "appOrLib": {
+    "app": {
       "type": "string",
       "description": "",
       "$default": {
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "Which App or Lib would you like to setup ESBuild?"
+      "x-prompt": "Which App would you like to setup ESBuild?"
     },
     "override": {
       "type": "boolean",
@@ -53,5 +53,5 @@
       "default": true
     }
   },
-  "required": ["appOrLib"]
+  "required": ["app"]
 }
