@@ -1,3 +1,5 @@
+import { TargetConfiguration } from '@nrwl/devkit';
+
 export interface SetupGeneratorSchema {
   name: string;
   tags?: string;
@@ -17,5 +19,7 @@ export interface ESBuildSetupGeneratorSchema {
 export interface NormalizedESBuildSetupGeneratorSchema
   extends ESBuildSetupGeneratorSchema {
   projectRoot: string;
+  projectSourceRoot: string;
   isApp: boolean;
+  buildTargetConfig: TargetConfiguration;
 }

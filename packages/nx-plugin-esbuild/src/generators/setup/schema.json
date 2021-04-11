@@ -33,17 +33,17 @@
       "x-prompt": "Enable Build Watching?",
       "default": false
     },
-    "tsConfigPath": {
+    "tsconfigPath": {
       "type": "string",
       "alias": "p",
-      "description": "Specify tsconfig path(absolute path like `apps/your-app/tsconfig.specific.json`)",
-      "x-prompt": "Specify tsconfig path(absolute path like `apps/your-app/tsconfig.specific.json`)"
+      "description": "Specify tsconfig path(tsconfig.specific.json >>> `apps/your-app/tsconfig.specific.json`)",
+      "x-prompt": "(will use build target tsConfig default)Specify tsconfig path(`tsconfig.specific.json` >>> `apps/your-app/tsconfig.specific.json`)"
     },
     "outputPath": {
       "type": "string",
       "alias": "o",
       "description": "Specify output path(absolute path like `specified-dist/apps/your-app`)",
-      "x-prompt": "Specify output path(absolute path like `specified-dist/apps/your-app`)"
+      "x-prompt": "(will use build target outputPath default)Specify output path(absolute path like `specified-dist/apps/your-app`)"
     },
     "useTSCPluginForDecorator": {
       "type": "boolean",
