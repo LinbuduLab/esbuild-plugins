@@ -1,9 +1,7 @@
-import { ESBuildExecutorSchema } from './schema';
+import type { ESBuildExecutorSchema } from './schema';
 import { ExecutorContext } from '@nrwl/devkit';
 
-import { pathExistsSync } from 'fs-extra';
-import { readJsonFile } from '@nrwl/workspace';
-import { BuildOptions, InitializeOptions } from 'esbuild';
+import type { BuildOptions } from 'esbuild';
 import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
 import { gray, green, red, yellow } from 'chalk';
 import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
@@ -19,56 +17,57 @@ import { runTSC } from './lib/tsc-runner';
 import { normalizeBuildExecutorOptions } from './lib/normalize-option';
 import { bufferUntil } from './lib/buffer-until';
 
-export function buildExecutor(
+export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
-
   context: ExecutorContext
 ): AsyncIterableIterator<{ success: boolean }> {
-  const { sourceRoot, root } = context.workspace.projects[context.projectName];
+  const {
+    sourceRoot: projectSourceRoot,
+    root: projectRoot,
+  } = context.workspace.projects[context.projectName];
 
-  if (!sourceRoot) {
+  if (!projectSourceRoot) {
     throw new Error(`${context.projectName} does not have a sourceRoot.`);
   }
 
-  if (!root) {
+  if (!projectRoot) {
     throw new Error(`${context.projectName} does not have a root.`);
   }
 
+  // TODO: extend configurations from project/nx-esbuild.json
   // esbuild json 配置
-  const esBuildExists = pathExistsSync(`${root}/esbuild.json`);
-
-  const esbuildConfig = esBuildExists
-    ? readJsonFile<Partial<InitializeOptions>>(`${root}/esbuild.json`)
-    : {};
 
   const options = normalizeBuildExecutorOptions(
     rawOptions,
-    esbuildConfig,
     context.root,
-    sourceRoot,
-    root
+    context.projectName,
+    projectSourceRoot,
+    projectRoot
   );
+
+  console.log('options: ', options);
 
   // dist/apps/app1
   const outdir = `${options.outputPath}`;
 
+  // TODO: specify watch dir
   // apps/app1/src
-  const watchDir = `${options.root}/${options.sourceRoot}`;
+  const watchDir = `${options.workspaceRoot}/${options.sourceRoot}`;
 
   // esbuild 构建配置
-  const esbuildOptions: BuildOptions = {
+  const esbuildRunnerOptions: BuildOptions = {
     logLevel: 'silent',
     platform: 'node',
-    bundle: options.bundle || true,
+    bundle: options.bundle,
     sourcemap: 'external',
     charset: 'utf8',
     color: true,
     conditions: options.watch ? ['development'] : ['production'],
-    watch: options.watch || false,
-    absWorkingDir: options.root,
+    watch: options.watch,
+    absWorkingDir: options.workspaceRoot,
     plugins: [
       esbuildDecoratorPlugin({
-        cwd: options.root,
+        cwd: options.workspaceRoot,
       }),
       esbuildPluginNodeExternals({
         packagePaths: options.packageJson ?? undefined,
@@ -77,10 +76,7 @@ export function buildExecutor(
     tsconfig: options.tsConfig,
     entryPoints: [options.main],
     outdir,
-    banner: options.esbuild.banner,
-    footer: options.esbuild.footer,
-    ...esbuildConfig,
-
+    ...options.esbuild,
     external: [],
     incremental: options.watch || false,
   };
@@ -89,7 +85,7 @@ export function buildExecutor(
   let buildCounter = 1;
   const buildSubscriber = runESBuild(
     {
-      ...esbuildOptions,
+      ...esbuildRunnerOptions,
       assets: options.assets,
     },
     watchDir
@@ -142,8 +138,8 @@ export function buildExecutor(
   const tscBufferTrigger = new Subject<boolean>();
   const tscSubscriber = runTSC({
     tsconfigPath: options.tsConfig,
-    watch: options.watch || !!esbuildOptions.watch,
-    root: options.root,
+    watch: options.watch || !!esbuildRunnerOptions.watch,
+    root: options.workspaceRoot,
   }).pipe(
     tap(({ info, error, end }) => {
       // console.log('{ info, error, end }: ', { info, error, end });
@@ -201,5 +197,3 @@ export function buildExecutor(
     )
   );
 }
-
-export default buildExecutor;

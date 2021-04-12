@@ -1,5 +1,9 @@
-import { basename, resolve, join } from 'path';
-import {
+import path from 'path';
+import fs from 'fs-extra';
+import { ExecutorContext, getWorkspaceLayout } from '@nrwl/devkit';
+
+import { readJsonFile } from '@nrwl/workspace';
+import type {
   AssetsItem,
   ESBuildExecutorSchema,
   FileReplacement,
@@ -7,44 +11,89 @@ import {
   NormalizedESBuildExecutorSchema,
   FormattedInsert,
   Insert,
+  MetaConfig,
 } from '../schema';
-
-import type { InitializeOptions } from 'esbuild';
+import type { BuildOptions } from 'esbuild';
 import glob from 'glob';
 
-// normalizeBuildExecutorOptions
 export function normalizeBuildExecutorOptions(
-  // partial or generic types
   options: ESBuildExecutorSchema,
-  esbuildOptions: InitializeOptions,
-  root: string,
+  workspaceRoot: string,
+  projectName: string,
   sourceRoot: string,
   projectRoot: string
 ): NormalizedESBuildExecutorSchema {
   const { banner, footer } = normalizeInserts(options.insert);
+  const { main, outputPath, tsConfig } = normalizeMetaConfig(
+    options.main,
+    options.outputPath,
+    options.tsConfig,
+    projectName
+  );
 
-  // D:/PROJECT
-  // apps/app1/src
-  // apps/app1
+  const esbuildExtendConfig = normalizeESBuildExtendConfig(
+    `${workspaceRoot}/nx-esbuild.json`,
+    workspaceRoot
+  );
+
   return {
     ...options,
-    root,
+    // D:/PROJECT
+    workspaceRoot,
+    // apps/app1/src
     sourceRoot,
+    // apps/app1
     projectRoot,
-    main: resolve(root, options.main),
-    outputPath: resolve(root, options.outputPath),
-    tsConfig: resolve(root, options.tsConfig),
+    // D:/PROJECT/apps/app1/src/main.ts
+    main: path.resolve(workspaceRoot, main),
+    // D:/PROJECT/dist/app1
+    outputPath: path.resolve(workspaceRoot, outputPath),
+    // D:/PROJECT/apps/app1/tsconfig.app.json
+    tsConfig: path.resolve(workspaceRoot, tsConfig),
+    fileReplacements: normalizeFileReplacements(
+      workspaceRoot,
+      options.fileReplacements
+    ),
+    assets: normalizeAssets(options.assets, workspaceRoot, options.outputPath),
     esbuild: {
-      bundle: options.bundle,
-      watch: options.watch,
+      bundle: options.bundle ?? true,
+      watch: options.watch ?? false,
       ...options.esbuild,
-      ...esbuildOptions,
+      ...esbuildExtendConfig,
+      // TODO: should br merged
       banner,
       footer,
     },
-    fileReplacements: normalizeFileReplacements(root, options.fileReplacements),
-    assets: normalizeAssets(options.assets, root, options.outputPath),
   };
+}
+
+// FIXME: executor cannot get workspace layout, so 'apps' will be used only.
+export function normalizeMetaConfig(
+  main: string,
+  outputPath: string,
+  tsConfig: string,
+  projectName: string
+): MetaConfig {
+  // TODO: log param missing cases and tips
+  return {
+    main: main ?? `apps/${projectName}/src/main.ts`,
+    outputPath: outputPath ?? `dist/apps/${projectName}`,
+    tsConfig: tsConfig ?? `apps/${projectName}/tsconfig.app.json`,
+  };
+}
+
+export function normalizeESBuildExtendConfig(
+  configPath: string,
+  root: string,
+  allowExtend = true
+): Partial<BuildOptions> {
+  const esBuildExtendConfigFileExists = fs.pathExistsSync(configPath);
+
+  return allowExtend
+    ? esBuildExtendConfigFileExists
+      ? readJsonFile<Partial<BuildOptions>>(configPath)
+      : {}
+    : {};
 }
 
 export function normalizeInserts(
@@ -52,19 +101,19 @@ export function normalizeInserts(
 ): FormattedInsert {
   const formattedInserts: FormattedInsert = { footer: {}, banner: {} };
 
-  // TODO: check content starts with "//"
-
   inserts
     .filter(
       (insert) =>
         typeof insert === 'string' || typeof insert.content === 'string'
     )
     .forEach((insert) => {
+      const content = typeof insert === 'string' ? insert : insert.content;
+
       typeof insert === 'string'
-        ? (formattedInserts['banner']['js'] = insert)
+        ? (formattedInserts['banner']['js'] = content)
         : (formattedInserts[insert.banner ? 'banner' : 'footer'][
-            insert.isJSFile ? 'js' : 'css'
-          ] = insert.content);
+            insert.applyToJSFile ? 'js' : 'css'
+          ] = content);
     });
 
   return formattedInserts;
@@ -93,16 +142,16 @@ function normalizeAssets(
     if (typeof asset === 'string') {
       globFile(asset, root).forEach((globbedFile) => {
         files.push({
-          input: join(root, globbedFile),
-          output: join(root, outDir, basename(globbedFile)),
+          input: path.join(root, globbedFile),
+          output: path.join(root, outDir, path.basename(globbedFile)),
         });
       });
     } else {
-      globFile(asset.glob, join(root, asset.input), asset.ignore).forEach(
+      globFile(asset.glob, path.join(root, asset.input), asset.ignore).forEach(
         (globbedFile) => {
           files.push({
-            input: join(root, asset.input, globbedFile),
-            output: join(root, outDir, asset.output, globbedFile),
+            input: path.join(root, asset.input, globbedFile),
+            output: path.join(root, outDir, asset.output, globbedFile),
           });
         }
       );
@@ -113,8 +162,8 @@ function normalizeAssets(
 
   // return assets.map((asset) => {
   //   if (typeof asset === 'string') {
-  //     const resolvedAssetPath = resolve(root, asset);
-  //     const resolvedSourceRoot = resolve(root, sourceRoot);
+  //     const resolvedAssetPath = path.resolve(root, asset);
+  //     const resolvedSourceRoot = path.resolve(root, sourceRoot);
 
   //     if (!resolvedAssetPath.startsWith(resolvedSourceRoot)) {
   //       throw new Error(
@@ -126,7 +175,7 @@ function normalizeAssets(
   //     const input = isDirectory
   //       ? resolvedAssetPath
   //       : dirname(resolvedAssetPath);
-  //     const output = relative(resolvedSourceRoot, resolve(root, input));
+  //     const output = relative(resolvedSourceRoot, path.resolve(root, input));
   //     const glob = isDirectory ? '**/*' : basename(resolvedAssetPath);
   //     return {
   //       input,
@@ -140,7 +189,7 @@ function normalizeAssets(
   //       );
   //     }
 
-  //     const resolvedAssetPath = resolve(root, asset.input);
+  //     const resolvedAssetPath = path.resolve(root, asset.input);
   //     return {
   //       ...asset,
   //       input: resolvedAssetPath,
@@ -157,8 +206,8 @@ function normalizeFileReplacements(
 ): FileReplacement[] {
   return fileReplacements
     ? fileReplacements.map((fileReplacement) => ({
-        replace: resolve(root, fileReplacement.replace),
-        with: resolve(root, fileReplacement.with),
+        replace: path.resolve(root, fileReplacement.replace),
+        with: path.resolve(root, fileReplacement.with),
       }))
     : [];
 }

@@ -1,4 +1,5 @@
 import { NormalizedOptions } from './normalize-options';
+// TODO: use readJsonFile from @nrwl/workspace
 import jsonfile from 'jsonfile';
 
 export const collectDepsToExclude = (options: NormalizedOptions): string[] => {

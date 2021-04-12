@@ -17,15 +17,15 @@ export function runESBuild(
   watchDir?: string
 ): Observable<RunBuildResponse> {
   return new Observable<RunBuildResponse>((subscriber) => {
-    const cwd = watchDir || options.absWorkingDir || process.cwd();
+    // const cwd = watchDir || options.absWorkingDir || process.cwd();
 
     const assetsDirs = options.assets;
 
     const watcher = chokidar.watch(
-      [cwd, ...assetsDirs.map((dir) => dir.input)],
+      [watchDir, ...assetsDirs.map((dir) => dir.input)],
       {
         ignored: ['node_modules'],
-        cwd,
+        cwd: watchDir,
         ignorePermissionErrors: false,
         depth: 99,
       }
@@ -34,6 +34,7 @@ export function runESBuild(
     copyAssetFiles(assetsDirs);
 
     // 不使用esbuild原本的watch能力
+    // donot send extra params then build API need.
     const { watch: buildWatch, assets, ...opts } = options;
 
     build(opts)
