@@ -9,10 +9,10 @@ export const esbuildPluginNodeExternals = (
   setup(build) {
     const normalizedOptions = normalizeOptions(options);
     const depsToExclude = collectDepsToExclude(normalizedOptions);
-    console.log(
-      '[esbuild-plugin-node-externals] depsToExclude: ',
-      depsToExclude
-    );
+    // console.log(
+    //   '[esbuild-plugin-node-externals] depsToExclude: ',
+    //   depsToExclude
+    // );
 
     build.onResolve({ namespace: 'file', filter: /.*/ }, ({ path }) => {
       const [mainModuleOrScope, subModuleOrMainModule] = path.split('/');

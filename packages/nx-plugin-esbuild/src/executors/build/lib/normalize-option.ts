@@ -1,8 +1,14 @@
-import { basename, dirname, relative, resolve } from 'path';
-import { ESBuildExecutorSchema, FileReplacement } from '../schema';
+import { basename, dirname, relative, resolve, join } from 'path';
+import {
+  AssetsItem,
+  ESBuildExecutorSchema,
+  FileReplacement,
+  FileInputOutput,
+} from '../schema';
 
 import type { InitializeOptions } from 'esbuild';
 import { statSync } from 'fs';
+import glob from 'glob';
 
 // normalizeBuildExecutorOptions
 export function normalizeBuildExecutorOptions(
@@ -31,57 +37,89 @@ export function normalizeBuildExecutorOptions(
       ...esbuildOptions,
     },
     fileReplacements: normalizeFileReplacements(root, options.fileReplacements),
-    // assets: normalizeAssets(options.assets, root, sourceRoot),
-    assets: options.assets,
+    assets: normalizeAssets(options.assets, root, options.outputPath),
   };
 }
 
+export function globFile(
+  pattern: string,
+  input = '',
+  ignore: string[] = []
+): string[] {
+  return glob.sync(pattern, { cwd: input, ignore });
+}
+
 function normalizeAssets(
-  assets: any[],
+  assets: string[] | AssetsItem[],
   root: string,
-  sourceRoot: string
-): any[] {
+  outDir: string
+): FileInputOutput[] {
+  const files: FileInputOutput[] = [];
+
   if (!Array.isArray(assets)) {
     return [];
   }
-  return assets.map((asset) => {
+
+  assets.forEach((asset: string | AssetsItem) => {
     if (typeof asset === 'string') {
-      const resolvedAssetPath = resolve(root, asset);
-      const resolvedSourceRoot = resolve(root, sourceRoot);
-
-      if (!resolvedAssetPath.startsWith(resolvedSourceRoot)) {
-        throw new Error(
-          `The ${resolvedAssetPath} asset path must start with the project source root: ${sourceRoot}`
-        );
-      }
-
-      const isDirectory = statSync(resolvedAssetPath).isDirectory();
-      const input = isDirectory
-        ? resolvedAssetPath
-        : dirname(resolvedAssetPath);
-      const output = relative(resolvedSourceRoot, resolve(root, input));
-      const glob = isDirectory ? '**/*' : basename(resolvedAssetPath);
-      return {
-        input,
-        output,
-        glob,
-      };
+      globFile(asset, root).forEach((globbedFile) => {
+        files.push({
+          input: join(root, globbedFile),
+          output: join(root, outDir, basename(globbedFile)),
+        });
+      });
     } else {
-      if (asset.output.startsWith('..')) {
-        throw new Error(
-          'An asset cannot be written to a location outside of the output path.'
-        );
-      }
-
-      const resolvedAssetPath = resolve(root, asset.input);
-      return {
-        ...asset,
-        input: resolvedAssetPath,
-        // Now we remove starting slash to make Webpack place it from the output root.
-        output: asset.output.replace(/^\//, ''),
-      };
+      globFile(asset.glob, join(root, asset.input), asset.ignore).forEach(
+        (globbedFile) => {
+          files.push({
+            input: join(root, asset.input, globbedFile),
+            output: join(root, outDir, asset.output, globbedFile),
+          });
+        }
+      );
     }
   });
+
+  return files;
+
+  // return assets.map((asset) => {
+  //   if (typeof asset === 'string') {
+  //     const resolvedAssetPath = resolve(root, asset);
+  //     const resolvedSourceRoot = resolve(root, sourceRoot);
+
+  //     if (!resolvedAssetPath.startsWith(resolvedSourceRoot)) {
+  //       throw new Error(
+  //         `The ${resolvedAssetPath} asset path must start with the project source root: ${sourceRoot}`
+  //       );
+  //     }
+
+  //     const isDirectory = statSync(resolvedAssetPath).isDirectory();
+  //     const input = isDirectory
+  //       ? resolvedAssetPath
+  //       : dirname(resolvedAssetPath);
+  //     const output = relative(resolvedSourceRoot, resolve(root, input));
+  //     const glob = isDirectory ? '**/*' : basename(resolvedAssetPath);
+  //     return {
+  //       input,
+  //       output,
+  //       glob,
+  //     };
+  //   } else {
+  //     if (asset.output.startsWith('..')) {
+  //       throw new Error(
+  //         'An asset cannot be written to a location outside of the output path.'
+  //       );
+  //     }
+
+  //     const resolvedAssetPath = resolve(root, asset.input);
+  //     return {
+  //       ...asset,
+  //       input: resolvedAssetPath,
+  //       // Now we remove starting slash to make Webpack place it from the output root.
+  //       output: asset.output.replace(/^\//, ''),
+  //     };
+  //   }
+  // });
 }
 
 function normalizeFileReplacements(

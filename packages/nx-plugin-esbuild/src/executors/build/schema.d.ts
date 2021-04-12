@@ -6,10 +6,16 @@ export interface FileReplacement {
   with: string;
 }
 
+export type FileInputOutput = {
+  input: string;
+  output: string;
+};
+
 export interface AssetsItem {
   input: string;
   glob: string;
   output: string;
+  ignore: string[];
 }
 
 export interface ESBuildExecutorSchema {
@@ -45,7 +51,7 @@ export interface ESBuildExecutorSchema {
   // assets should be copied
   fileReplacements: FileReplacement[];
   // TODO: support AssetsItem[]
-  assets?: string[];
+  assets?: string[] | AssetsItem[];
 
   externalDependencies: 'all' | 'none' | string[];
 }

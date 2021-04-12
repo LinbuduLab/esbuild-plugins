@@ -29,6 +29,7 @@ devDependencies:
   eslint-config-prettier: 8.1.0_eslint@7.10.0
   find-up: 5.0.0
   fs-extra: 9.1.0
+  glob: 7.1.6
   jest: 26.2.2_ts-node@9.1.1
   jsonfile: 6.1.0
   node-watch: 0.7.1
@@ -4064,7 +4065,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
-      tarball: fs.realpath/download/fs.realpath-1.0.0.tgz
   /fsevents/1.2.13:
     dependencies:
       bindings: 1.5.0
@@ -4197,8 +4197,7 @@ packages:
       path-is-absolute: 1.0.1
     dev: true
     resolution:
-      integrity: sha1-FB8zuBp8JJLhJVlDB0gMRmeSeKY=
-      tarball: glob/download/glob-7.1.6.tgz
+      integrity: sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==
   /globals/11.12.0:
     dev: true
     engines:
@@ -4606,7 +4605,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-Sb1jMdfQLQwJvJEKEHW6gWW1bfk=
-      tarball: inflight/download/inflight-1.0.6.tgz
   /inherits/2.0.1:
     dev: true
     resolution:
@@ -4620,8 +4618,7 @@ packages:
   /inherits/2.0.4:
     dev: true
     resolution:
-      integrity: sha1-D6LGT5MpF8NDOg3tVTY6rjdBa3w=
-      tarball: inherits/download/inherits-2.0.4.tgz
+      integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
   /inquirer/6.5.2:
     dependencies:
       ansi-escapes: 3.2.0
@@ -6617,7 +6614,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
-      tarball: once/download/once-1.4.0.tgz
   /onetime/2.0.1:
     dependencies:
       mimic-fn: 1.2.0
@@ -6902,7 +6898,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-F0uSaHNVNP+8es5r9TpanhtcX18=
-      tarball: path-is-absolute/download/path-is-absolute-1.0.1.tgz
   /path-is-inside/1.0.2:
     dev: true
     resolution:
@@ -9427,7 +9422,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
-      tarball: wrappy/download/wrappy-1.0.2.tgz
   /write-file-atomic/3.0.3:
     dependencies:
       imurmurhash: 0.1.4
@@ -9610,6 +9604,7 @@ specifiers:
   eslint-config-prettier: 8.1.0
   find-up: ^5.0.0
   fs-extra: ^9.1.0
+  glob: ^7.1.6
   jest: 26.2.2
   jsonfile: ^6.1.0
   node-watch: ^0.7.1

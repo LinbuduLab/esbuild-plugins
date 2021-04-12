@@ -4,51 +4,17 @@ import { build } from 'esbuild';
 import chokidar from 'chokidar';
 import path from 'path';
 import fs from 'fs-extra';
+import { FileInputOutput } from '../schema';
+import copyAssetFiles from './copy-assets';
 
 interface RunBuildResponse {
   buildResult: BuildResult | null;
   buildFailure: BuildFailure | null;
 }
 
-// apps/app1/src/my-assets -> dist/apps/app1/my-assets
-// apps/app1/my-assets -> dist/apps/app1/my-assets
-// apps/app1/my-assets/my-special-assets -> dist/apps/my-assets/my-special-assets
-// FIXME: app-dir support
-// FIXME: dir expect 'src'
-
-// ['apps/app1/src/my-assets'], dist/apps/app1
-function copyAssets(srcs: string[], destParent: string): void {
-  console.log('destParent: ', destParent);
-  console.log('srcs: ', srcs);
-  if (!srcs.length) return;
-  const appName = srcs[0].split('/')[1];
-  console.log('appName: ', appName);
-
-  // TODO:
-  // dir -> traverse
-  // file -> copy
-  // inexist -> cancel
-
-  srcs.forEach(async (src) => {
-    // "/src/my-assets"
-    const [, assetPathFromSrouce] = src.split(appName);
-    console.log('assetPathFromSrouce: ', assetPathFromSrouce);
-    // "/my-assets"
-    const [, assetPath] = assetPathFromSrouce.split('src');
-    console.log('assetPath: ', assetPath);
-
-    console.log(await fs.stat(assetPath));
-
-    // const destPath = path.join(destParent, `.${assetPath}`);
-    // console.log(src, destPath);
-
-    // fs.copyFileSync(src, destPath);
-  });
-}
-
 export function runESBuild(
   options: BuildOptions & {
-    assets: string[];
+    assets: FileInputOutput[];
   },
   watchDir?: string
 ): Observable<RunBuildResponse> {
@@ -57,14 +23,20 @@ export function runESBuild(
 
     const assetsDirs = options.assets;
 
-    const watcher = chokidar.watch([cwd, ...assetsDirs], {
-      ignored: ['node_modules'],
-      cwd,
-      ignorePermissionErrors: false,
-      depth: 99,
-    });
+    const watcher = chokidar.watch(
+      [cwd, ...assetsDirs.map((dir) => dir.input)],
+      {
+        ignored: ['node_modules'],
+        cwd,
+        ignorePermissionErrors: false,
+        depth: 99,
+      }
+    );
+
+    copyAssetFiles(assetsDirs);
 
     // 不使用esbuild原本的watch能力
+    // FIXME: 这种方式不会监听新增的asset
     const { watch: buildWatch, assets, ...opts } = options;
 
     build(opts)
@@ -77,8 +49,6 @@ export function runESBuild(
             buildWatch.onRebuild(buildFailure, buildResult);
           }
         };
-
-        copyAssets(assets, opts.outdir);
 
         buildWatch
           ? watcher.on('all', (eventName, path) => {
