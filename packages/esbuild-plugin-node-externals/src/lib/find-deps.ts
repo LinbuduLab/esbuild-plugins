@@ -1,4 +1,4 @@
-import { NormalizedOptions } from './parse-option';
+import { NormalizedOptions } from './normalize-options';
 import jsonfile from 'jsonfile';
 
 export const collectDepsToExclude = (options: NormalizedOptions): string[] => {

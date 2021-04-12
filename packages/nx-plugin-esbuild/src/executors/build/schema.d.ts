@@ -1,4 +1,4 @@
-import type { InitializeOptions } from 'esbuild';
+import type { InitializeOptions, BuildOptions } from 'esbuild';
 // import { FileReplacement } from '../../utils/normalize-options';
 
 export interface FileReplacement {
@@ -18,9 +18,28 @@ export interface AssetsItem {
   ignore: string[];
 }
 
+export interface Insert {
+  // true
+  banner?: boolean;
+  // true
+  isJSFile?: boolean;
+  content: string;
+}
+
+export type InsertFileType = 'js' | 'css';
+
+export interface FormattedInsert {
+  banner: {
+    [key: InsertFileType]: string;
+  };
+  footer: {
+    [key: InsertFileType]: string;
+  };
+}
+
 export interface ESBuildExecutorSchema {
   // options provide for ESBuild
-  esbuild?: Partial<InitializeOptions>;
+  esbuild?: Partial<BuildOptions>;
   // forceTSC on project globally where decorators are detected?
   decoratorOptions?: Partial<any>;
   //
@@ -36,7 +55,10 @@ export interface ESBuildExecutorSchema {
   tsConfig: string;
   // watch option is avaliable for serve/build
   watch?: boolean;
+  // insert
+  insert?: Insert[] | string[];
   // use esbuild bundle mode?
+
   bundle?: boolean;
   // Webpack is for typechecking
   webpackConfig?: string;
@@ -50,8 +72,15 @@ export interface ESBuildExecutorSchema {
 
   // assets should be copied
   fileReplacements: FileReplacement[];
-  // TODO: support AssetsItem[]
   assets?: string[] | AssetsItem[];
 
   externalDependencies: 'all' | 'none' | string[];
+}
+
+export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
+  esbuild: Partial<BuildOptions>;
+  root: string;
+  sourceRoot: string;
+  projectRoot: string;
+  assets: FileInputOutput[];
 }

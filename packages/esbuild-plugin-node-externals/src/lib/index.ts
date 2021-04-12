@@ -1,6 +1,8 @@
 import type { Plugin } from 'esbuild';
+import type { Options } from './normalize-options';
+
+import { normalizeOptions } from './normalize-options';
 import { collectDepsToExclude } from './find-deps';
-import { normalizeOptions, Options } from './parse-option';
 
 export const esbuildPluginNodeExternals = (
   options: Partial<Options> = {}
@@ -9,12 +11,11 @@ export const esbuildPluginNodeExternals = (
   setup(build) {
     const normalizedOptions = normalizeOptions(options);
     const depsToExclude = collectDepsToExclude(normalizedOptions);
-    // console.log(
-    //   '[esbuild-plugin-node-externals] depsToExclude: ',
-    //   depsToExclude
-    // );
 
     build.onResolve({ namespace: 'file', filter: /.*/ }, ({ path }) => {
+      // @penumbra/xxx
+
+      // penumbra/xxx
       const [mainModuleOrScope, subModuleOrMainModule] = path.split('/');
 
       let moduleName = mainModuleOrScope;
@@ -24,7 +25,7 @@ export const esbuildPluginNodeExternals = (
       }
 
       if (depsToExclude.includes(moduleName)) {
-        return { path: path, external: true };
+        return { path, external: true };
       }
 
       return null;

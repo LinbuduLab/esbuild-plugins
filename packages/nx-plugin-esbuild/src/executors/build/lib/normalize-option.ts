@@ -1,13 +1,15 @@
-import { basename, dirname, relative, resolve, join } from 'path';
+import { basename, resolve, join } from 'path';
 import {
   AssetsItem,
   ESBuildExecutorSchema,
   FileReplacement,
   FileInputOutput,
+  NormalizedESBuildExecutorSchema,
+  FormattedInsert,
+  Insert,
 } from '../schema';
 
 import type { InitializeOptions } from 'esbuild';
-import { statSync } from 'fs';
 import glob from 'glob';
 
 // normalizeBuildExecutorOptions
@@ -18,7 +20,9 @@ export function normalizeBuildExecutorOptions(
   root: string,
   sourceRoot: string,
   projectRoot: string
-) {
+): NormalizedESBuildExecutorSchema {
+  const { banner, footer } = normalizeInserts(options.insert);
+
   // D:/PROJECT
   // apps/app1/src
   // apps/app1
@@ -35,10 +39,35 @@ export function normalizeBuildExecutorOptions(
       watch: options.watch,
       ...options.esbuild,
       ...esbuildOptions,
+      banner,
+      footer,
     },
     fileReplacements: normalizeFileReplacements(root, options.fileReplacements),
     assets: normalizeAssets(options.assets, root, options.outputPath),
   };
+}
+
+export function normalizeInserts(
+  inserts: Array<Insert | string>
+): FormattedInsert {
+  const formattedInserts: FormattedInsert = { footer: {}, banner: {} };
+
+  // TODO: check content starts with "//"
+
+  inserts
+    .filter(
+      (insert) =>
+        typeof insert === 'string' || typeof insert.content === 'string'
+    )
+    .forEach((insert) => {
+      typeof insert === 'string'
+        ? (formattedInserts['banner']['js'] = insert)
+        : (formattedInserts[insert.banner ? 'banner' : 'footer'][
+            insert.isJSFile ? 'js' : 'css'
+          ] = insert.content);
+    });
+
+  return formattedInserts;
 }
 
 export function globFile(

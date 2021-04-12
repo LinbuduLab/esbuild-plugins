@@ -2,8 +2,6 @@ import type { BuildResult, BuildFailure, BuildOptions } from 'esbuild';
 import { Observable } from 'rxjs';
 import { build } from 'esbuild';
 import chokidar from 'chokidar';
-import path from 'path';
-import fs from 'fs-extra';
 import { FileInputOutput } from '../schema';
 import copyAssetFiles from './copy-assets';
 
@@ -36,7 +34,6 @@ export function runESBuild(
     copyAssetFiles(assetsDirs);
 
     // 不使用esbuild原本的watch能力
-    // FIXME: 这种方式不会监听新增的asset
     const { watch: buildWatch, assets, ...opts } = options;
 
     build(opts)

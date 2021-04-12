@@ -77,7 +77,10 @@ export function buildExecutor(
     tsconfig: options.tsConfig,
     entryPoints: [options.main],
     outdir,
+    banner: options.esbuild.banner,
+    footer: options.esbuild.footer,
     ...esbuildConfig,
+
     external: [],
     incremental: options.watch || false,
   };
