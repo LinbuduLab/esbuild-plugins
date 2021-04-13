@@ -1,12 +1,13 @@
 import type { ESBuildExecutorSchema } from './schema';
 import { ExecutorContext } from '@nrwl/devkit';
 import path from 'path';
+import { gray, green, red, yellow } from 'chalk';
 
 import type { BuildOptions } from 'esbuild';
 import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
-import { gray, green, red, yellow } from 'chalk';
 import { esbuildNodeExternalsPlugin } from 'esbuild-plugin-node-externals';
 import { esbuildHashPlugin } from 'esbuild-plugin-hash';
+import { esbuildFileSizePlugin } from 'esbuild-plugin-filesize';
 
 import { Subject, zip } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -74,6 +75,7 @@ export default function buildExecutor(
         dest: path.join(options.outputPath, 'main.[hash:8].js'),
         retainOrigin: false,
       }),
+      esbuildFileSizePlugin(),
     ],
     tsconfig: options.tsConfig,
     entryPoints: [options.main],

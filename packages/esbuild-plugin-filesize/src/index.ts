@@ -1,1 +1,1 @@
-export * from './lib/esbuild-plugin-filesize';
+export { esbuildFileSizePlugin } from './lib/index';
