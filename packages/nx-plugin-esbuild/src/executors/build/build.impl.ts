@@ -1,10 +1,12 @@
 import type { ESBuildExecutorSchema } from './schema';
 import { ExecutorContext } from '@nrwl/devkit';
+import path from 'path';
 
 import type { BuildOptions } from 'esbuild';
 import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
 import { gray, green, red, yellow } from 'chalk';
-import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
+import { esbuildNodeExternalsPlugin } from 'esbuild-plugin-node-externals';
+import { esbuildHashPlugin } from 'esbuild-plugin-hash';
 
 import { Subject, zip } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -65,8 +67,12 @@ export default function buildExecutor(
         cwd: options.workspaceRoot,
         tsconfigPath: options.tsConfig,
       }),
-      esbuildPluginNodeExternals({
+      esbuildNodeExternalsPlugin({
         packagePaths: options.packageJson ?? undefined,
+      }),
+      esbuildHashPlugin({
+        dest: path.join(options.outputPath, 'main.[hash:8].js'),
+        retainOrigin: false,
       }),
     ],
     tsconfig: options.tsConfig,

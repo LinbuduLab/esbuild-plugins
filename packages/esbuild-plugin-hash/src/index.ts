@@ -1,1 +1,1 @@
-export * from './lib/esbuild-plugin-hash';
+export { esbuildHashPlugin } from './lib/index';

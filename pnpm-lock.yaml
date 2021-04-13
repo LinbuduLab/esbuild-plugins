@@ -35,6 +35,7 @@ devDependencies:
   find-up: 5.0.0
   fs-extra: 9.1.0
   glob: 7.1.6
+  hasha: 5.2.2
   husky: 6.0.0
   jest: 26.2.2_ts-node@9.1.1
   jsonfile: 6.1.0
@@ -4876,6 +4877,15 @@ packages:
     resolution:
       integrity: sha1-C6vKU46NTuSg+JiNaIZlN6ADz0I=
       tarball: hash.js/download/hash.js-1.1.7.tgz
+  /hasha/5.2.2:
+    dependencies:
+      is-stream: 2.0.0
+      type-fest: 0.8.1
+    dev: true
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-Hrp5vIK/xr5SkeN2onO32H0MgNZ0f17HRNH39WfL0SYUNOTZ5Lz1TJ8Pajo/87dYGEFlLMm7mIc/k/s6Bvz9HQ==
   /hmac-drbg/1.0.1:
     dependencies:
       hash.js: 1.1.7
@@ -9617,8 +9627,7 @@ packages:
     engines:
       node: '>=8'
     resolution:
-      integrity: sha1-CeJJ696FHTseSNJ8EFREZn8XuD0=
-      tarball: type-fest/download/type-fest-0.8.1.tgz
+      integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
   /type-is/1.6.18:
     dependencies:
       media-typer: 0.3.0
@@ -10400,6 +10409,7 @@ specifiers:
   find-up: ^5.0.0
   fs-extra: ^9.1.0
   glob: ^7.1.6
+  hasha: ^5.2.2
   husky: ^6.0.0
   jest: 26.2.2
   jsonfile: ^6.1.0

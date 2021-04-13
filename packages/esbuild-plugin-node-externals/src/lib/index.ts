@@ -4,7 +4,7 @@ import type { Options } from './normalize-options';
 import { normalizeOptions } from './normalize-options';
 import { collectDepsToExclude } from './find-deps';
 
-export const esbuildPluginNodeExternals = (
+export const esbuildNodeExternalsPlugin = (
   options: Partial<Options> = {}
 ): Plugin => ({
   name: 'node-externals',
