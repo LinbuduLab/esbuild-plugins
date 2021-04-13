@@ -1,5 +1,6 @@
 import path from 'path';
 import {
+  ParsedCommandLine,
   findConfigFile,
   sys,
   parseConfigFileTextToJson,
@@ -7,11 +8,13 @@ import {
 } from 'typescript';
 import { printDiagnostics } from './log';
 
-export function parseTsConfig(tsconfigPath: string, cwd: string) {
+export function parseTsConfig(
+  tsconfigPath: string,
+  cwd: string
+): ParsedCommandLine {
   // path >>> name
   const fileName = findConfigFile(cwd, sys.fileExists, tsconfigPath);
 
-  // if the value was provided, but no file, fail hard
   if (tsconfigPath !== undefined && !fileName)
     throw new Error(`Failed to open '${fileName}'`);
 

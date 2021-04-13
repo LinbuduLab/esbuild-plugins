@@ -24,16 +24,19 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "dev:typegraphql": " nx run nx-plugin-typegraphql:build && cd .\\dist\\packages\\nx-plugin-typegraphql\\ && pnpm link",
-    "dev:midway": " nx run nx-plugin-midway:build && cd .\\dist\\packages\\nx-plugin-midway\\ && pnpm link",
-    "dev:prisma": " nx run nx-plugin-prisma:build && cd .\\dist\\packages\\nx-plugin-prisma\\ && pnpm link",
-    "dev:serverless": " nx run nx-plugin-serverless:build && cd .\\dist\\packages\\nx-plugin-serverless\\ && pnpm link",
-    "dev:esbuild": "nx run nx-plugin-esbuild:build && cd .\\dist\\packages\\nx-plugin-esbuild\\ && pnpm link",
-    "dev:swc": " nx run nx-plugin-swc:build && cd .\\dist\\packages\\nx-plugin-swc\\ && pnpm link",
-    "dev:vite": " nx run nx-plugin-vite:build && cd .\\dist\\packages\\nx-plugin-vite\\ && pnpm link",
-    "dev:umi": " nx run nx-plugin-umi:build && cd .\\dist\\packages\\nx-plugin-umi\\ && pnpm link",
-    "dev:esbuild:decorator": " nx run esbuild-plugin-decorator:build && cd .\\dist\\packages\\esbuild-plugin-decorator\\ && pnpm link",
-    "dev:esbuild:externals": " nx run esbuild-plugin-node-externals:build && cd .\\dist\\packages\\esbuild-plugin-node-externals\\ && pnpm link"
+    "dev:typegraphql": "nx run nx-plugin-typegraphql:build && cd .\\dist\\packages\\nx-plugin-typegraphql\\ && pnpm link",
+    "dev:midway": "nx run nx-plugin-midway:build && cd .\\dist\\packages\\nx-plugin-midway\\ && pnpm link",
+    "dev:prisma": "nx run nx-plugin-prisma:build && cd .\\dist\\packages\\nx-plugin-prisma\\ && pnpm link",
+    "dev:serverless": "nx run nx-plugin-serverless:build && cd .\\dist\\packages\\nx-plugin-serverless\\ && pnpm link",
+    "dev:esbuild": "nx run nx-plugin-esbuild:build --with-deps && cd .\\dist\\packages\\nx-plugin-esbuild\\ && pnpm link && pnpm link esbuild-plugin-decorators && pnpm link esbuild-plugin-node-externals",
+    "dev:swc": "nx run nx-plugin-swc:build && cd .\\dist\\packages\\nx-plugin-swc\\ && pnpm link",
+    "dev:vite": "nx run nx-plugin-vite:build && cd .\\dist\\packages\\nx-plugin-vite\\ && pnpm link",
+    "dev:umi": "nx run nx-plugin-umi:build && cd .\\dist\\packages\\nx-plugin-umi\\ && pnpm link",
+    "dev:esbuild:decorator": "nx run esbuild-plugin-decorator:build && cd .\\dist\\packages\\esbuild-plugin-decorator\\ && pnpm link",
+    "dev:esbuild:externals": "nx run esbuild-plugin-node-externals:build && cd .\\dist\\packages\\esbuild-plugin-node-externals\\ && pnpm link",
+    "__META_TODO_1__": "Handle plugin link by scripts",
+    "link-plugins": "pnpm link esbuild-plugin-decorators && pnpm link esbuild-plugin-node-externals",
+    "unlink-plugins": "pnpm unlink esbuild-plugin-decorators && pnpm unlink esbuild-plugin-node-externals"
   },
   "private": true,
   "dependencies": {
@@ -42,7 +45,7 @@
     "tslib": "^2.2.0"
   },
   "devDependencies": {
-    "@anatine/esbuild-decorators": "^0.2.6",
+    "@anatine/esbuild-decorators": "^0.2.7",
     "@nrwl/cli": "11.6.0",
     "@nrwl/devkit": "11.6.0",
     "@nrwl/eslint-plugin-nx": "11.6.0",

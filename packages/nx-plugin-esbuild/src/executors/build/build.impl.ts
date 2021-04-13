@@ -34,9 +34,6 @@ export default function buildExecutor(
     throw new Error(`${context.projectName} does not have a root.`);
   }
 
-  // TODO: extend configurations from project/nx-esbuild.json
-  // esbuild json 配置
-
   const options = normalizeBuildExecutorOptions(
     rawOptions,
     context.root,
@@ -44,8 +41,6 @@ export default function buildExecutor(
     projectSourceRoot,
     projectRoot
   );
-
-  console.log('options: ', options);
 
   // dist/apps/app1
   const outdir = `${options.outputPath}`;
@@ -68,6 +63,7 @@ export default function buildExecutor(
     plugins: [
       esbuildDecoratorPlugin({
         cwd: options.workspaceRoot,
+        tsconfigPath: options.tsConfig,
       }),
       esbuildPluginNodeExternals({
         packagePaths: options.packageJson ?? undefined,
@@ -91,6 +87,8 @@ export default function buildExecutor(
     watchDir
   ).pipe(
     map(({ buildResult, buildFailure }) => {
+      console.log('buildFailure: ', buildFailure);
+      console.log('buildResult: ', buildResult);
       let message = '';
       const timeString = dayjs().format('H:mm:ss A');
       const count = gray(`[${buildCounter}]`);

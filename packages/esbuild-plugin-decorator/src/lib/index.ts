@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import type { Plugin } from 'esbuild';
-import { transpileModule } from 'typescript';
+import { transpileModule, ParsedCommandLine } from 'typescript';
 
 import { parseTsConfig } from './parse-config';
 import { findDecorators } from './find-decorator';
@@ -15,18 +15,18 @@ export type ESBuildPluginDecoratorOptions = {
 export const esbuildDecoratorPlugin = (
   options: ESBuildPluginDecoratorOptions
 ): Plugin => ({
-  name: 'tsc',
+  name: 'decorator',
   setup(build) {
     const tsconfigPath =
       // FIXME: load tsconfig.base.json in Nx project, in common proejct load tsconfig.json
       options.tsconfigPath ?? path.join(process.cwd(), './tsconfig.base.json');
     const forceTsc = options.forceTsc ?? false;
 
-    let parsedTsConfig = null;
+    let parsedTsConfig: ParsedCommandLine | null = null;
 
     build.onLoad({ filter: /\.ts$/ }, async ({ path }) => {
       if (!parsedTsConfig) {
-        parsedTsConfig = parseTsConfig(tsconfigPath, process.cwd());
+        parsedTsConfig = parseTsConfig(tsconfigPath, options.cwd);
         // TODO: source map related
         // if (parsedTsConfig.sourcemap) {
         //   parsedTsConfig.sourcemap = false;
@@ -53,7 +53,9 @@ export const esbuildDecoratorPlugin = (
         return;
       }
 
-      const program = transpileModule(ts, parsedTsConfig);
+      const program = transpileModule(ts, {
+        compilerOptions: parsedTsConfig.options,
+      });
       return { contents: program.outputText };
     });
   },
