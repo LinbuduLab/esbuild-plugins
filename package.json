@@ -36,16 +36,28 @@
     "dev:esbuild:externals": "nx run esbuild-plugin-node-externals:build && cd .\\dist\\packages\\esbuild-plugin-node-externals\\ && pnpm link",
     "__META_TODO_1__": "Handle plugin link by scripts",
     "link-plugins": "pnpm link esbuild-plugin-decorators && pnpm link esbuild-plugin-node-externals",
-    "unlink-plugins": "pnpm unlink esbuild-plugin-decorators && pnpm unlink esbuild-plugin-node-externals"
+    "unlink-plugins": "pnpm unlink esbuild-plugin-decorators && pnpm unlink esbuild-plugin-node-externals",
+    "commit": "git add -A && git-cz"
   },
   "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  },
   "dependencies": {
-    "esbuild": "^0.11.5",
-    "ts-morph": "^10.0.2",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
     "@anatine/esbuild-decorators": "^0.2.7",
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
     "@nrwl/cli": "11.6.0",
     "@nrwl/devkit": "11.6.0",
     "@nrwl/eslint-plugin-nx": "11.6.0",
@@ -64,22 +76,30 @@
     "@typescript-eslint/parser": "4.3.0",
     "chalk": "^4.1.0",
     "chokidar": "^3.5.1",
+    "commitizen": "^4.2.3",
+    "commitlint-config-cz": "^0.13.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^6.3.0",
     "date-fns": "^2.19.0",
     "dayjs": "^1.10.4",
     "dotenv": "8.2.0",
+    "esbuild": "^0.11.9",
     "eslint": "7.10.0",
     "eslint-config-prettier": "8.1.0",
     "find-up": "^5.0.0",
     "fs-extra": "^9.1.0",
     "glob": "^7.1.6",
+    "husky": "^6.0.0",
     "jest": "26.2.2",
     "jsonfile": "^6.1.0",
     "node-watch": "^0.7.1",
     "prettier": "2.2.1",
+    "pretty-quick": "^3.1.0",
     "rxjs": "^6.6.7",
     "rxjs-for-await": "^0.0.2",
     "strip-comments": "^2.0.1",
     "ts-jest": "26.4.0",
+    "ts-morph": "^10.0.2",
     "ts-node": "~9.1.1",
     "tslib": "^2.0.0",
     "typescript": "~4.0.3"
