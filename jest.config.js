@@ -20,5 +20,6 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-ice-e2e',
     '<rootDir>/packages/esbuild-plugin-decorator',
     '<rootDir>/packages/esbuild-plugin-node-externals',
+    '<rootDir>/packages/esbuild-plugin-hash',
   ],
 };

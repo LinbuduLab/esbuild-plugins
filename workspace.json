@@ -643,6 +643,38 @@
           }
         }
       }
+    },
+    "esbuild-plugin-hash": {
+      "root": "packages/esbuild-plugin-hash",
+      "sourceRoot": "packages/esbuild-plugin-hash/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-hash/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-hash"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-hash/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-hash",
+            "tsConfig": "packages/esbuild-plugin-hash/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-hash/package.json",
+            "main": "packages/esbuild-plugin-hash/src/index.ts",
+            "assets": ["packages/esbuild-plugin-hash/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }
