@@ -15,14 +15,11 @@
       "implementation": "./src/executors/preview/executor",
       "schema": "./src/executors/preview/schema.json",
       "description": "preview executor"
-<<<<<<< HEAD
     },
     "info": {
       "implementation": "./src/executors/info/executor",
       "schema": "./src/executors/info/schema.json",
       "description": "info executor"
-=======
->>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
     }
   }
 }

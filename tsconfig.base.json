@@ -38,12 +38,8 @@
       ],
       "esbuild-plugin-ignore-module": [
         "packages/esbuild-plugin-ignore/src/index.ts"
-<<<<<<< HEAD
       ],
       "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"]
-=======
-      ]
->>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
     }
   },
   "exclude": ["node_modules", "tmp"]
