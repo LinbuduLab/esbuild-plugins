@@ -7,6 +7,13 @@ import {
 } from '@nrwl/nx-plugin/testing';
 describe('nx-plugin-esbuild e2e', () => {
   it('should create nx-plugin-esbuild', async (done) => {
+    // expect(1 + 1).toBe(2);
+    await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(1111);
+        // done();
+      });
+    });
     // const plugin = uniq('nx-plugin-esbuild');
     // ensureNxProject(
     //   '@penumbra/nx-plugin-esbuild',
@@ -20,21 +27,21 @@ describe('nx-plugin-esbuild e2e', () => {
     // done();
   });
 
-  describe('--directory', () => {
-    // it('should create src in the specified directory', async (done) => {
-    //   const plugin = uniq('nx-plugin-esbuild');
-    //   ensureNxProject(
-    //     '@penumbra/nx-plugin-esbuild',
-    //     'dist/packages/nx-plugin-esbuild'
-    //   );
-    //   await runNxCommandAsync(
-    //     `generate @penumbra/nx-plugin-esbuild:nx-plugin-esbuild ${plugin} --directory subdir`
-    //   );
-    //   expect(() =>
-    //     checkFilesExist(`libs/subdir/${plugin}/src/index.ts`)
-    //   ).not.toThrow();
-    //   done();
-  });
+  // describe('--directory', () => {
+  // it('should create src in the specified directory', async (done) => {
+  //   const plugin = uniq('nx-plugin-esbuild');
+  //   ensureNxProject(
+  //     '@penumbra/nx-plugin-esbuild',
+  //     'dist/packages/nx-plugin-esbuild'
+  //   );
+  //   await runNxCommandAsync(
+  //     `generate @penumbra/nx-plugin-esbuild:nx-plugin-esbuild ${plugin} --directory subdir`
+  //   );
+  //   expect(() =>
+  //     checkFilesExist(`libs/subdir/${plugin}/src/index.ts`)
+  //   ).not.toThrow();
+  //   done();
+  // });
 });
 
 // describe('--tags', () => {

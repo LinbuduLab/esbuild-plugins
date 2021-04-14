@@ -16,6 +16,15 @@ import dayjs from 'dayjs';
 
 import { runESBuild } from './lib/esbuild-runner';
 import { runTSC } from './lib/tsc-runner';
+import {
+  pluginTitleContainer,
+  timeStampContainer,
+  buildTimesContainer,
+  warningContainer,
+  errorContainer,
+  plainTextContainer,
+  successContainer,
+} from './lib/log';
 
 import { normalizeBuildExecutorOptions } from './lib/normalize-option';
 import { bufferUntil } from './lib/buffer-until';
@@ -71,11 +80,12 @@ export default function buildExecutor(
       esbuildNodeExternalsPlugin({
         packagePaths: options.packageJson ?? undefined,
       }),
-      esbuildHashPlugin({
-        dest: path.join(options.outputPath, 'main.[hash:8].js'),
-        retainOrigin: false,
-      }),
-      esbuildFileSizePlugin(),
+      // waiting for buildEnd hook
+      // esbuildHashPlugin({
+      //   dest: path.join(options.outputPath, 'main.[hash:8].js'),
+      //   retainOrigin: false,
+      // }),
+      // esbuildFileSizePlugin(),
     ],
     tsconfig: options.tsConfig,
     entryPoints: [options.main],
@@ -95,47 +105,54 @@ export default function buildExecutor(
     watchDir
   ).pipe(
     map(({ buildResult, buildFailure }) => {
-      console.log('buildFailure: ', buildFailure);
-      console.log('buildResult: ', buildResult);
-      let message = '';
-      const timeString = dayjs().format('H:mm:ss A');
-      const count = gray(`[${buildCounter}]`);
-      const prefix = ` [nx-plugin-esbuild] esbuild ${count} ${timeString}`;
+      const messageFragments: string[] = [];
 
-      // const warnings: string[] = [];
+      const timeString = dayjs().format('H:mm:ss A');
+
+      const prefix = `${pluginTitleContainer(
+        'nx-plugin-esbuild'
+      )} ESBuild ${buildTimesContainer(
+        `[${buildCounter}]`
+      )} ${timeStampContainer(timeString)}`;
 
       if (buildResult?.warnings.length > 0) {
-        let warningMessage = yellow(`${prefix} - Warnings:`);
+        messageFragments.push(warningContainer(`${prefix} - Warnings:`));
+
         buildResult?.warnings.forEach((warning) => {
-          warningMessage += `\n  ${yellow(warning.location.file)}(${
-            warning.location.line
-          },${warning.location.column}):`;
-          warningMessage += `  ${warning.location.lineText.trim()}`;
-          warningMessage += gray(`\n  ${warning.text}\n`);
+          const {
+            location: { file, line, column, lineText },
+            text,
+          } = warning;
+          messageFragments.push(
+            warningContainer(`${file} ${line}, ${column}:`)
+          );
+          messageFragments.push(warningContainer(lineText.trim()));
+          messageFragments.push(plainTextContainer(text));
         });
-        // console.log(warningMessage);
-        message += warningMessage;
       }
 
       if (buildFailure) {
-        // console.log(red(`\nEsbuild Error ${count}`));
-        // console.error(stats.buildFailure);
-        message += red(`Esbuild Error ${count}`);
-        message += buildFailure;
+        messageFragments.push(errorContainer(prefix));
+        buildFailure.errors.forEach((error) => {
+          messageFragments.push(errorContainer(error.text));
+        });
       } else if (buildResult?.warnings.length > 0) {
-        message += green(
-          `${prefix} - Build finished with ${yellow(
-            buildResult?.warnings.length
-          )} warnings. \n`
+        messageFragments.push(
+          successContainer(
+            `${prefix} - Build Complete with ${warningContainer(
+              String(buildResult?.warnings.length)
+            )} warnings. `
+          )
         );
       } else {
-        message += green(`${prefix} - Build finished \n`);
+        messageFragments.push(green(`${prefix} - Build Complete. \n`));
       }
 
       buildCounter++;
+
       return {
         success: !buildFailure,
-        message,
+        messageFragments,
       };
     })
   );
@@ -152,37 +169,53 @@ export default function buildExecutor(
     }),
 
     map(({ info, error, end }) => {
-      let message = '';
+      const messageFragments: string[] = [];
+
+      const timeString = dayjs().format('H:mm:ss A');
+
+      const prefix = `${pluginTitleContainer(
+        'nx-plugin-esbuild'
+      )} TSC ${buildTimesContainer(`[${typeCounter}]`)} ${timeStampContainer(
+        timeString
+      )}`;
+
       let hasErrors = Boolean(error);
-      const count = gray(`[${typeCounter}]`);
-      const prefix = ` [nx-plugin-esbuild] tsc ${count}`;
+
       if (error) {
         // FIXME: 多条错误时的格式化
-        message += red(`${prefix} ${error.replace(/\n/g, '')} \n`);
+        messageFragments.push(errorContainer(`${prefix} ${error}`));
       } else if (info) {
-        console.log('info: ', info);
         if (info.match(/Found\s\d*\serror/)) {
           if (info.includes('Found 0 errors')) {
-            message += green(`${prefix} ${info.replace(/\r\n/g, '')} \n`);
+            messageFragments.push(
+              successContainer(`${prefix} ${info.replace(/\r\n/g, '')}`)
+            );
           } else {
             hasErrors = true;
-            message += yellow(`${prefix} ${info.replace(/\r\n/g, '')} \n`);
+            messageFragments.push(
+              errorContainer(`${prefix} ${info.replace(/\r\n/g, '')}`)
+            );
           }
           tscBufferTrigger.next(true);
         } else {
-          message += green(`${prefix} ${info.replace(/\r\n/g, '')} \n`);
+          messageFragments.push(
+            successContainer(`${prefix} ${info.replace(/\r\n/g, '')}`)
+          );
         }
       }
-      return { info, error, end, message, hasErrors };
+      return { info, error, end, hasErrors, messageFragments };
     }),
 
-    bufferUntil(({ info }) => !!info?.match(/Found\s\d*\serror/)),
+    bufferUntil(
+      ({ info, error }) =>
+        !!info?.match(/Found\s\d*\serror/) || error?.includes('error TS')
+    ),
 
     map((values) => {
       typeCounter++;
-      let message = '';
-      values.forEach((value) => (message += value.message));
-      // console.log(message);
+
+      const message = values.map((value) => value.messageFragments).flat(1);
+
       return {
         success: !values.find((value) => value.hasErrors),
         message,
@@ -192,10 +225,14 @@ export default function buildExecutor(
 
   return eachValueFrom(
     zip(buildSubscriber, tscSubscriber).pipe(
+      tap(([_, tsc]) => {
+        console.log('TSC Emit Value');
+      }),
+
       map(([buildResults, tscResults]) => {
         console.log('\x1Bc');
-        console.log(tscResults.message);
-        console.log(buildResults.message);
+        console.log(tscResults.message.join('\n'));
+        console.log(buildResults.messageFragments.join('\n'));
         return {
           success: buildResults?.success && tscResults?.success,
         };

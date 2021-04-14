@@ -17,8 +17,6 @@ export function runESBuild(
   watchDir?: string
 ): Observable<RunBuildResponse> {
   return new Observable<RunBuildResponse>((subscriber) => {
-    // const cwd = watchDir || options.absWorkingDir || process.cwd();
-
     const assetsDirs = options.assets;
 
     const watcher = chokidar.watch(
@@ -60,6 +58,7 @@ export function runESBuild(
                     buildFailure: null,
                     buildResult: watchResult,
                   });
+                  copyAssetFiles(assetsDirs);
                 })
                 .catch((watchFailure: BuildFailure) => {
                   watchNext({
@@ -75,7 +74,7 @@ export function runESBuild(
         subscriber.complete();
       })
       .finally(() => {
-        console.log('ESBuild Compilation Done');
+        console.log('ESBuild Compilation Done.');
       });
   });
 }

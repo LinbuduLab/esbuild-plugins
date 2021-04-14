@@ -32,7 +32,6 @@ export function runTSC({ tsconfigPath, watch, root }: RunTscOptions) {
 
     child.stdout.on('data', (data) => {
       const decoded = data.toString();
-      console.log('decoded: ', decoded);
       // eslint-disable-next-line no-control-regex
       if (decoded.match(/\x1Bc/g)) return;
       if (decoded.includes('error TS')) {

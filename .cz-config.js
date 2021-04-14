@@ -15,22 +15,31 @@ const DOCUMENTATION_SCOPE = 'docs';
 const WEBSITE_SCOPE = 'website';
 const ADD_PLUGIN_SCOPE = 'add-plugin';
 const DELETE_PLUGIN_SCOPE = 'delete-plugin';
+const EXAMPLE_SCOPE = 'example';
 
+// https://gitmoji.dev/
 module.exports = {
   types: [
     { value: ':tada: init', name: 'init:     initial commit' },
     { value: ':sparkles: feat', name: 'feat:     features!' },
-    { value: ':pencil: docs', name: 'docs:     doc modifications' },
+    { value: ':memo: docs', name: 'docs:     compose docs' },
+    { value: ':pencil: docs', name: 'docs:     docs modifications' },
     { value: ':construction: chore', name: 'chore:    related works' },
+    { value: ':children_crossing: example', name: 'chore:    update examples' },
     { value: ':bug: fix', name: 'fix:      bug fixtures' },
-    { value: ':wrench: chore', name: 'chore:    configuration mutations' },
+    { value: ':wrench: chore', name: 'chore:    workspace configuration' },
     { value: ':ambulance: fix', name: 'fix:      emergency correction' },
     { value: ':zap: perf', name: 'perf:     performance optimization' },
     { value: ':lipstick: ui', name: 'ui:       update UI' },
     { value: ':construction_worker: ci', name: 'ci:       add CI build' },
     { value: ':green_heart: ci', name: 'ci:       fix CI build' },
-    { value: ':white_check_mark: test', name: 'test:     tests' },
+    { value: ':white_check_mark: test', name: 'test:     update test cases' },
     { value: ':hammer: refactor', name: 'refactor: code refactor' },
+    {
+      value: ':recycle: refactor',
+      name: 'refactor: global code refactor',
+    },
+    { value: ':rotating_light: lint', name: 'chore:    lint' },
     { value: ':lock: fix', name: 'fix:      severity secure fixtures' },
     { value: ':rocket: deploy', name: 'deploy:   deploy' },
     { value: ':art: style', name: 'style:    code style' },
@@ -38,8 +47,9 @@ module.exports = {
     { value: 'revert', name: 'revert:   revert version' },
     { value: ':heavy_plus_sign: add', name: 'add:      add deps' },
     { value: ':arrow_down: minus', name: 'minus:    remove deps' },
+    { value: ':pushpin: deps', name: 'deps:     lock deps version' },
     { value: ':fire: del', name: 'del:      remove code file' },
-    { value: ':pencil2: docs', name: 'docs:     documentation' },
+    { value: ':pencil2: typo', name: 'typo:     fix typo' },
     { value: ':bookmark: release', name: 'release:  release new version' },
   ],
   scopes: [
@@ -50,6 +60,7 @@ module.exports = {
     WEBSITE_SCOPE,
     ADD_PLUGIN_SCOPE,
     DELETE_PLUGIN_SCOPE,
+    EXAMPLE_SCOPE,
   ],
   disableEmoji: false,
   list: [
@@ -70,6 +81,9 @@ module.exports = {
     'minus',
     'del',
     'release',
+    'example',
+    'lint',
+    'typo',
   ],
   questions: ['type', 'scope', 'subject', 'breaking', 'body', 'issues'],
   messages: {
