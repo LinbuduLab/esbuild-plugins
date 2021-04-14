@@ -195,7 +195,7 @@ nx ice-serve ice-app
   - [ ] React / Vue
   - [ ] GraphQL (Apollo-Client)
 
-
+- [ ] Setup(convert exist React / Vue project)
 
 ### executors
 

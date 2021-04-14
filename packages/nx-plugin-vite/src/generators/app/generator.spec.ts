@@ -2,11 +2,11 @@ import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
 import { Tree, readProjectConfiguration } from '@nrwl/devkit';
 
 import generator from './generator';
-import { NxPluginViteGeneratorSchema } from './schema';
+import { AppGeneratorSchema } from './schema';
 
-describe('nx-plugin-vite generator', () => {
+describe('app generator', () => {
   let appTree: Tree;
-  const options: NxPluginViteGeneratorSchema = { name: 'test' };
+  const options: AppGeneratorSchema = { name: 'test' };
 
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace();
@@ -16,5 +16,5 @@ describe('nx-plugin-vite generator', () => {
     await generator(appTree, options);
     const config = readProjectConfiguration(appTree, 'test');
     expect(config).toBeDefined();
-  });
+  })
 });

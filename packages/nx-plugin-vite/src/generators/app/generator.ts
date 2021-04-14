@@ -8,9 +8,9 @@ import {
   Tree,
 } from '@nrwl/devkit';
 import * as path from 'path';
-import { NxPluginViteGeneratorSchema } from './schema';
+import { AppGeneratorSchema } from './schema';
 
-interface NormalizedSchema extends NxPluginViteGeneratorSchema {
+interface NormalizedSchema extends AppGeneratorSchema {
   projectName: string;
   projectRoot: string;
   projectDirectory: string;
@@ -19,7 +19,7 @@ interface NormalizedSchema extends NxPluginViteGeneratorSchema {
 
 function normalizeOptions(
   host: Tree,
-  options: NxPluginViteGeneratorSchema
+  options: AppGeneratorSchema
 ): NormalizedSchema {
   const name = names(options.name).fileName;
   const projectDirectory = options.directory
@@ -55,22 +55,24 @@ function addFiles(host: Tree, options: NormalizedSchema) {
   );
 }
 
-export default async function (
-  host: Tree,
-  options: NxPluginViteGeneratorSchema
-) {
+export default async function (host: Tree, options: AppGeneratorSchema) {
   const normalizedOptions = normalizeOptions(host, options);
-  addProjectConfiguration(host, normalizedOptions.projectName, {
-    root: normalizedOptions.projectRoot,
-    projectType: 'library',
-    sourceRoot: `${normalizedOptions.projectRoot}/src`,
-    targets: {
-      build: {
-        executor: '@penumbra/nx-plugin-vite:build',
-      },
-    },
-    tags: normalizedOptions.parsedTags,
-  });
-  addFiles(host, normalizedOptions);
+  console.log('normalizedOptions: ', normalizedOptions);
+  // addProjectConfiguration(
+  //   host,
+  //   normalizedOptions.projectName,
+  //   {
+  //     root: normalizedOptions.projectRoot,
+  //     projectType: 'library',
+  //     sourceRoot: `${normalizedOptions.projectRoot}/src`,
+  //     targets: {
+  //       build: {
+  //         executor: "@penumbra/app:build",
+  //       },
+  //     },
+  //     tags: normalizedOptions.parsedTags,
+  //   }
+  // );
+  // addFiles(host, normalizedOptions);
   await formatFiles(host);
 }
