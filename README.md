@@ -21,11 +21,12 @@ npm i nx-plugin-serverless -D
 npm i nx-plugin-snowpack -D
 
 
-# generator only
+
 nx g nx-plugin-typegraphql:resolver user --fields
 nx g nx-plugin-typegraphql:application tgql-app --minimal
+nx run tgql-app:gen --genql --doc
 
-# generator + executor
+
 nx g nx-plugin-midway:application midway-graphql-app --graphql --typeorm
 nx serve midway-graphql-app
 
@@ -56,7 +57,6 @@ nx serve snowpack-app
 > Nx plugin with libraries.
 
 - `nx-plugin-typegraphql`:
-
 - `nx-plugin-midway`:
 - `nx-plugin-prisma`:
 - `nx-plugin-serverless`:

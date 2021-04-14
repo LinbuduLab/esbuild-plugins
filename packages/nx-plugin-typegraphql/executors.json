@@ -1,10 +1,15 @@
 {
   "$schema": "http://json-schema.org/schema",
   "executors": {
-    "build": {
-      "implementation": "./src/executors/build/executor",
-      "schema": "./src/executors/build/schema.json",
-      "description": "build executor"
+    "gen": {
+      "implementation": "./src/executors/gen/executor",
+      "schema": "./src/executors/gen/schema.json",
+      "description": "gen executor"
+    },
+    "generate": {
+      "implementation": "./src/executors/gen/executor",
+      "schema": "./src/executors/gen/schema.json",
+      "description": "gen executor"
     }
   }
 }

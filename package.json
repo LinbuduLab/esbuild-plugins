@@ -32,6 +32,7 @@
     "dev:swc": "nx run nx-plugin-swc:build && cd .\\dist\\packages\\nx-plugin-swc\\ && pnpm link",
     "dev:vite": "nx run nx-plugin-vite:build && cd .\\dist\\packages\\nx-plugin-vite\\ && pnpm link",
     "dev:umi": "nx run nx-plugin-umi:build && cd .\\dist\\packages\\nx-plugin-umi\\ && pnpm link",
+    "dev:snowpack": "nx run nx-plugin-snowpack:build && cd .\\dist\\packages\\nx-plugin-snowpack\\ && pnpm link",
     "dev:esbuild:decorator": "nx run esbuild-plugin-decorator:build && cd .\\dist\\packages\\esbuild-plugin-decorator\\ && pnpm link",
     "dev:esbuild:externals": "nx run esbuild-plugin-node-externals:build && cd .\\dist\\packages\\esbuild-plugin-node-externals\\ && pnpm link",
     "dev:esbuild:hash": "nx run esbuild-plugin-hash:build && cd .\\dist\\packages\\esbuild-plugin-hash\\ && pnpm link",
