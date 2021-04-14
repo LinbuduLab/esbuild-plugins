@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-plugin-midway",
+  "version": "0.0.1",
+  "generators": {
+    "nx-plugin-midway": {
+      "factory": "./src/generators/nx-plugin-midway/generator",
+      "schema": "./src/generators/nx-plugin-midway/schema.json",
+      "description": "nx-plugin-midway generator"
+    }
+  }
+}

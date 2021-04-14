@@ -1,0 +1,37 @@
+import { GraphQLExtension, GraphQLResponse } from 'graphql-extensions';
+import { GraphQLRequestContext } from 'apollo-server-plugin-base';
+
+/**
+ * @deprecated use Apollo Plugin instead
+ * @class <%= name %>
+ * @implements {GraphQLExtension<ContextType>}
+ * @example new ApolloServer({ ...options, extensions: [() => new <%= name %>()] })
+ */
+export class <%= name %><ContextType>
+  implements GraphQLExtension<ContextType> {
+  constructor(public readonly args?: string) {}
+
+  public willSendResponse(o: { graphqlResponse: GraphQLResponse }) {
+    o.graphqlResponse.extensions = {
+      ...o.graphqlResponse.extensions,
+      FROM_CUSTOM_EXTENSION: '[Deprecated] FROM_CUSTOM_EXTENSION',
+    };
+  }
+}
+
+/**
+ * @example new ApolloServer({ plugins: [<%= name %>ExtensionPlugin()] })
+ */
+const <%= name %>ExtensionPlugin = () => ({
+  requestDidStart: () => ({
+    // should add Context Types GraphQLRequestContext<ContextType>
+    willSendResponse(reqContext: GraphQLRequestContext) {
+      reqContext.response.extensions = {
+        ...reqContext?.response.extensions,
+        FROM_PLUGIN_WILL_SEND_RESPONSE: 'FROM_PLUGIN_WILL_SEND_RESPONSE',
+      };
+    },
+  }),
+});
+
+export default  <%= name %>ExtensionPlugin;

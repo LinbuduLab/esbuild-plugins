@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "id": "type-graphql-application",
+  "title": "Create TypeGraphQL Based GraphQL Server",
+  "type": "object",
+  "properties": {
+    "app": {
+      "type": "string",
+      "x-prompt": "What Application name would you like to use?",
+      "description": "What Application name would you like to use?",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "directory": {
+      "type": "string",
+      "x-prompt": "Which directory name would you like to use?",
+      "description": "Which directory name would you like to use?"
+    },
+    "minimal": {
+      "type": "boolean",
+      "x-prompt": "Create minimal application with TypeGraphQL only?",
+      "description": "Create minimal application with TypeGraphQL only?"
+    },
+    "database": {
+      "type": "string",
+      "x-prompt": {
+        "message": "Which database would you like to use?",
+        "type": "list",
+        "items": [
+          { "value": "SQLite", "label": "SQLite" },
+          { "value": "MySQL", "label": "MySQL" },
+          { "value": "PostgreSQL", "label": "PostgreSQL" }
+        ]
+      },
+      "description": "Which database would you like to use?"
+    },
+    "orm": {
+      "type": "string",
+      "x-prompt": {
+        "message": "Which ORM would you like to use?",
+        "type": "list",
+        "items": [
+          { "value": "TypeORM", "label": "TypeORM" },
+          { "value": "Prisma", "label": "Prisma" }
+        ]
+      },
+      "description": "Which ORM would you like to use?"
+    },
+    "server": {
+      "type": "string",
+      "x-prompt": {
+        "message": "Which Server would you like to use?",
+        "type": "list",
+        "items": [
+          { "value": "Apollo-Server", "label": "Apollo-Server" },
+          {
+            "value": "GraphQL-Yoga",
+            "label": "GraphQL-Yoga(Not Support Yet)"
+          }
+        ]
+      },
+      "description": "Which Server would you like to use?"
+    },
+    "tools": {
+      "type": "array",
+      "x-prompt": {
+        "message": "Choose Tool you want to add?",
+        "type": "list",
+        "multiselect": true,
+        "items": [
+          "Apollo-Server-Plugin",
+          "GraphQL-Code-Generator",
+          "GraphQL-Tools",
+          "GraphQL-Extensions",
+          "DataLoader",
+          "GenQL",
+          "GraphQL-Voyager",
+          "GraphQL-Doc",
+          "PM2"
+        ]
+      },
+      "description": "Choose Tool you want to add?"
+    }
+  },
+  "required": ["app"]
+}

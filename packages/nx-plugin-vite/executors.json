@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "executors": {
+    "build": {
+      "implementation": "./src/executors/build/executor",
+      "schema": "./src/executors/build/schema.json",
+      "description": "build executor"
+    },
+    "serve": {
+      "implementation": "./src/executors/serve/executor",
+      "schema": "./src/executors/serve/schema.json",
+      "description": "serve executor"
+    },
+    "preview": {
+      "implementation": "./src/executors/preview/executor",
+      "schema": "./src/executors/preview/schema.json",
+      "description": "preview executor"
+    },
+    "info": {
+      "implementation": "./src/executors/info/executor",
+      "schema": "./src/executors/info/schema.json",
+      "description": "info executor"
+    }
+  }
+}

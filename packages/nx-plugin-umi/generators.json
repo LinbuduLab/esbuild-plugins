@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-plugin-umi",
+  "version": "0.0.1",
+  "generators": {
+    "nx-plugin-umi": {
+      "factory": "./src/generators/nx-plugin-umi/generator",
+      "schema": "./src/generators/nx-plugin-umi/schema.json",
+      "description": "nx-plugin-umi generator"
+    }
+  }
+}

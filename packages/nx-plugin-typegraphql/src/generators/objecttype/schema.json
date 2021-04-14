@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "id": "type-graphql-object-type",
+  "title": "Create TypeGraphQL ObjectType",
+  "type": "object",
+  "properties": {
+    "objectTypeName": {
+      "type": "string",
+      "x-prompt": "What ObjectType name would you like to use?",
+      "description": "What ObjectType name would you like to use?",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "appOrLib": {
+      "type": "string",
+      "format": "path",
+      "x-prompt": "The app/lib to create the file in",
+      "description": "The app/lib to create the file in",
+      "default": ""
+    },
+    "directory": {
+      "type": "string",
+      "format": "path",
+      "x-prompt": "The directory to create the file in",
+      "description": "The directory to create the file in"
+    },
+    "extendInterfaceType": {
+      "type": "boolean",
+      "x-prompt": "Should created ObjectType extend InterfaceType",
+      "description": "Should created ObjectType extend InterfaceType",
+      "default": false
+    },
+    "generateDTO": {
+      "type": "boolean",
+      "x-prompt": "Create DTO from ObjectType?",
+      "description": "Create DTO from ObjectType?",
+      "default": false
+    },
+    "dtoHandler": {
+      "type": "string",
+      "x-prompt": {
+        "message": "Which lib would you like to use?",
+        "type": "list",
+        "items": [
+          { "value": "ClassValidator", "label": "Class-Validator" },
+          { "value": "Joi", "label": "Joi" }
+        ]
+      },
+      "description": "Use Class-Validator or Joi to create DTO"
+    },
+    "useTypeormEntityDecorator": {
+      "type": "boolean",
+      "x-prompt": "Should add TypeORM @Entity() decorator",
+      "description": "Should add TypeORM @Entity() decorator",
+      "default": false
+    },
+    "extendTypeormBaseEntity": {
+      "type": "boolean",
+      "x-prompt": "Should extend TypeORM BaseEntity(Active Record)",
+      "description": "Should extend TypeORM BaseEntity(Active Record)",
+      "default": false
+    },
+
+    "createLibOnInexist": {
+      "type": "boolean",
+      "x-prompt": "Create lib to store the file if lib doesn't exist",
+      "description": "Create lib to store the file if lib doesn't exist",
+      "default": true
+    },
+    "namespaceExport": {
+      "type": "string",
+      "x-prompt": "object type class export namespace(will be exported as * if not specified)",
+      "description": "object type class export namespace"
+    },
+    "props": {
+      "type": "array",
+      "TODO_x-prompt": "Schema Props",
+      "items": {
+        "type": "object",
+        "properties": {
+          "propName": {
+            "type": "string"
+          },
+          "propType": {
+            "type": "string",
+            "enum": ["string", "number", "boolean"]
+          },
+          "propNullable": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "objectTypeName",
+    "extendInterfaceType",
+    "generateDTO",
+    "dtoHandler",
+    "useTypeormEntityDecorator",
+    "extendTypeormBaseEntity",
+    "appOrLib",
+    "directory",
+    "createLibOnInexist",
+    "namespaceExport"
+  ]
+}

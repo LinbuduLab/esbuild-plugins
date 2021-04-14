@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "id": "Nx-Plugin-ESBuild-Init",
+  "title": "Creating projects using ESBuild",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Which name would you like to use?"
+    },
+    "directory": {
+      "type": "string",
+      "alias": "d",
+      "description": "Which directory would you like to use?",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      }
+    },
+    "watch": {
+      "type": "boolean",
+      "alias": "w",
+      "description": "Enable Build Watching?",
+      "x-prompt": "Enable Build Watching?",
+      "default": false
+    },
+    "useTSCPluginForDecorator": {
+      "type": "boolean",
+      "alias": "pd",
+      "description": "Use TSC for decorator compilation(or will throw an error if decorators detected)",
+      "default": true
+    }
+  },
+  "required": ["name"]
+}

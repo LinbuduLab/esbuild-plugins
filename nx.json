@@ -1,0 +1,76 @@
+{
+  "npmScope": "penumbra",
+  "affected": { "defaultBase": "master" },
+  "implicitDependencies": {
+    "workspace.json": "*",
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "tsconfig.base.json": "*",
+    "tslint.json": "*",
+    ".eslintrc.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
+    }
+  },
+  "projects": {
+    "nx-plugin-typegraphql": { "tags": [] },
+    "nx-plugin-typegraphql-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-typegraphql"]
+    },
+    "nx-plugin-midway": { "tags": [] },
+    "nx-plugin-midway-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-midway"]
+    },
+    "nx-plugin-prisma": { "tags": [] },
+    "nx-plugin-prisma-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-prisma"]
+    },
+    "nx-plugin-serverless": { "tags": [] },
+    "nx-plugin-serverless-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-serverless"]
+    },
+    "nx-plugin-esbuild": { "tags": [] },
+    "nx-plugin-esbuild-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-esbuild"]
+    },
+    "nx-plugin-swc": { "tags": [] },
+    "nx-plugin-swc-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-swc"]
+    },
+    "nx-plugin-vite": { "tags": [] },
+    "nx-plugin-vite-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-vite"]
+    },
+    "nx-plugin-umi": { "tags": [] },
+    "nx-plugin-umi-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-umi"]
+    },
+    "nx-plugin-ice": { "tags": [] },
+    "nx-plugin-ice-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-ice"]
+    },
+    "esbuild-plugin-decorator": { "tags": [] },
+    "esbuild-plugin-node-externals": { "tags": [] },
+    "esbuild-plugin-hash": { "tags": [] },
+    "esbuild-plugin-filesize": { "tags": [] },
+    "esbuild-plugin-ignore": { "tags": [] },
+    "nx-plugin-snowpack": { "tags": [] },
+    "nx-plugin-snowpack-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-snowpack"]
+    }
+  },
+  "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
+}

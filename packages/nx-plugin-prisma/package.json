@@ -1,0 +1,7 @@
+{
+  "name": "nx-plugin-prisma",
+  "version": "0.0.1-1",
+  "main": "src/index.js",
+  "generators": "./generators.json",
+  "executors": "./executors.json"
+}

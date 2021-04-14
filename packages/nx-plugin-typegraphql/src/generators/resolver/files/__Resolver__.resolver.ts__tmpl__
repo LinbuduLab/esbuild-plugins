@@ -1,0 +1,54 @@
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Int,
+  <% if (fullImport) { -%>
+  UseMiddleware,
+  Arg,
+  Args,
+  Ctx,
+  Extensions,
+  Authorized,
+  <% } -%>
+  <% if (fieldResolver) { -%>
+  Root,
+  FieldResolver,
+  <% } -%>
+  <% if (subscription) { -%>
+  PubSub,
+  Publisher,
+  Subscription,
+  ResolverFilterData,
+  <% } -%>
+} from "type-graphql";
+
+
+@Resolver()
+export default class <%= resolverName %>Resolver {
+
+  @Query()
+  async <%= resolverName %>Query() {
+    return {};
+  }
+
+  @Mutation()
+  async <%= resolverName %>Mutation() {
+    return {};
+  }
+
+
+  <% if (subscription) { -%>
+  @Subscription({topics:""})
+  async <%= resolverName %>Subscription() {
+    return {};
+  }
+  <% } -%>
+
+  <% if (fieldResolver) { -%>
+  @FieldResolver()
+  async <%= resolverName %>FieldResolver() {
+    return {};
+  }
+  <% } -%>
+}

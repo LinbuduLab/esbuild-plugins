@@ -1,0 +1,46 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom", "es2019"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "nx-plugin-typegraphql": ["packages/nx-plugin-typegraphql/src/index.ts"],
+      "nx-plugin-midway": ["packages/nx-plugin-midway/src/index.ts"],
+      "nx-plugin-prisma": ["packages/nx-plugin-prisma/src/index.ts"],
+      "nx-plugin-serverless": ["packages/nx-plugin-serverless/src/index.ts"],
+      "nx-plugin-esbuild": ["packages/nx-plugin-esbuild/src/index.ts"],
+      "nx-plugin-swc": ["packages/nx-plugin-swc/src/index.ts"],
+      "nx-plugin-vite": ["packages/nx-plugin-vite/src/index.ts"],
+      "nx-plugin-umi": ["packages/nx-plugin-umi/src/index.ts"],
+      "nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
+      "publishable-lib-test": ["packages/publishable-lib/src/index.ts"],
+      "esbuild-plugin-decorator": [
+        "packages/esbuild-plugin-decorator/src/index.ts"
+      ],
+      "esbuild-plugin-node-externals": [
+        "packages/esbuild-plugin-node-externals/src/index.ts"
+      ],
+      "esbuild-plugin-hash": ["packages/esbuild-plugin-hash/src/index.ts"],
+      "esbuild-plugin-filesize": [
+        "packages/esbuild-plugin-filesize/src/index.ts"
+      ],
+      "esbuild-plugin-ignore-module": [
+        "packages/esbuild-plugin-ignore/src/index.ts"
+      ],
+      "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "id": "Nx-Plugin-ESBuild-Setup",
+  "title": "Setup ESBuild targets for existing projects",
+  "type": "object",
+  "properties": {
+    "app": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Which App would you like to setup ESBuild?"
+    },
+    "override": {
+      "type": "boolean",
+      "alias": "r",
+      "x-prompt": "Should override build/serve command?(if not, will use esbuild-build and esbuild-serve instead)",
+      "default": false
+    },
+    "entry": {
+      "type": "string",
+      "alias": "e",
+      "description": "Which file should be used as entry point?",
+      "x-prompt": "Which file should be used as entry point?(src/main.ts by default)"
+    },
+    "watch": {
+      "type": "boolean",
+      "alias": "w",
+      "description": "Enable Build Watching?",
+      "x-prompt": "Enable Build Watching?",
+      "default": false
+    },
+    "tsconfigPath": {
+      "type": "string",
+      "alias": "p",
+      "description": "Specify tsconfig path(tsconfig.specific.json >>> `apps/your-app/tsconfig.specific.json`)",
+      "x-prompt": "(will use build target tsConfig default)Specify tsconfig path(`tsconfig.specific.json` >>> `apps/your-app/tsconfig.specific.json`)"
+    },
+    "outputPath": {
+      "type": "string",
+      "alias": "o",
+      "description": "Specify output path(absolute path like `specified-dist/apps/your-app`)",
+      "x-prompt": "(will use build target outputPath default)Specify output path(absolute path like `specified-dist/apps/your-app`)"
+    },
+    "useTSCPluginForDecorator": {
+      "type": "boolean",
+      "alias": "d",
+      "description": "Use TSC for decorator compilation(or will throw an error if decorators detected)",
+      "x-prompt": "Use TSC for decorator compilation(or will throw an error if decorators detected)",
+      "default": true
+    }
+  },
+  "required": ["app"]
+}

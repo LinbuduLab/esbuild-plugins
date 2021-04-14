@@ -1,0 +1,21 @@
+import path from "path";
+import { ApolloServer } from "apollo-server-koa";
+import { buildSchemaSync, ResolverData } from "type-graphql";
+
+import type { ContextType } from "./types";
+import ItemResolver from "./resolver/item.resolver";
+import ResolveTimeMiddleware from "./middleware/resolve-time";
+
+export async function initialize() {
+  const schema = buildSchemaSync({
+    resolvers: [ItemResolver],
+    dateScalarMode: "timestamp",
+    emitSchemaFile: path.resolve(__dirname, "../schema.graphql"),
+    validate: true,
+    globalMiddlewares: [ResolveTimeMiddleware],
+  });
+
+  const server = new ApolloServer({ schema, context: {} });
+
+  return server;
+}

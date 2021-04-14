@@ -1,0 +1,22 @@
+import { GraphQLScalarType } from 'graphql';
+
+export class <%= name %>ScalarType extends GraphQLScalarType {
+  constructor(type: GraphQLScalarType, ...customArgs: any[]) {
+    super({
+      name: `<%= name %>`,
+
+      serialize(value) {
+        const serialized = type.serialize(value);
+        return serialized;
+      },
+
+      parseValue(value) {
+        return type.parseValue(value);
+      },
+
+      parseLiteral(ast) {
+        return type.parseLiteral(ast, {});
+      },
+    });
+  }
+}
