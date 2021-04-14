@@ -4,8 +4,15 @@ import {
   generateFiles,
   Tree,
   installPackagesTask,
+  joinPathFragments,
+  GeneratorCallback,
   addDependenciesToPackageJson,
+  readWorkspaceConfiguration,
+  updateWorkspaceConfiguration,
 } from '@nrwl/devkit';
+import { jestProjectGenerator } from '@nrwl/jest';
+import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { Linter, lintProjectGenerator } from '@nrwl/linter';
 import path from 'path';
 import { normalizeSchema } from './lib/normalize-schema';
 import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
@@ -16,7 +23,6 @@ export default async function (
   schema: NormalizedESBuildInitGeneratorSchema
 ) {
   const normalizedSchema = normalizeSchema(host, schema);
-  console.log('normalizedSchema: ', normalizedSchema);
 
   const {
     projectName,
@@ -54,6 +60,33 @@ export default async function (
     offset: offsetFromRoot,
   });
 
+  const tasks: GeneratorCallback[] = [];
+
+  const jestTask = await jestProjectGenerator(host, {
+    project: normalizedSchema.projectName,
+    setupFile: 'none',
+    supportTsx: true,
+    babelJest: true,
+    testEnvironment: 'node',
+  });
+
+  const lintTask = await lintProjectGenerator(host, {
+    linter: Linter.EsLint,
+    project: schema.projectName,
+    tsConfigPaths: [joinPathFragments(schema.projectRoot, 'tsconfig.app.json')],
+    eslintFilePatterns: [`${schema.projectRoot}/**/*.ts`],
+    skipFormat: true,
+  });
+
+  tasks.push(jestTask, lintTask);
+
+  const workspace = readWorkspaceConfiguration(host);
+
+  if (!workspace.defaultProject) {
+    workspace.defaultProject = schema.projectRoot;
+    updateWorkspaceConfiguration(host, workspace);
+  }
+
   await formatFiles(host);
 
   const deps = composeDepsList(normalizedSchema);
@@ -63,5 +96,6 @@ export default async function (
 
   return () => {
     installPackagesTask(host);
+    runTasksInSerial(...tasks);
   };
 }

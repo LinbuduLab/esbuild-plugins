@@ -225,9 +225,11 @@ export default async function (
   const deps = composeDepsList(normalizedSchema);
   const devDeps = composeDevDepsList(normalizedSchema);
 
-  const installTask = addDependenciesToPackageJson(host, deps, devDeps);
+  addDependenciesToPackageJson(host, deps, devDeps);
 
-  tasks.push(installTask);
+  // const installTask = addDependenciesToPackageJson(host, deps, devDeps);
+
+  // tasks.push(installTask);
 
   return () => {
     installPackagesTask(host);
