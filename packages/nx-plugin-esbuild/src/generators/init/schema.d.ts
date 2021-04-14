@@ -1,21 +1,22 @@
-export interface InitGeneratorSchema {
-  name: string;
-  tags?: string;
-  directory?: string;
-}
-
 export interface ESBuildInitGeneratorSchema {
   name: string;
-  type: 'application' | 'library';
-  entry: string;
-  watch: boolean;
-  tsconfigPath: string;
-  outputPath: string;
-  useTSCPluginForDecorator: boolean;
+  directory?: string;
+  watch?: boolean;
+  useTSCPluginForDecorator?: boolean;
+  tags?: string;
 }
 
 export interface NormalizedESBuildInitGeneratorSchema
   extends ESBuildInitGeneratorSchema {
+  projectName: string;
   projectRoot: string;
-  isApp: boolean;
+  projectDirectory: string;
+  parsedTags: string[];
+  offsetFromRoot: string;
+
+  // build option
+  main: string;
+  outputPath: string;
+  tsConfigPath: string;
+  assets: string[];
 }

@@ -23,7 +23,7 @@ export function normalizeBuildExecutorOptions(
   sourceRoot: string,
   projectRoot: string
 ): NormalizedESBuildExecutorSchema {
-  const { banner, footer } = normalizeInserts(options.insert);
+  const { banner, footer } = normalizeInserts(options.insert ?? []);
   const { main, outputPath, tsConfig } = normalizeMetaConfig(
     options.main,
     options.outputPath,
@@ -31,6 +31,8 @@ export function normalizeBuildExecutorOptions(
     projectName
   );
 
+  // TODO: extend config
+  // TODO: support js/ts file
   const esbuildExtendConfig = normalizeESBuildExtendConfig(
     `${workspaceRoot}/nx-esbuild.json`,
     workspaceRoot
@@ -54,6 +56,7 @@ export function normalizeBuildExecutorOptions(
       workspaceRoot,
       options.fileReplacements
     ),
+    skipTypeCheck: options.skipTypeCheck ?? false,
     assets: normalizeAssets(options.assets, workspaceRoot, options.outputPath),
     esbuild: {
       bundle: options.bundle ?? true,

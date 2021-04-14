@@ -3,7 +3,7 @@ import {
   joinPathFragments,
   readProjectConfiguration,
 } from '@nrwl/devkit';
-import { getAvailableAppsOrLibs } from 'packages/nx-plugin-esbuild/src/utils';
+import { getAvailableAppsOrLibs } from '../../../utils';
 import {
   ESBuildSetupGeneratorSchema,
   NormalizedESBuildSetupGeneratorSchema,

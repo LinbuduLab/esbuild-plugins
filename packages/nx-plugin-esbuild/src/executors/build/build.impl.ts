@@ -157,8 +157,10 @@ export default function buildExecutor(
     })
   );
 
+  // TODO: skip type check
   let typeCounter = 1;
   const tscBufferTrigger = new Subject<boolean>();
+
   const tscSubscriber = runTSC({
     tsconfigPath: options.tsConfig,
     watch: options.watch || !!esbuildRunnerOptions.watch,
@@ -225,9 +227,9 @@ export default function buildExecutor(
 
   return eachValueFrom(
     zip(buildSubscriber, tscSubscriber).pipe(
-      tap(([_, tsc]) => {
-        console.log('TSC Emit Value');
-      }),
+      // tap(([_, tsc]) => {
+      //   console.log('TSC Emit Value');
+      // }),
 
       map(([buildResults, tscResults]) => {
         console.log('\x1Bc');

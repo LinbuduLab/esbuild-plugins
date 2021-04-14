@@ -2,68 +2,66 @@ import {
   addProjectConfiguration,
   formatFiles,
   generateFiles,
-  getWorkspaceLayout,
-  names,
-  offsetFromRoot,
   Tree,
+  installPackagesTask,
+  addDependenciesToPackageJson,
 } from '@nrwl/devkit';
-import * as path from 'path';
-import { InitGeneratorSchema } from './schema';
+import path from 'path';
+import { normalizeSchema } from './lib/normalize-schema';
+import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
+import { NormalizedESBuildInitGeneratorSchema } from './schema';
 
-interface NormalizedSchema extends InitGeneratorSchema {
-  projectName: string;
-  projectRoot: string;
-  projectDirectory: string;
-  parsedTags: string[]
-}
+export default async function (
+  host: Tree,
+  schema: NormalizedESBuildInitGeneratorSchema
+) {
+  const normalizedSchema = normalizeSchema(host, schema);
+  console.log('normalizedSchema: ', normalizedSchema);
 
-function normalizeOptions(host: Tree, options: InitGeneratorSchema): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-  const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-  const projectRoot = `${getWorkspaceLayout(host).libsDir}/${projectDirectory}`;
-  const parsedTags = options.tags
-    ? options.tags.split(',').map((s) => s.trim())
-    : [];
-
-  return {
-    ...options,
+  const {
     projectName,
     projectRoot,
-    projectDirectory,
     parsedTags,
-  };
-}
+    offsetFromRoot,
+    watch,
+    main,
+    outputPath,
+    tsConfigPath: tsConfig,
+    assets,
+  } = normalizedSchema;
 
-function addFiles(host: Tree, options: NormalizedSchema) {
-    const templateOptions = {
-      ...options,
-      ...names(options.name),
-      offsetFromRoot: offsetFromRoot(options.projectRoot),
-      template: ''
-    };
-    generateFiles(host, path.join(__dirname, 'files'), options.projectRoot, templateOptions);
-}
-
-export default async function (host: Tree, options: InitGeneratorSchema) {
-  const normalizedOptions = normalizeOptions(host, options);
-  addProjectConfiguration(
-    host,
-    normalizedOptions.projectName,
-    {
-      root: normalizedOptions.projectRoot,
-      projectType: 'library',
-      sourceRoot: `${normalizedOptions.projectRoot}/src`,
-      targets: {
-        build: {
-          executor: "@penumbra/init:build",
+  addProjectConfiguration(host, projectName, {
+    root: projectRoot,
+    projectType: 'application',
+    sourceRoot: `${projectRoot}/src`,
+    targets: {
+      build: {
+        executor: 'nx-plugin-esbuild:build',
+        options: {
+          main,
+          tsConfig,
+          outputPath,
+          watch,
+          assets,
         },
       },
-      tags: normalizedOptions.parsedTags,
-    }
-  );
-  addFiles(host, normalizedOptions);
+    },
+    tags: parsedTags,
+  });
+
+  generateFiles(host, path.join(__dirname, './files'), projectRoot, {
+    tmpl: '',
+    offset: offsetFromRoot,
+  });
+
   await formatFiles(host);
+
+  const deps = composeDepsList(normalizedSchema);
+  const devDeps = composeDevDepsList(normalizedSchema);
+
+  addDependenciesToPackageJson(host, deps, devDeps);
+
+  return () => {
+    installPackagesTask(host);
+  };
 }
