@@ -65,12 +65,16 @@
     "esbuild-plugin-node-externals": { "tags": [] },
     "esbuild-plugin-hash": { "tags": [] },
     "esbuild-plugin-filesize": { "tags": [] },
+<<<<<<< HEAD
     "esbuild-plugin-ignore": { "tags": [] },
     "nx-plugin-snowpack": { "tags": [] },
     "nx-plugin-snowpack-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-snowpack"]
     }
+=======
+    "esbuild-plugin-ignore": { "tags": [] }
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

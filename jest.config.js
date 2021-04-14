@@ -23,7 +23,10 @@ module.exports = {
     '<rootDir>/packages/esbuild-plugin-hash',
     '<rootDir>/packages/esbuild-plugin-filesize',
     '<rootDir>/packages/esbuild-plugin-ignore',
+<<<<<<< HEAD
     '<rootDir>/packages/nx-plugin-snowpack',
     '<rootDir>/e2e\\nx-plugin-snowpack-e2e',
+=======
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
   ],
 };

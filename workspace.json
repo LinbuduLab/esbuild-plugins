@@ -9,16 +9,24 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
+<<<<<<< HEAD
             "lintFilePatterns": [
               "packages/nx-plugin-typegraphql/**/*.ts"
             ]
+=======
+            "lintFilePatterns": ["packages/nx-plugin-typegraphql/**/*.ts"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
+<<<<<<< HEAD
           "outputs": [
             "coverage/packages/nx-plugin-typegraphql"
           ],
+=======
+          "outputs": ["coverage/packages/nx-plugin-typegraphql"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/nx-plugin-typegraphql/jest.config.js",
             "passWithNoTests": true
@@ -26,9 +34,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/nx-plugin-typegraphql",
             "tsConfig": "packages/nx-plugin-typegraphql/tsconfig.lib.json",
@@ -80,16 +92,24 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
+<<<<<<< HEAD
             "lintFilePatterns": [
               "packages/nx-plugin-midway/**/*.ts"
             ]
+=======
+            "lintFilePatterns": ["packages/nx-plugin-midway/**/*.ts"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
+<<<<<<< HEAD
           "outputs": [
             "coverage/packages/nx-plugin-midway"
           ],
+=======
+          "outputs": ["coverage/packages/nx-plugin-midway"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/nx-plugin-midway/jest.config.js",
             "passWithNoTests": true
@@ -97,9 +117,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/nx-plugin-midway",
             "tsConfig": "packages/nx-plugin-midway/tsconfig.lib.json",
@@ -151,16 +175,24 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
+<<<<<<< HEAD
             "lintFilePatterns": [
               "packages/nx-plugin-prisma/**/*.ts"
             ]
+=======
+            "lintFilePatterns": ["packages/nx-plugin-prisma/**/*.ts"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
+<<<<<<< HEAD
           "outputs": [
             "coverage/packages/nx-plugin-prisma"
           ],
+=======
+          "outputs": ["coverage/packages/nx-plugin-prisma"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/nx-plugin-prisma/jest.config.js",
             "passWithNoTests": true
@@ -168,9 +200,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/nx-plugin-prisma",
             "tsConfig": "packages/nx-plugin-prisma/tsconfig.lib.json",
@@ -222,16 +258,24 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
+<<<<<<< HEAD
             "lintFilePatterns": [
               "packages/nx-plugin-serverless/**/*.ts"
             ]
+=======
+            "lintFilePatterns": ["packages/nx-plugin-serverless/**/*.ts"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
+<<<<<<< HEAD
           "outputs": [
             "coverage/packages/nx-plugin-serverless"
           ],
+=======
+          "outputs": ["coverage/packages/nx-plugin-serverless"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/nx-plugin-serverless/jest.config.js",
             "passWithNoTests": true
@@ -239,9 +283,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/nx-plugin-serverless",
             "tsConfig": "packages/nx-plugin-serverless/tsconfig.lib.json",
@@ -293,16 +341,24 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
+<<<<<<< HEAD
             "lintFilePatterns": [
               "packages/nx-plugin-esbuild/**/*.ts"
             ]
+=======
+            "lintFilePatterns": ["packages/nx-plugin-esbuild/**/*.ts"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
+<<<<<<< HEAD
           "outputs": [
             "coverage/packages/nx-plugin-esbuild"
           ],
+=======
+          "outputs": ["coverage/packages/nx-plugin-esbuild"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/nx-plugin-esbuild/jest.config.js",
             "passWithNoTests": true
@@ -310,9 +366,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/nx-plugin-esbuild",
             "tsConfig": "packages/nx-plugin-esbuild/tsconfig.lib.json",
@@ -363,6 +423,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
+<<<<<<< HEAD
           "options": {
             "lintFilePatterns": [
               "packages/nx-plugin-swc/**/*.ts"
@@ -374,6 +435,13 @@
           "outputs": [
             "coverage/packages/nx-plugin-swc"
           ],
+=======
+          "options": { "lintFilePatterns": ["packages/nx-plugin-swc/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-swc"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/nx-plugin-swc/jest.config.js",
             "passWithNoTests": true
@@ -381,9 +449,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/nx-plugin-swc",
             "tsConfig": "packages/nx-plugin-swc/tsconfig.lib.json",
@@ -434,6 +506,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
+<<<<<<< HEAD
           "options": {
             "lintFilePatterns": [
               "packages/nx-plugin-vite/**/*.ts"
@@ -445,6 +518,13 @@
           "outputs": [
             "coverage/packages/nx-plugin-vite"
           ],
+=======
+          "options": { "lintFilePatterns": ["packages/nx-plugin-vite/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-vite"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/nx-plugin-vite/jest.config.js",
             "passWithNoTests": true
@@ -452,9 +532,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/nx-plugin-vite",
             "tsConfig": "packages/nx-plugin-vite/tsconfig.lib.json",
@@ -505,6 +589,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
+<<<<<<< HEAD
           "options": {
             "lintFilePatterns": [
               "packages/nx-plugin-umi/**/*.ts"
@@ -516,6 +601,13 @@
           "outputs": [
             "coverage/packages/nx-plugin-umi"
           ],
+=======
+          "options": { "lintFilePatterns": ["packages/nx-plugin-umi/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-umi"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/nx-plugin-umi/jest.config.js",
             "passWithNoTests": true
@@ -523,9 +615,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/nx-plugin-umi",
             "tsConfig": "packages/nx-plugin-umi/tsconfig.lib.json",
@@ -576,6 +672,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
+<<<<<<< HEAD
           "options": {
             "lintFilePatterns": [
               "packages/nx-plugin-ice/**/*.ts"
@@ -587,6 +684,13 @@
           "outputs": [
             "coverage/packages/nx-plugin-ice"
           ],
+=======
+          "options": { "lintFilePatterns": ["packages/nx-plugin-ice/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-ice"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/nx-plugin-ice/jest.config.js",
             "passWithNoTests": true
@@ -594,9 +698,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/nx-plugin-ice",
             "tsConfig": "packages/nx-plugin-ice/tsconfig.lib.json",
@@ -648,16 +756,24 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
+<<<<<<< HEAD
             "lintFilePatterns": [
               "packages/esbuild-plugin-decorator/**/*.ts"
             ]
+=======
+            "lintFilePatterns": ["packages/esbuild-plugin-decorator/**/*.ts"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
+<<<<<<< HEAD
           "outputs": [
             "coverage/packages/esbuild-plugin-decorator"
           ],
+=======
+          "outputs": ["coverage/packages/esbuild-plugin-decorator"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/esbuild-plugin-decorator/jest.config.js",
             "passWithNoTests": true
@@ -665,17 +781,25 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/esbuild-plugin-decorator",
             "tsConfig": "packages/esbuild-plugin-decorator/tsconfig.lib.json",
             "packageJson": "packages/esbuild-plugin-decorator/package.json",
             "main": "packages/esbuild-plugin-decorator/src/index.ts",
+<<<<<<< HEAD
             "assets": [
               "packages/esbuild-plugin-decorator/*.md"
             ]
+=======
+            "assets": ["packages/esbuild-plugin-decorator/*.md"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         }
       }
@@ -695,9 +819,13 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
+<<<<<<< HEAD
           "outputs": [
             "coverage/packages/esbuild-plugin-node-externals"
           ],
+=======
+          "outputs": ["coverage/packages/esbuild-plugin-node-externals"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/esbuild-plugin-node-externals/jest.config.js",
             "passWithNoTests": true
@@ -705,17 +833,25 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/esbuild-plugin-node-externals",
             "tsConfig": "packages/esbuild-plugin-node-externals/tsconfig.lib.json",
             "packageJson": "packages/esbuild-plugin-node-externals/package.json",
             "main": "packages/esbuild-plugin-node-externals/src/index.ts",
+<<<<<<< HEAD
             "assets": [
               "packages/esbuild-plugin-node-externals/*.md"
             ]
+=======
+            "assets": ["packages/esbuild-plugin-node-externals/*.md"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         }
       }
@@ -728,16 +864,24 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
+<<<<<<< HEAD
             "lintFilePatterns": [
               "packages/esbuild-plugin-hash/**/*.ts"
             ]
+=======
+            "lintFilePatterns": ["packages/esbuild-plugin-hash/**/*.ts"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
+<<<<<<< HEAD
           "outputs": [
             "coverage/packages/esbuild-plugin-hash"
           ],
+=======
+          "outputs": ["coverage/packages/esbuild-plugin-hash"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/esbuild-plugin-hash/jest.config.js",
             "passWithNoTests": true
@@ -745,17 +889,25 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/esbuild-plugin-hash",
             "tsConfig": "packages/esbuild-plugin-hash/tsconfig.lib.json",
             "packageJson": "packages/esbuild-plugin-hash/package.json",
             "main": "packages/esbuild-plugin-hash/src/index.ts",
+<<<<<<< HEAD
             "assets": [
               "packages/esbuild-plugin-hash/*.md"
             ]
+=======
+            "assets": ["packages/esbuild-plugin-hash/*.md"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         }
       }
@@ -768,16 +920,24 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
+<<<<<<< HEAD
             "lintFilePatterns": [
               "packages/esbuild-plugin-filesize/**/*.ts"
             ]
+=======
+            "lintFilePatterns": ["packages/esbuild-plugin-filesize/**/*.ts"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
+<<<<<<< HEAD
           "outputs": [
             "coverage/packages/esbuild-plugin-filesize"
           ],
+=======
+          "outputs": ["coverage/packages/esbuild-plugin-filesize"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/esbuild-plugin-filesize/jest.config.js",
             "passWithNoTests": true
@@ -785,17 +945,25 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/esbuild-plugin-filesize",
             "tsConfig": "packages/esbuild-plugin-filesize/tsconfig.lib.json",
             "packageJson": "packages/esbuild-plugin-filesize/package.json",
             "main": "packages/esbuild-plugin-filesize/src/index.ts",
+<<<<<<< HEAD
             "assets": [
               "packages/esbuild-plugin-filesize/*.md"
             ]
+=======
+            "assets": ["packages/esbuild-plugin-filesize/*.md"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         }
       }
@@ -808,16 +976,24 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
+<<<<<<< HEAD
             "lintFilePatterns": [
               "packages/esbuild-plugin-ignore/**/*.ts"
             ]
+=======
+            "lintFilePatterns": ["packages/esbuild-plugin-ignore/**/*.ts"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
+<<<<<<< HEAD
           "outputs": [
             "coverage/packages/esbuild-plugin-ignore"
           ],
+=======
+          "outputs": ["coverage/packages/esbuild-plugin-ignore"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "jestConfig": "packages/esbuild-plugin-ignore/jest.config.js",
             "passWithNoTests": true
@@ -825,14 +1001,19 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
+<<<<<<< HEAD
           "outputs": [
             "{options.outputPath}"
           ],
+=======
+          "outputs": ["{options.outputPath}"],
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           "options": {
             "outputPath": "dist/packages/esbuild-plugin-ignore",
             "tsConfig": "packages/esbuild-plugin-ignore/tsconfig.lib.json",
             "packageJson": "packages/esbuild-plugin-ignore/package.json",
             "main": "packages/esbuild-plugin-ignore/src/index.ts",
+<<<<<<< HEAD
             "assets": [
               "packages/esbuild-plugin-ignore/*.md"
             ]
@@ -907,12 +1088,20 @@
             "npmPackageName": "@penumbra/nx-plugin-snowpack",
             "pluginOutputPath": "dist/packages/nx-plugin-snowpack",
             "jestConfig": "e2e/nx-plugin-snowpack-e2e/jest.config.js"
+=======
+            "assets": ["packages/esbuild-plugin-ignore/*.md"]
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
           }
         }
       }
     }
   },
+<<<<<<< HEAD
   "cli": {
     "defaultCollection": "@nrwl/workspace"
   }
 }
+=======
+  "cli": { "defaultCollection": "@nrwl/workspace" }
+}
+>>>>>>> 9ad35f796ae00809b92142e5d524a1f68ca353dc
