@@ -707,6 +707,38 @@
           }
         }
       }
+    },
+    "esbuild-plugin-ignore": {
+      "root": "packages/esbuild-plugin-ignore",
+      "sourceRoot": "packages/esbuild-plugin-ignore/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-ignore/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-ignore"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-ignore/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-ignore",
+            "tsConfig": "packages/esbuild-plugin-ignore/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-ignore/package.json",
+            "main": "packages/esbuild-plugin-ignore/src/index.ts",
+            "assets": ["packages/esbuild-plugin-ignore/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }

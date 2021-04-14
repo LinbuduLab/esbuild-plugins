@@ -22,5 +22,6 @@ module.exports = {
     '<rootDir>/packages/esbuild-plugin-node-externals',
     '<rootDir>/packages/esbuild-plugin-hash',
     '<rootDir>/packages/esbuild-plugin-filesize',
+    '<rootDir>/packages/esbuild-plugin-ignore',
   ],
 };

@@ -35,6 +35,9 @@
       "esbuild-plugin-hash": ["packages/esbuild-plugin-hash/src/index.ts"],
       "esbuild-plugin-filesize": [
         "packages/esbuild-plugin-filesize/src/index.ts"
+      ],
+      "esbuild-plugin-ignore-module": [
+        "packages/esbuild-plugin-ignore/src/index.ts"
       ]
     }
   },

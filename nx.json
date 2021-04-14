@@ -64,7 +64,8 @@
     "esbuild-plugin-decorator": { "tags": [] },
     "esbuild-plugin-node-externals": { "tags": [] },
     "esbuild-plugin-hash": { "tags": [] },
-    "esbuild-plugin-filesize": { "tags": [] }
+    "esbuild-plugin-filesize": { "tags": [] },
+    "esbuild-plugin-ignore": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }
