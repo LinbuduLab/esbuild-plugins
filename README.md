@@ -14,10 +14,12 @@ npm i nx-plugin-midway -D
 npm i nx-plugin-prisma -D
 npm i nx-plugin-esbuild -D
 npm i nx-plugin-swc -D
-npm i nx-plugin-vite
-npm i nx-plugin-umi
-npm i nx-plugin-ice
-npm i nx-plugin-serverless
+npm i nx-plugin-vite -D
+npm i nx-plugin-umi -D
+npm i nx-plugin-ice -D
+npm i nx-plugin-serverless -D
+npm i nx-plugin-snowpack -D
+
 
 # generator only
 nx g nx-plugin-typegraphql:resolver user --fields
@@ -44,24 +46,29 @@ nx serve umi-app
 
 nx g nx-plugin-ice:app ice-app
 nx serve ice-app
+
+nx g nx-plugin-snowpack snowpack-app
+nx serve snowpack-app
 ```
 
 ## Packages
 
-> Plugins which contain only generators.
+> Nx plugin with libraries.
 
 - `nx-plugin-typegraphql`:
-- ?
-
-> Plugins which contain both executors and generators.
 
 - `nx-plugin-midway`:
 - `nx-plugin-prisma`:
 - `nx-plugin-serverless`:
 
+> Nx  plugin with bundler.
+
 - `nx-plugin-esbuild`:
 - `nx-plugin-swc`:
 - `nx-plugin-vite`:
+
+> Nx plugin with React based framework. (like @nrwl/next)
+
 - `nx-plugin-umi`:
 - `nx-plugin-ice`:
 
@@ -239,10 +246,23 @@ nx serve ice-app
 
 
 
+### nx-plugin-snowpack
+
+> **Experimental**
+
+#### generators
+
+
+
+### executors
+
+
+
+
+
 ### Possible Plugins
 
-- nx-plugin-snowpack
-- nx-plugin-vuepress
+- nx-plugin-vuepress(vitepress?)
 - nx-plugin-dumi
 
 
