@@ -68,7 +68,12 @@
       "implicitDependencies": ["nx-plugin-snowpack"]
     },
     "nx-plugin-devkit": { "tags": [] },
-    "esbuild-plugin-html": { "tags": [] }
+    "esbuild-plugin-html": { "tags": [] },
+    "nx-plugin-koa": { "tags": [] },
+    "nx-plugin-koa-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-koa"]
+    }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

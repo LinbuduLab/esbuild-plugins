@@ -25,5 +25,7 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-snowpack-e2e',
     '<rootDir>/packages/nx-plugin-devkit',
     '<rootDir>/packages/esbuild-plugin-html',
+    '<rootDir>/packages/nx-plugin-koa',
+    '<rootDir>/e2e\\nx-plugin-koa-e2e',
   ],
 };

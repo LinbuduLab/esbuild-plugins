@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-plugin-koa",
+  "version": "0.0.1",
+  "generators": {
+    "app": {
+      "factory": "./src/generators/application/generator",
+      "schema": "./src/generators/application/schema.json",
+      "description": "application generator"
+    },
+    "application": {
+      "factory": "./src/generators/application/generator",
+      "schema": "./src/generators/application/schema.json",
+      "description": "application generator"
+    },
+    "middleware": {
+      "factory": "./src/generators/middleware/generator",
+      "schema": "./src/generators/middleware/schema.json",
+      "description": "middleware generator"
+    }
+  }
+}

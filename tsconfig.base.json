@@ -41,7 +41,8 @@
       ],
       "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"],
       "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"],
-      "esbuild-plugin-html": ["packages/esbuild-plugin-html/src/index.ts"]
+      "esbuild-plugin-html": ["packages/esbuild-plugin-html/src/index.ts"],
+      "nx-plugin-koa": ["packages/nx-plugin-koa/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
