@@ -10,6 +10,18 @@ const esbuildPlugins = allPackages
   .filter((package) => package.startsWith('esbuild-plugin-'))
   .map((package) => package.replace('-plugin-', '-'));
 
+const vitePlugins = allPackages
+  .filter((package) => package.startsWith('vite-plugin-'))
+  .map((package) => package.replace('-plugin-', '-'));
+
+const snowpackPlugins = allPackages
+  .filter((package) => package.startsWith('snowpack-plugin-'))
+  .map((package) => package.replace('-plugin-', '-'));
+
+const umiPlugins = allPackages
+  .filter((package) => package.startsWith('umi-plugin-'))
+  .map((package) => package.replace('-plugin-', '-'));
+
 const WORKSPACE_CONFIGURATION_SCOPE = 'workspace';
 const DOCUMENTATION_SCOPE = 'docs';
 const WEBSITE_SCOPE = 'website';
@@ -55,6 +67,9 @@ module.exports = {
   scopes: [
     ...nxPlugins,
     ...esbuildPlugins,
+    ...vitePlugins,
+    ...snowpackPlugins,
+    ...umiPlugins,
     WORKSPACE_CONFIGURATION_SCOPE,
     DOCUMENTATION_SCOPE,
     WEBSITE_SCOPE,

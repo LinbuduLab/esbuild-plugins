@@ -61,6 +61,7 @@
     "@anatine/esbuild-decorators": "^0.2.7",
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
+    "@genql/cli": "^2.6.0",
     "@nrwl/cli": "11.6.0",
     "@nrwl/devkit": "11.6.0",
     "@nrwl/eslint-plugin-nx": "11.6.0",
