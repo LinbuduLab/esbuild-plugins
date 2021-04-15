@@ -57,23 +57,24 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-umi"]
     },
-    "esbuild-plugin-decorator": { "tags": [] },
-    "esbuild-plugin-node-externals": { "tags": [] },
-    "esbuild-plugin-hash": { "tags": [] },
-    "esbuild-plugin-filesize": { "tags": [] },
-    "esbuild-plugin-ignore": { "tags": [] },
+
     "nx-plugin-snowpack": { "tags": [] },
     "nx-plugin-snowpack-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-snowpack"]
     },
     "nx-plugin-devkit": { "tags": [] },
-    "esbuild-plugin-html": { "tags": [] },
     "nx-plugin-koa": { "tags": [] },
     "nx-plugin-koa-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-koa"]
-    }
+    },
+    "esbuild-plugin-decorator": { "tags": [] },
+    "esbuild-plugin-node-externals": { "tags": [] },
+    "esbuild-plugin-hash": { "tags": [] },
+    "esbuild-plugin-filesize": { "tags": [] },
+    "esbuild-plugin-ignore": { "tags": [] },
+    "esbuild-plugin-html": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

@@ -24,8 +24,11 @@
       "nx-plugin-swc": ["packages/nx-plugin-swc/src/index.ts"],
       "nx-plugin-vite": ["packages/nx-plugin-vite/src/index.ts"],
       "nx-plugin-umi": ["packages/nx-plugin-umi/src/index.ts"],
-      "nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
-      "publishable-lib-test": ["packages/publishable-lib/src/index.ts"],
+      "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"],
+      "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"],
+      "nx-plugin-koa": ["packages/nx-plugin-koa/src/index.ts"],
+      "esbuild-plugin-html": ["packages/esbuild-plugin-html/src/index.ts"],
+
       "esbuild-plugin-decorator": [
         "packages/esbuild-plugin-decorator/src/index.ts"
       ],
@@ -38,11 +41,7 @@
       ],
       "esbuild-plugin-ignore-module": [
         "packages/esbuild-plugin-ignore/src/index.ts"
-      ],
-      "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"],
-      "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"],
-      "esbuild-plugin-html": ["packages/esbuild-plugin-html/src/index.ts"],
-      "nx-plugin-koa": ["packages/nx-plugin-koa/src/index.ts"]
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
