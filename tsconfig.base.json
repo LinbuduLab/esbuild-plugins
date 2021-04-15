@@ -40,7 +40,8 @@
         "packages/esbuild-plugin-ignore/src/index.ts"
       ],
       "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"],
-      "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"]
+      "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"],
+      "esbuild-plugin-html": ["packages/esbuild-plugin-html/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

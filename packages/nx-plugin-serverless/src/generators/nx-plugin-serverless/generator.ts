@@ -66,7 +66,7 @@ export default async function (
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
     targets: {
       build: {
-        executor: '@penumbra/nx-plugin-serverless:build',
+        executor: 'nx-plugin-serverless:build',
       },
     },
     tags: normalizedOptions.parsedTags,

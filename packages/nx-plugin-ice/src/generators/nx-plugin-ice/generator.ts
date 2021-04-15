@@ -66,7 +66,7 @@ export default async function (
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
     targets: {
       build: {
-        executor: '@penumbra/nx-plugin-ice:build',
+        executor: 'nx-plugin-ice:build',
       },
     },
     tags: normalizedOptions.parsedTags,

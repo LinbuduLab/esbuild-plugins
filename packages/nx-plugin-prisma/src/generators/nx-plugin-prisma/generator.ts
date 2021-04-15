@@ -66,7 +66,7 @@ export default async function (
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
     targets: {
       build: {
-        executor: '@penumbra/nx-plugin-prisma:build',
+        executor: 'nx-plugin-prisma:build',
       },
     },
     tags: normalizedOptions.parsedTags,

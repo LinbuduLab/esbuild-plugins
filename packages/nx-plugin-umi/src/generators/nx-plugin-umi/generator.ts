@@ -66,7 +66,7 @@ export default async function (
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
     targets: {
       build: {
-        executor: '@penumbra/nx-plugin-umi:build',
+        executor: 'nx-plugin-umi:build',
       },
     },
     tags: normalizedOptions.parsedTags,
