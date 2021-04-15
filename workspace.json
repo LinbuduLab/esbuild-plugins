@@ -515,69 +515,6 @@
         }
       }
     },
-    "nx-plugin-ice": {
-      "root": "packages/nx-plugin-ice",
-      "sourceRoot": "packages/nx-plugin-ice/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": { "lintFilePatterns": ["packages/nx-plugin-ice/**/*.ts"] }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-ice"],
-          "options": {
-            "jestConfig": "packages/nx-plugin-ice/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/nx-plugin-ice",
-            "tsConfig": "packages/nx-plugin-ice/tsconfig.lib.json",
-            "packageJson": "packages/nx-plugin-ice/package.json",
-            "main": "packages/nx-plugin-ice/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-ice/*.md",
-              {
-                "input": "./packages/nx-plugin-ice/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-ice",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./packages/nx-plugin-ice",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "nx-plugin-ice-e2e": {
-      "projectType": "application",
-      "root": "e2e\\nx-plugin-ice-e2e",
-      "sourceRoot": "e2e\\nx-plugin-ice-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-plugin-ice:build",
-            "npmPackageName": "nx-plugin-ice",
-            "pluginOutputPath": "dist/packages/nx-plugin-ice",
-            "jestConfig": "e2e/nx-plugin-ice-e2e/jest.config.js"
-          }
-        }
-      }
-    },
     "esbuild-plugin-decorator": {
       "root": "packages/esbuild-plugin-decorator",
       "sourceRoot": "packages/esbuild-plugin-decorator/src",

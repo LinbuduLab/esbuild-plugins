@@ -39,8 +39,6 @@
     "dev:esbuild:hash": "nx run esbuild-plugin-hash:build && cd .\\dist\\packages\\esbuild-plugin-hash\\ && pnpm link",
     "dev:esbuild:filesize": "nx run esbuild-plugin-filesize:build && cd .\\dist\\packages\\esbuild-plugin-filesize\\ && pnpm link",
     "__META_TODO_1__": "Handle plugin link by scripts",
-    "link-plugins": "pnpm link esbuild-plugin-decorators && pnpm link esbuild-plugin-node-externals",
-    "unlink-plugins": "pnpm unlink esbuild-plugin-decorators && pnpm unlink esbuild-plugin-node-externals",
     "commit": "git add -A && git-cz"
   },
   "private": true,
