@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { build } from 'esbuild';
 import chokidar from 'chokidar';
 import { FileInputOutput } from '../schema';
-import copyAssetFiles from './copy-assets';
+import { copyAssetFiles } from 'nx-plugin-devkit';
 
 interface RunBuildResponse {
   buildResult: BuildResult | null;
