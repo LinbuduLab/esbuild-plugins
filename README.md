@@ -305,10 +305,12 @@ Inspired by [rollup-plugin-filesize](https://github.com/ritz078/rollup-plugin-fi
 
 Inspired by [rollup-plugin-hash](https://github.com/phamann/rollup-plugin-hash)
 
-### esbuild-plugin-static-site
+### esbuild-plugin-html
 
 > Html template + script insert made easy.
 
+
+> https://github.com/remorses/esbuild-plugins/blob/master/html/src/index.ts
 Inspired by [html-webpack-plugin]() + [rollup-plugin-static-site](https://gitlab.com/thekelvinliu/rollup-plugin-static-site)
 
 ### esbuild-plugin-circular-deps
