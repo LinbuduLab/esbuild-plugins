@@ -1,31 +1,19 @@
 import {
-  addProjectConfiguration,
   formatFiles,
   generateFiles,
-  getWorkspaceLayout,
   names,
-  offsetFromRoot,
   Tree,
   readProjectConfiguration,
-  getProjects,
   addDependenciesToPackageJson,
   installPackagesTask,
   joinPathFragments,
 } from '@nrwl/devkit';
 import path from 'path';
-import {
-  Project,
-  StructureKind,
-  ExportDeclarationStructure,
-  OptionalKind,
-} from 'ts-morph';
-import { libraryGenerator } from '@nrwl/workspace/generators';
-import {
-  MiddlewareGeneratorSchema,
-  TypeGraphQLMiddlewareSchema,
-} from './schema';
+import { TypeGraphQLMiddlewareSchema } from './schema';
 
-import { getAvailableAppsOrLibs } from 'nx-plugin-devkit';
+import { normalizeGenSchema } from './lib/normalize-schema';
+import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
+import { appendExportToIndexFile } from './lib/append-export';
 
 // appOrLibs: app1 -> apps/app1, 不会自动创建, lib1 -> libs/lib1，也不会自动创建？
 // 还是新增一个指定生成到app or lib 的选项？
@@ -90,76 +78,4 @@ export default async function (
   return () => {
     installPackagesTask(host);
   };
-}
-
-function normalizeGenSchema(
-  host: Tree,
-  schema: Partial<TypeGraphQLMiddlewareSchema>
-): TypeGraphQLMiddlewareSchema {
-  const { apps, libs } = getAvailableAppsOrLibs(host);
-
-  const appNames = apps.map((app) => app.appName);
-  const libNames = libs.map((lib) => lib.libName);
-
-  if (
-    !appNames.includes(schema.appsOrLibs) &&
-    !libNames.includes(schema.appsOrLibs)
-  ) {
-    throw new Error(`App or Lib ${schema.appsOrLibs} dose not exist`);
-  }
-
-  // FIXME: 如果不想作为provider，后一个问题应该根本不出现才对
-  // if (!schema.asDIProvider && schema.diLibs) {
-  //   devInfo('');
-  // }
-
-  if (!schema.directory) {
-    schema.directory = 'middlewares';
-  }
-
-  return schema as TypeGraphQLMiddlewareSchema;
-}
-
-function composeDepsList(
-  schema: TypeGraphQLMiddlewareSchema
-): Record<string, string> {
-  const basic: Record<string, string> = {
-    'type-graphql': 'latest',
-    graphql: 'latest',
-    'reflect-metadata': 'latest',
-    [schema.diLibs === 'TypeDI' ? 'typedi' : 'inversify']: 'latest',
-  };
-
-  return basic;
-}
-
-function composeDevDepsList(
-  schema: TypeGraphQLMiddlewareSchema
-): Record<string, string> {
-  const basic = {};
-
-  return basic;
-}
-
-function appendExportToIndexFile(
-  path: string,
-  content: string,
-  directory: string,
-  fileName: string
-): string {
-  const project = new Project();
-
-  const sourceFile = project.createSourceFile(path, content, {
-    overwrite: true,
-  });
-
-  const exportDeclaration: OptionalKind<ExportDeclarationStructure> = {
-    kind: StructureKind.ExportDeclaration,
-    isTypeOnly: false,
-    moduleSpecifier: `./${directory}/${fileName}`,
-  };
-
-  sourceFile.addExportDeclaration(exportDeclaration);
-
-  return sourceFile.getFullText();
 }

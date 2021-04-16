@@ -3,29 +3,15 @@ import {
   formatFiles,
   installPackagesTask,
   readProjectConfiguration,
-  addProjectConfiguration,
-  readWorkspaceConfiguration,
-  updateWorkspaceConfiguration,
-  getProjects,
   generateFiles,
-  addDependenciesToPackageJson,
-  getWorkspaceLayout,
-  offsetFromRoot,
-  normalizePath,
-  applyChangesToString,
   joinPathFragments,
   names,
 } from '@nrwl/devkit';
-import {
-  Project,
-  StructureKind,
-  ExportDeclarationStructure,
-  OptionalKind,
-} from 'ts-morph';
 import path from 'path';
 
-import { getAvailableAppsOrLibs } from 'nx-plugin-devkit';
-import { ResolverGeneratorSchema, TypeGraphQLResolverSchema } from './schema';
+import { TypeGraphQLResolverSchema } from './schema';
+import { normalizeGenSchema } from './lib/normalize-schema';
+import { appendExportToIndexFile } from './lib/append.export';
 
 export default async function (host: Tree, schema: TypeGraphQLResolverSchema) {
   console.log('schema: ', schema);
@@ -78,51 +64,4 @@ export default async function (host: Tree, schema: TypeGraphQLResolverSchema) {
   return () => {
     installPackagesTask(host);
   };
-}
-
-function normalizeGenSchema(
-  host: Tree,
-  schema: Partial<TypeGraphQLResolverSchema>
-): TypeGraphQLResolverSchema {
-  const { apps, libs } = getAvailableAppsOrLibs(host);
-
-  const appNames = apps.map((app) => app.appName);
-  const libNames = libs.map((lib) => lib.libName);
-
-  if (
-    !appNames.includes(schema.appOrLibName) &&
-    !libNames.includes(schema.appOrLibName)
-  ) {
-    throw new Error(`App or Lib ${schema.appOrLibName} dose not exist`);
-  }
-
-  if (!schema.directory) {
-    schema.directory = 'resolvers';
-  }
-
-  return schema as TypeGraphQLResolverSchema;
-}
-
-// append on lib only
-function appendExportToIndexFile(
-  path: string,
-  content: string,
-  directory: string,
-  fileName: string
-): string {
-  const project = new Project();
-
-  const sourceFile = project.createSourceFile(path, content, {
-    overwrite: true,
-  });
-
-  const exportDeclaration: OptionalKind<ExportDeclarationStructure> = {
-    kind: StructureKind.ExportDeclaration,
-    isTypeOnly: false,
-    moduleSpecifier: `./${directory}/${fileName}.resolver`,
-  };
-
-  sourceFile.addExportDeclaration(exportDeclaration);
-
-  return sourceFile.getFullText();
 }
