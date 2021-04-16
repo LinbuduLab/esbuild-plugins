@@ -28,6 +28,7 @@ const WEBSITE_SCOPE = 'website';
 const ADD_PLUGIN_SCOPE = 'add-plugin';
 const DELETE_PLUGIN_SCOPE = 'delete-plugin';
 const EXAMPLE_SCOPE = 'example';
+const WIP_SCOPE = 'wip';
 
 // https://gitmoji.dev/
 module.exports = {
@@ -76,6 +77,7 @@ module.exports = {
     ADD_PLUGIN_SCOPE,
     DELETE_PLUGIN_SCOPE,
     EXAMPLE_SCOPE,
+    WIP_SCOPE,
   ],
   disableEmoji: false,
   list: [
