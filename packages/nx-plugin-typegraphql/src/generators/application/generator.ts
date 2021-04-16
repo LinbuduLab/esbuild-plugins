@@ -29,15 +29,8 @@ import {
   ExportDeclarationStructure,
   OptionalKind,
 } from 'ts-morph';
-import {
-  getAvailableLibs,
-  devInfo,
-  devWarn,
-  isValidNamespace,
-  generateDTONames,
-  updateDependencies,
-  initializeNodeApp,
-} from '../../utils';
+import { isValidNamespace, generateDTONames } from '../../utils';
+import { initializeNodeApp } from 'nx-plugin-devkit';
 import {
   NormalizedTypeGraphQLResolverSchema,
   TypeGraphQLApplicationSchema,

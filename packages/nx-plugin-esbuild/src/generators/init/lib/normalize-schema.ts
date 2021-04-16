@@ -1,6 +1,5 @@
 import { Tree, names, getWorkspaceLayout, offsetFromRoot } from '@nrwl/devkit';
-import { getAvailableAppsOrLibs } from '../../../utils';
-import path from 'path';
+import { getAvailableAppsOrLibs } from 'nx-plugin-devkit';
 import {
   ESBuildInitGeneratorSchema,
   NormalizedESBuildInitGeneratorSchema,

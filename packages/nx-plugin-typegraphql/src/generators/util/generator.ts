@@ -1,10 +1,7 @@
 import {
-  addProjectConfiguration,
   formatFiles,
   generateFiles,
-  getWorkspaceLayout,
   names,
-  offsetFromRoot,
   installPackagesTask,
   readProjectConfiguration,
   addDependenciesToPackageJson,
@@ -18,17 +15,11 @@ import {
   ExportDeclarationStructure,
   OptionalKind,
 } from 'ts-morph';
-import {
-  getAvailableAppsOrLibs,
-  devInfo,
-  devWarn,
-  isValidNamespace,
-  generateDTONames,
-} from '../../utils';
+import { getAvailableAppsOrLibs } from 'nx-plugin-devkit';
+
 import {
   TypeGraphQLUtilSchema,
   NormalizedTypeGraphQLUtilSchema,
-  UtilTypeEnum,
 } from './schema';
 
 export default async function (host: Tree, schema: TypeGraphQLUtilSchema) {

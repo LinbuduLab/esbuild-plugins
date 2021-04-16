@@ -25,14 +25,7 @@ import {
   TypeGraphQLMiddlewareSchema,
 } from './schema';
 
-import {
-  getAvailableAppsOrLibs,
-  getAvailableLibs,
-  devInfo,
-  devWarn,
-  isValidNamespace,
-  generateDTONames,
-} from '../../utils';
+import { getAvailableAppsOrLibs } from 'nx-plugin-devkit';
 
 // appOrLibs: app1 -> apps/app1, 不会自动创建, lib1 -> libs/lib1，也不会自动创建？
 // 还是新增一个指定生成到app or lib 的选项？

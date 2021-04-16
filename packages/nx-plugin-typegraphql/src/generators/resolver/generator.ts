@@ -23,14 +23,8 @@ import {
   OptionalKind,
 } from 'ts-morph';
 import path from 'path';
-import {
-  getAvailableLibs,
-  devInfo,
-  devWarn,
-  isValidNamespace,
-  generateDTONames,
-  getAvailableAppsOrLibs,
-} from '../../utils';
+
+import { getAvailableAppsOrLibs } from 'nx-plugin-devkit';
 import { ResolverGeneratorSchema, TypeGraphQLResolverSchema } from './schema';
 
 export default async function (host: Tree, schema: TypeGraphQLResolverSchema) {

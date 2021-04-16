@@ -16,17 +16,13 @@ import {
   OptionalKind,
 } from 'ts-morph';
 import path from 'path';
-import {
-  getAvailableAppsOrLibs,
-  devInfo,
-  devWarn,
-  isValidNamespace,
-  generateDTONames,
-} from '../../utils';
+import { isValidNamespace, generateDTONames } from '../../utils';
 import {
   TypeGraphQLObjectTypeSchema,
   NormalTypeGraphQLObjectTypeSchema,
 } from './schema';
+import { devInfo, devWarn } from 'nx-plugin-devkit';
+import { getAvailableAppsOrLibs } from 'nx-plugin-devkit';
 
 export default async function (
   host: Tree,
