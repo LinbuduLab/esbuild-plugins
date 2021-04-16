@@ -1,5 +1,7 @@
 import type { Plugin } from 'esbuild';
 import type { Option } from './normalize-option';
+import { normalizeOption } from './normalize-option';
+
 import fs from 'fs-extra';
 import path from 'path';
 import pretty from 'pretty';
@@ -12,39 +14,41 @@ import pretty from 'pretty';
 
 // 应该会选择第二种 但是暂时没看到方便的html ast解析库 这里用了笨办法
 
-// 选项：
-// title meta favicon fileName scriptLoading：应该容易实现
 export function esbuildHtmlPlugin(options: Option = {}): Plugin {
+  const normalizeOptions = normalizeOption(options);
+
+  const {
+    title,
+    fileName,
+    templatePath,
+    inject,
+    scriptLoading,
+    favicon,
+    meta,
+  } = normalizeOptions;
+
   return {
     name: 'html',
     async setup(build) {
-      const { outfile, outdir, bundle, publicPath } = build.initialOptions;
-      console.log('build.initialOptions: ', build.initialOptions);
-      // skip plugin if bundle is false?
-      // build.onLoad({ filter: /\.html$/ }, (args) => {
-      //   console.log(args);
-      //   return {};
-      // });
-      // waiting for buildEnd hooks
-      const htmlTemplatePath = options.templatePath;
-      // console.log('htmlTemplatePath: ', htmlTemplatePath);
+      // TODO: handle outfile / outdir case
+      const { outfile, outdir, bundle } = build.initialOptions;
 
-      const htmlText = fs.readFileSync(htmlTemplatePath, 'utf8').replace(
-        '<body></body>',
-        `
+      const outFileName = path.basename(outfile);
+      const outFileDir = path.dirname(outfile);
+      const outHtmlPath = path.resolve(outFileDir, fileName);
+
+      const scriptReplaceContent = `
       <body>
-        <script src="./${path.basename(outfile)}"></script>
-      </body>
-      `
-      );
+        <script ${
+          scriptLoading === 'defer' ? 'defer' : ''
+        } src="./${outFileName}"></script>
+      </body>`;
 
-      fs.writeFileSync(
-        path.resolve(
-          path.dirname(build.initialOptions.outfile),
-          path.basename(htmlTemplatePath)
-        ),
-        pretty(htmlText)
-      );
+      const htmlText = fs
+        .readFileSync(templatePath, 'utf8')
+        .replace('<body></body>', scriptReplaceContent);
+
+      fs.writeFileSync(outHtmlPath, pretty(htmlText));
     },
   };
 }
