@@ -13,8 +13,25 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "scope:nx",
+                "onlyDependOnLibsWithTags": [
+                  "scope:nx",
+                  "scope:esbuild",
+                  "scope:vite",
+                  "scope:snowpack"
+                ]
+              },
+              {
+                "sourceTag": "scope:esbuild",
+                "onlyDependOnLibsWithTags": ["scope:esbuild"]
+              },
+              {
+                "sourceTag": "scope:vite",
+                "onlyDependOnLibsWithTags": ["scope:vite"]
+              },
+              {
+                "sourceTag": "scope:snowpack",
+                "onlyDependOnLibsWithTags": ["scope:snowpack"]
               }
             ]
           }

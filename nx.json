@@ -1,6 +1,5 @@
 {
   "npmScope": "penumbra",
-  "_META_TODO_": "<<<sort projects>>>",
   "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "workspace.json": "*",
@@ -13,68 +12,86 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
+      "options": {
+        "cacheableOperations": ["lint", "test", "e2e"],
+        "parallel": true,
+        "maxParallel": 8,
+        "skipNxCache": true
+      }
     }
   },
   "projects": {
-    "nx-plugin-typegraphql": { "tags": [] },
+    "nx-plugin-typegraphql": {
+      "tags": ["scope:nx"],
+      "implicitDependencies": ["nx-plugin-devkit"]
+    },
     "nx-plugin-typegraphql-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-typegraphql"]
     },
-    "nx-plugin-midway": { "tags": [] },
+    "nx-plugin-midway": { "tags": ["scope:nx"] },
     "nx-plugin-midway-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-midway"]
     },
-    "nx-plugin-prisma": { "tags": [] },
+    "nx-plugin-prisma": { "tags": ["scope:nx"] },
     "nx-plugin-prisma-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-prisma"]
     },
-    "nx-plugin-serverless": { "tags": [] },
+    "nx-plugin-serverless": { "tags": ["scope:nx"] },
     "nx-plugin-serverless-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-serverless"]
     },
-    "nx-plugin-esbuild": { "tags": [] },
+    "nx-plugin-esbuild": {
+      "tags": ["scope:nx"],
+      "implicitDependencies": [
+        "nx-plugin-devkit",
+        "esbuild-plugin-decorator",
+        "esbuild-plugin-node-externals",
+        "esbuild-plugin-hash",
+        "esbuild-plugin-filesize",
+        "esbuild-plugin-ignore",
+        "esbuild-plugin-html"
+      ]
+    },
     "nx-plugin-esbuild-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-esbuild"]
     },
-    "nx-plugin-swc": { "tags": [] },
+    "nx-plugin-swc": { "tags": ["scope:nx"] },
     "nx-plugin-swc-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-swc"]
     },
-    "nx-plugin-vite": { "tags": [] },
+    "nx-plugin-vite": { "tags": ["scope:nx"] },
     "nx-plugin-vite-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-vite"]
     },
-    "nx-plugin-umi": { "tags": [] },
+    "nx-plugin-umi": { "tags": ["scope:nx"] },
     "nx-plugin-umi-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-umi"]
     },
-
-    "nx-plugin-snowpack": { "tags": [] },
+    "nx-plugin-snowpack": { "tags": ["scope:nx"] },
     "nx-plugin-snowpack-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-snowpack"]
     },
-    "nx-plugin-devkit": { "tags": [] },
-    "nx-plugin-koa": { "tags": [] },
+    "nx-plugin-devkit": { "tags": ["scope:nx"] },
+    "nx-plugin-koa": { "tags": ["scope:nx"] },
     "nx-plugin-koa-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-koa"]
     },
-    "esbuild-plugin-decorator": { "tags": [] },
-    "esbuild-plugin-node-externals": { "tags": [] },
-    "esbuild-plugin-hash": { "tags": [] },
-    "esbuild-plugin-filesize": { "tags": [] },
-    "esbuild-plugin-ignore": { "tags": [] },
-    "esbuild-plugin-html": { "tags": [] }
+    "esbuild-plugin-decorator": { "tags": ["scope:esbuild"] },
+    "esbuild-plugin-node-externals": { "tags": ["scope:esbuild"] },
+    "esbuild-plugin-hash": { "tags": ["scope:esbuild"] },
+    "esbuild-plugin-filesize": { "tags": ["scope:esbuild"] },
+    "esbuild-plugin-ignore": { "tags": ["scope:esbuild"] },
+    "esbuild-plugin-html": { "tags": ["scope:esbuild"] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

@@ -24,7 +24,7 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "dev:tgql": "nx run nx-plugin-typegraphql:build && cd .\\dist\\packages\\nx-plugin-typegraphql\\ && npm run link",
+    "dev:tgql": "nx run nx-plugin-typegraphql:build --with-deps && cd .\\dist\\packages\\nx-plugin-typegraphql\\ && npm run link",
     "dev:midway": "nx run nx-plugin-midway:build && cd .\\dist\\packages\\nx-plugin-midway\\ && pnpm link",
     "dev:prisma": "nx run nx-plugin-prisma:build && cd .\\dist\\packages\\nx-plugin-prisma\\ && pnpm link",
     "dev:serverless": "nx run nx-plugin-serverless:build && cd .\\dist\\packages\\nx-plugin-serverless\\ && pnpm link",
