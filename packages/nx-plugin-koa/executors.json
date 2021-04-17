@@ -1,20 +1,4 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "executors": {
-    "build": {
-      "implementation": "./src/executors/build/build.impl",
-      "schema": "./src/executors/build/schema.json",
-      "description": "build executor"
-    },
-    "origin-build": {
-      "implementation": "./src/executors/build/build.origin",
-      "schema": "./src/executors/build/schema.json",
-      "description": "build executor"
-    },
-    "serve": {
-      "implementation": "./src/executors/serve/serve.impl",
-      "schema": "./src/executors/serve/schema.json",
-      "description": "serve executor"
-    }
-  }
+  "executors": {}
 }

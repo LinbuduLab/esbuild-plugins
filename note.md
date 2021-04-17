@@ -75,3 +75,6 @@ aaaa!
   - https://github.com/nrwl/nx/issues/4620
   - nx build nx-plugin-esbuild --with-deps
   - nx g @nrwl/node:lib esbuild-plugin-decorator --publishable --importPath=esbuild-plugin-decorator
+
+
+- nx koa-build nest-app --configuration=production
