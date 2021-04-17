@@ -1,23 +1,24 @@
 import { Tree, names, getWorkspaceLayout, offsetFromRoot } from '@nrwl/devkit';
 import { getAvailableAppsOrLibs } from 'nx-plugin-devkit';
+
 import {
-  ESBuildInitGeneratorSchema,
-  NormalizedESBuildInitGeneratorSchema,
+  KoaAppGeneratorSchema,
+  NormalizedKoaAppGeneratorSchema,
 } from '../schema';
 
 export function normalizeSchema(
   host: Tree,
-  schema: ESBuildInitGeneratorSchema
-): NormalizedESBuildInitGeneratorSchema {
+  schema: KoaAppGeneratorSchema
+): NormalizedKoaAppGeneratorSchema {
   const { apps } = getAvailableAppsOrLibs(host);
 
   const appNames = apps.map((app) => app.appName);
 
-  if (appNames.includes(schema.name)) {
-    throw new Error(`App  ${schema.name} already exist!`);
+  if (appNames.includes(schema.app)) {
+    throw new Error(`App ${schema.app} already exist!`);
   }
 
-  const name = names(schema.name).fileName;
+  const name = names(schema.app).fileName;
 
   const projectDirectory = schema.directory
     ? `${names(schema.directory).fileName}/${name}`
@@ -34,23 +35,19 @@ export function normalizeSchema(
 
   const offset = offsetFromRoot(projectRoot);
 
-  const main = `${projectRoot}/src/main.ts`;
-  const outputPath = `dist/apps/${projectName}`;
-  const tsConfigPath = `${projectRoot}/tsconfig.app.json`;
-  const assets = [`${projectRoot}/src/assets`];
+  const minimal = schema.minimal ?? true;
+  const routingControllerBased = schema.routingControllerBased ?? true;
+  const router = schema.router ?? true;
 
   return {
     ...schema,
+    minimal,
+    routingControllerBased,
+    router,
     projectName,
-    projectDirectory,
     projectRoot,
+    projectDirectory,
     parsedTags,
     offsetFromRoot: offset,
-    main,
-    outputPath,
-    tsConfigPath,
-    assets,
-    watch: schema?.watch ?? false,
-    useTSCPluginForDecorator: schema?.useTSCPluginForDecorator ?? true,
   };
 }

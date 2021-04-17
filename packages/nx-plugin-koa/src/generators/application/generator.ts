@@ -1,69 +1,73 @@
 import {
-  addProjectConfiguration,
   formatFiles,
-  generateFiles,
-  getWorkspaceLayout,
-  names,
-  offsetFromRoot,
   Tree,
+  installPackagesTask,
+  GeneratorCallback,
+  addDependenciesToPackageJson,
+  readWorkspaceConfiguration,
+  updateWorkspaceConfiguration,
 } from '@nrwl/devkit';
-import * as path from 'path';
-import { ApplicationGeneratorSchema } from './schema';
+import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
-interface NormalizedSchema extends ApplicationGeneratorSchema {
-  projectName: string;
-  projectRoot: string;
-  projectDirectory: string;
-  parsedTags: string[]
-}
+import { NormalizedKoaAppGeneratorSchema } from './schema';
 
-function normalizeOptions(host: Tree, options: ApplicationGeneratorSchema): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-  const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-  const projectRoot = `${getWorkspaceLayout(host).libsDir}/${projectDirectory}`;
-  const parsedTags = options.tags
-    ? options.tags.split(',').map((s) => s.trim())
-    : [];
+import { normalizeSchema } from './lib/normalize-schema';
+import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
+import { createInitTask, createJestTask, createLintTask } from './lib/tasks';
+import { createAppAsProject, createAppFiles } from './lib/setup-app';
 
-  return {
-    ...options,
+export default async function (
+  host: Tree,
+  schema: NormalizedKoaAppGeneratorSchema
+) {
+  const normalizedSchema = normalizeSchema(host, schema);
+  console.log('normalizedSchema: ', normalizedSchema);
+
+  const {
     projectName,
     projectRoot,
     projectDirectory,
     parsedTags,
-  };
-}
+    offsetFromRoot,
 
-function addFiles(host: Tree, options: NormalizedSchema) {
-    const templateOptions = {
-      ...options,
-      ...names(options.name),
-      offsetFromRoot: offsetFromRoot(options.projectRoot),
-      template: ''
-    };
-    generateFiles(host, path.join(__dirname, 'files'), options.projectRoot, templateOptions);
-}
+    frontendProject,
+    minimal,
+    routingControllerBased,
+    router,
+  } = normalizedSchema;
 
-export default async function (host: Tree, options: ApplicationGeneratorSchema) {
-  const normalizedOptions = normalizeOptions(host, options);
-  addProjectConfiguration(
-    host,
-    normalizedOptions.projectName,
-    {
-      root: normalizedOptions.projectRoot,
-      projectType: 'library',
-      sourceRoot: `${normalizedOptions.projectRoot}/src`,
-      targets: {
-        build: {
-          executor: "@penumbra/application:build",
-        },
-      },
-      tags: normalizedOptions.parsedTags,
-    }
-  );
-  addFiles(host, normalizedOptions);
+  const tasks: GeneratorCallback[] = [];
+
+  // push task by Promise.all ?
+  const initTask = await createInitTask(host);
+  tasks.push(initTask);
+
+  // move to init task ?
+  createAppAsProject(host, normalizedSchema);
+  createAppFiles(host, normalizedSchema);
+
+  const lintTask = await createLintTask(host, normalizedSchema);
+  tasks.push(lintTask);
+
+  const jestTask = await createJestTask(host, normalizedSchema);
+  tasks.push(jestTask);
+
+  const workspace = readWorkspaceConfiguration(host);
+
+  if (!workspace.defaultProject) {
+    workspace.defaultProject = schema.projectRoot;
+    updateWorkspaceConfiguration(host, workspace);
+  }
+
   await formatFiles(host);
+
+  const deps = composeDepsList(normalizedSchema);
+  const devDeps = composeDevDepsList(normalizedSchema);
+
+  addDependenciesToPackageJson(host, deps, devDeps);
+
+  return () => {
+    installPackagesTask(host);
+    runTasksInSerial(...tasks);
+  };
 }
