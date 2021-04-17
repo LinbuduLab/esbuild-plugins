@@ -8,13 +8,18 @@ import {
   updateWorkspaceConfiguration,
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
-
+import path from 'path';
 import { NormalizedKoaAppGeneratorSchema } from './schema';
 
 import { normalizeSchema } from './lib/normalize-schema';
 import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
-import { createInitTask, createJestTask, createLintTask } from './lib/tasks';
-import { createAppAsProject, createAppFiles } from './lib/setup-app';
+import {
+  createNodeInitTask,
+  createNodeJestTask,
+  createNodeLintTask,
+  createNodeAppProject,
+  createNodeAppFiles,
+} from 'nx-plugin-devkit';
 
 export default async function (
   host: Tree,
@@ -23,33 +28,18 @@ export default async function (
   const normalizedSchema = normalizeSchema(host, schema);
   console.log('normalizedSchema: ', normalizedSchema);
 
-  const {
-    projectName,
-    projectRoot,
-    projectDirectory,
-    parsedTags,
-    offsetFromRoot,
-
-    frontendProject,
-    minimal,
-    routingControllerBased,
-    router,
-  } = normalizedSchema;
-
   const tasks: GeneratorCallback[] = [];
 
-  // push task by Promise.all ?
-  const initTask = await createInitTask(host);
+  const initTask = await createNodeInitTask(host);
   tasks.push(initTask);
 
-  // move to init task ?
-  createAppAsProject(host, normalizedSchema);
-  createAppFiles(host, normalizedSchema);
+  createNodeAppProject(host, normalizedSchema);
+  createNodeAppFiles(host, normalizedSchema, path.join(__dirname, './files'));
 
-  const lintTask = await createLintTask(host, normalizedSchema);
+  const lintTask = await createNodeLintTask(host, normalizedSchema);
   tasks.push(lintTask);
 
-  const jestTask = await createJestTask(host, normalizedSchema);
+  const jestTask = await createNodeJestTask(host, normalizedSchema);
   tasks.push(jestTask);
 
   const workspace = readWorkspaceConfiguration(host);

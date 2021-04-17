@@ -1,25 +1,24 @@
 import {
   Tree,
-  formatFiles,
-  installPackagesTask,
-  readProjectConfiguration,
   addProjectConfiguration,
   readWorkspaceConfiguration,
   updateWorkspaceConfiguration,
-  getProjects,
   generateFiles,
   addDependenciesToPackageJson,
-  getWorkspaceLayout,
   offsetFromRoot,
-  normalizePath,
-  applyChangesToString,
   joinPathFragments,
-  names,
+  ProjectConfiguration,
+  NxJsonProjectConfiguration,
   updateJson,
 } from '@nrwl/devkit';
 import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
 
 import { nxVersion } from '@nrwl/node/src/utils/versions';
+import type { BasicSchema } from './shared-schema';
+import {
+  createNodeAppBuildConfig,
+  createNodeAppServeConfig,
+} from './node-app-config';
 
 export function updateNodeAppDeps(host: Tree) {
   updateJson(host, 'package.json', (json) => {
@@ -37,4 +36,50 @@ export async function initializeNodeApp(host: Tree) {
   return async () => {
     await initInstallTask();
   };
+}
+
+export function createNodeAppProject<T extends BasicSchema>(
+  host: Tree,
+  schema: T,
+  projectBuildConfiguration?: ProjectConfiguration & NxJsonProjectConfiguration
+) {
+  const project: ProjectConfiguration &
+    NxJsonProjectConfiguration = projectBuildConfiguration ?? {
+    root: schema.projectRoot,
+    sourceRoot: joinPathFragments(schema.projectRoot, 'src'),
+    projectType: 'application',
+    targets: {},
+    tags: schema.parsedTags,
+  };
+
+  project.targets.build = createNodeAppBuildConfig(project, schema);
+  project.targets.serve = createNodeAppServeConfig(schema);
+
+  addProjectConfiguration(host, schema.projectName, project);
+
+  const workspace = readWorkspaceConfiguration(host);
+
+  if (!workspace.defaultProject) {
+    workspace.defaultProject = schema.projectName;
+    updateWorkspaceConfiguration(host, workspace);
+  }
+}
+
+export function createNodeAppFiles<T extends BasicSchema>(
+  host: Tree,
+  schema: T,
+  path: string,
+  substitutions?: Record<string, unknown>
+) {
+  generateFiles(
+    host,
+    path,
+    schema.projectRoot,
+    substitutions ?? {
+      tmpl: '',
+      name: schema.projectName,
+      root: schema.projectRoot,
+      offset: offsetFromRoot(schema.projectRoot),
+    }
+  );
 }

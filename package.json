@@ -33,7 +33,7 @@
     "dev:vite": "nx run nx-plugin-vite:build && cd .\\dist\\packages\\nx-plugin-vite\\ && pnpm link",
     "dev:umi": "nx run nx-plugin-umi:build && cd .\\dist\\packages\\nx-plugin-umi\\ && pnpm link",
     "dev:snowpack": "nx run nx-plugin-snowpack:build && cd .\\dist\\packages\\nx-plugin-snowpack\\ && pnpm link",
-    "dev:koa": "nx run nx-plugin-koa:build && cd .\\dist\\packages\\nx-plugin-koa\\ && npm run link",
+    "dev:koa": "nx run nx-plugin-koa:build --with-deps && cd .\\dist\\packages\\nx-plugin-koa\\ && npm run link",
     "dev:devkit": "nx run nx-plugin-devkit:build && cd .\\dist\\packages\\nx-plugin-devkit\\ && pnpm link",
     "dev:esbuild:decorator": "nx run esbuild-plugin-decorator:build && cd .\\dist\\packages\\esbuild-plugin-decorator\\ && pnpm link",
     "dev:esbuild:externals": "nx run esbuild-plugin-node-externals:build && cd .\\dist\\packages\\esbuild-plugin-node-externals\\ && pnpm link",

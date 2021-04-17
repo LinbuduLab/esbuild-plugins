@@ -1,17 +1,18 @@
 import { Tree, joinPathFragments, GeneratorCallback } from '@nrwl/devkit';
 import { jestProjectGenerator } from '@nrwl/jest';
 import { Linter, lintProjectGenerator } from '@nrwl/linter';
-import { initializeNodeApp } from 'nx-plugin-devkit';
+import { initializeNodeApp } from './node-app-setup';
+import type { BasicSchema } from './shared-schema';
 
-import { NormalizedKoaAppGeneratorSchema } from '../schema';
-
-export async function createInitTask(host: Tree): Promise<GeneratorCallback> {
+export async function createNodeInitTask(
+  host: Tree
+): Promise<GeneratorCallback> {
   return initializeNodeApp(host);
 }
 
-export async function createJestTask(
+export async function createNodeJestTask<T extends BasicSchema>(
   host: Tree,
-  schema: NormalizedKoaAppGeneratorSchema
+  schema: T
 ): Promise<GeneratorCallback> {
   const jestTask = await jestProjectGenerator(host, {
     project: schema.projectName,
@@ -24,9 +25,9 @@ export async function createJestTask(
   return jestTask;
 }
 
-export async function createLintTask(
+export async function createNodeLintTask<T extends BasicSchema>(
   host: Tree,
-  schema: NormalizedKoaAppGeneratorSchema
+  schema: T
 ): Promise<GeneratorCallback> {
   const lintTask = await lintProjectGenerator(host, {
     linter: Linter.EsLint,

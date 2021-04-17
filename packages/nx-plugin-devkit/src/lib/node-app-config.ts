@@ -4,11 +4,11 @@ import {
   TargetConfiguration,
 } from '@nrwl/devkit';
 
-import { NormalizedKoaAppGeneratorSchema } from '../schema';
+import type { BasicSchema } from './shared-schema';
 
-export function createAppBuildConfig(
+export function createNodeAppBuildConfig<T extends BasicSchema>(
   project: ProjectConfiguration,
-  schema: NormalizedKoaAppGeneratorSchema
+  schema: T
 ): TargetConfiguration {
   return {
     executor: '@nrwl/node:build',
@@ -38,16 +38,17 @@ export function createAppBuildConfig(
         ],
       },
     },
+    ...project.targets['build'],
   };
 }
 
-export function createAppServeConfig(
-  schema: NormalizedKoaAppGeneratorSchema
+export function createNodeAppServeConfig<T extends BasicSchema>(
+  schema: T
 ): TargetConfiguration {
   return {
     executor: '@nrwl/node:execute',
     options: {
-      buildTarget: `${schema.app}:build`,
+      buildTarget: `${schema.projectName}:build`,
     },
   };
 }

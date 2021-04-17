@@ -1,7 +1,5 @@
 import {
-  addProjectConfiguration,
   formatFiles,
-  generateFiles,
   Tree,
   installPackagesTask,
   joinPathFragments,
@@ -10,13 +8,18 @@ import {
   readWorkspaceConfiguration,
   updateWorkspaceConfiguration,
 } from '@nrwl/devkit';
-import { jestProjectGenerator } from '@nrwl/jest';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
-import { Linter, lintProjectGenerator } from '@nrwl/linter';
 import path from 'path';
 import { normalizeSchema } from './lib/normalize-schema';
 import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
 import { NormalizedESBuildInitGeneratorSchema } from './schema';
+import {
+  createNodeInitTask,
+  createNodeJestTask,
+  createNodeLintTask,
+  createNodeAppProject,
+  createNodeAppFiles,
+} from 'nx-plugin-devkit';
 
 export default async function (
   host: Tree,
@@ -36,10 +39,15 @@ export default async function (
     assets,
   } = normalizedSchema;
 
-  addProjectConfiguration(host, projectName, {
+  const tasks: GeneratorCallback[] = [];
+
+  const initTask = await createNodeInitTask(host);
+  tasks.push(initTask);
+
+  createNodeAppProject(host, normalizedSchema, {
     root: projectRoot,
     projectType: 'application',
-    sourceRoot: `${projectRoot}/src`,
+    sourceRoot: joinPathFragments(projectRoot, 'src'),
     targets: {
       build: {
         executor: 'nx-plugin-esbuild:build',
@@ -55,30 +63,13 @@ export default async function (
     tags: parsedTags,
   });
 
-  generateFiles(host, path.join(__dirname, './files'), projectRoot, {
-    tmpl: '',
-    offset: offsetFromRoot,
-  });
+  createNodeAppFiles(host, normalizedSchema, path.join(__dirname, './files'));
 
-  const tasks: GeneratorCallback[] = [];
+  const lintTask = await createNodeLintTask(host, normalizedSchema);
+  tasks.push(lintTask);
 
-  const jestTask = await jestProjectGenerator(host, {
-    project: normalizedSchema.projectName,
-    setupFile: 'none',
-    supportTsx: true,
-    babelJest: true,
-    testEnvironment: 'node',
-  });
-
-  const lintTask = await lintProjectGenerator(host, {
-    linter: Linter.EsLint,
-    project: schema.projectName,
-    tsConfigPaths: [joinPathFragments(schema.projectRoot, 'tsconfig.app.json')],
-    eslintFilePatterns: [`${schema.projectRoot}/**/*.ts`],
-    skipFormat: true,
-  });
-
-  tasks.push(jestTask, lintTask);
+  const jestTask = await createNodeJestTask(host, normalizedSchema);
+  tasks.push(jestTask);
 
   const workspace = readWorkspaceConfiguration(host);
 
