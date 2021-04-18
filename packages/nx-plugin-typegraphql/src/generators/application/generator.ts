@@ -4,24 +4,26 @@ import {
   installPackagesTask,
   GeneratorCallback,
   addDependenciesToPackageJson,
-  readProjectConfiguration,
+  readWorkspaceConfiguration,
+  updateWorkspaceConfiguration,
 } from '@nrwl/devkit';
-import { jestProjectGenerator } from '@nrwl/jest';
+import path from 'path';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
-import { initializeNodeApp } from 'nx-plugin-devkit';
+import {
+  createNodeInitTask,
+  createNodeJestTask,
+  createNodeLintTask,
+  createNodeAppProject,
+  createNodeAppFiles,
+} from 'nx-plugin-devkit';
 import { NormalizedTypeGraphQLResolverSchema } from './schema';
 import { normalizeSchema } from './lib/normalize-schema';
 
-// import resolverGenerator from '../resolver/generator';
-// import middlewareGenerator from '../middleware/generator';
-// import objectTypeGenerator from '../objecttype/generator';
+import resolverGenerator from '../resolver/generator';
+import middlewareGenerator from '../middleware/generator';
+import objectTypeGenerator from '../objecttype/generator';
 
-import {
-  createAppAsProject,
-  createAppFiles,
-  createAppLinter,
-} from './lib/setup-app';
 import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
 
 export default async function (
@@ -37,33 +39,38 @@ export default async function (
   // formatFiles
   // runTaskInSerial
   const normalizedSchema = normalizeSchema(host, schema);
-  console.log('normalizedSchema: ', normalizedSchema);
+  // console.log('normalizedSchema: ', normalizedSchema);
 
   const tasks: GeneratorCallback[] = [];
 
-  const initTask = await initializeNodeApp(host);
+  const initTask = await createNodeInitTask(host);
   tasks.push(initTask);
 
-  createAppFiles(host, normalizedSchema);
-  createAppAsProject(host, normalizedSchema);
+  createNodeAppProject(host, normalizedSchema);
+  // TODO: real
+  createNodeAppFiles(
+    host,
+    normalizedSchema,
+    path.join(__dirname, './files/apollo-tgql')
+  );
 
-  const lintTask = await createAppLinter(host, normalizedSchema);
+  const lintTask = await createNodeLintTask(host, normalizedSchema);
   tasks.push(lintTask);
 
-  const jestTask = await jestProjectGenerator(host, {
-    project: normalizedSchema.app,
-    // TODO: set up Apollo Testing Utils
-    setupFile: 'none',
-    supportTsx: true,
-    babelJest: true,
-    testEnvironment: 'node',
-  });
-
+  // TODO: setup Apollo test
+  const jestTask = await createNodeJestTask(host, normalizedSchema);
   tasks.push(jestTask);
 
-  const appConfig = readProjectConfiguration(host, normalizedSchema.name);
+  const workspace = readWorkspaceConfiguration(host);
 
-  // app/app1/src/app/resolvers/app1.resolver.ts
+  if (!workspace.defaultProject) {
+    workspace.defaultProject = schema.projectRoot;
+    updateWorkspaceConfiguration(host, workspace);
+  }
+
+  // const appConfig = readProjectConfiguration(host, normalizedSchema.name);
+
+  // // app/app1/src/app/resolvers/app1.resolver.ts
   // const resolverGeneratorTask = await resolverGenerator(host, {
   //   resolverName: normalizedSchema.app,
   //   fullImport: false,
@@ -97,9 +104,9 @@ export default async function (
 
   addDependenciesToPackageJson(host, deps, devDeps);
 
-  // const installTask = addDependenciesToPackageJson(host, deps, devDeps);
+  const installTask = addDependenciesToPackageJson(host, deps, devDeps);
 
-  // tasks.push(installTask);
+  tasks.push(installTask);
 
   return () => {
     installPackagesTask(host);

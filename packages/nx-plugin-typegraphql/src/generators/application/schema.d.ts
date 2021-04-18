@@ -25,10 +25,9 @@ export interface TypeGraphQLApplicationSchema {
 
 export interface NormalizedTypeGraphQLResolverSchema
   extends TypeGraphQLApplicationSchema {
-  name: string;
-  appProjectRoot: string;
+  projectName: string;
+  projectRoot: string;
+  projectDirectory: string;
   parsedTags: string[];
-  // locked
-  linter: Linter.EsLint;
-  unitTestRunner: 'jest';
+  offsetFromRoot: string;
 }
