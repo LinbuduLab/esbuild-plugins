@@ -2,6 +2,7 @@ import {
   Tree,
   joinPathFragments,
   readProjectConfiguration,
+  names,
 } from '@nrwl/devkit';
 import { getAvailableAppsOrLibs } from 'nx-plugin-devkit';
 import {
@@ -18,30 +19,34 @@ export function normalizeSchema(
   const appNames = apps.map((app) => app.appName);
 
   if (!appNames.includes(schema.app)) {
-    throw new Error(`App  ${schema.app} dose not exist`);
+    throw new Error(`App  ${schema.app} dose not exist!`);
   }
+
+  const projectName = names(schema.app).fileName;
 
   const { root, sourceRoot, targets } = readProjectConfiguration(
     host,
-    schema.app
+    projectName
   );
-
-  // FIXME: use outputPath / main / tsConfig / assets in existing build target option first
-  // if there is no build target, then compose the path like below
 
   const existBuildTargetOptions = targets['build'].options;
 
-  // src/xxx.ts
-  schema.entry = schema.entry
+  const existServeTargetOptions = targets['serve'].options;
+
+  // if specified when calling setup generator, then use the specified path;
+  // if not specified, and build target options contain this config, use this path;
+  // if both not, use PROJECT_SOURCE_ROOT/main.ts, e.g apps/app1/src/main.ts
+
+  const entry = schema.entry
     ? joinPathFragments(root, schema.entry)
     : existBuildTargetOptions?.main ?? joinPathFragments(sourceRoot, 'main.ts');
 
-  schema.tsconfigPath = schema.tsconfigPath
+  const tsconfigPath = schema.tsconfigPath
     ? joinPathFragments(root, schema.tsconfigPath)
     : existBuildTargetOptions?.tsConfig ??
       joinPathFragments(root, 'tsconfig.app.json');
 
-  schema.outputPath = schema.outputPath
+  const outputPath = schema.outputPath
     ? schema.outputPath
     : existBuildTargetOptions?.outputPath ?? joinPathFragments('dist', root);
 
@@ -49,9 +54,14 @@ export function normalizeSchema(
 
   return {
     ...schema,
+    entry,
+    tsconfigPath,
+    outputPath,
     projectRoot: root,
+    projectName,
     projectSourceRoot: sourceRoot,
     buildTargetConfig: targets['build'],
+    serveTargetConfig: targets['serve'],
     assets,
   };
 }

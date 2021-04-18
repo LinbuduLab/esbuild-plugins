@@ -16,33 +16,61 @@ export default async function (
   schema: NormalizedESBuildSetupGeneratorSchema
 ) {
   const normalizedSchema = normalizeSchema(host, schema);
-  console.log('schema: ', normalizedSchema);
 
-  const projectConfig = readProjectConfiguration(host, normalizedSchema.app);
+  const {
+    projectName,
+    projectRoot,
+    projectSourceRoot,
+    buildTargetConfig,
+    serveTargetConfig,
+    entry,
+    tsconfigPath,
+    outputPath,
+    override,
+    watch,
+    assets,
+    // TODO: expose plugin option in executor schema
+    useTSCPluginForDecorator,
+  } = normalizedSchema;
 
-  if (normalizedSchema.override) {
-    projectConfig.targets['build'] = {
-      ...normalizedSchema.buildTargetConfig,
-      executor: 'nx-plugin-esbuild:build',
-    };
+  const projectConfig = readProjectConfiguration(host, projectName);
+
+  const setupBuildTargetConfig = {
+    ...buildTargetConfig,
+    executor: 'nx-plugin-esbuild:build',
+    options: {
+      ...(buildTargetConfig.options ?? {}),
+      outputPath,
+      main: entry,
+      tsConfig: tsconfigPath,
+      assets,
+    },
+    configurations: {
+      ...(buildTargetConfig?.configurations ?? {}),
+    },
+  };
+
+  const setupServeTargetConfig = {
+    ...serveTargetConfig,
+    executor: 'nx-plugin-esbuild:serve',
+    options: {
+      ...(serveTargetConfig.options ?? {}),
+      buildTarget: `${projectName}:build`,
+    },
+    configurations: {
+      ...(serveTargetConfig?.configurations ?? {}),
+    },
+  };
+
+  if (override) {
+    projectConfig.targets['build'] = setupBuildTargetConfig;
+    projectConfig.targets['serve'] = setupServeTargetConfig;
   } else {
-    projectConfig.targets['esbuild-build'] = {
-      executor: 'nx-plugin-esbuild:build',
-      options: {
-        ...(normalizedSchema.buildTargetConfig?.options ?? {}),
-        main: normalizedSchema.entry,
-        tsConfig: normalizedSchema.tsconfigPath,
-        outputPath: normalizedSchema.outputPath,
-        watch: normalizedSchema.watch,
-        assets: normalizedSchema.assets,
-      },
-      configurations: {
-        ...(normalizedSchema.buildTargetConfig?.configurations ?? {}),
-      },
-    };
+    projectConfig.targets['esbuild-build'] = setupBuildTargetConfig;
+    projectConfig.targets['esbuild-serve'] = setupServeTargetConfig;
   }
 
-  updateProjectConfiguration(host, normalizedSchema.app, projectConfig);
+  updateProjectConfiguration(host, projectName, projectConfig);
 
   await formatFiles(host);
 
