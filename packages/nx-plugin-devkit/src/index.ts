@@ -6,4 +6,5 @@ export * from './lib/node-app-config';
 export * from './lib/shared-schema';
 export * from './lib/normalize-schema';
 export * from './lib/workspace';
+export * from './lib/tool-type';
 export * from './lib/log';
