@@ -1,4 +1,7 @@
-import type { Linter } from '@nrwl/linter';
+import type {
+  BasicNodeAppGenSchema,
+  BasicNormalizedAppGenSchema,
+} from 'nx-plugin-devkit';
 
 type Tools =
   | 'Apollo-Server-Plugin'
@@ -10,24 +13,17 @@ type Tools =
   | 'GraphQL-Doc'
   | 'PM2';
 
-export interface TypeGraphQLApplicationSchema {
-  app: string;
-  directory: string;
-  minimal: boolean;
+export interface TypeGraphQLApplicationExtraSchema {
   database: 'SQLite' | 'MySQL' | 'PostgreSQL' | 'none';
   orm: 'TypeORM' | 'Prisma' | 'none';
   server: 'Apollo-Server' | 'Express-GraphQL';
   tools: Tools[];
-  directory: string;
-  // frontendProject: string;
-  tags: string;
 }
 
-export interface NormalizedTypeGraphQLResolverSchema
-  extends TypeGraphQLApplicationSchema {
-  projectName: string;
-  projectRoot: string;
-  projectDirectory: string;
-  parsedTags: string[];
-  offsetFromRoot: string;
-}
+export interface TypeGraphQLApplicationSchema
+  extends BasicNodeAppGenSchema,
+    Partial<TypeGraphQLApplicationExtraSchema> {}
+
+export interface NormalizedTypeGraphQLApplicationSchema
+  extends BasicNormalizedAppGenSchema,
+    Required<TypeGraphQLApplicationExtraSchema> {}

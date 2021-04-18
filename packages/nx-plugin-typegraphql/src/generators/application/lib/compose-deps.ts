@@ -1,7 +1,7 @@
-import { NormalizedTypeGraphQLResolverSchema } from '../schema';
+import { NormalizedTypeGraphQLApplicationSchema } from '../schema';
 
 export function composeDepsList(
-  schema: NormalizedTypeGraphQLResolverSchema
+  schema: NormalizedTypeGraphQLApplicationSchema
 ): Record<string, string> {
   const basic: Record<string, string> = {
     'type-graphql': 'latest',
@@ -15,7 +15,7 @@ export function composeDepsList(
 }
 
 export function composeDevDepsList(
-  schema: NormalizedTypeGraphQLResolverSchema
+  schema: NormalizedTypeGraphQLApplicationSchema
 ): Record<string, string> {
   const basic = {
     chalk: 'latest',

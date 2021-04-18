@@ -1,19 +1,17 @@
-export interface KoaAppGeneratorSchema {
-  app: string;
-  directory?: string;
-  tags?: string;
-  frontendProject?: string;
+import type {
+  BasicNodeAppGenSchema,
+  BasicNormalizedAppGenSchema,
+} from 'nx-plugin-devkit';
 
-  // extra
-  minimal?: boolean;
-  routingControllerBased?: boolean;
-  router?: boolean;
+export interface KoaAppGeneratorExtraSchema {
+  minimal: boolean;
+  routingControllerBased: boolean;
+  router: boolean;
 }
+export interface KoaAppGeneratorSchema
+  extends BasicNodeAppGenSchema,
+    Partial<KoaAppGeneratorExtraSchema> {}
 
-export interface NormalizedKoaAppGeneratorSchema extends KoaAppGeneratorSchema {
-  projectName: string;
-  projectRoot: string;
-  projectDirectory: string;
-  parsedTags: string[];
-  offsetFromRoot: string;
-}
+export interface NormalizedKoaAppGeneratorSchema
+  extends BasicNormalizedAppGenSchema,
+    Required<KoaAppGeneratorExtraSchema> {}

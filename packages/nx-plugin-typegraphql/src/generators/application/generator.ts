@@ -17,7 +17,7 @@ import {
   createNodeAppProject,
   createNodeAppFiles,
 } from 'nx-plugin-devkit';
-import { NormalizedTypeGraphQLResolverSchema } from './schema';
+import { TypeGraphQLApplicationSchema } from './schema';
 import { normalizeSchema } from './lib/normalize-schema';
 
 import resolverGenerator from '../resolver/generator';
@@ -28,18 +28,9 @@ import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
 
 export default async function (
   host: Tree,
-  schema: NormalizedTypeGraphQLResolverSchema
+  schema: TypeGraphQLApplicationSchema
 ) {
-  // initTask
-  // addAppFiles
-  // addProject
-  // lint
-  // unitTestRunner
-  // addProxy
-  // formatFiles
-  // runTaskInSerial
   const normalizedSchema = normalizeSchema(host, schema);
-  // console.log('normalizedSchema: ', normalizedSchema);
 
   const tasks: GeneratorCallback[] = [];
 
@@ -64,7 +55,7 @@ export default async function (
   const workspace = readWorkspaceConfiguration(host);
 
   if (!workspace.defaultProject) {
-    workspace.defaultProject = schema.projectRoot;
+    workspace.defaultProject = normalizedSchema.projectRoot;
     updateWorkspaceConfiguration(host, workspace);
   }
 

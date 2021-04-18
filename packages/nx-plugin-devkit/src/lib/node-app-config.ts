@@ -4,9 +4,9 @@ import {
   TargetConfiguration,
 } from '@nrwl/devkit';
 
-import type { BasicSchema } from './shared-schema';
+import type { BasicNormalizedAppGenSchema } from './shared-schema';
 
-export function createNodeAppBuildConfig<T extends BasicSchema>(
+export function createNodeAppBuildConfig<T extends BasicNormalizedAppGenSchema>(
   project: ProjectConfiguration,
   schema: T
 ): TargetConfiguration {
@@ -42,7 +42,7 @@ export function createNodeAppBuildConfig<T extends BasicSchema>(
   };
 }
 
-export function createNodeAppServeConfig<T extends BasicSchema>(
+export function createNodeAppServeConfig<T extends BasicNormalizedAppGenSchema>(
   schema: T
 ): TargetConfiguration {
   return {

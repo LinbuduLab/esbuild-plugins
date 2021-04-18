@@ -1,22 +1,4 @@
-import {
-  Tree,
-  formatFiles,
-  installPackagesTask,
-  readProjectConfiguration,
-  addProjectConfiguration,
-  readWorkspaceConfiguration,
-  updateWorkspaceConfiguration,
-  getProjects,
-  generateFiles,
-  addDependenciesToPackageJson,
-  getWorkspaceLayout,
-  offsetFromRoot,
-  normalizePath,
-  applyChangesToString,
-  joinPathFragments,
-  names,
-  updateJson,
-} from '@nrwl/devkit';
+import { Tree, getProjects } from '@nrwl/devkit';
 
 export interface AvaliableAppOrLib {
   root: string;

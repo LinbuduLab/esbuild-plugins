@@ -14,7 +14,7 @@ import {
 import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
 
 import { nxVersion } from '@nrwl/node/src/utils/versions';
-import type { BasicSchema } from './shared-schema';
+import type { BasicNormalizedAppGenSchema } from './shared-schema';
 import {
   createNodeAppBuildConfig,
   createNodeAppServeConfig,
@@ -38,7 +38,7 @@ export async function initializeNodeApp(host: Tree) {
   };
 }
 
-export function createNodeAppProject<T extends BasicSchema>(
+export function createNodeAppProject<T extends BasicNormalizedAppGenSchema>(
   host: Tree,
   schema: T,
   projectBuildConfiguration?: ProjectConfiguration & NxJsonProjectConfiguration
@@ -65,7 +65,7 @@ export function createNodeAppProject<T extends BasicSchema>(
   }
 }
 
-export function createNodeAppFiles<T extends BasicSchema>(
+export function createNodeAppFiles<T extends BasicNormalizedAppGenSchema>(
   host: Tree,
   schema: T,
   path: string,
