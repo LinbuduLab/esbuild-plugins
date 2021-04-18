@@ -4,8 +4,6 @@ import {
   installPackagesTask,
   GeneratorCallback,
   addDependenciesToPackageJson,
-  readWorkspaceConfiguration,
-  updateWorkspaceConfiguration,
 } from '@nrwl/devkit';
 import path from 'path';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
@@ -16,6 +14,7 @@ import {
   createNodeLintTask,
   createNodeAppProject,
   createNodeAppFiles,
+  setDefaultProject,
 } from 'nx-plugin-devkit';
 import { TypeGraphQLApplicationSchema } from './schema';
 import { normalizeSchema } from './lib/normalize-schema';
@@ -52,12 +51,7 @@ export default async function (
   const jestTask = await createNodeJestTask(host, normalizedSchema);
   tasks.push(jestTask);
 
-  const workspace = readWorkspaceConfiguration(host);
-
-  if (!workspace.defaultProject) {
-    workspace.defaultProject = normalizedSchema.projectRoot;
-    updateWorkspaceConfiguration(host, workspace);
-  }
+  setDefaultProject(host, normalizedSchema);
 
   // const appConfig = readProjectConfiguration(host, normalizedSchema.name);
 

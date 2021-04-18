@@ -5,7 +5,7 @@
   "title": "Creating projects using ESBuild",
   "type": "object",
   "properties": {
-    "name": {
+    "app": {
       "type": "string",
       "description": "",
       "$default": {
@@ -37,5 +37,5 @@
       "default": true
     }
   },
-  "required": ["name"]
+  "required": ["app"]
 }

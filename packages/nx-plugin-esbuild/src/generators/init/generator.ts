@@ -5,26 +5,22 @@ import {
   joinPathFragments,
   GeneratorCallback,
   addDependenciesToPackageJson,
-  readWorkspaceConfiguration,
-  updateWorkspaceConfiguration,
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import path from 'path';
 import { normalizeSchema } from './lib/normalize-schema';
 import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
-import { NormalizedESBuildInitGeneratorSchema } from './schema';
+import { ESBuildInitGeneratorSchema } from './schema';
 import {
   createNodeInitTask,
   createNodeJestTask,
   createNodeLintTask,
   createNodeAppProject,
   createNodeAppFiles,
+  setDefaultProject,
 } from 'nx-plugin-devkit';
 
-export default async function (
-  host: Tree,
-  schema: NormalizedESBuildInitGeneratorSchema
-) {
+export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
   const normalizedSchema = normalizeSchema(host, schema);
 
   const {
@@ -71,12 +67,7 @@ export default async function (
   const jestTask = await createNodeJestTask(host, normalizedSchema);
   tasks.push(jestTask);
 
-  const workspace = readWorkspaceConfiguration(host);
-
-  if (!workspace.defaultProject) {
-    workspace.defaultProject = schema.projectRoot;
-    updateWorkspaceConfiguration(host, workspace);
-  }
+  setDefaultProject(host, normalizedSchema);
 
   await formatFiles(host);
 

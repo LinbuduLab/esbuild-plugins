@@ -4,12 +4,10 @@ import {
   installPackagesTask,
   GeneratorCallback,
   addDependenciesToPackageJson,
-  readWorkspaceConfiguration,
-  updateWorkspaceConfiguration,
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import path from 'path';
-import { NormalizedKoaAppGeneratorSchema } from './schema';
+import { KoaAppGeneratorSchema } from './schema';
 
 import { normalizeSchema } from './lib/normalize-schema';
 import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
@@ -19,14 +17,11 @@ import {
   createNodeLintTask,
   createNodeAppProject,
   createNodeAppFiles,
+  setDefaultProject,
 } from 'nx-plugin-devkit';
 
-export default async function (
-  host: Tree,
-  schema: NormalizedKoaAppGeneratorSchema
-) {
+export default async function (host: Tree, schema: KoaAppGeneratorSchema) {
   const normalizedSchema = normalizeSchema(host, schema);
-  console.log('normalizedSchema: ', normalizedSchema);
 
   const tasks: GeneratorCallback[] = [];
 
@@ -42,12 +37,7 @@ export default async function (
   const jestTask = await createNodeJestTask(host, normalizedSchema);
   tasks.push(jestTask);
 
-  const workspace = readWorkspaceConfiguration(host);
-
-  if (!workspace.defaultProject) {
-    workspace.defaultProject = schema.projectRoot;
-    updateWorkspaceConfiguration(host, workspace);
-  }
+  setDefaultProject(host, normalizedSchema);
 
   await formatFiles(host);
 

@@ -6,6 +6,11 @@ import type {
 export interface ESBuildInitGeneratorExtraSchema {
   watch: boolean;
   useTSCPluginForDecorator: boolean;
+  // TODO: add to schema.json
+  main: string;
+  outputPath: string;
+  tsConfigPath: string;
+  assets: string[];
 }
 
 export interface ESBuildInitGeneratorSchema
@@ -14,10 +19,4 @@ export interface ESBuildInitGeneratorSchema
 
 export interface NormalizedESBuildInitGeneratorSchema
   extends BasicNormalizedAppGenSchema,
-    Required<ESBuildInitGeneratorExtraSchema> {
-  // build option
-  main: string;
-  outputPath: string;
-  tsConfigPath: string;
-  assets: string[];
-}
+    Required<ESBuildInitGeneratorExtraSchema> {}

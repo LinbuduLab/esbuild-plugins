@@ -6,7 +6,7 @@ export interface BasicAppGenSchema {
 
 export interface BasicNodeAppGenSchema extends BasicAppGenSchema {
   // frontendProject?: string;
-  minimal?: string;
+  minimal?: boolean;
 }
 
 export interface BasicNormalizedAppGenSchema {
