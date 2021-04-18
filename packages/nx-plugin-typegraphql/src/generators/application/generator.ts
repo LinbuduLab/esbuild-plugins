@@ -15,6 +15,7 @@ import {
   createNodeAppProject,
   createNodeAppFiles,
   setDefaultProject,
+  setupProxy,
 } from 'nx-plugin-devkit';
 import { TypeGraphQLApplicationSchema } from './schema';
 import { normalizeSchema } from './lib/normalize-schema';
@@ -51,6 +52,7 @@ export default async function (
   const jestTask = await createNodeJestTask(host, normalizedSchema);
   tasks.push(jestTask);
 
+  setupProxy(host, normalizedSchema);
   setDefaultProject(host, normalizedSchema);
 
   // const appConfig = readProjectConfiguration(host, normalizedSchema.name);

@@ -10,6 +10,8 @@ import {
   ProjectConfiguration,
   NxJsonProjectConfiguration,
   updateJson,
+  readProjectConfiguration,
+  updateProjectConfiguration,
 } from '@nrwl/devkit';
 import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
 
@@ -19,6 +21,51 @@ import {
   createNodeAppBuildConfig,
   createNodeAppServeConfig,
 } from './node-app-config';
+
+export function setupProxy<T extends BasicNormalizedAppGenSchema>(
+  host: Tree,
+  schema: T
+) {
+  if (!schema.frontendProject) return;
+
+  const projectConfig = readProjectConfiguration(host, schema.frontendProject);
+
+  if (projectConfig?.targets?.serve) {
+    const pathToProxyFile = `${projectConfig.root}/proxy.conf.json`;
+    projectConfig.targets.serve.options.proxyConfig = pathToProxyFile;
+    const proxyFileExists = host.exists(pathToProxyFile);
+
+    if (proxyFileExists) {
+      const existProxyFileContent = host.read(pathToProxyFile).toString();
+      const updatedProxyFileContent = {
+        ...JSON.parse(existProxyFileContent),
+        [`/${schema.projectName}-api`]: {
+          target: 'http://localhost:3333',
+          secure: false,
+        },
+      };
+      host.write(
+        pathToProxyFile,
+        JSON.stringify(updatedProxyFileContent, null, 2)
+      );
+    } else {
+      host.write(
+        pathToProxyFile,
+        JSON.stringify(
+          {
+            '/api': {
+              target: 'http://localhost:3333',
+              secure: false,
+            },
+          },
+          null,
+          2
+        )
+      );
+    }
+    updateProjectConfiguration(host, schema.frontendProject, projectConfig);
+  }
+}
 
 export function updateNodeAppDeps(host: Tree) {
   updateJson(host, 'package.json', (json) => {

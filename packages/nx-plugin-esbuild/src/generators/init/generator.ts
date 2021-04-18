@@ -18,6 +18,7 @@ import {
   createNodeAppProject,
   createNodeAppFiles,
   setDefaultProject,
+  setupProxy,
 } from 'nx-plugin-devkit';
 
 export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
@@ -67,6 +68,7 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
   const jestTask = await createNodeJestTask(host, normalizedSchema);
   tasks.push(jestTask);
 
+  setupProxy(host, normalizedSchema);
   setDefaultProject(host, normalizedSchema);
 
   await formatFiles(host);

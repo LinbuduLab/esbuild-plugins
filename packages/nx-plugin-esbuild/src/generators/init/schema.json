@@ -35,6 +35,11 @@
       "alias": "pd",
       "description": "Use TSC for decorator compilation(or will throw an error if decorators detected)",
       "default": true
+    },
+    "frontendProject": {
+      "type": "string",
+      "alias": "f",
+      "description": "Frontend project that needs to access this application. This sets up proxy configuration."
     }
   },
   "required": ["app"]

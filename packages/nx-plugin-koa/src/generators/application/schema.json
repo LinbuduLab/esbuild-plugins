@@ -23,6 +23,11 @@
       "type": "string",
       "description": "Add tags to the project (used for linting)",
       "alias": "t"
+    },
+    "frontendProject": {
+      "type": "string",
+      "alias": "f",
+      "description": "Frontend project that needs to access this application. This sets up proxy configuration."
     }
   },
   "required": ["app"]

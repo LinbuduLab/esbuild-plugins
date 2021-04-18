@@ -18,6 +18,7 @@ import {
   createNodeAppProject,
   createNodeAppFiles,
   setDefaultProject,
+  setupProxy,
 } from 'nx-plugin-devkit';
 
 export default async function (host: Tree, schema: KoaAppGeneratorSchema) {
@@ -38,6 +39,8 @@ export default async function (host: Tree, schema: KoaAppGeneratorSchema) {
   tasks.push(jestTask);
 
   setDefaultProject(host, normalizedSchema);
+
+  setupProxy(host, normalizedSchema);
 
   await formatFiles(host);
 

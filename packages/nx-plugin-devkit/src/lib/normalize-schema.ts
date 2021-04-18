@@ -40,11 +40,17 @@ export function normalizeNodeAppSchema<T extends BasicNodeAppGenSchema>(
 
   const offset = offsetFromRoot(projectRoot);
 
+  // TODO: throw error on frontend project inexist
+  const frontendProject = schema.frontendProject
+    ? names(schema.frontendProject).fileName
+    : undefined;
+
   return {
     projectName,
     projectRoot,
     projectDirectory,
     parsedTags,
     offsetFromRoot: offset,
+    frontendProject,
   };
 }
