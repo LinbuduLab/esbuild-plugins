@@ -1,5 +1,11 @@
 import { getAvailableAppsOrLibs } from './get-avaliable-projects';
-import { getWorkspaceLayout, names, Tree, offsetFromRoot } from '@nrwl/devkit';
+import {
+  getWorkspaceLayout,
+  names,
+  Tree,
+  offsetFromRoot,
+  joinPathFragments,
+} from '@nrwl/devkit';
 
 import type {
   BasicNodeAppGenSchema,
@@ -34,6 +40,8 @@ export function normalizeNodeAppSchema<T extends BasicNodeAppGenSchema>(
 
   const projectRoot = `${getWorkspaceLayout(host).appsDir}/${projectDirectory}`;
 
+  const projectSourceRoot = joinPathFragments(projectRoot, 'src');
+
   const parsedTags = schema.tags
     ? schema.tags.split(',').map((s) => s.trim())
     : [];
@@ -48,6 +56,7 @@ export function normalizeNodeAppSchema<T extends BasicNodeAppGenSchema>(
   return {
     projectName,
     projectRoot,
+    projectSourceRoot,
     projectDirectory,
     parsedTags,
     offsetFromRoot: offset,

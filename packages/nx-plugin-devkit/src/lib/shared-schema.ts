@@ -12,6 +12,7 @@ export interface BasicNodeAppGenSchema extends BasicAppGenSchema {
 export interface BasicNormalizedAppGenSchema {
   projectName: string;
   projectRoot: string;
+  projectSourceRoot: string;
   projectDirectory: string;
 
   frontendProject: string | undefined;

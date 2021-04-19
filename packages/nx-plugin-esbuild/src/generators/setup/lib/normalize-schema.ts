@@ -3,6 +3,7 @@ import {
   joinPathFragments,
   readProjectConfiguration,
   names,
+  getWorkspaceLayout,
 } from '@nrwl/devkit';
 import { getAvailableAppsOrLibs } from 'nx-plugin-devkit';
 import {
@@ -24,10 +25,12 @@ export function normalizeSchema(
 
   const projectName = names(schema.app).fileName;
 
-  const { root, sourceRoot, targets } = readProjectConfiguration(
-    host,
-    projectName
-  );
+  const {
+    root: projectRoot,
+    sourceRoot: projectSourceRoot,
+    targets,
+  } = readProjectConfiguration(host, projectName);
+  const { appsDir } = getWorkspaceLayout(host);
 
   const existBuildTargetOptions = targets['build'].options;
 
@@ -38,17 +41,32 @@ export function normalizeSchema(
   // if both not, use PROJECT_SOURCE_ROOT/main.ts, e.g apps/app1/src/main.ts
 
   const entry = schema.entry
-    ? joinPathFragments(root, schema.entry)
-    : existBuildTargetOptions?.main ?? joinPathFragments(sourceRoot, 'main.ts');
+    ? // apps/app1/src/main.ts
+      schema.entry.startsWith(projectRoot)
+      ? schema.entry
+      : // app1/src/main.ts
+      schema.entry.startsWith(projectName)
+      ? joinPathFragments(appsDir, schema.entry)
+      : // src/main.ts
+        joinPathFragments(projectRoot, schema.entry)
+    : existBuildTargetOptions?.main ??
+      joinPathFragments(projectSourceRoot, 'main.ts');
 
   const tsconfigPath = schema.tsconfigPath
-    ? joinPathFragments(root, schema.tsconfigPath)
-    : existBuildTargetOptions?.tsConfig ??
-      joinPathFragments(root, 'tsconfig.app.json');
+    ? // apps/app1/src/tsconfig.app.json
+      schema.tsconfigPath.startsWith(projectRoot)
+      ? schema.entry
+      : // app1/src/tsconfig.app.json
+      schema.entry.startsWith(projectName)
+      ? joinPathFragments(appsDir, schema.tsconfigPath)
+      : // src/tsconfig.app.json
+        joinPathFragments(projectRoot, schema.tsconfigPath)
+    : joinPathFragments(projectRoot, 'tsconfig.app.json');
 
   const outputPath = schema.outputPath
     ? schema.outputPath
-    : existBuildTargetOptions?.outputPath ?? joinPathFragments('dist', root);
+    : existBuildTargetOptions?.outputPath ??
+      joinPathFragments('dist', projectRoot);
 
   const assets = existBuildTargetOptions?.assets ?? [];
 
@@ -57,9 +75,9 @@ export function normalizeSchema(
     entry,
     tsconfigPath,
     outputPath,
-    projectRoot: root,
+    projectRoot,
     projectName,
-    projectSourceRoot: sourceRoot,
+    projectSourceRoot,
     buildTargetConfig: targets['build'],
     serveTargetConfig: targets['serve'],
     assets,

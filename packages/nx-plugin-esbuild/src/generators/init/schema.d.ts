@@ -6,7 +6,7 @@ import type {
 export interface ESBuildInitGeneratorExtraSchema {
   watch: boolean;
   useTSCPluginForDecorator: boolean;
-  // TODO: add to schema.json
+
   entry: string;
   outputPath: string;
   tsconfigPath: string;
