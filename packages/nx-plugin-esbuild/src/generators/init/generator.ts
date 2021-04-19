@@ -30,9 +30,9 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
     parsedTags,
     offsetFromRoot,
     watch,
-    main,
+    entry,
     outputPath,
-    tsConfigPath: tsConfig,
+    tsconfigPath: tsConfig,
     assets,
   } = normalizedSchema;
 
@@ -49,11 +49,17 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
       build: {
         executor: 'nx-plugin-esbuild:build',
         options: {
-          main,
+          main: entry,
           tsConfig,
           outputPath,
           watch,
           assets,
+        },
+      },
+      serve: {
+        executor: 'nx-plugin-esbuild:serve',
+        options: {
+          buildTarget: `${projectName}:build`,
         },
       },
     },

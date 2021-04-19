@@ -1,4 +1,4 @@
-import { Tree } from '@nrwl/devkit';
+import { Tree, joinPathFragments, getWorkspaceLayout } from '@nrwl/devkit';
 import { normalizeNodeAppSchema } from 'nx-plugin-devkit';
 
 import {
@@ -15,14 +15,37 @@ export function normalizeSchema(
 
   const { projectName, projectRoot } = basicNormalizedAppGenSchema;
 
-  const extraOptions: ESBuildInitGeneratorExtraSchema = {
-    main: schema.main ?? `${projectRoot}/src/main.ts`,
-    outputPath: schema.outputPath ?? `dist/apps/${projectName}`,
-    tsConfigPath: schema.tsConfigPath ?? `${projectRoot}/tsconfig.app.json`,
-    assets: schema.assets ?? [`${projectRoot}/src/assets`],
+  const { appsDir } = getWorkspaceLayout(host);
 
-    watch: schema.watch ?? false,
-    useTSCPluginForDecorator: schema.useTSCPluginForDecorator ?? true,
+  const entry = schema.entry
+    ? // apps/app1/src/main.ts
+      schema.entry.startsWith(projectRoot)
+      ? schema.entry
+      : // app1/src/main.ts
+      schema.entry.startsWith(projectName)
+      ? joinPathFragments(appsDir, schema.entry)
+      : // src/main.ts
+        joinPathFragments(projectRoot, schema.entry)
+    : `${projectRoot}/src/main.ts`;
+
+  const tsconfigPath = schema.tsconfigPath
+    ? // apps/app1/src/tsconfig.app.json
+      schema.tsconfigPath.startsWith(projectRoot)
+      ? schema.entry
+      : // app1/src/tsconfig.app.json
+      schema.entry.startsWith(projectName)
+      ? joinPathFragments(appsDir, schema.tsconfigPath)
+      : // src/tsconfig.app.json
+        joinPathFragments(projectRoot, schema.tsconfigPath)
+    : `${projectRoot}/tsconfig.app.json`;
+
+  const extraOptions: ESBuildInitGeneratorExtraSchema = {
+    entry,
+    outputPath: schema.outputPath ?? `dist/apps/${projectName}`,
+    tsconfigPath,
+    assets: schema.assets ?? [`${projectRoot}/src/assets`],
+    watch: schema.watch,
+    useTSCPluginForDecorator: schema.useTSCPluginForDecorator,
   };
 
   return {
