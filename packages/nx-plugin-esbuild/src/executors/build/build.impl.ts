@@ -7,6 +7,7 @@ import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
 import { esbuildNodeExternalsPlugin } from 'esbuild-plugin-node-externals';
 import { esbuildHashPlugin } from 'esbuild-plugin-hash';
 import { esbuildFileSizePlugin } from 'esbuild-plugin-filesize';
+import esbuildAliasPathPlugin from './lib/alias-path-plugin';
 
 import { Subject, zip } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -36,6 +37,7 @@ export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
   context: ExecutorContext
 ): AsyncIterableIterator<ESBuildBuildEvent> {
+  console.log('rawOptions: ', rawOptions);
   const {
     sourceRoot: projectSourceRoot,
     root: projectRoot,
@@ -57,6 +59,8 @@ export default function buildExecutor(
     projectRoot
   );
 
+  console.log('options: ', options);
+
   // TODO: enable specify watch dir
   // apps/app1/src
   const watchDir = `${options.workspaceRoot}/${options.projectSourceRoot}`;
@@ -67,6 +71,7 @@ export default function buildExecutor(
       tsconfigPath: options.tsConfig,
     }),
     options.externalDependencies === 'all' && esbuildNodeExternalsPlugin(),
+    esbuildAliasPathPlugin({ aliases: options.aliases }),
     // waiting for buildEnd hook
     // esbuildHashPlugin({
     //   dest: path.join(options.outputPath, 'main.[hash:8].js'),

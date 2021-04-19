@@ -111,6 +111,24 @@
       },
       "default": []
     },
+    "aliases": {
+      "description": "Alias replace(required when file replacement is enabled)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["from", "to"]
+      },
+      "default": []
+    },
     "buildLibsFromSource": {
       "type": "boolean",
       "description": "Read buildable libraries from source instead of building them separately.",

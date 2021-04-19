@@ -3,9 +3,14 @@ import path from 'path';
 import type {
   ESBuildExecutorSchema,
   NormalizedESBuildExecutorSchema,
+  AliasReplacement,
 } from '../schema';
 
-import { normalizeAssets, normalizeFileReplacements } from 'nx-plugin-devkit';
+import {
+  normalizeAssets,
+  normalizeFileReplacements,
+  FileReplacement,
+} from 'nx-plugin-devkit';
 import { normalizeInserts } from './insert';
 
 // FIXME: executor cannot get workspace layout, so 'apps' will be used.
@@ -23,6 +28,30 @@ export function normalizeMetaConfig(
   };
 }
 
+export function fileReplacements2Alias(
+  fileReplacements: FileReplacement[]
+): Record<string, string> {
+  return fileReplacements.reduce(
+    (composedAliases, { replace, with: target }) => ({
+      ...composedAliases,
+      [replace]: target,
+    }),
+    {}
+  );
+}
+
+export function tmpNormalizeAlias(
+  aliasReplacement: AliasReplacement[]
+): Record<string, string> {
+  return aliasReplacement.reduce(
+    (composedAliases, { from, to }) => ({
+      ...composedAliases,
+      [from]: to,
+    }),
+    {}
+  );
+}
+
 export function normalizeBuildExecutorOptions(
   options: ESBuildExecutorSchema,
   workspaceRoot: string,
@@ -37,6 +66,15 @@ export function normalizeBuildExecutorOptions(
     options.tsConfig,
     projectName
   );
+
+  const fileReplacements = normalizeFileReplacements(
+    workspaceRoot,
+    options.fileReplacements
+  );
+
+  // TODO: 计算fileReplace到main.ts的路径，得到导入路径
+  // const aliases = fileReplacements2Alias(options.fileReplacements);
+  const aliases = tmpNormalizeAlias(options.aliases);
 
   return {
     ...options,
@@ -54,12 +92,10 @@ export function normalizeBuildExecutorOptions(
     // D:/PROJECT/apps/app1/tsconfig.app.json
     tsConfig: path.resolve(workspaceRoot, tsConfig),
     // [{replace:"", with: ""}]
-    fileReplacements: normalizeFileReplacements(
-      workspaceRoot,
-      options.fileReplacements
-    ),
+    fileReplacements,
     skipTypeCheck: options.skipTypeCheck,
     assets: normalizeAssets(options.assets, workspaceRoot, options.outputPath),
     inserts: formattedInserts,
+    aliases,
   };
 }

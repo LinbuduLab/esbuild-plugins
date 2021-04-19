@@ -27,15 +27,21 @@ import type { Insert, FormattedInsert } from './lib/types';
 // Source root
 // Tree shaking
 
+export interface AliasReplacement {
+  from: string;
+  to: string;
+}
+
 export interface ESBuildExecutorSchema {
   // required options
   main: string;
   tsConfig: string;
   outputPath: string;
 
-  assets?: string[] | AssetsItem[];
-  inserts?: string[] | Insert[];
-  fileReplacements?: FileReplacement[];
+  assets: string[] | AssetsItem[];
+  inserts: string[] | Insert[];
+  fileReplacements: FileReplacement[];
+  aliases: AliasReplacement[];
 
   // optional options with default values
   watch: boolean;
@@ -73,4 +79,5 @@ export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
   projectSourceRoot: string;
   assets: FileInputOutput[];
   inserts: FormattedInsert;
+  aliases: Record<string, string>;
 }
