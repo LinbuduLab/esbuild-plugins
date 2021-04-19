@@ -1,7 +1,6 @@
 import type { ESBuildExecutorSchema } from './schema';
 import { ExecutorContext } from '@nrwl/devkit';
-import path from 'path';
-import { gray, green, red, yellow } from 'chalk';
+import { green } from 'chalk';
 
 import type { BuildOptions } from 'esbuild';
 import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
@@ -26,13 +25,17 @@ import {
   successContainer,
 } from './lib/log';
 
-import { normalizeBuildExecutorOptions } from './lib/normalize-option';
+import { normalizeBuildExecutorOptions } from './lib/normalize-schema';
 import { bufferUntil } from './lib/buffer-until';
+
+export type ESBuildBuildEvent = {
+  success: boolean;
+};
 
 export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
   context: ExecutorContext
-): AsyncIterableIterator<{ success: boolean }> {
+): AsyncIterableIterator<ESBuildBuildEvent> {
   const {
     sourceRoot: projectSourceRoot,
     root: projectRoot,
@@ -54,45 +57,48 @@ export default function buildExecutor(
     projectRoot
   );
 
-  // dist/apps/app1
-  const outdir = `${options.outputPath}`;
-
-  // TODO: specify watch dir
+  // TODO: enable specify watch dir
   // apps/app1/src
-  const watchDir = `${options.workspaceRoot}/${options.sourceRoot}`;
+  const watchDir = `${options.workspaceRoot}/${options.projectSourceRoot}`;
 
-  // esbuild 构建配置
+  const plugins = [
+    esbuildDecoratorPlugin({
+      cwd: options.workspaceRoot,
+      tsconfigPath: options.tsConfig,
+    }),
+    options.externalDependencies === 'all' && esbuildNodeExternalsPlugin(),
+    // waiting for buildEnd hook
+    // esbuildHashPlugin({
+    //   dest: path.join(options.outputPath, 'main.[hash:8].js'),
+    //   retainOrigin: false,
+    // }),
+    // esbuildFileSizePlugin(),
+  ];
+
+  const external = Array.isArray(options.externalDependencies)
+    ? options.externalDependencies
+    : [];
+
   const esbuildRunnerOptions: BuildOptions = {
     logLevel: 'silent',
     platform: 'node',
     bundle: options.bundle,
-    sourcemap: 'external',
+    sourcemap: options.sourceMap,
     charset: 'utf8',
     color: true,
     conditions: options.watch ? ['development'] : ['production'],
     watch: options.watch,
     absWorkingDir: options.workspaceRoot,
-    plugins: [
-      esbuildDecoratorPlugin({
-        cwd: options.workspaceRoot,
-        tsconfigPath: options.tsConfig,
-      }),
-      esbuildNodeExternalsPlugin({
-        packagePaths: options.packageJson ?? undefined,
-      }),
-      // waiting for buildEnd hook
-      // esbuildHashPlugin({
-      //   dest: path.join(options.outputPath, 'main.[hash:8].js'),
-      //   retainOrigin: false,
-      // }),
-      // esbuildFileSizePlugin(),
-    ],
+    plugins,
     tsconfig: options.tsConfig,
     entryPoints: [options.main],
-    outdir,
-    ...options.esbuild,
-    external: [],
-    incremental: options.watch || false,
+    outdir: options.outputPath,
+    external,
+    incremental: options.watch,
+    banner: options.inserts.banner,
+    footer: options.inserts.footer,
+    metafile: options.metaFile,
+    minify: options.minify,
   };
 
   // 已执行构建的次数？

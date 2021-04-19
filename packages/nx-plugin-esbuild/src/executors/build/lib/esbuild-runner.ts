@@ -2,7 +2,7 @@ import type { BuildResult, BuildFailure, BuildOptions } from 'esbuild';
 import { Observable } from 'rxjs';
 import { build } from 'esbuild';
 import chokidar from 'chokidar';
-import { FileInputOutput } from '../schema';
+import { FileInputOutput } from 'nx-plugin-devkit';
 import { copyAssetFiles } from 'nx-plugin-devkit';
 
 interface RunBuildResponse {

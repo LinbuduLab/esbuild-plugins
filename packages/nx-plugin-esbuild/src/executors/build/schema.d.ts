@@ -1,4 +1,8 @@
-import type { AssetsItem, FileInputOutput } from 'nx-plugin-devkit';
+import type {
+  AssetsItem,
+  FileInputOutput,
+  FileReplacement,
+} from 'nx-plugin-devkit';
 import type { Insert, FormattedInsert } from './lib/types';
 
 // TODO: options to support
@@ -31,11 +35,12 @@ export interface ESBuildExecutorSchema {
 
   assets?: string[] | AssetsItem[];
   inserts?: string[] | Insert[];
+  fileReplacements?: FileReplacement[];
 
   // optional options with default values
   watch: boolean;
   skipTypeCheck: boolean;
-  sourceMap: boolean;
+  sourceMap: boolean | 'external' | 'inline' | 'both';
   metaFile: boolean;
   extractLicenses: boolean;
   minify: boolean;
@@ -53,6 +58,7 @@ export interface ESBuildExecutorSchema {
   // TODO: add plugins below to schema when buildEnd hook released.
   // TODO: support plugin-specified options
   fileSizePlugin: boolean;
+  // externalPlugin: boolean;
   hashPlugin: boolean;
   htmlPlugin: boolean;
   ignorePlugin: boolean;
@@ -66,5 +72,5 @@ export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
   projectRoot: string;
   projectSourceRoot: string;
   assets: FileInputOutput[];
-  inserts: FormattedInsert[];
+  inserts: FormattedInsert;
 }

@@ -35,7 +35,16 @@
     "sourceMap": {
       "type": "boolean",
       "description": "Produce source maps.",
-      "default": true
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": ["external", "inline", "both"]
+        },
+        {
+          "type": "boolean"
+        }
+      ],
+      "default": "external"
     },
     "assets": {
       "type": "array",

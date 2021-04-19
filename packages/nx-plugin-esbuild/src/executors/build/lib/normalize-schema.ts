@@ -3,22 +3,34 @@ import path from 'path';
 import type {
   ESBuildExecutorSchema,
   NormalizedESBuildExecutorSchema,
-  MetaConfig,
 } from '../schema';
 
 import { normalizeAssets, normalizeFileReplacements } from 'nx-plugin-devkit';
-import { normalizeESBuildExtendConfig } from './extend-config-file';
-
 import { normalizeInserts } from './insert';
+
+// FIXME: executor cannot get workspace layout, so 'apps' will be used.
+// Choose a random project to get its starts?
+export function normalizeMetaConfig(
+  main: string,
+  outputPath: string,
+  tsConfig: string,
+  projectName: string
+) {
+  return {
+    main: main ?? `apps/${projectName}/src/main.ts`,
+    outputPath: outputPath ?? `dist/apps/${projectName}`,
+    tsConfig: tsConfig ?? `apps/${projectName}/tsconfig.app.json`,
+  };
+}
 
 export function normalizeBuildExecutorOptions(
   options: ESBuildExecutorSchema,
   workspaceRoot: string,
   projectName: string,
-  sourceRoot: string,
+  projectSourceRoot: string,
   projectRoot: string
 ): NormalizedESBuildExecutorSchema {
-  const { banner, footer } = normalizeInserts(options.insert ?? []);
+  const formattedInserts = normalizeInserts(options.inserts ?? []);
   const { main, outputPath, tsConfig } = normalizeMetaConfig(
     options.main,
     options.outputPath,
@@ -26,19 +38,13 @@ export function normalizeBuildExecutorOptions(
     projectName
   );
 
-  // TODO: extend config
-  // TODO: support js/ts file
-  const esbuildExtendConfig = normalizeESBuildExtendConfig(
-    `${workspaceRoot}/nx-esbuild.json`,
-    workspaceRoot
-  );
-
   return {
     ...options,
+    projectName,
     // D:/PROJECT
     workspaceRoot,
     // apps/app1/src
-    sourceRoot,
+    projectSourceRoot,
     // apps/app1
     projectRoot,
     // D:/PROJECT/apps/app1/src/main.ts
@@ -47,35 +53,13 @@ export function normalizeBuildExecutorOptions(
     outputPath: path.resolve(workspaceRoot, outputPath),
     // D:/PROJECT/apps/app1/tsconfig.app.json
     tsConfig: path.resolve(workspaceRoot, tsConfig),
+    // [{replace:"", with: ""}]
     fileReplacements: normalizeFileReplacements(
       workspaceRoot,
       options.fileReplacements
     ),
-    skipTypeCheck: options.skipTypeCheck ?? false,
+    skipTypeCheck: options.skipTypeCheck,
     assets: normalizeAssets(options.assets, workspaceRoot, options.outputPath),
-    esbuild: {
-      bundle: options.bundle ?? true,
-      watch: options.watch ?? false,
-      ...options.esbuild,
-      ...esbuildExtendConfig,
-      // TODO: should br merged
-      banner,
-      footer,
-    },
-  };
-}
-
-// FIXME: executor cannot get workspace layout, so 'apps' will be used.
-export function normalizeMetaConfig(
-  main: string,
-  outputPath: string,
-  tsConfig: string,
-  projectName: string
-): MetaConfig {
-  // TODO: log param missing cases and tips
-  return {
-    main: main ?? `apps/${projectName}/src/main.ts`,
-    outputPath: outputPath ?? `dist/apps/${projectName}`,
-    tsConfig: tsConfig ?? `apps/${projectName}/tsconfig.app.json`,
+    inserts: formattedInserts,
   };
 }
