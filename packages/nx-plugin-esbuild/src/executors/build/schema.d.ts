@@ -1,87 +1,70 @@
-import type { BuildOptions } from 'esbuild';
+import type { AssetsItem, FileInputOutput } from 'nx-plugin-devkit';
+import type { Insert, FormattedInsert } from './lib/types';
 
-export type FileReplacement = {
-  replace: string;
-  with: string;
-};
+// TODO: options to support
+// Define
+// Format
+// Inject
+// Loader
+// Outdir & Outfile
+// Platform
+// Splitting
+// Target
+// Write
+// Asset Names
+// Charset
+// Chunk names
+// Global name
+// Log level & limit
+// Out extensions
+// Outbase
+// Public path
+// Resolve Extensions
+// Source root
+// Tree shaking
 
-export type FileInputOutput = {
-  input: string;
-  output: string;
-};
-
-export type AssetsItem = {
-  input: string;
-  glob: string;
-  output: string;
-  ignore: string[];
-};
-
-export type Insert = {
-  banner?: boolean;
-  applyToJSFile?: boolean;
-  content: string;
-};
-
-export type InsertFileType = 'js' | 'css';
-
-export interface FormattedInsert {
-  banner: {
-    [key in InsertFileType]?: string;
-  };
-  footer: {
-    [key in InsertFileType]?: string;
-  };
-}
-
-export interface MetaConfig {
-  // file entry like main.ts
-  // absolute path
+export interface ESBuildExecutorSchema {
+  // required options
   main: string;
-  // absolute path
+  tsConfig: string;
   outputPath: string;
 
-  tsConfig: string;
-}
-
-export interface ESBuildExecutorSchema extends MetaConfig {
-  // options provide for ESBuild
-  esbuild?: Partial<BuildOptions>;
-  // forceTSC on project globally where decorators are detected?
-  decoratorOptions?: Partial<any>;
-
-  skipTypeCheck?: boolean;
-
-  packageJson: string;
-
-  // watch option is avaliable for serve/build
-  watch?: boolean;
-  // insert
-  insert?: Insert[] | string[];
-  // use esbuild bundle mode?
-
-  bundle?: boolean;
-  // Webpack is for typechecking
-  webpackConfig?: string;
-  // project configurations
-  workspaceRoot?: string;
-  sourceRoot?: string;
-  projectRoot?: string;
-
-  // ?
-  buildLibsFromSource?: boolean;
-
-  // assets should be copied
-  fileReplacements: FileReplacement[];
   assets?: string[] | AssetsItem[];
+  inserts?: string[] | Insert[];
 
+  // optional options with default values
+  watch: boolean;
+  skipTypeCheck: boolean;
+  sourceMap: boolean;
+  metaFile: boolean;
+  extractLicenses: boolean;
+  minify: boolean;
+  bundle: boolean;
+  // default as "all", and will use esbuild-plugin-node-externals as handler
   externalDependencies: 'all' | 'none' | string[];
+
+  // nx options
+  buildLibsFromSource: boolean;
+  generatePackageJson: boolean;
+
+  // plugin options
+  // TODO: support swc
+  decoratorHandler: 'tsc' | 'swc' | 'none';
+  // TODO: add plugins below to schema when buildEnd hook released.
+  // TODO: support plugin-specified options
+  fileSizePlugin: boolean;
+  hashPlugin: boolean;
+  htmlPlugin: boolean;
+  ignorePlugin: boolean;
+  notifierPlugin: boolean;
+  circularDepsPlugin: boolean;
 }
 
 export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
-  esbuild: Partial<BuildOptions>;
+  projectName: string;
   workspaceRoot: string;
-  sourceRoot: string;
   projectRoot: string;
+  projectSourceRoot: string;
   assets: FileInputOutput[];
+  inserts: FormattedInsert[];
 }

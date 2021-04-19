@@ -1,4 +1,5 @@
-export * from './lib/copy-assets';
+export * from './lib/assets-utils';
+export * from './lib/file-replacement-utils';
 export * from './lib/get-avaliable-projects';
 export * from './lib/node-app-setup';
 export * from './lib/node-app-tasks';
