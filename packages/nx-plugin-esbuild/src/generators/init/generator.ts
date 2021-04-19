@@ -41,30 +41,26 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
   const initTask = await createNodeInitTask(host);
   tasks.push(initTask);
 
-  createNodeAppProject(host, normalizedSchema, {
-    root: projectRoot,
-    projectType: 'application',
-    sourceRoot: joinPathFragments(projectRoot, 'src'),
-    targets: {
-      build: {
-        executor: 'nx-plugin-esbuild:build',
-        options: {
-          main: entry,
-          tsConfig,
-          outputPath,
-          watch,
-          assets,
-        },
-      },
-      serve: {
-        executor: 'nx-plugin-esbuild:serve',
-        options: {
-          buildTarget: `${projectName}:build`,
-        },
+  createNodeAppProject(
+    host,
+    normalizedSchema,
+    {
+      executor: 'nx-plugin-esbuild:build',
+      options: {
+        main: entry,
+        tsConfig,
+        outputPath,
+        watch,
+        assets,
       },
     },
-    tags: parsedTags,
-  });
+    {
+      executor: 'nx-plugin-esbuild:serve',
+      options: {
+        buildTarget: `${projectName}:build`,
+      },
+    }
+  );
 
   createNodeAppFiles(host, normalizedSchema, path.join(__dirname, './files'));
 

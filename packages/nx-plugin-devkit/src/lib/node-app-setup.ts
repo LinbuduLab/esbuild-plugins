@@ -12,6 +12,7 @@ import {
   updateJson,
   readProjectConfiguration,
   updateProjectConfiguration,
+  TargetConfiguration,
 } from '@nrwl/devkit';
 import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
 
@@ -88,19 +89,19 @@ export async function initializeNodeApp(host: Tree) {
 export function createNodeAppProject<T extends BasicNormalizedAppGenSchema>(
   host: Tree,
   schema: T,
-  projectBuildConfiguration?: ProjectConfiguration & NxJsonProjectConfiguration
+  buildTarget?: TargetConfiguration | null,
+  serveTarget?: TargetConfiguration | null
 ) {
-  const project: ProjectConfiguration &
-    NxJsonProjectConfiguration = projectBuildConfiguration ?? {
+  const project: ProjectConfiguration & NxJsonProjectConfiguration = {
     root: schema.projectRoot,
     sourceRoot: joinPathFragments(schema.projectRoot, 'src'),
     projectType: 'application',
-    targets: {},
+    targets: {
+      build: createNodeAppBuildConfig(schema, buildTarget),
+      serve: createNodeAppServeConfig(schema, serveTarget),
+    },
     tags: schema.parsedTags,
   };
-
-  project.targets.build = createNodeAppBuildConfig(project, schema);
-  project.targets.serve = createNodeAppServeConfig(schema);
 
   addProjectConfiguration(host, schema.projectName, project);
 

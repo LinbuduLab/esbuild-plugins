@@ -4,6 +4,7 @@ import {
   installPackagesTask,
   GeneratorCallback,
   addDependenciesToPackageJson,
+  joinPathFragments,
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import path from 'path';
@@ -29,7 +30,14 @@ export default async function (host: Tree, schema: KoaAppGeneratorSchema) {
   const initTask = await createNodeInitTask(host);
   tasks.push(initTask);
 
-  createNodeAppProject(host, normalizedSchema);
+  createNodeAppProject(host, normalizedSchema, {
+    executor: 'nx-plugin-koa:build',
+    options: {
+      progress: true,
+      verbose: true,
+    },
+  });
+
   createNodeAppFiles(host, normalizedSchema, path.join(__dirname, './files'));
 
   const lintTask = await createNodeLintTask(host, normalizedSchema);

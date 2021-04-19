@@ -1,23 +1,26 @@
-import {
-  ProjectConfiguration,
-  joinPathFragments,
-  TargetConfiguration,
-} from '@nrwl/devkit';
+import { joinPathFragments, TargetConfiguration } from '@nrwl/devkit';
 
 import type { BasicNormalizedAppGenSchema } from './shared-schema';
 
 export function createNodeAppBuildConfig<T extends BasicNormalizedAppGenSchema>(
-  project: ProjectConfiguration,
-  schema: T
+  schema: T,
+  buildTarget: TargetConfiguration | null
 ): TargetConfiguration {
+  const extendBuildTarget = buildTarget ?? {
+    executor: undefined,
+    options: {},
+    configurations: {},
+  };
+
   return {
-    executor: '@nrwl/node:build',
+    executor: extendBuildTarget.executor ?? '@nrwl/node:build',
     outputs: ['{options.outputPath}'],
     options: {
       outputPath: joinPathFragments('dist', schema.projectRoot),
-      main: joinPathFragments(project.sourceRoot, 'main.ts'),
+      main: joinPathFragments(schema.projectSourceRoot, 'main.ts'),
       tsConfig: joinPathFragments(schema.projectRoot, 'tsconfig.app.json'),
-      assets: [joinPathFragments(project.sourceRoot, 'assets')],
+      assets: [joinPathFragments(schema.projectSourceRoot, 'assets')],
+      ...extendBuildTarget.options,
     },
     configurations: {
       production: {
@@ -27,28 +30,39 @@ export function createNodeAppBuildConfig<T extends BasicNormalizedAppGenSchema>(
         fileReplacements: [
           {
             replace: joinPathFragments(
-              project.sourceRoot,
+              schema.projectSourceRoot,
               'environments/environment.ts'
             ),
             with: joinPathFragments(
-              project.sourceRoot,
+              schema.projectSourceRoot,
               'environments/environment.prod.ts'
             ),
           },
         ],
       },
+      ...extendBuildTarget.configurations,
     },
-    ...project.targets['build'],
   };
 }
 
 export function createNodeAppServeConfig<T extends BasicNormalizedAppGenSchema>(
-  schema: T
+  schema: T,
+  serveTarget: TargetConfiguration | null
 ): TargetConfiguration {
+  const extendServeTarget = serveTarget ?? {
+    executor: undefined,
+    options: {},
+    configurations: {},
+  };
+
   return {
-    executor: '@nrwl/node:execute',
+    executor: extendServeTarget.executor ?? '@nrwl/node:execute',
     options: {
       buildTarget: `${schema.projectName}:build`,
+      ...extendServeTarget.options,
+    },
+    configurations: {
+      ...extendServeTarget.configurations,
     },
   };
 }
