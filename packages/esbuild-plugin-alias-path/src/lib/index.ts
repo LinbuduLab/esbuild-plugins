@@ -1,4 +1,3 @@
-// TODO: As esbuild-plugin-alias-path
 import type { Plugin } from 'esbuild';
 
 export interface Alias {
@@ -12,13 +11,12 @@ export interface AliasPathPlugin {
   // tsconfig-paths
   paths?: Record<string, string>;
   // nx fileReplacements
-  nxFileReplacementsAlias?: {
-    enable: boolean;
-  };
 }
 
 // TODO: tsconfig-paths intergration
-const esbuildAliasPathPlugin = (options: AliasPathPlugin = {}): Plugin => {
+export const esbuildAliasPathPlugin = (
+  options: AliasPathPlugin = {}
+): Plugin => {
   const aliases = options.aliases ?? {};
 
   const aliasKeys = Object.keys(aliases);
@@ -52,5 +50,3 @@ const esbuildAliasPathPlugin = (options: AliasPathPlugin = {}): Plugin => {
     },
   };
 };
-
-export default esbuildAliasPathPlugin;

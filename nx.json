@@ -53,7 +53,8 @@
         "esbuild-plugin-hash",
         "esbuild-plugin-filesize",
         "esbuild-plugin-ignore",
-        "esbuild-plugin-html"
+        "esbuild-plugin-html",
+        "esbuild-plugin-alias-path"
       ]
     },
     "nx-plugin-esbuild-e2e": {
@@ -91,7 +92,8 @@
     "esbuild-plugin-hash": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-filesize": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-ignore": { "tags": ["scope:esbuild"] },
-    "esbuild-plugin-html": { "tags": ["scope:esbuild"] }
+    "esbuild-plugin-html": { "tags": ["scope:esbuild"] },
+    "esbuild-plugin-alias-path": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

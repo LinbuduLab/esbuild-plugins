@@ -7,7 +7,7 @@ import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
 import { esbuildNodeExternalsPlugin } from 'esbuild-plugin-node-externals';
 import { esbuildHashPlugin } from 'esbuild-plugin-hash';
 import { esbuildFileSizePlugin } from 'esbuild-plugin-filesize';
-import esbuildAliasPathPlugin from './lib/alias-path-plugin';
+import { esbuildAliasPathPlugin } from 'esbuild-plugin-alias-path';
 
 import { Subject, zip } from 'rxjs';
 import { map, tap } from 'rxjs/operators';

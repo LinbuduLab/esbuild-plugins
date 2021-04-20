@@ -5,6 +5,6 @@
   "generators": "./generators.json",
   "executors": "./executors.json",
   "scripts": {
-    "link": "pnpm link && pnpm link ../esbuild-plugin-decorator && pnpm link ../esbuild-plugin-node-externals && pnpm link ../esbuild-plugin-hash && pnpm link ../esbuild-plugin-filesize && pnpm link ../nx-plugin-devkit"
+    "link": "pnpm link && pnpm link ../esbuild-plugin-decorator && pnpm link ../esbuild-plugin-node-externals && pnpm link ../esbuild-plugin-hash && pnpm link ../esbuild-plugin-filesize && pnpm link ../esbuild-plugin-alias-path && pnpm link ../nx-plugin-devkit"
   }
 }

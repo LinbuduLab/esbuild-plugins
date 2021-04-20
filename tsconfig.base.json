@@ -27,7 +27,6 @@
       "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"],
       "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"],
       "nx-plugin-koa": ["packages/nx-plugin-koa/src/index.ts"],
-
       "esbuild-plugin-html": ["packages/esbuild-plugin-html/src/index.ts"],
       "esbuild-plugin-decorator": [
         "packages/esbuild-plugin-decorator/src/index.ts"
@@ -41,6 +40,9 @@
       ],
       "esbuild-plugin-ignore-module": [
         "packages/esbuild-plugin-ignore/src/index.ts"
+      ],
+      "esbuild-plugin-alias-path": [
+        "packages/esbuild-plugin-alias-path/src/index.ts"
       ]
     }
   },

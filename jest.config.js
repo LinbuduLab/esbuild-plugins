@@ -27,5 +27,6 @@ module.exports = {
     '<rootDir>/packages/esbuild-plugin-html',
     '<rootDir>/packages/nx-plugin-koa',
     '<rootDir>/e2e\\nx-plugin-koa-e2e',
+    '<rootDir>/packages/esbuild-plugin-alias-path',
   ],
 };
