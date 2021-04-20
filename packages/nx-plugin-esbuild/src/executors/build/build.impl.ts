@@ -1,6 +1,7 @@
 import type { ESBuildExecutorSchema } from './schema';
-import { ExecutorContext } from '@nrwl/devkit';
+import { ExecutorContext, joinPathFragments } from '@nrwl/devkit';
 import { green } from 'chalk';
+import path from 'path';
 
 import type { BuildOptions } from 'esbuild';
 import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
@@ -60,13 +61,14 @@ export default function buildExecutor(
 
   // TODO: enable specify watch dir
   // apps/app1/src
+  // TODO: use joinPathFragments
   const watchDir = `${options.workspaceRoot}/${options.projectSourceRoot}`;
 
   const plugins = [
     esbuildDecoratorPlugin({
       cwd: options.workspaceRoot,
       tsconfigPath: options.tsConfig,
-      compiler: 'swc',
+      compiler: 'tsc',
     }),
     options.externalDependencies === 'all' && esbuildNodeExternalsPlugin(),
     esbuildAliasPathPlugin({
@@ -85,8 +87,10 @@ export default function buildExecutor(
     : [];
 
   const esbuildRunnerOptions: BuildOptions = {
-    logLevel: 'silent',
-    platform: 'node',
+    logLevel: options.logLevel,
+    logLimit: options.logLimit,
+    platform: options.platform,
+    format: options.format,
     bundle: options.bundle,
     sourcemap: options.sourceMap,
     charset: 'utf8',

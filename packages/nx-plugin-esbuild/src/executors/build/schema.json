@@ -32,6 +32,29 @@
       "description": "Should skip type checking.",
       "default": false
     },
+    "format": {
+      "type": "string",
+      "description": "Output format for the generated JS files.",
+      "enum": ["iife", "cjs", "esm"],
+      "default": "cjs"
+    },
+    "platform": {
+      "type": "string",
+      "description": "Platform for generated code.",
+      "enum": ["browser", "node"],
+      "default": "node"
+    },
+    "logLevel": {
+      "type": "string",
+      "description": "ESBuild log levels.",
+      "enum": ["info", "warning", "error", "silent"],
+      "default": "info"
+    },
+    "logLimit": {
+      "type": "number",
+      "description": "ESBuild log limits.",
+      "default": "10"
+    },
     "sourceMap": {
       "type": "boolean",
       "description": "Produce source maps.",

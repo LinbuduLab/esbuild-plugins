@@ -7,20 +7,22 @@ import type {
 import type { Insert, FormattedInsert } from './lib/types';
 
 // TODO: options to support
+// √：options integrated
+// × options that will not be integrated
 // Define
-// Format
+// Format √
 // Inject
 // Loader
 // Outdir & Outfile
-// Platform
+// Platform √
 // Splitting
 // Target
-// Write
+// Write ×
 // Asset Names
-// Charset
+// Charset ×
 // Chunk names
 // Global name
-// Log level & limit
+// Log level & limit √
 // Out extensions
 // Outbase
 // Public path
@@ -42,7 +44,11 @@ export interface ESBuildExecutorSchema {
   // optional options with default values
   watch: boolean;
   skipTypeCheck: boolean;
+  format: 'iife' | 'cjs' | 'esm';
+  platform: 'browser' | 'node';
   sourceMap: boolean | 'external' | 'inline' | 'both';
+  logLevel: 'info' | 'warning' | 'error' | 'silent';
+  logLimit: number;
   metaFile: boolean;
   extractLicenses: boolean;
   minify: boolean;

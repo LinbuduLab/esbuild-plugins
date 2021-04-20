@@ -42,6 +42,10 @@ export function normalizeBuildExecutorOptions(
     projectName
   );
 
+  if (options.platform === 'browser') {
+    options.format = 'iife';
+  }
+
   const fileReplacements = normalizeFileReplacements(
     workspaceRoot,
     options.fileReplacements
