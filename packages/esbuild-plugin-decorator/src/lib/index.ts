@@ -1,43 +1,43 @@
 import fs from 'fs/promises';
-import { transformSync } from '@swc/core';
-import path from 'path';
 import type { Plugin } from 'esbuild';
-import { transpileModule, ParsedCommandLine } from 'typescript';
+import { ParsedCommandLine } from 'typescript';
 
-import { parseTsConfig } from './parse-config';
 import { findDecorators } from './find-decorator';
+import {
+  normalizeOption,
+  ESBuildPluginDecoratorOptions,
+} from './normalize-option';
 
-export type ESBuildPluginDecoratorOptions = {
-  tsconfigPath?: string;
-  forceTsc?: boolean;
-  cwd?: string;
-};
+import { parseTsConfig, tscCompiler } from './tsc-compiler';
+import { swcCompiler } from './swc-compiler';
 
 export const esbuildDecoratorPlugin = (
-  options: ESBuildPluginDecoratorOptions
+  options: Partial<ESBuildPluginDecoratorOptions> = {}
 ): Plugin => ({
   name: 'decorator',
   setup(build) {
-    const tsconfigPath =
-      // FIXME: load tsconfig.base.json in Nx project, in common proejct load tsconfig.json
-      options.tsconfigPath ?? path.join(process.cwd(), './tsconfig.base.json');
-    const forceTsc = options.forceTsc ?? false;
+    const normalizedOptions = normalizeOption(options);
 
+    const {
+      tsconfigPath,
+      force,
+      cwd,
+      isNxProject,
+      compiler,
+    } = normalizedOptions;
+
+    // save parsed ts config
     let parsedTsConfig: ParsedCommandLine | null = null;
 
+    // TODO: .swcrc tsconfig.json swcOptions ...
     build.onLoad({ filter: /\.ts$/ }, async ({ path }) => {
       if (!parsedTsConfig) {
         parsedTsConfig = parseTsConfig(tsconfigPath, options.cwd);
-        // TODO: source map related
-        // if (parsedTsConfig.sourcemap) {
-        //   parsedTsConfig.sourcemap = false;
-        //   parsedTsConfig.inlineSources = true;
-        //   parsedTsConfig.inlineSourceMap = true;
-        // }
       }
 
+      // TODO: swc options
       const shouldSkipThisPlugin =
-        !forceTsc &&
+        !force &&
         (!parsedTsConfig ||
           !parsedTsConfig.options ||
           !parsedTsConfig.options.emitDecoratorMetadata);
@@ -46,47 +46,21 @@ export const esbuildDecoratorPlugin = (
         return;
       }
 
-      const ts = await fs.readFile(path, 'utf8');
+      const fileContent = await fs.readFile(path, 'utf8');
       // .catch((err) => printDiagnostics({  path, err }));
 
-      const hasDecorator = findDecorators(ts);
+      const hasDecorator = findDecorators(fileContent);
+
       if (!hasDecorator) {
         return;
       }
 
-      // const program = transpileModule(ts, {
-      //   compilerOptions: parsedTsConfig.options,
-      // });
+      console.log(`Decorator Compilation by [${compiler}]`);
 
-      // return { contents: program.outputText };
-
-      const contents = transformSync(ts, {
-        swcrc: false,
-        module: {
-          type: 'commonjs',
-          strict: false,
-          lazy: false,
-          noInterop: false,
-        },
-
-        isModule: true,
-        jsc: {
-          target: 'es5',
-          externalHelpers: false,
-          // more efficient code
-          loose: true,
-          // ts parser or es parser
-          parser: {
-            syntax: 'typescript',
-            tsx: false,
-            decorators: true,
-            dynamicImport: false,
-          },
-          transform: {
-            decoratorMetadata: true,
-          },
-        },
-      }).code;
+      const contents =
+        compiler === 'tsc'
+          ? tscCompiler(fileContent, parsedTsConfig.options).outputText
+          : swcCompiler(fileContent).code;
 
       return { contents };
     });

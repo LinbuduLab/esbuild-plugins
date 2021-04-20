@@ -66,6 +66,7 @@ export default function buildExecutor(
     esbuildDecoratorPlugin({
       cwd: options.workspaceRoot,
       tsconfigPath: options.tsConfig,
+      compiler: 'swc',
     }),
     options.externalDependencies === 'all' && esbuildNodeExternalsPlugin(),
     esbuildAliasPathPlugin({

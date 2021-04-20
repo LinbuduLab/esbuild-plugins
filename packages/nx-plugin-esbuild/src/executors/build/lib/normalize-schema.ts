@@ -3,13 +3,12 @@ import path from 'path';
 import type {
   ESBuildExecutorSchema,
   NormalizedESBuildExecutorSchema,
-  Alias,
 } from '../schema';
 
 import {
   normalizeAssets,
   normalizeFileReplacements,
-  FileReplacement,
+  fileReplacements2Alias,
 } from 'nx-plugin-devkit';
 import { normalizeInserts } from './insert';
 
@@ -26,35 +25,6 @@ export function normalizeMetaConfig(
     outputPath: outputPath ?? `dist/apps/${projectName}`,
     tsConfig: tsConfig ?? `apps/${projectName}/tsconfig.app.json`,
   };
-}
-
-// TODO: move to devkit
-export function fileReplacements2Alias(
-  fileReplacements: FileReplacement[],
-  projectSourceRoot: string,
-
-  workspaceRoot: string
-) {
-  const aliases: Alias[] = [];
-
-  fileReplacements.forEach(({ replace, with: target }) => {
-    const normalizeReplacePath = replace.replaceAll('\\', '/');
-    const normalizeSourcePath = projectSourceRoot.replaceAll('\\', '/');
-
-    const aliasFrom = normalizeReplacePath
-
-      .split(`${normalizeSourcePath}/`)[1]
-      .replace('.ts', '');
-
-    const aliasFromRegExp = new RegExp(aliasFrom);
-    const aliasTo = path.resolve(workspaceRoot, target);
-    aliases.push({
-      from: aliasFromRegExp,
-      to: aliasTo,
-    });
-  });
-
-  return aliases;
 }
 
 export function normalizeBuildExecutorOptions(

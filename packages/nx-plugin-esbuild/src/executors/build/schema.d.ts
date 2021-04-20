@@ -2,6 +2,7 @@ import type {
   AssetsItem,
   FileInputOutput,
   FileReplacement,
+  Alias,
 } from 'nx-plugin-devkit';
 import type { Insert, FormattedInsert } from './lib/types';
 
@@ -26,11 +27,6 @@ import type { Insert, FormattedInsert } from './lib/types';
 // Resolve Extensions
 // Source root
 // Tree shaking
-
-export interface Alias {
-  from: string | RegExp;
-  to: string;
-}
 
 export interface ESBuildExecutorSchema {
   // required options
