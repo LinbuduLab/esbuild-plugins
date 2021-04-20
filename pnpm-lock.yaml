@@ -14,6 +14,7 @@ specifiers:
   '@nrwl/nx-plugin': ^12.0.6
   '@nrwl/tao': 12.0.6
   '@nrwl/workspace': 12.0.6
+  '@swc/core': ^1.2.54
   '@types/co': ^4.6.2
   '@types/fs-extra': ^9.0.11
   '@types/jest': 26.0.22
@@ -87,6 +88,7 @@ devDependencies:
   '@nrwl/nx-plugin': 12.0.6_prettier@2.2.1+typescript@4.2.4
   '@nrwl/tao': 12.0.6
   '@nrwl/workspace': 12.0.6_prettier@2.2.1
+  '@swc/core': 1.2.54
   '@types/co': 4.6.2
   '@types/fs-extra': 9.0.11
   '@types/jest': 26.0.22
@@ -976,6 +978,17 @@ packages:
       chalk: 4.1.0
     dev: true
 
+  /@napi-rs/triples/1.0.2:
+    resolution: {integrity: sha512-EL3SiX43m9poFSnhDx4d4fn9SSaqyO2rHsCNhETi9bWPmjXK3uPJ0QpPFtx39FEdHcz1vJmsiW41kqc0AgvtzQ==}
+    dev: true
+
+  /@node-rs/helper/1.1.0:
+    resolution: {integrity: sha512-r43YnnrY5JNzDuXJdW3sBJrKzvejvFmFWbiItUEoBJsaPzOIWFMhXB7i5j4c9EMXcFfxveF4l7hT+rLmwtjrVQ==}
+    dependencies:
+      '@napi-rs/triples': 1.0.2
+      tslib: 2.2.0
+    dev: true
+
   /@nodelib/fs.scandir/2.1.4:
     resolution: {integrity: sha512-33g3pMJk3bg5nXbL/+CY6I2eJDzZAni49PfJnL5fghPTggPvBd/pFNSgJsdAgWptuFu7qq/ERvOYFlhvsLTCKA==}
     engines: {node: '>= 8'}
@@ -1244,6 +1257,95 @@ packages:
     resolution: {integrity: sha512-MZPUxrmFubI36XS1DI3qmI0YdN1gks62JtFZvxR67ljjSNCeK6U08Zx4msEWOXuofgqUt6zPHSi1H9fbjR/NRA==}
     dependencies:
       '@sinonjs/commons': 1.8.2
+    dev: true
+
+  /@swc/core-android-arm64/1.2.54:
+    resolution: {integrity: sha512-nbiGQtbdLC/vzDANG91nYn7x+YZavaqv1rzD1BnDz/WeZ2XSBZD0VkPc205PAaBHBE8fTFxHOQiIorbY1lJrZg==}
+    engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [android]
+    dev: true
+    optional: true
+
+  /@swc/core-darwin-arm64/1.2.54:
+    resolution: {integrity: sha512-b+mpyZ7LAG+A2yApq4+9G7gpCtYeLRLheyj9mR8tFxEu10bGfVgIna3+lHOLyheWDpF1yv7vUMPRtkqCPkKaBA==}
+    engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [darwin]
+    dev: true
+    optional: true
+
+  /@swc/core-darwin-x64/1.2.54:
+    resolution: {integrity: sha512-H3+EuNPgYR7/s4pXJO+GMede/FDJDMIqUHDqd5c3hzGfRnvyOmKDx8Cr5S1gMTwHtrz0+iS5SC6To1jYvdCDBg==}
+    engines: {node: '>=10'}
+    cpu: [x64]
+    os: [darwin]
+    dev: true
+    optional: true
+
+  /@swc/core-linux-arm-gnueabihf/1.2.54:
+    resolution: {integrity: sha512-+Rk+q011G1IBawesJ+ZSEuwPrSpWExsY2GulzfvMqO4jW1D4jQ1BZprE+/HgwIhb4iycepXc89SNi0EedZSMjQ==}
+    engines: {node: '>=10'}
+    cpu: [arm]
+    os: [linux]
+    dev: true
+    optional: true
+
+  /@swc/core-linux-arm64-gnu/1.2.54:
+    resolution: {integrity: sha512-8Tuaw16ODhqSw8SfqtC3PHaotPpDgnRmjeNk9mGdU/HO4ccDH5WeS42cvDx1IWpphJyiT2F8gnLYQbnYZykHKg==}
+    engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [linux]
+    dev: true
+    optional: true
+
+  /@swc/core-linux-x64-gnu/1.2.54:
+    resolution: {integrity: sha512-Ky06S3ReokgOeVjcx9JmgVXIiQk++vifXguCABhd3u3t0Diqbnpaqb7UkaHFr6MEXuuk2TpPJ0JQNEZUHjv0Nw==}
+    engines: {node: '>=10'}
+    cpu: [x64]
+    os: [linux]
+    dev: true
+    optional: true
+
+  /@swc/core-linux-x64-musl/1.2.54:
+    resolution: {integrity: sha512-D8F57OTlyR2C8FrlixVAsybEXwwL7ooowwWfBnmR3suZHEqaLlSO1RFyhk3FaiaLh1jN/xcYtkc+NuwvZOaLAQ==}
+    engines: {node: '>=10'}
+    cpu: [x64]
+    os: [linux]
+    dev: true
+    optional: true
+
+  /@swc/core-win32-ia32-msvc/1.2.54:
+    resolution: {integrity: sha512-exZGuLPWm3jaBWz1xch6Ry/U9jp+4EPlo2pwi800SPlTPbTnJ5VfrPv9GVurpvx1R64DmleRpTDBG0nXpFdf0g==}
+    engines: {node: '>=10'}
+    cpu: [ia32]
+    os: [win32]
+    dev: true
+    optional: true
+
+  /@swc/core-win32-x64-msvc/1.2.54:
+    resolution: {integrity: sha512-RBtB1dzbz1ytV5LLxD9wzdGRWxBZFUapFN/RgsH1nJKZFg4kvrvsvfPU2HymNtoOWnfpYuhgapQi+ySQpUL/gg==}
+    engines: {node: '>=10'}
+    cpu: [x64]
+    os: [win32]
+    dev: true
+    optional: true
+
+  /@swc/core/1.2.54:
+    resolution: {integrity: sha512-FNBpdRqtkSUV7E0i8C4iDiq29yLmOaP76GS7wuUGOT3txhvstGbr+L7PXzLc+QWczl21aS5V86MYBRg/aX5biw==}
+    engines: {node: '>=10'}
+    dependencies:
+      '@node-rs/helper': 1.1.0
+    optionalDependencies:
+      '@swc/core-android-arm64': 1.2.54
+      '@swc/core-darwin-arm64': 1.2.54
+      '@swc/core-darwin-x64': 1.2.54
+      '@swc/core-linux-arm-gnueabihf': 1.2.54
+      '@swc/core-linux-arm64-gnu': 1.2.54
+      '@swc/core-linux-x64-gnu': 1.2.54
+      '@swc/core-linux-x64-musl': 1.2.54
+      '@swc/core-win32-ia32-msvc': 1.2.54
+      '@swc/core-win32-x64-msvc': 1.2.54
     dev: true
 
   /@tootallnate/once/1.1.2:

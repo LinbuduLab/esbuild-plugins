@@ -93,7 +93,7 @@
     "esbuild-plugin-filesize": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-ignore": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-html": { "tags": ["scope:esbuild"] },
-    "esbuild-plugin-alias-path": { "tags": [] }
+    "esbuild-plugin-alias-path": { "tags": ["scope:esbuild"] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

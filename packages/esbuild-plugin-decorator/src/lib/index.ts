@@ -1,4 +1,5 @@
 import fs from 'fs/promises';
+import { transformSync } from '@swc/core';
 import path from 'path';
 import type { Plugin } from 'esbuild';
 import { transpileModule, ParsedCommandLine } from 'typescript';
@@ -53,10 +54,41 @@ export const esbuildDecoratorPlugin = (
         return;
       }
 
-      const program = transpileModule(ts, {
-        compilerOptions: parsedTsConfig.options,
-      });
-      return { contents: program.outputText };
+      // const program = transpileModule(ts, {
+      //   compilerOptions: parsedTsConfig.options,
+      // });
+
+      // return { contents: program.outputText };
+
+      const contents = transformSync(ts, {
+        swcrc: false,
+        module: {
+          type: 'commonjs',
+          strict: false,
+          lazy: false,
+          noInterop: false,
+        },
+
+        isModule: true,
+        jsc: {
+          target: 'es5',
+          externalHelpers: false,
+          // more efficient code
+          loose: true,
+          // ts parser or es parser
+          parser: {
+            syntax: 'typescript',
+            tsx: false,
+            decorators: true,
+            dynamicImport: false,
+          },
+          transform: {
+            decoratorMetadata: true,
+          },
+        },
+      }).code;
+
+      return { contents };
     });
   },
 });

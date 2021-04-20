@@ -37,7 +37,6 @@ export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
   context: ExecutorContext
 ): AsyncIterableIterator<ESBuildBuildEvent> {
-  console.log('rawOptions: ', rawOptions);
   const {
     sourceRoot: projectSourceRoot,
     root: projectRoot,

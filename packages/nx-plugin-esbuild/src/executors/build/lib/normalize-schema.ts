@@ -77,16 +77,11 @@ export function normalizeBuildExecutorOptions(
     options.fileReplacements
   );
 
-  // TODO: 计算fileReplace到main.ts的路径，得到导入路径
-  // const aliases = fileReplacements2Alias(options.fileReplacements);
-  // const aliases = tmpNormalizeAlias(options.aliases);
   const aliases = fileReplacements2Alias(
     options.fileReplacements,
     projectSourceRoot,
     workspaceRoot
   );
-
-  console.log('aliases: ', aliases);
 
   return {
     ...options,
