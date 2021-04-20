@@ -59,8 +59,6 @@ export default function buildExecutor(
     projectRoot
   );
 
-  console.log('options: ', options);
-
   // TODO: enable specify watch dir
   // apps/app1/src
   const watchDir = `${options.workspaceRoot}/${options.projectSourceRoot}`;
@@ -71,7 +69,9 @@ export default function buildExecutor(
       tsconfigPath: options.tsConfig,
     }),
     options.externalDependencies === 'all' && esbuildNodeExternalsPlugin(),
-    esbuildAliasPathPlugin({ aliases: options.aliases }),
+    esbuildAliasPathPlugin({
+      aliases: options.aliases,
+    }),
     // waiting for buildEnd hook
     // esbuildHashPlugin({
     //   dest: path.join(options.outputPath, 'main.[hash:8].js'),

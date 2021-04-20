@@ -27,8 +27,8 @@ import type { Insert, FormattedInsert } from './lib/types';
 // Source root
 // Tree shaking
 
-export interface AliasReplacement {
-  from: string;
+export interface Alias {
+  from: string | RegExp;
   to: string;
 }
 
@@ -79,5 +79,5 @@ export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
   projectSourceRoot: string;
   assets: FileInputOutput[];
   inserts: FormattedInsert;
-  aliases: Record<string, string>;
+  aliases: Alias[];
 }

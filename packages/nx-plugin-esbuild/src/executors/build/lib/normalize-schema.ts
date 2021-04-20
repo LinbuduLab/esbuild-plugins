@@ -3,7 +3,7 @@ import path from 'path';
 import type {
   ESBuildExecutorSchema,
   NormalizedESBuildExecutorSchema,
-  AliasReplacement,
+  Alias,
 } from '../schema';
 
 import {
@@ -28,28 +28,33 @@ export function normalizeMetaConfig(
   };
 }
 
+// TODO: move to devkit
 export function fileReplacements2Alias(
-  fileReplacements: FileReplacement[]
-): Record<string, string> {
-  return fileReplacements.reduce(
-    (composedAliases, { replace, with: target }) => ({
-      ...composedAliases,
-      [replace]: target,
-    }),
-    {}
-  );
-}
+  fileReplacements: FileReplacement[],
+  projectSourceRoot: string,
 
-export function tmpNormalizeAlias(
-  aliasReplacement: AliasReplacement[]
-): Record<string, string> {
-  return aliasReplacement.reduce(
-    (composedAliases, { from, to }) => ({
-      ...composedAliases,
-      [from]: to,
-    }),
-    {}
-  );
+  workspaceRoot: string
+) {
+  const aliases: Alias[] = [];
+
+  fileReplacements.forEach(({ replace, with: target }) => {
+    const normalizeReplacePath = replace.replaceAll('\\', '/');
+    const normalizeSourcePath = projectSourceRoot.replaceAll('\\', '/');
+
+    const aliasFrom = normalizeReplacePath
+
+      .split(`${normalizeSourcePath}/`)[1]
+      .replace('.ts', '');
+
+    const aliasFromRegExp = new RegExp(aliasFrom);
+    const aliasTo = path.resolve(workspaceRoot, target);
+    aliases.push({
+      from: aliasFromRegExp,
+      to: aliasTo,
+    });
+  });
+
+  return aliases;
 }
 
 export function normalizeBuildExecutorOptions(
@@ -74,7 +79,14 @@ export function normalizeBuildExecutorOptions(
 
   // TODO: 计算fileReplace到main.ts的路径，得到导入路径
   // const aliases = fileReplacements2Alias(options.fileReplacements);
-  const aliases = tmpNormalizeAlias(options.aliases);
+  // const aliases = tmpNormalizeAlias(options.aliases);
+  const aliases = fileReplacements2Alias(
+    options.fileReplacements,
+    projectSourceRoot,
+    workspaceRoot
+  );
+
+  console.log('aliases: ', aliases);
 
   return {
     ...options,
