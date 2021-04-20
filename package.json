@@ -41,7 +41,6 @@
     "dev:esbuild:filesize": "nx run esbuild-plugin-filesize:build && cd .\\dist\\packages\\esbuild-plugin-filesize\\ && pnpm link",
     "dev:esbuild:html": "nx run esbuild-plugin-html:build && cd .\\dist\\packages\\esbuild-plugin-html\\ && pnpm link",
     "dev:esbuild:alias": "nx run esbuild-plugin-alias-path:build && cd .\\dist\\packages\\esbuild-plugin-alias-path\\ && pnpm link",
-    "__META_TODO_1__": "Handle plugin link by scripts",
     "commit": "git add -A && git-cz"
   },
   "private": true,
@@ -110,6 +109,7 @@
     "jest": "26.6.3",
     "jsonfile": "^6.1.0",
     "node-watch": "^0.7.1",
+    "npm-run-all": "^4.1.5",
     "pacote": "^11.3.1",
     "prettier": "2.2.1",
     "pretty": "^2.0.0",

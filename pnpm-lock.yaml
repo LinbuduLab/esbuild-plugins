@@ -51,6 +51,7 @@ specifiers:
   jest: 26.6.3
   jsonfile: ^6.1.0
   node-watch: ^0.7.1
+  npm-run-all: ^4.1.5
   pacote: ^11.3.1
   prettier: 2.2.1
   pretty: ^2.0.0
@@ -125,6 +126,7 @@ devDependencies:
   jest: 26.6.3_ts-node@9.1.1
   jsonfile: 6.1.0
   node-watch: 0.7.1
+  npm-run-all: 4.1.5
   pacote: 11.3.1
   prettier: 2.2.1
   pretty: 2.0.0
@@ -3912,7 +3914,7 @@ packages:
       is-negative-zero: 2.0.1
       is-regex: 1.1.2
       is-string: 1.0.5
-      object-inspect: 1.9.0
+      object-inspect: 1.10.2
       object-keys: 1.1.1
       object.assign: 4.1.2
       string.prototype.trimend: 1.0.4
@@ -4998,8 +5000,8 @@ packages:
       parse-passwd: 1.0.0
     dev: true
 
-  /hosted-git-info/2.8.8:
-    resolution: {integrity: sha512-f/wzC2QaWBs7t9IYqB4T3sR1xviIViXJRJTWBlx2Gf3g0Xi5vI7Yy4koXQ1c9OYDGHN9sBy1DQ2AB8fqZBWhUg==}
+  /hosted-git-info/2.8.9:
+    resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
     dev: true
 
   /hosted-git-info/4.0.2:
@@ -7170,7 +7172,7 @@ packages:
   /normalize-package-data/2.5.0:
     resolution: {integrity: sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA==}
     dependencies:
-      hosted-git-info: 2.8.8
+      hosted-git-info: 2.8.9
       resolve: 1.20.0
       semver: 5.7.1
       validate-npm-package-license: 3.0.4
@@ -7324,6 +7326,10 @@ packages:
       copy-descriptor: 0.1.1
       define-property: 0.2.5
       kind-of: 3.2.2
+    dev: true
+
+  /object-inspect/1.10.2:
+    resolution: {integrity: sha512-gz58rdPpadwztRrPjZE9DZLOABUpTGdcANUgOwBFO1C+HZZhePoP83M65WGDmbpwFYJSWqavbl4SgDn4k8RYTA==}
     dev: true
 
   /object-inspect/1.9.0:
