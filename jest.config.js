@@ -16,7 +16,6 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-vite-e2e',
     '<rootDir>/packages/nx-plugin-umi',
     '<rootDir>/e2e\\nx-plugin-umi-e2e',
-    '<rootDir>/packages/esbuild-plugin-decorator',
     '<rootDir>/packages/esbuild-plugin-node-externals',
     '<rootDir>/packages/esbuild-plugin-hash',
     '<rootDir>/packages/esbuild-plugin-filesize',
@@ -28,5 +27,6 @@ module.exports = {
     '<rootDir>/packages/nx-plugin-koa',
     '<rootDir>/e2e\\nx-plugin-koa-e2e',
     '<rootDir>/packages/esbuild-plugin-alias-path',
+    '<rootDir>/packages/esbuild-plugin-d',
   ],
 };

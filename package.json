@@ -29,6 +29,7 @@
     "dev:prisma": "nx run nx-plugin-prisma:build && cd .\\dist\\packages\\nx-plugin-prisma\\ && pnpm link",
     "dev:serverless": "nx run nx-plugin-serverless:build && cd .\\dist\\packages\\nx-plugin-serverless\\ && pnpm link",
     "dev:esbuild": "nx run nx-plugin-esbuild:build --with-deps && cd .\\dist\\packages\\nx-plugin-esbuild\\ && npm run link",
+    "size:esbuild": "size-limit",
     "dev:swc": "nx run nx-plugin-swc:build && cd .\\dist\\packages\\nx-plugin-swc\\ && pnpm link",
     "dev:vite": "nx run nx-plugin-vite:build && cd .\\dist\\packages\\nx-plugin-vite\\ && pnpm link",
     "dev:umi": "nx run nx-plugin-umi:build && cd .\\dist\\packages\\nx-plugin-umi\\ && pnpm link",
@@ -44,6 +45,11 @@
     "commit": "git add -A && git-cz"
   },
   "private": true,
+  "size-limit": [
+    {
+      "path": "dist/packages/nx-plugin-esbuild/*.js"
+    }
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged",
@@ -72,6 +78,8 @@
     "@nrwl/nx-plugin": "^12.0.6",
     "@nrwl/tao": "12.0.6",
     "@nrwl/workspace": "12.0.6",
+    "@size-limit/file": "^4.10.2",
+    "@size-limit/preset-small-lib": "^4.10.2",
     "@swc/core": "^1.2.54",
     "@types/co": "^4.6.2",
     "@types/cross-spawn": "^6.0.2",
@@ -118,6 +126,7 @@
     "pretty-quick": "^3.1.0",
     "rxjs": "^6.6.7",
     "rxjs-for-await": "^0.0.2",
+    "size-limit": "^4.10.2",
     "strip-comments": "^2.0.1",
     "terser": "^5.6.1",
     "ts-jest": "26.5.5",
