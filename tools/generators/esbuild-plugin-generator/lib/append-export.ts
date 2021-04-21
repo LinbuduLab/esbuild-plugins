@@ -19,7 +19,7 @@ export function appendExportToIndexFile(
   const exportDeclaration: OptionalKind<ExportDeclarationStructure> = {
     kind: StructureKind.ExportDeclaration,
     isTypeOnly: false,
-    moduleSpecifier: `./lib/${fileName}.ts`,
+    moduleSpecifier: `./lib/${fileName}`,
   };
 
   sourceFile.addExportDeclaration(exportDeclaration);

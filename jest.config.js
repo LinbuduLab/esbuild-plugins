@@ -28,5 +28,6 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-koa-e2e',
     '<rootDir>/packages/esbuild-plugin-alias-path',
     '<rootDir>/packages/esbuild-plugin-d',
+    '<rootDir>/packages/esbuild-plugin-graphql',
   ],
 };

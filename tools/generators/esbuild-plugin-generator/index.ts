@@ -62,11 +62,6 @@ export default async function (
   //   propertyName: 'esbuildPluginWuhu',
   //   fileName: 'esbuild-plugin-wuhu'
   const { className, propertyName, fileName } = names(normalizedSchema.name);
-  console.log('{ className, propertyName, fileName }: ', {
-    className,
-    propertyName,
-    fileName,
-  });
 
   generateFiles(
     host,
