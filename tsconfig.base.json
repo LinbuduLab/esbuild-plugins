@@ -44,7 +44,10 @@
       "esbuild-plugin-alias-path": [
         "packages/esbuild-plugin-alias-path/src/index.ts"
       ],
-      "esbuild-plugin-graphql": ["packages/esbuild-plugin-graphql/src/index.ts"]
+      "esbuild-plugin-graphql": [
+        "packages/esbuild-plugin-graphql/src/index.ts"
+      ],
+      "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

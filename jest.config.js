@@ -29,5 +29,6 @@ module.exports = {
     '<rootDir>/packages/esbuild-plugin-alias-path',
     '<rootDir>/packages/esbuild-plugin-d',
     '<rootDir>/packages/esbuild-plugin-graphql',
+    '<rootDir>/packages/vite-plugin-graphql',
   ],
 };

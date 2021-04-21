@@ -921,6 +921,38 @@
           }
         }
       }
+    },
+    "vite-plugin-graphql": {
+      "root": "packages/vite-plugin-graphql",
+      "sourceRoot": "packages/vite-plugin-graphql/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/vite-plugin-graphql/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/vite-plugin-graphql"],
+          "options": {
+            "jestConfig": "packages/vite-plugin-graphql/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/vite-plugin-graphql",
+            "tsConfig": "packages/vite-plugin-graphql/tsconfig.lib.json",
+            "packageJson": "packages/vite-plugin-graphql/package.json",
+            "main": "packages/vite-plugin-graphql/src/index.ts",
+            "assets": ["packages/vite-plugin-graphql/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }

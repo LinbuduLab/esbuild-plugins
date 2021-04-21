@@ -12,17 +12,15 @@ import {
 } from '@nrwl/devkit';
 import path from 'path';
 import { nxVersion } from '@nrwl/workspace/src/utils/versions';
-import {} from '@nrwl/nx-plugin/src/schematics/plugin/lib/add-files';
 import { libraryGenerator as nodeLibGenerator } from '@nrwl/node/src/generators/library/library';
+
 import {
   ESBuildPluginGeneratorSchema,
   NormalizedESBuildPluginGeneratorSchema,
 } from './schema';
 import { normalizeSchema } from './lib/normalize-schema';
 import { appendExportToIndexFile } from './lib/append-export';
-// ESBuild plugin generator
-// spawn command nx g @nrwl/nx-plugin:executor  my-executor --project=my-plugin
-// invoke function
+
 export default async function (
   host: Tree,
   schema: ESBuildPluginGeneratorSchema
@@ -31,15 +29,6 @@ export default async function (
     host,
     schema
   );
-
-  // steps：
-  // 创建publishable @nrwl/node:lib
-  // 添加依赖
-  // 添加executor & generator
-  // 更新executor.json generators.json配置
-  // 更新workspace配置
-
-  // create generators
 
   nodeLibGenerator(host, {
     ...normalizedSchema,
@@ -58,9 +47,9 @@ export default async function (
     }
   );
 
-  //  className: 'EsbuildPluginWuhu',
-  //   propertyName: 'esbuildPluginWuhu',
-  //   fileName: 'esbuild-plugin-wuhu'
+  // className: 'EsbuildPluginWuhu',
+  // propertyName: 'esbuildPluginWuhu',
+  // fileName: 'esbuild-plugin-wuhu'
   const { className, propertyName, fileName } = names(normalizedSchema.name);
 
   generateFiles(

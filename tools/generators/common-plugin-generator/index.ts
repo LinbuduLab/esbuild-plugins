@@ -7,6 +7,7 @@ import { execSync } from 'child_process';
 import os from 'os';
 import chalk from 'chalk';
 import { CommonPluginGeneratorSchema } from './schema';
+
 import {
   defaultNPMScope,
   workspaceRoot,
