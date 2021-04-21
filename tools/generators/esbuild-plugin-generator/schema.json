@@ -10,6 +10,29 @@
         "$source": "argv",
         "index": 0
       }
+    },
+    "executor": {
+      "type": "boolean",
+      "alias": "e",
+      "description": "Should create executors",
+      "default": true
+    },
+    "generator": {
+      "type": "boolean",
+      "alias": "g",
+      "description": "Should create generators",
+      "default": true
+    },
+    "importPath": {
+      "type": "string",
+      "alias": "i",
+      "description": "Plugin import path"
+    },
+    "e2e": {
+      "type": "boolean",
+      "alias": "t",
+      "description": "Should setup e2e test",
+      "default": true
     }
   },
   "required": ["name"]

@@ -16,6 +16,7 @@ specifiers:
   '@nrwl/workspace': 12.0.6
   '@swc/core': ^1.2.54
   '@types/co': ^4.6.2
+  '@types/cross-spawn': ^6.0.2
   '@types/fs-extra': ^9.0.11
   '@types/jest': 26.0.22
   '@types/jsonfile': ^6.0.0
@@ -33,6 +34,7 @@ specifiers:
   co: ^4.6.0
   commitizen: ^4.2.3
   commitlint-config-cz: ^0.13.2
+  cross-spawn: ^7.0.3
   cz-conventional-changelog: ^3.3.0
   cz-customizable: ^6.3.0
   date-fns: ^2.21.1
@@ -91,6 +93,7 @@ devDependencies:
   '@nrwl/workspace': 12.0.6_prettier@2.2.1
   '@swc/core': 1.2.54
   '@types/co': 4.6.2
+  '@types/cross-spawn': 6.0.2
   '@types/fs-extra': 9.0.11
   '@types/jest': 26.0.22
   '@types/jsonfile': 6.0.0
@@ -108,6 +111,7 @@ devDependencies:
   co: 4.6.0
   commitizen: 4.2.3
   commitlint-config-cz: 0.13.2_@commitlint+cli@12.1.1
+  cross-spawn: 7.0.3
   cz-conventional-changelog: 3.3.0
   cz-customizable: 6.3.0
   date-fns: 2.21.1
@@ -1416,6 +1420,12 @@ packages:
 
   /@types/connect/3.4.34:
     resolution: {integrity: sha512-ePPA/JuI+X0vb+gSWlPKOY0NdNAie/rPUqX2GUPpbZwiKTkSPhjXWuee47E4MtE54QVzGCQMQkAL6JhV2E1+cQ==}
+    dependencies:
+      '@types/node': 14.14.41
+    dev: true
+
+  /@types/cross-spawn/6.0.2:
+    resolution: {integrity: sha512-KuwNhp3eza+Rhu8IFI5HUXRP0LIhqH5cAjubUvGXXthh4YYBuP2ntwEX+Cz8GJoZUHlKo247wPWOfA9LYEq4cw==}
     dependencies:
       '@types/node': 14.14.41
     dev: true
