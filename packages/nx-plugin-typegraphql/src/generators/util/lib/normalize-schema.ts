@@ -20,19 +20,16 @@ export function normalizeSchema(
   const appNames = apps.map((app) => app.appName);
   const libNames = libs.map((lib) => lib.libName);
 
-  if (!schema.name) {
-    throw new Error('ObjectType name required!');
-  }
-
   if (
     !appNames.includes(schema.appOrLib) &&
     !libNames.includes(schema.appOrLib)
   ) {
-    throw new Error(`app or lib ${schema.appOrLib} does not exist!`);
+    throw new Error(`App or Lib ${schema.appOrLib} does not exist!`);
   }
 
   const appOrLibConfig = readProjectConfiguration(host, schema.appOrLib);
 
+  // type  directory   util-type
   // lib + undefined + directive >>> CREATE libs/lib1/src/directives/x.ts (UPDATE libs/lib1/src/index.ts)
   // lib + undefined + plugin >>> CREATE libs/lib1/src/plugins/x.ts (UPDATE libs/lib1/src/index.ts)
 
@@ -50,15 +47,20 @@ export function normalizeSchema(
   // directives
   const dirName = `${originFileName}s`;
 
+  // FIXME:
   const generateDirectory = joinPathFragments(
     appOrLibConfig.sourceRoot,
     appOrLibConfig.projectType === 'library'
-      ? schema.directory
-        ? schema.directory
+      ? // lib + directory
+        schema.directory
+        ? // lib
+          schema.directory
         : dirName
       : schema.directory
-      ? joinPathFragments('app', schema.directory)
-      : 'app/directives'
+      ? // app + directory
+        joinPathFragments('app', schema.directory)
+      : // app
+        joinPathFragments('app', dirName)
   );
 
   return {

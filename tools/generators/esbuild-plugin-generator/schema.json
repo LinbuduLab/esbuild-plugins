@@ -10,28 +10,6 @@
         "$source": "argv",
         "index": 0
       }
-    },
-    "executor": {
-      "type": "boolean",
-      "alias": "e",
-      "description": "Should create executors",
-      "default": true
-    },
-    "generator": {
-      "type": "boolean",
-      "alias": "g",
-      "description": "Should create generators",
-      "default": true
-    },
-    "importPath": {
-      "type": "string",
-      "alias": "i",
-      "description": "Plugin import path"
-    },
-    "directory": {
-      "type": "string",
-      "alias": "d",
-      "description": "Plugin directory"
     }
   },
   "required": ["name"]

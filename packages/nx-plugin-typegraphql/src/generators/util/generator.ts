@@ -16,13 +16,10 @@ import {
 
 export default async function (host: Tree, schema: TypeGraphQLUtilSchema) {
   const normalizedSchema = normalizeSchema(host, schema);
-  console.log('normalizedSchema: ', normalizedSchema);
   const atApp = normalizedSchema.generateAtApp;
   const dir = normalizedSchema.generateDirectory;
-  const { className, fileName } = names(normalizedSchema.name);
-  const { className: typeClassName, fileName: typeFileName } = names(
-    normalizedSchema.type
-  );
+
+  const { fileName: typeFileName } = names(normalizedSchema.type);
 
   atApp
     ? handleAppFileGeneration(
