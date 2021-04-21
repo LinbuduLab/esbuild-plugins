@@ -1,0 +1,13 @@
+export interface <%= pluginName %>Options {
+  enabled: boolean;
+}
+
+export interface Normalized<%= pluginName %>Options {
+  enabled:boolean;
+}
+
+export function normalizePluginOptions(
+  options: <%= pluginName %>Options
+): Normalized<%= pluginName %>Options {
+  return options as Normalized<%= pluginName %>Options;
+}

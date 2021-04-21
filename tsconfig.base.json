@@ -43,8 +43,7 @@
       ],
       "esbuild-plugin-alias-path": [
         "packages/esbuild-plugin-alias-path/src/index.ts"
-      ],
-      "@penumbra/nx-plugin-xxx": ["packages/nx-plugin-xxx/src/index.ts"]
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

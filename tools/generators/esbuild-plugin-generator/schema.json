@@ -28,11 +28,10 @@
       "alias": "i",
       "description": "Plugin import path"
     },
-    "e2e": {
-      "type": "boolean",
-      "alias": "t",
-      "description": "Should setup e2e test",
-      "default": true
+    "directory": {
+      "type": "string",
+      "alias": "d",
+      "description": "Plugin directory"
     }
   },
   "required": ["name"]

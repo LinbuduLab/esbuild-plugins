@@ -11,7 +11,7 @@ import path from 'path';
 
 import { TypeGraphQLResolverSchema } from './schema';
 import { normalizeGenSchema } from './lib/normalize-schema';
-import { appendExportToIndexFile } from './lib/append.export';
+import { appendExportToIndexFile } from './lib/append-export';
 
 export default async function (host: Tree, schema: TypeGraphQLResolverSchema) {
   console.log('schema: ', schema);

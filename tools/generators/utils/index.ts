@@ -11,4 +11,21 @@ export const snowpackPluginPrefix = 'snowpack-plugin';
 
 export interface PluginGeneratorSchema {
   name: string;
+  tags?: string;
+  importPath?: string;
+  executor: boolean;
+  generator: boolean;
+  directory?: string;
+}
+
+export interface NormalizedPluginGeneratorSchema extends PluginGeneratorSchema {
+  importPath: string;
+  parsedTags: string[];
+  // workspaceRoot: string;
+  projectName: string;
+  projectRoot: string;
+  projectSourceRoot:string;
+  projectDirectory: string;
+  npmScope: string;
+  npmPackageName: string;
 }
