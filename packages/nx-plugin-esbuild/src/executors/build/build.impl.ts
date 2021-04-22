@@ -61,14 +61,16 @@ export default function buildExecutor(
 
   // TODO: enable specify watch dir
   // apps/app1/src
-  // TODO: use joinPathFragments
   const watchDir = `${options.workspaceRoot}/${options.projectSourceRoot}`;
 
   const plugins = [
     esbuildDecoratorPlugin({
-      cwd: options.workspaceRoot,
+      // project config
       tsconfigPath: options.tsConfig,
-      compiler: 'tsc',
+      compiler: 'swc',
+      swcCompilerOptions: {
+        jsc: { externalHelpers: true },
+      },
     }),
     options.externalDependencies === 'all' && esbuildNodeExternalsPlugin(),
     esbuildAliasPathPlugin({

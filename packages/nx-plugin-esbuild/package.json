@@ -5,7 +5,7 @@
   "generators": "./generators.json",
   "executors": "./executors.json",
   "scripts": {
-    "link": "pnpm link && npm-run-all --print-label --print-name --parallel link:**",
+    "link": "pnpm link && npm-run-all --print-label --print-name  link:**",
     "link:decorator": "pnpm link ../esbuild-plugin-decorator",
     "link:externals": "pnpm link ../esbuild-plugin-node-externals",
     "link:hash": "pnpm link ../esbuild-plugin-hash",

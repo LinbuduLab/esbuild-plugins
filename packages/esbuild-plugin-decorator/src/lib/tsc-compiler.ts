@@ -16,6 +16,7 @@ export function parseTsConfig(
   cwd: string
 ): ParsedCommandLine {
   // config file path >>> config file name
+  // D://PROJECT/apps/app1/tsconfig.app.json
   const configFileName = findConfigFile(cwd, sys.fileExists, tsconfigPath);
 
   if (tsconfigPath !== undefined && !configFileName)
@@ -25,10 +26,12 @@ export function parseTsConfig(
   let baseDir = cwd;
 
   if (configFileName) {
+    // plain json text of file content
     const text = sys.readFile(configFileName, 'utf8');
     if (text === undefined)
       throw new Error(`Failed to read '${configFileName}'`);
 
+    // config: parsed json content
     const result = parseConfigFileTextToJson(configFileName, text);
 
     if (result.error !== undefined) {
@@ -37,6 +40,7 @@ export function parseTsConfig(
     }
 
     loadedConfig = result.config;
+    // D://PROJECT/apps/app1
     baseDir = path.dirname(configFileName);
   }
 
