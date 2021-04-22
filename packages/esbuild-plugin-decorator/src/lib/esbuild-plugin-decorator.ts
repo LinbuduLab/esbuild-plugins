@@ -12,7 +12,13 @@ import {
 
 import { parseTsConfig, tscCompiler } from './tsc-compiler';
 import { swcCompiler, defaultSWCCompilerOptions } from './swc-compiler';
-import { info, pluginTitle, warn } from './log';
+import {
+  info,
+  noDecoratorsFound,
+  pluginSkipped,
+  pluginTitle,
+  warn,
+} from './log';
 
 export const esbuildDecoratorPlugin = (
   options: Partial<ESBuildPluginDecoratorOptions> = {}
@@ -54,23 +60,21 @@ export const esbuildDecoratorPlugin = (
             !parsedTsConfig?.options?.experimentalDecorators);
 
         if (shouldSkipThisPlugin) {
-          console.log(
-            `${pluginTitle()} ${warn(
-              'Plugin Skipped. This will cause errors if typescrips file contains decorators.'
-            )}`
-          );
+          pluginSkipped();
+
           return;
         }
 
         const fileContent = await fs.readFile(path, 'utf8');
+        // console.log('fileContent: ', fileContent);
+        // console.log('path: ', path);
         // .catch((err) => printDiagnostics({  path, err }));
 
         const hasDecorator = findDecorators(fileContent);
+        // console.log('hasDecorator: ', hasDecorator);
 
         if (!hasDecorator) {
-          console.log(
-            `${pluginTitle()} ${info('No decorators found, skipped.')}`
-          );
+          noDecoratorsFound();
           return;
         }
 
@@ -95,11 +99,8 @@ export const esbuildDecoratorPlugin = (
             !parsedSwcConfig.jsc.parser.decorators);
 
         if (shouldSkipThisPlugin) {
-          console.log(
-            `${pluginTitle()} ${warn(
-              'Plugin Skipped. This will cause errors if typescrips file contains decorators.'
-            )}`
-          );
+          pluginSkipped();
+
           return;
         }
 
@@ -109,9 +110,8 @@ export const esbuildDecoratorPlugin = (
         const hasDecorator = findDecorators(fileContent);
 
         if (!hasDecorator) {
-          console.log(
-            `${pluginTitle()} ${info('No decorators found, skipped.')}`
-          );
+          noDecoratorsFound();
+
           return;
         }
 
