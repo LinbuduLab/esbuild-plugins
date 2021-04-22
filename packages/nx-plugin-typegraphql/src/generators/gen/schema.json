@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "id": "type-graphql-gen",
+  "title": "Create TypeGraphQL Gen",
+  "type": "object",
+  "properties": {
+    "app": {
+      "type": "string",
+      "x-prompt": "Which app would you like to set generation",
+      "description": "Which app would you like to generate middleware in?",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "schema": {
+      "type": "string",
+      "alias": "s",
+      "description": "GraphQL-Schema (file path or endpoint)"
+    },
+    "code": {
+      "type": "boolean",
+      "alias": "c",
+      "description": "Setup GraphQL-Code-Generator",
+      "default": true
+    },
+    "docs": {
+      "type": "boolean",
+      "alias": "d",
+      "description": "Setup @2fd/graphqldoc",
+      "default": true
+    },
+    "genql": {
+      "type": "boolean",
+      "alias": "g",
+      "description": "Setup GenQL",
+      "default": true
+    },
+    "failFast": {
+      "type": "boolean",
+      "alias": "f",
+      "description": "Fail fast on one of generation failed.",
+      "default": false
+    }
+  },
+  "required": ["app", "schema"]
+}
