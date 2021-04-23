@@ -54,9 +54,9 @@ export function runTSC({ tsconfigPath, watch, root }: TscRunnerOptions) {
       // 启用pretty时 将无法使用这个方式匹配
       if (decoded.includes(errorSig)) {
         errorCount++;
-        subscriber.next({ error: decoded, hasError: !!errorCount });
+        subscriber.next({ error: decoded });
       } else {
-        subscriber.next({ info: decoded, hasError: !!errorCount });
+        subscriber.next({ info: decoded });
       }
     });
 

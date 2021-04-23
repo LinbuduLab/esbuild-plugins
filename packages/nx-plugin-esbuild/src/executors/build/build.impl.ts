@@ -1,33 +1,32 @@
 import type { ESBuildExecutorSchema } from './schema';
-import { ExecutorContext, joinPathFragments } from '@nrwl/devkit';
-import { green } from 'chalk';
-import path from 'path';
-
+import type { ExecutorContext } from '@nrwl/devkit';
 import type { BuildOptions } from 'esbuild';
+import type { Observable } from 'rxjs';
+import type {
+  TscRunnerOptions,
+  RunnerSubcriber,
+  ExecutorStatus,
+} from './lib/types';
+
 import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
 import { esbuildNodeExternalsPlugin } from 'esbuild-plugin-node-externals';
 import { esbuildHashPlugin } from 'esbuild-plugin-hash';
 import { esbuildFileSizePlugin } from 'esbuild-plugin-filesize';
 import { esbuildAliasPathPlugin } from 'esbuild-plugin-alias-path';
 
-import { Subject, zip } from 'rxjs';
+import { zip } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
 import dayjs from 'dayjs';
 
 import { runESBuild } from './lib/esbuild-runner';
 import { runTSC } from './lib/tsc-runner';
+import { pluginTitle, timeStamp, buildTimes } from './lib/log';
+
 import {
-  pluginTitle,
-  timeStamp,
-  buildTimes,
-  warning as warningTxt,
-  error as errorTxt,
-  plainText,
-  success,
-} from './lib/log';
-import type { TscRunnerOptions } from './lib/types';
-import { collectESBuildRunnerMessages } from './lib/message-fragments';
+  collectESBuildRunnerMessages,
+  collectTSCRunnerMessages,
+} from './lib/message-fragments';
 
 import { normalizeBuildExecutorOptions } from './lib/normalize-schema';
 import { bufferUntil } from './lib/buffer-until';
@@ -123,7 +122,7 @@ export default function buildExecutor(
   // apps/app1/src
   const watchDir = `${options.workspaceRoot}/${options.projectSourceRoot}`;
 
-  const esBuildSubscriber = runESBuild(
+  const esBuildSubscriber: Observable<RunnerSubcriber> = runESBuild(
     {
       ...esbuildRunnerOptions,
       assets: options.assets,
@@ -157,7 +156,6 @@ export default function buildExecutor(
   const prefixTsc = `${pluginTitle('nx-plugin-esbuild')} TSC ${buildTimes(
     `[${typeCounter}]`
   )} ${timeStamp(timeStringTsc)}`;
-  const tscBufferTrigger = new Subject<boolean>();
 
   const tscRunnerOptions: TscRunnerOptions = {
     tsconfigPath: options.tsConfig,
@@ -166,45 +164,36 @@ export default function buildExecutor(
     root: options.workspaceRoot,
   };
 
-  const tscSubscriber = runTSC(tscRunnerOptions).pipe(
-    tap(({ info, error, end }) => {
-      console.log('{ info, error, end }: ', { info, error, end });
-    }),
-
-    map(({ info, error, end, hasError }) => {
+  const tscSubscriber: Observable<RunnerSubcriber> = runTSC(
+    tscRunnerOptions
+  ).pipe(
+    map((res) => {
+      const { info, error, end } = res;
       const messageFragments: string[] = [];
 
       let hasErrors = Boolean(error);
 
-      if (error) {
-        console.log('error');
-        messageFragments.push(errorTxt(`${prefixTsc} ${error}`));
-      } else if (info) {
-        if (info.match(/Found\s\d*\serror/)) {
-          console.log('match ', info.match(/Found\s\d*\serror/));
-          if (info.includes('Found 0 errors')) {
-            messageFragments.push(
-              success(`${prefixTsc} ${info.replace(/\r\n/g, '')}`)
-            );
-          } else {
-            hasErrors = true;
-            messageFragments.push(
-              errorTxt(`${prefixTsc} ${info.replace(/\r\n/g, '')}`)
-            );
-          }
-          tscBufferTrigger.next(true);
-        } else {
-          messageFragments.push(
-            success(`${prefixTsc} ${info.replace(/\r\n/g, '')}`)
-          );
-        }
+      if (
+        info &&
+        info.match(/Found\s\d*\serror/) &&
+        !info.includes('Found 0 errors')
+      ) {
+        hasErrors = true;
       }
-      return { info, error, end, hasError, hasErrors, messageFragments };
+
+      collectTSCRunnerMessages(res, messageFragments, prefixTsc);
+
+      return { info, error, end, hasErrors, messageFragments };
     }),
 
-    bufferUntil(
-      ({ info, error }) =>
-        !!info?.match(/Found\s\d*\serror/) || error?.includes('error TS')
+    bufferUntil(({ info, error }) =>
+      // 原作者的意思应该是info中获得Found 1 errors这样的字样，说明tsc走完了一次编译
+      {
+        return (
+          !!info?.match(/Found\s\d*\serror/) ||
+          !!error?.match(/Found\s\d*\serror/)
+        );
+      }
     ),
 
     tap(() => {
@@ -216,25 +205,24 @@ export default function buildExecutor(
 
       return {
         success: !values.find((value) => value.hasErrors),
-        message,
+        messageFragments: message,
       };
     })
   );
 
   return eachValueFrom(
     zip(esBuildSubscriber, tscSubscriber).pipe(
-      // tap(([_, tsc]) => {
-      //   console.log('TSC Emit Value');
-      // }),
-
-      map(([buildResults, tscResults]) => {
-        console.log('\x1Bc');
-        console.log(tscResults.message.join('\n'));
-        console.log(buildResults.messageFragments.join('\n'));
-        return {
-          success: buildResults?.success && tscResults?.success,
-        };
-      })
+      map(
+        ([buildResults, tscResults]): ExecutorStatus => {
+          console.log('\x1Bc');
+          console.log(tscResults.messageFragments.join('\n'));
+          console.log('\x1Bc');
+          console.log(buildResults.messageFragments.join('\n'));
+          return {
+            success: buildResults?.success && tscResults?.success,
+          };
+        }
+      )
     )
   );
 }

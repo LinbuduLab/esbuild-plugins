@@ -27,6 +27,15 @@ export interface ESBuildRunnerResponse {
   buildFailure: BuildFailure | null;
 }
 
+export interface ExecutorStatus {
+  success: boolean;
+}
+
+export interface RunnerSubcriber {
+  success: boolean;
+  messageFragments: string[];
+}
+
 export interface TscRunnerOptions {
   tsconfigPath: string;
   watch: boolean;
@@ -38,6 +47,4 @@ export interface TscRunnerResponse {
   error?: string;
   tscError?: Error;
   end?: string;
-  // test
-  hasError?: boolean;
 }

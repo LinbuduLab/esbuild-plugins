@@ -1,9 +1,10 @@
-import type { BuildResult, BuildFailure, BuildOptions } from 'esbuild';
+import type { BuildFailure } from 'esbuild';
+import type { ESBuildRunnerOptions, ESBuildRunnerResponse } from './types';
+
 import { Observable } from 'rxjs';
 import { build } from 'esbuild';
 import chokidar from 'chokidar';
-import { copyAssetFiles, AssetFileInputOutput } from 'nx-plugin-devkit';
-import { ESBuildRunnerOptions, ESBuildRunnerResponse } from './types';
+import { copyAssetFiles } from 'nx-plugin-devkit';
 import { info, success } from './log';
 
 export function runESBuild(
