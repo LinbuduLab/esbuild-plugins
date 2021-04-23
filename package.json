@@ -164,6 +164,7 @@
     "webpack-merge": "4.2.1",
     "webpack-node-externals": "1.7.2",
     "webpack-sources": "1.4.3",
-    "webpack-subresource-integrity": "^1.5.1"
+    "webpack-subresource-integrity": "^1.5.1",
+    "yaml": "^1.10.2"
   }
 }

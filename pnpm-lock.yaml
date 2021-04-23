@@ -102,6 +102,7 @@ specifiers:
   webpack-node-externals: 1.7.2
   webpack-sources: 1.4.3
   webpack-subresource-integrity: ^1.5.1
+  yaml: ^1.10.2
 
 dependencies:
   tslib: 2.2.0
@@ -207,6 +208,7 @@ devDependencies:
   webpack-node-externals: 1.7.2
   webpack-sources: 1.4.3
   webpack-subresource-integrity: 1.5.2_webpack@4.42.0
+  yaml: 1.10.2
 
 packages:
 

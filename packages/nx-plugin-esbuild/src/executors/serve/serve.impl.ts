@@ -52,6 +52,9 @@ export default async function serveExecutor(
 
   // 获取到build target配置
   // TODO:如果没有找到esbuild-build/build配置，则使用默认的一套配置
+
+  // 还是说应该用workspace中的"options": { "buildTarget": "nest-app:build" }
+  // 官方莫非是waitUntilTarget先构建这玩意...
   const buildTarget = targets[projectBuildTarget];
 
   const buildTargetOptions = buildTarget.options ?? {};

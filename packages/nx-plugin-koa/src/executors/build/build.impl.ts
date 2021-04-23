@@ -1,4 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+// forked from official @nrwl/node:build executor
+// https://github.com/nrwl/nx/blob/master/packages/node/src/executors/build/build.impl.ts
+// will apply modifications in the future
+// you can also use @nrwl/node:build directly
 import { ExecutorContext } from '@nrwl/devkit';
 
 import { createProjectGraph } from '@nrwl/workspace/src/core/project-graph';
