@@ -1,1 +1,3 @@
-export interface ServeExecutorSchema {} // eslint-disable-line
+export interface ESBuildServeExecutorSchema {
+  __todo__: string;
+}

@@ -7,7 +7,7 @@
       "description": "build executor"
     },
     "serve": {
-      "implementation": "./src/executors/serve/executor",
+      "implementation": "./src/executors/serve/serve.impl",
       "schema": "./src/executors/serve/schema.json",
       "description": "serve executor"
     }
