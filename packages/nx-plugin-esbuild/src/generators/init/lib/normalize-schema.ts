@@ -46,6 +46,7 @@ export function normalizeSchema(
     assets: schema.assets ?? [`${projectRoot}/src/assets`],
     watch: schema.watch,
     useTSCPluginForDecorator: schema.useTSCPluginForDecorator,
+    override: schema.override,
   };
 
   return {

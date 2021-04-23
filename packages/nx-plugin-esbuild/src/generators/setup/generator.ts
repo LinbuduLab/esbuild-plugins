@@ -66,8 +66,8 @@ export default async function (
     projectConfig.targets['build'] = setupBuildTargetConfig;
     projectConfig.targets['serve'] = setupServeTargetConfig;
   } else {
-    projectConfig.targets['esbuild-build'] = setupBuildTargetConfig;
-    projectConfig.targets['esbuild-serve'] = setupServeTargetConfig;
+    projectConfig.targets['esbuild'] = setupBuildTargetConfig;
+    projectConfig.targets['esserve'] = setupServeTargetConfig;
   }
 
   updateProjectConfiguration(host, projectName, projectConfig);

@@ -34,6 +34,7 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
     outputPath,
     tsconfigPath: tsConfig,
     assets,
+    override,
   } = normalizedSchema;
 
   const tasks: GeneratorCallback[] = [];
@@ -59,7 +60,9 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
       options: {
         buildTarget: `${projectName}:build`,
       },
-    }
+    },
+    override ? 'esbuild' : 'build',
+    override ? 'esserve' : 'serve'
   );
 
   createNodeAppFiles(host, normalizedSchema, path.join(__dirname, './files'));

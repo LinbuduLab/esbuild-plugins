@@ -17,7 +17,7 @@
     "override": {
       "type": "boolean",
       "alias": "r",
-      "x-prompt": "Should override build/serve command?(if not, will use esbuild-build and esbuild-serve instead)",
+      "x-prompt": "Should override build/serve command?(if not, will use esbuild and esbuild-serve instead)",
       "default": false
     },
     "entry": {

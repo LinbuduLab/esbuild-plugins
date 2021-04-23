@@ -90,15 +90,23 @@ export function createNodeAppProject<T extends BasicNormalizedAppGenSchema>(
   host: Tree,
   schema: T,
   buildTarget?: TargetConfiguration | null,
-  serveTarget?: TargetConfiguration | null
+  serveTarget?: TargetConfiguration | null,
+  buildTargetName?: string,
+  serveTargetName?: string
 ) {
   const project: ProjectConfiguration & NxJsonProjectConfiguration = {
     root: schema.projectRoot,
     sourceRoot: joinPathFragments(schema.projectRoot, 'src'),
     projectType: 'application',
     targets: {
-      build: createNodeAppBuildConfig(schema, buildTarget),
-      serve: createNodeAppServeConfig(schema, serveTarget),
+      [buildTargetName ?? 'build']: createNodeAppBuildConfig(
+        schema,
+        buildTarget
+      ),
+      [serveTargetName ?? 'serve']: createNodeAppServeConfig(
+        schema,
+        serveTarget
+      ),
     },
     tags: schema.parsedTags,
   };

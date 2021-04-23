@@ -11,6 +11,7 @@ export interface ESBuildInitGeneratorExtraSchema {
   outputPath: string;
   tsconfigPath: string;
   assets: string[];
+  override: boolean;
 }
 
 export interface ESBuildInitGeneratorSchema

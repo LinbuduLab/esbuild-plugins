@@ -40,8 +40,8 @@ export default async function serveExecutor(
 
   const projectTargets = Object.keys(targets);
 
-  const projectBuildTarget = projectTargets.includes('esbuild-build')
-    ? 'esbuild-build'
+  const projectBuildTarget = projectTargets.includes('esbuild')
+    ? 'esbuild'
     : projectTargets.includes('build')
     ? 'build'
     : undefined;

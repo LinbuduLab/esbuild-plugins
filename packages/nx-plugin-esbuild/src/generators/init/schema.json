@@ -30,6 +30,12 @@
       "x-prompt": "Enable Build Watching?",
       "default": false
     },
+    "override": {
+      "type": "boolean",
+      "alias": "r",
+      "x-prompt": "Should override build/serve command?(if not, will use esbuild and esbuild-serve instead)",
+      "default": false
+    },
     "entry": {
       "type": "string",
       "alias": "e",
