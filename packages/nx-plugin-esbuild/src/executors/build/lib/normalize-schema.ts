@@ -42,7 +42,7 @@ export function normalizeBuildExecutorOptions(
     projectName
   );
 
-  if (options.platform === 'browser') {
+  if (options.platform === 'browser' && !options.format) {
     options.format = 'iife';
   }
 

@@ -2,27 +2,23 @@ import type { BuildResult, BuildFailure, BuildOptions } from 'esbuild';
 import { Observable } from 'rxjs';
 import { build } from 'esbuild';
 import chokidar from 'chokidar';
-import { FileInputOutput } from 'nx-plugin-devkit';
-import { copyAssetFiles } from 'nx-plugin-devkit';
-
-interface RunBuildResponse {
-  buildResult: BuildResult | null;
-  buildFailure: BuildFailure | null;
-}
+import { copyAssetFiles, AssetFileInputOutput } from 'nx-plugin-devkit';
+import { ESBuildRunnerOptions, ESBuildRunnerResponse } from './types';
+import { info, success } from './log';
 
 export function runESBuild(
-  options: BuildOptions & {
-    assets: FileInputOutput[];
-  },
-  watchDir?: string
-): Observable<RunBuildResponse> {
-  return new Observable<RunBuildResponse>((subscriber) => {
+  options: ESBuildRunnerOptions,
+  watchDir: string
+): Observable<ESBuildRunnerResponse> {
+  return new Observable<ESBuildRunnerResponse>((subscriber) => {
     const assetsDirs = options.assets;
 
+    // FIXME: only UPDATE assets will trigger correct re-build
+    // support all types or support neither
     const watcher = chokidar.watch(
       [watchDir, ...assetsDirs.map((dir) => dir.input)],
       {
-        ignored: ['node_modules'],
+        ignored: ['node_modules', '.git'],
         cwd: watchDir,
         ignorePermissionErrors: false,
         depth: 99,
@@ -33,14 +29,23 @@ export function runESBuild(
 
     // 不使用esbuild原本的watch能力
     // donot send extra params then build API need.
-    const { watch: buildWatch, assets, ...opts } = options;
+    const {
+      watch: buildWatch,
+      assets: _uselessAssetsOption,
+      ...esbuildBuildOptions
+    } = options;
 
-    build(opts)
+    build(esbuildBuildOptions)
       .then((buildResult) => {
         subscriber.next({ buildResult, buildFailure: null });
 
-        const watchNext = ({ buildFailure, buildResult }: RunBuildResponse) => {
+        const watchNext = ({
+          buildFailure,
+          buildResult,
+        }: ESBuildRunnerResponse) => {
           subscriber.next({ buildFailure, buildResult });
+
+          // TODO: enable option functionFileOnReBuild, and use default export as rebuild callback
           if (typeof buildWatch === 'object' && buildWatch.onRebuild) {
             buildWatch.onRebuild(buildFailure, buildResult);
           }
@@ -48,8 +53,11 @@ export function runESBuild(
 
         buildWatch
           ? watcher.on('all', (eventName, path) => {
-              console.log('eventName: ', eventName);
-              console.log('path: ', path);
+              console.log(
+                `${success('Change Detected:')} ${info(
+                  eventName.toLocaleUpperCase()
+                )} ${info(path)}`
+              );
 
               buildResult
                 .rebuild()
@@ -58,6 +66,7 @@ export function runESBuild(
                     buildFailure: null,
                     buildResult: watchResult,
                   });
+
                   copyAssetFiles(assetsDirs);
                 })
                 .catch((watchFailure: BuildFailure) => {
@@ -74,7 +83,7 @@ export function runESBuild(
         subscriber.complete();
       })
       .finally(() => {
-        console.log('ESBuild Compilation Done.');
+        console.log(success('ESBuild Compilation Done.'));
       });
   });
 }

@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import { build as esbuild } from 'esbuild';
-import { timer, zip } from 'rxjs';
+import { timer, zip, from } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import spawn from 'cross-spawn';
 import { watch } from 'chokidar';
@@ -118,11 +118,12 @@ export default async function serveExecutor(
     }
   });
 
+  const subAA = from('xxx');
   const subA = timer(1000, 1000).pipe(map((t) => ({ t })));
   const subB = timer(1000, 1000).pipe(map((t) => ({ t })));
 
   return eachValueFrom(
-    zip(subA, subB).pipe(
+    zip(subAA, subA, subB).pipe(
       tap((e) => {
         console.log(e);
       }),

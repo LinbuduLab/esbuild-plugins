@@ -1,6 +1,6 @@
 import type {
   AssetsItem,
-  FileInputOutput,
+  AssetFileInputOutput,
   FileReplacement,
   Alias,
 } from 'nx-plugin-devkit';
@@ -79,7 +79,7 @@ export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
   workspaceRoot: string;
   projectRoot: string;
   projectSourceRoot: string;
-  assets: FileInputOutput[];
+  assets: AssetFileInputOutput[];
   inserts: FormattedInsert;
   aliases: Alias[];
 }

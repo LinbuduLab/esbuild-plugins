@@ -1,8 +1,9 @@
 import fs from 'fs-extra';
+import chalk from 'chalk';
 import path from 'path';
 import glob from 'glob';
 
-export type FileInputOutput = {
+export type AssetFileInputOutput = {
   input: string;
   output: string;
 };
@@ -26,8 +27,8 @@ export function normalizeAssets(
   assets: string[] | AssetsItem[],
   root: string,
   outDir: string
-): FileInputOutput[] {
-  const files: FileInputOutput[] = [];
+): AssetFileInputOutput[] {
+  const files: AssetFileInputOutput[] = [];
 
   if (!Array.isArray(assets)) {
     return [];
@@ -56,10 +57,10 @@ export function normalizeAssets(
   return files;
 }
 
-export async function copyAssetFiles(assets: FileInputOutput[]) {
+export async function copyAssetFiles(assets: AssetFileInputOutput[]) {
   try {
     await Promise.all(assets.map((file) => fs.copy(file.input, file.output)));
-    console.log('Done copying asset files.');
+    console.log(chalk.green('Done copying asset files.'));
     return {
       success: true,
     };
