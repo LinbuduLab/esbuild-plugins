@@ -38,4 +38,6 @@ export interface TscRunnerResponse {
   error?: string;
   tscError?: Error;
   end?: string;
+  // test
+  hasError?: boolean;
 }

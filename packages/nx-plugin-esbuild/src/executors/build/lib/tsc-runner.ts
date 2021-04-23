@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs';
 import { spawn } from 'child_process';
+import chalk from 'chalk';
 import path from 'path';
 import fs from 'fs-extra';
 import { error, info, success, plainText } from './log';
@@ -19,7 +20,8 @@ export function runTSC({ tsconfigPath, watch, root }: TscRunnerOptions) {
       );
     }
 
-    const args: string[] = ['--noEmit', '--pretty'];
+    // --pretty
+    const args: string[] = ['--noEmit'];
 
     if (watch) {
       args.push('-w');
@@ -27,30 +29,45 @@ export function runTSC({ tsconfigPath, watch, root }: TscRunnerOptions) {
 
     args.push(`-p ${tsconfigPath}`);
 
+    // const errorSig = '\x1B[91merror\x1B[0m\x1B[90m';
+    const errorSig = 'error TS';
+
     let errorCount = 0;
     const childProcess = spawn(tscBinPath, args, {
       // set shell to be true, or add suffix '.cmd'/".exe"/".bat" in Windows
       shell: true,
+      // child_process.stdio.pipe(sub_process)
       stdio: 'pipe',
     });
 
-    childProcess.stdout.on('data', (data) => {
+    // 如果直接使用tsc的stdout，那么在非watch
+
+    childProcess.stdout.on('data', (data: Buffer) => {
+      // console.log('Data emit from stdout');
       const decoded = data.toString();
-      console.log('decoded: ', decoded);
+
+      // skip empty emit
       // eslint-disable-next-line no-control-regex
       if (decoded.match(/\x1Bc/g)) return;
-      if (decoded.includes('error TS')) {
+
+      // e.g. apps/nest-app/src/main.ts:22:20 - error TS2769:
+      // 启用pretty时 将无法使用这个方式匹配
+      if (decoded.includes(errorSig)) {
         errorCount++;
-        subscriber.next({ error: decoded });
+        subscriber.next({ error: decoded, hasError: !!errorCount });
       } else {
-        subscriber.next({ info: decoded });
+        subscriber.next({ info: decoded, hasError: !!errorCount });
       }
     });
 
-    childProcess.stderr.on('error', (tscError) => {
-      subscriber.next({ tscError });
-    });
+    // TODO: check by add unknown options to tsc
+    // childProcess.stderr.on('error', (tscError) => {
+    //   console.log('Error emit from stderr');
+    //   subscriber.next({ tscError });
+    //   console.log('=== Data emit from stderr END ===');
+    // });
 
+    // only triggered when options.watch false
     childProcess.stdout.on('end', () => {
       subscriber.next({
         info: `Type check complete. Found ${errorCount} errors`,

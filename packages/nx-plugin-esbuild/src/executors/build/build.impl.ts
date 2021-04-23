@@ -112,10 +112,12 @@ export default function buildExecutor(
 
   let buildCounter = 1;
 
-  const timeString = dayjs().format('H:mm:ss A');
-  const prefix = `${pluginTitle('nx-plugin-esbuild')} ESBuild ${buildTimes(
-    `[${buildCounter}]`
-  )} ${timeStamp(timeString)}`;
+  const timeStringESBuild = dayjs().format('H:mm:ss A');
+  const prefixESBuild = `${pluginTitle(
+    'nx-plugin-esbuild'
+  )} ESBuild ${buildTimes(`[${buildCounter}]`)} ${timeStamp(
+    timeStringESBuild
+  )}`;
 
   // TODO: enable specify watch dir
   // apps/app1/src
@@ -138,7 +140,7 @@ export default function buildExecutor(
       collectESBuildRunnerMessages(
         { buildResult, buildFailure },
         messageFragments,
-        prefix
+        prefixESBuild
       );
 
       return {
@@ -150,6 +152,11 @@ export default function buildExecutor(
 
   // TODO: skip type check
   let typeCounter = 1;
+  const timeStringTsc = dayjs().format('H:mm:ss A');
+
+  const prefixTsc = `${pluginTitle('nx-plugin-esbuild')} TSC ${buildTimes(
+    `[${typeCounter}]`
+  )} ${timeStamp(timeStringTsc)}`;
   const tscBufferTrigger = new Subject<boolean>();
 
   const tscRunnerOptions: TscRunnerOptions = {
@@ -161,43 +168,38 @@ export default function buildExecutor(
 
   const tscSubscriber = runTSC(tscRunnerOptions).pipe(
     tap(({ info, error, end }) => {
-      // console.log('{ info, error, end }: ', { info, error, end });
+      console.log('{ info, error, end }: ', { info, error, end });
     }),
 
-    map(({ info, error, end }) => {
+    map(({ info, error, end, hasError }) => {
       const messageFragments: string[] = [];
-
-      const timeString = dayjs().format('H:mm:ss A');
-
-      const prefix = `${pluginTitle('nx-plugin-esbuild')} TSC ${buildTimes(
-        `[${typeCounter}]`
-      )} ${timeStamp(timeString)}`;
 
       let hasErrors = Boolean(error);
 
       if (error) {
-        // FIXME: 多条错误时的格式化
-        messageFragments.push(errorTxt(`${prefix} ${error}`));
+        console.log('error');
+        messageFragments.push(errorTxt(`${prefixTsc} ${error}`));
       } else if (info) {
         if (info.match(/Found\s\d*\serror/)) {
+          console.log('match ', info.match(/Found\s\d*\serror/));
           if (info.includes('Found 0 errors')) {
             messageFragments.push(
-              success(`${prefix} ${info.replace(/\r\n/g, '')}`)
+              success(`${prefixTsc} ${info.replace(/\r\n/g, '')}`)
             );
           } else {
             hasErrors = true;
             messageFragments.push(
-              errorTxt(`${prefix} ${info.replace(/\r\n/g, '')}`)
+              errorTxt(`${prefixTsc} ${info.replace(/\r\n/g, '')}`)
             );
           }
           tscBufferTrigger.next(true);
         } else {
           messageFragments.push(
-            success(`${prefix} ${info.replace(/\r\n/g, '')}`)
+            success(`${prefixTsc} ${info.replace(/\r\n/g, '')}`)
           );
         }
       }
-      return { info, error, end, hasErrors, messageFragments };
+      return { info, error, end, hasError, hasErrors, messageFragments };
     }),
 
     bufferUntil(
