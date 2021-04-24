@@ -95,7 +95,8 @@
     "esbuild-plugin-html": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-alias-path": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-graphql": { "tags": [] },
-    "vite-plugin-graphql": { "tags": [] }
+    "vite-plugin-graphql": { "tags": [] },
+    "esbuild-plugin-notifier": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

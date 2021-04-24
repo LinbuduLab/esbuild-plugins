@@ -30,5 +30,6 @@ module.exports = {
     '<rootDir>/packages/esbuild-plugin-d',
     '<rootDir>/packages/esbuild-plugin-graphql',
     '<rootDir>/packages/vite-plugin-graphql',
+    '<rootDir>/packages/esbuild-plugin-notifier',
   ],
 };

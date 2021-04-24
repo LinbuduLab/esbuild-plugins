@@ -47,7 +47,10 @@
       "esbuild-plugin-graphql": [
         "packages/esbuild-plugin-graphql/src/index.ts"
       ],
-      "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"]
+      "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"],
+      "esbuild-plugin-notifier": [
+        "packages/esbuild-plugin-notifier/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
