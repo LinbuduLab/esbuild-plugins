@@ -24,7 +24,7 @@ export interface NormalizedPluginGeneratorSchema extends PluginGeneratorSchema {
   // workspaceRoot: string;
   projectName: string;
   projectRoot: string;
-  projectSourceRoot:string;
+  projectSourceRoot: string;
   projectDirectory: string;
   npmScope: string;
   npmPackageName: string;

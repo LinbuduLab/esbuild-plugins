@@ -61,7 +61,7 @@ nx serve snowpack-app
 - `nx-plugin-prisma`:
 - `nx-plugin-serverless`:
 
-> Nx  plugin with bundler.
+> Nx plugin with bundler.
 
 - `nx-plugin-esbuild`:
 - `nx-plugin-swc`:
@@ -78,7 +78,7 @@ nx serve snowpack-app
 
 ### ESBuild-Plugins
 
->  Avaliable Plugins:
+> Avaliable Plugins:
 
 - `esbuild-plugin-decorator`:
 - `esbuild-plugin-node-externals`:
@@ -96,15 +96,11 @@ nx serve snowpack-app
 - `esbuild-plugin-notifier`
 - `esbuild-plugin-graphql`
 
-
-
 ## Global Progress
 
 - [ ] Release 0.1.0 for all plugins.
 - [ ] Detailed documentation for all plugins. (README file will only include links to packages README)
 - [ ] Refactor all plugins for `nx-plugin-devkit`
-
-
 
 ## Plugins
 
@@ -127,8 +123,6 @@ nx serve snowpack-app
   - [ ] Nest + TypeGraphQL Full-Featured
   - [ ] Midway + TypeGraphQL
 
-
-
 ### nx-plugin-midway
 
 #### generators
@@ -145,15 +139,11 @@ nx serve snowpack-app
   - [ ] Midway-Serverless
   - [ ] Midway-Hooks
 
-
-
 #### executors
 
 - [ ] serve (midway-bin dev)
 - [ ] build (midway-bin build)
 - [ ] deploy (pm2 / serverless)
-
-
 
 ### nx-plugin-prisma
 
@@ -164,11 +154,7 @@ nx serve snowpack-app
   - [ ] REST / GraphQL
   - [ ] Vanilla NodeJS / NestJS
 
-
-
 ### executors
-
-
 
 ### nx-plugin-esbuild
 
@@ -178,14 +164,10 @@ nx serve snowpack-app
 
 - [ ] Setup (Add ESBuild commands for existing project)
 
-
-
 ### executors
 
 - [ ] build
 - [ ] serve
-
-
 
 ### nx-plugin-swc
 
@@ -195,20 +177,17 @@ nx serve snowpack-app
 
 - [ ] Setup (Add SWC commands for existing project)
 
-
-
 ### executors
 
 - [ ] build
 - [ ] serve
-
-
 
 ### nx-plugin-vite
 
 #### generators
 
 - [ ] Application
+
   - [ ] React / Vue
   - [ ] GraphQL (Apollo-Client)
 
@@ -220,19 +199,13 @@ nx serve snowpack-app
 - [ ] build (vite build)
 - [ ] preview (vite preview)
 
-
-
 ### nx-plugin-umi
 
 > **Experimental**
 
 #### generators
 
-
-
 ### executors
-
-
 
 ### nx-plugin-ice
 
@@ -240,11 +213,7 @@ nx serve snowpack-app
 
 #### generators
 
-
-
 ### executors
-
-
 
 ### nx-plugin-snowpack
 
@@ -252,20 +221,12 @@ nx serve snowpack-app
 
 #### generators
 
-
-
 ### executors
-
-
-
-
 
 ### Possible Plugins
 
 - nx-plugin-vuepress(vitepress?)
 - nx-plugin-dumi
-
-
 
 ## ESBuild-Plugins
 
@@ -309,9 +270,8 @@ Inspired by [rollup-plugin-hash](https://github.com/phamann/rollup-plugin-hash)
 
 > Html template + script insert made easy.
 
-
 > https://github.com/remorses/esbuild-plugins/blob/master/html/src/index.ts
-Inspired by [html-webpack-plugin]() + [rollup-plugin-static-site](https://gitlab.com/thekelvinliu/rollup-plugin-static-site)
+> Inspired by [html-webpack-plugin]() + [rollup-plugin-static-site](https://gitlab.com/thekelvinliu/rollup-plugin-static-site)
 
 ### esbuild-plugin-circular-deps
 
