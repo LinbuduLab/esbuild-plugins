@@ -2,8 +2,6 @@
   "name": "nx-plugin-esbuild",
   "version": "0.0.1-1",
   "main": "src/index.js",
-  "generators": "./generators.json",
-  "executors": "./executors.json",
   "scripts": {
     "link": "pnpm link && npm-run-all --print-label --print-name  link:**",
     "link:decorator": "pnpm link ../esbuild-plugin-decorator",
@@ -14,19 +12,17 @@
     "link:devkit": " pnpm link ../nx-plugin-devkit"
   },
   "dependencies": {
-    "@nrwl/devkit": "12.0.8",
-    "chokidar": "^3.5.1",
-    "dayjs": "^1.10.4",
-    "fs-extra": "^9.1.0",
-    "glob": "^7.1.6",
-    "rxjs": "^6.6.7",
-    "rxjs-for-await": "^0.0.2"
+    "@nrwl/devkit": "latest",
+    "@nrwl/workspace": "latest",
+    "chalk": "latest",
+    "chokidar": "latest",
+    "cross-spawn": "latest",
+    "dayjs": "latest",
+    "fs-extra": "latest",
+    "rxjs": "latest",
+    "rxjs-for-await": "latest"
   },
-  "devDependencies": {
-    "chalk": "^4.1.0",
-    "npm-run-all": "^4.1.5"
-  },
-  "peerDependencies": {
-    "esbuild": "^0.11.11"
-  }
+  "peerDependencies": { "esbuild": "^0.11.11" },
+  "executors": "./executors.json",
+  "generators": "./generators.json"
 }
