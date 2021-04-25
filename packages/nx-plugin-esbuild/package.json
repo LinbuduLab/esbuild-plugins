@@ -1,6 +1,24 @@
 {
   "name": "nx-plugin-esbuild",
   "version": "0.0.1-1",
+  "description": "@nrwl/nx plugin integration with esbuild.",
+  "keywords": [
+    "nx",
+    "@nrwl/nx",
+    "esbuild",
+    "plugin",
+    "monorepo"
+  ],
+  "homepage": "https://github.com/PenumbraPro/nx-plugins/tree/master/packages/nx-plugin-esbuild#readme",
+  "bugs": {
+    "url": "https://github.com/PenumbraPro/nx-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PenumbraPro/nx-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
   "main": "src/index.js",
   "scripts": {
     "link": "pnpm link && npm-run-all --print-label --print-name  link:**",

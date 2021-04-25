@@ -15,6 +15,8 @@ import { readPackageAsync } from 'read-pkg';
 import glob from 'glob';
 import uniq from 'lodash/uniq';
 
+import { createMissingFields } from './fill-package-json';
+
 // These dependencies should be add to [peerDependencies] field
 // Dep packages from this repo will add to [dependencies] field by
 // --buildableProjectDepsInPackageJsonType=dependencies flag
@@ -156,6 +158,7 @@ async function main() {
   const projectPkgContent = jsonfile.readFileSync(projectPkgFilePath, {
     encoding: 'utf8',
   });
+
   projectPkgContent.dependencies = {
     ...projectPkgContent.dependencies,
     ...depsInfoToAdd.dependencies,
@@ -167,9 +170,17 @@ async function main() {
   };
   fs.writeFileSync(
     projectPkgFilePath,
-    prettier.format(sortPackageJson(JSON.stringify(projectPkgContent)), {
-      parser: 'json',
-    })
+    prettier.format(
+      sortPackageJson(
+        JSON.stringify({
+          ...projectPkgContent,
+          ...createMissingFields(project),
+        })
+      ),
+      {
+        parser: 'json',
+      }
+    )
   );
 }
 

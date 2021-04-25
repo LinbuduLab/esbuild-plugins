@@ -41,6 +41,7 @@ specifiers:
   '@types/jsonfile': ^6.0.0
   '@types/lodash': ^4.14.168
   '@types/node': 14.14.41
+  '@types/node-notifier': ^8.0.0
   '@types/pacote': ^11.1.0
   '@types/pretty': ^2.0.0
   '@types/strip-comments': ^2.0.0
@@ -82,6 +83,7 @@ specifiers:
   jsonfile: ^6.1.0
   latest-version: ^5.1.0
   lodash: ^4.17.21
+  node-notifier: ^9.0.1
   node-watch: ^0.7.1
   npm-run-all: ^4.1.5
   ora: ^5.4.0
@@ -155,6 +157,7 @@ devDependencies:
   '@types/jsonfile': 6.0.0
   '@types/lodash': 4.14.168
   '@types/node': 14.14.41
+  '@types/node-notifier': 8.0.0
   '@types/pacote': 11.1.0
   '@types/pretty': 2.0.0
   '@types/strip-comments': 2.0.0
@@ -196,6 +199,7 @@ devDependencies:
   jsonfile: 6.1.0
   latest-version: 5.1.0
   lodash: 4.17.21
+  node-notifier: 9.0.1
   node-watch: 0.7.1
   npm-run-all: 4.1.5
   ora: 5.4.0
@@ -2749,6 +2753,12 @@ packages:
     dependencies:
       '@types/node': 14.14.33
       form-data: 3.0.1
+    dev: true
+
+  /@types/node-notifier/8.0.0:
+    resolution: {integrity: sha512-CseIDQOC/I+yvj/4ItpG4ATcwooQlGPDDJweII8nspjjZg4ZBuvkyHg9P81QkElgU9FpYlb5A27BRggD3idTCQ==}
+    dependencies:
+      '@types/node': 14.14.41
     dev: true
 
   /@types/node/14.14.33:
@@ -7075,7 +7085,6 @@ packages:
   /growly/1.3.0:
     resolution: {integrity: sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=}
     dev: true
-    optional: true
 
   /gzip-size/6.0.0:
     resolution: {integrity: sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==}
@@ -7811,6 +7820,12 @@ packages:
     hasBin: true
     dev: true
 
+  /is-docker/2.2.1:
+    resolution: {integrity: sha512-F+i2BKsFrH66iaUFc0woD8sLy8getkwTwtOBjvs56Cx4CgJDeKQeqfz8wAYiSb8JOprWhHH5p77PbmYCvvUuXQ==}
+    engines: {node: '>=8'}
+    hasBin: true
+    dev: true
+
   /is-extendable/0.1.1:
     resolution: {integrity: sha1-YrEQ4omkcUGOPsNqYX1HLjAd/Ik=}
     engines: {node: '>=0.10.0'}
@@ -8063,7 +8078,7 @@ packages:
     resolution: {integrity: sha512-fKzAra0rGJUUBwGBgNkHZuToZcn+TtXHpeCgmkMJMMYx1sQDYaCSyjJBSCa2nH1DGm7s3n1oBnohoVTBaN7Lww==}
     engines: {node: '>=8'}
     dependencies:
-      is-docker: 2.1.1
+      is-docker: 2.2.1
     dev: true
 
   /isarray/1.0.0:
@@ -9853,6 +9868,17 @@ packages:
       which: 2.0.2
     dev: true
     optional: true
+
+  /node-notifier/9.0.1:
+    resolution: {integrity: sha512-fPNFIp2hF/Dq7qLDzSg4vZ0J4e9v60gJR+Qx7RbjbWqzPDdEqeVpEx5CFeDAELIl+A/woaaNn1fQ5nEVerMxJg==}
+    dependencies:
+      growly: 1.3.0
+      is-wsl: 2.2.0
+      semver: 7.3.5
+      shellwords: 0.1.1
+      uuid: 8.3.2
+      which: 2.0.2
+    dev: true
 
   /node-releases/1.1.71:
     resolution: {integrity: sha512-zR6HoT6LrLCRBwukmrVbHv0EpEQjksO6GmFcZQQuCAy139BEsoVKPYnf3jongYW83fAa1torLGYwxxky/p28sg==}
@@ -11973,7 +11999,6 @@ packages:
   /shellwords/0.1.1:
     resolution: {integrity: sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==}
     dev: true
-    optional: true
 
   /side-channel/1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
@@ -13332,7 +13357,6 @@ packages:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
     dev: true
-    optional: true
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
