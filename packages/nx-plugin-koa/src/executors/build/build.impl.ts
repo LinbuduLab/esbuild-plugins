@@ -39,7 +39,7 @@ export function buildExecutor(
   rawOptions: BuildNodeBuilderOptions,
   context: ExecutorContext
 ) {
-  console.log('rawOptions: ', rawOptions);
+  // console.log('rawOptions: ', rawOptions);
   // outputPath
   // main
   // tsConfig
@@ -124,7 +124,7 @@ export function buildExecutor(
         dependencies
       )
     ) {
-      return { success: false } as any;
+      return { success: false };
     }
   }
 

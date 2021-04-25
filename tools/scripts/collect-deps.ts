@@ -1,17 +1,12 @@
-import { readdirSync, readFileSync } from 'fs-extra';
 import path from 'path';
-import ora from 'ora';
 import inquirer from 'inquirer';
 import fs from 'fs-extra';
 import { Project } from 'ts-morph';
 import prettier from 'prettier';
 import sortPackageJson from 'sort-package-json';
-import { sync } from 'glob';
 import { builtinModules } from 'module';
 import jsonfile from 'jsonfile';
-import latestVersion from 'latest-version';
 import pacote from 'pacote';
-import { readPackageAsync } from 'read-pkg';
 import glob from 'glob';
 import uniq from 'lodash/uniq';
 
@@ -26,7 +21,6 @@ import { PRESERVED_PACKAGE_PEER_DEPS, PRESERVED_NX_PEER_DEPS } from './deps';
 // TODO: error handler
 
 async function collectDepsVersion(deps: string[]) {
-  // Get deps version from root package.json ?
   const depsInfoWithVersion: Record<string, string> = {};
 
   for (const dep of deps) {
@@ -143,7 +137,6 @@ async function main() {
   // add to deps
   const addAsDeps = processedDeps.filter((dep) => !determineDepType(dep));
 
-  // TODO: style by ora!
   const peerDepsWithVersion = await collectDepsVersionFromRootPackage(
     addAsPeerDeps
   );
@@ -168,6 +161,7 @@ async function main() {
     ...projectPkgContent.peerDependencies,
     ...depsInfoToAdd.peerDependencies,
   };
+
   fs.writeFileSync(
     projectPkgFilePath,
     prettier.format(

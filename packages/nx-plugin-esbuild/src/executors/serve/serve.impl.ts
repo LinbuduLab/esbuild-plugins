@@ -14,9 +14,8 @@ import { eachValueFrom } from 'rxjs-for-await';
 import { ESBuildServeExecutorSchema } from './schema';
 
 // steps:
-// build
-// start by nodemon/nodedev node + chokidar ?
-//
+// 1. build
+// 2. start by nodemon or node + chokidar ?
 //
 // options
 

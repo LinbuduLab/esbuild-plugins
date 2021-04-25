@@ -104,6 +104,10 @@ export function normalizeSchema(
   // FIXME: 暂时全局安装顶替下
   // 到时候可以添加到package.json中？
   // 需要先安装genql相关的包
+  // 到时候先检查相应的包是否安装了（项目工作区package.json）
+  // 那这样全局的就不能了？不管全局的吧？
+  // 不对 spawn命令并不会像npm script那样添加到bin
+  // 百度下spawn + pnpx 命令吧
   // const x = spawn(`pnpm i @genql/cli -D`, { shell: true });
 
   // x.on('message', (me) => {
