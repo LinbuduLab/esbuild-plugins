@@ -23,6 +23,8 @@ const umiPlugins = allPackages
   .map((package) => package.replace('-plugin-', '-'));
 
 const WORKSPACE_CONFIGURATION_SCOPE = 'workspace';
+const TOOLS_SCOPE = 'tools';
+const ENHANCMENT_SCOPE = 'enhancement';
 const DOCUMENTATION_SCOPE = 'docs';
 const WEBSITE_SCOPE = 'website';
 const ADD_PLUGIN_SCOPE = 'add-plugin';
@@ -78,6 +80,8 @@ module.exports = {
     DELETE_PLUGIN_SCOPE,
     EXAMPLE_SCOPE,
     WIP_SCOPE,
+    TOOLS_SCOPE,
+    ENHANCMENT_SCOPE,
   ],
   disableEmoji: false,
   list: [

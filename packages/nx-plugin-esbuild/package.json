@@ -6,24 +6,23 @@
     "link": "pnpm link && npm-run-all --print-label --print-name  link:**",
     "link:decorator": "pnpm link ../esbuild-plugin-decorator",
     "link:externals": "pnpm link ../esbuild-plugin-node-externals",
-    "link:hash": "pnpm link ../esbuild-plugin-hash",
     "link:filesize": "pnpm link ../esbuild-plugin-filesize",
     "link:alias-path": "pnpm link ../esbuild-plugin-alias-path",
     "link:devkit": " pnpm link ../nx-plugin-devkit"
   },
   "dependencies": {
-    "chalk": "~4.1.1",
-    "chokidar": "~3.5.1",
-    "cross-spawn": "~7.0.3",
-    "dayjs": "~1.10.4",
-    "fs-extra": "~9.1.0",
-    "rxjs": "~6.6.7",
-    "rxjs-for-await": "~0.0.2"
+    "chalk": "^4.1.0",
+    "chokidar": "^3.5.1",
+    "cross-spawn": "^7.0.3",
+    "dayjs": "^1.10.4",
+    "fs-extra": "^9.1.0",
+    "rxjs": "^6.6.7",
+    "rxjs-for-await": "^0.0.2"
   },
   "peerDependencies": {
-    "@nrwl/devkit": "~12.0.8",
-    "@nrwl/workspace": "~12.0.8",
-    "esbuild": "~0.11.14"
+    "@nrwl/devkit": "12.0.8",
+    "@nrwl/workspace": "12.0.8",
+    "esbuild": "^0.11.11"
   },
   "executors": "./executors.json",
   "generators": "./generators.json"

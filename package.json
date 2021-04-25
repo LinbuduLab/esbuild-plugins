@@ -37,7 +37,6 @@
     "dev:devkit": "nx run nx-plugin-devkit:build && cd .\\dist\\packages\\nx-plugin-devkit\\ && pnpm link",
     "dev:esbuild:decorator": "nx run esbuild-plugin-decorator:build && cd .\\dist\\packages\\esbuild-plugin-decorator\\ && pnpm link",
     "dev:esbuild:externals": "nx run esbuild-plugin-node-externals:build && cd .\\dist\\packages\\esbuild-plugin-node-externals\\ && pnpm link",
-    "dev:esbuild:hash": "nx run esbuild-plugin-hash:build && cd .\\dist\\packages\\esbuild-plugin-hash\\ && pnpm link",
     "dev:esbuild:filesize": "nx run esbuild-plugin-filesize:build && cd .\\dist\\packages\\esbuild-plugin-filesize\\ && pnpm link",
     "dev:esbuild:html": "nx run esbuild-plugin-html:build && cd .\\dist\\packages\\esbuild-plugin-html\\ && pnpm link",
     "dev:esbuild:alias": "nx run esbuild-plugin-alias-path:build && cd .\\dist\\packages\\esbuild-plugin-alias-path\\ && pnpm link",
@@ -53,7 +52,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "commit-msg": "commitlint -e HUSKY_GIT_PARAMS"
     }
   },
   "config": {

@@ -34,7 +34,6 @@
       "esbuild-plugin-node-externals": [
         "packages/esbuild-plugin-node-externals/src/index.ts"
       ],
-      "esbuild-plugin-hash": ["packages/esbuild-plugin-hash/src/index.ts"],
       "esbuild-plugin-filesize": [
         "packages/esbuild-plugin-filesize/src/index.ts"
       ],

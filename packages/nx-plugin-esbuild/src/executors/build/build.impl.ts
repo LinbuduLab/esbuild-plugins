@@ -10,7 +10,6 @@ import type {
 
 import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
 import { esbuildNodeExternalsPlugin } from 'esbuild-plugin-node-externals';
-import { esbuildHashPlugin } from 'esbuild-plugin-hash';
 import { esbuildFileSizePlugin } from 'esbuild-plugin-filesize';
 import { esbuildAliasPathPlugin } from 'esbuild-plugin-alias-path';
 
@@ -73,11 +72,6 @@ export default function buildExecutor(
     esbuildAliasPathPlugin({
       aliases: options.aliases,
     }),
-    // waiting for buildEnd hook
-    // esbuildHashPlugin({
-    //   dest: path.join(options.outputPath, 'main.[hash:8].js'),
-    //   retainOrigin: false,
-    // }),
     // esbuildFileSizePlugin(),
   ];
 
