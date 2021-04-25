@@ -41,7 +41,8 @@
     "dev:esbuild:filesize": "nx run esbuild-plugin-filesize:build && cd .\\dist\\packages\\esbuild-plugin-filesize\\ && pnpm link",
     "dev:esbuild:html": "nx run esbuild-plugin-html:build && cd .\\dist\\packages\\esbuild-plugin-html\\ && pnpm link",
     "dev:esbuild:alias": "nx run esbuild-plugin-alias-path:build && cd .\\dist\\packages\\esbuild-plugin-alias-path\\ && pnpm link",
-    "commit": "git add -A && git-cz"
+    "commit": "git add -A && git-cz",
+    "collect-deps": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\collect-deps.ts "
   },
   "private": true,
   "size-limit": [
@@ -143,6 +144,7 @@
     "inquirer": "^8.0.0",
     "jest": "26.6.3",
     "jsonfile": "^6.1.0",
+    "latest-version": "^5.1.0",
     "lodash": "^4.17.21",
     "node-watch": "^0.7.1",
     "npm-run-all": "^4.1.5",
@@ -151,8 +153,10 @@
     "prettier": "2.2.1",
     "pretty": "^2.0.0",
     "pretty-quick": "^3.1.0",
+    "read-pkg": "^6.0.0",
     "rxjs": "^6.6.7",
     "rxjs-for-await": "^0.0.2",
+    "semver": "^7.3.5",
     "size-limit": "^4.10.2",
     "sort-package-json": "^1.49.0",
     "strip-comments": "^2.0.1",

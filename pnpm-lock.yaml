@@ -80,6 +80,7 @@ specifiers:
   inquirer: ^8.0.0
   jest: 26.6.3
   jsonfile: ^6.1.0
+  latest-version: ^5.1.0
   lodash: ^4.17.21
   node-watch: ^0.7.1
   npm-run-all: ^4.1.5
@@ -88,8 +89,10 @@ specifiers:
   prettier: 2.2.1
   pretty: ^2.0.0
   pretty-quick: ^3.1.0
+  read-pkg: ^6.0.0
   rxjs: ^6.6.7
   rxjs-for-await: ^0.0.2
+  semver: ^7.3.5
   size-limit: ^4.10.2
   sort-package-json: ^1.49.0
   strip-comments: ^2.0.1
@@ -191,6 +194,7 @@ devDependencies:
   inquirer: 8.0.0
   jest: 26.6.3_ts-node@9.1.1
   jsonfile: 6.1.0
+  latest-version: 5.1.0
   lodash: 4.17.21
   node-watch: 0.7.1
   npm-run-all: 4.1.5
@@ -199,8 +203,10 @@ devDependencies:
   prettier: 2.2.1
   pretty: 2.0.0
   pretty-quick: 3.1.0_prettier@2.2.1
+  read-pkg: 6.0.0
   rxjs: 6.6.7
   rxjs-for-await: 0.0.2_rxjs@6.6.7
+  semver: 7.3.5
   size-limit: 4.10.2
   sort-package-json: 1.49.0
   strip-comments: 2.0.1
@@ -11303,6 +11309,16 @@ packages:
       type-fest: 0.6.0
     dev: true
 
+  /read-pkg/6.0.0:
+    resolution: {integrity: sha512-X1Fu3dPuk/8ZLsMhEj5f4wFAF0DWoK7qhGJvgaijocXxBmSToKfbFtqbxMO7bVjNA1dmE5huAzjXj/ey86iw9Q==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@types/normalize-package-data': 2.4.0
+      normalize-package-data: 3.0.2
+      parse-json: 5.2.0
+      type-fest: 1.0.2
+    dev: true
+
   /readable-stream/2.3.7:
     resolution: {integrity: sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==}
     dependencies:
@@ -13089,6 +13105,11 @@ packages:
   /type-fest/0.8.1:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
+    dev: true
+
+  /type-fest/1.0.2:
+    resolution: {integrity: sha512-a720oz3Kjbp3ll0zkeN9qjRhO7I34MKMhPGQiQJAmaZQZQ1lo+NWThK322f7sXV+kTg9B1Ybt16KgBXWgteT8w==}
+    engines: {node: '>=10'}
     dev: true
 
   /type-is/1.6.18:

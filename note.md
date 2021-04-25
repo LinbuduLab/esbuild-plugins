@@ -46,3 +46,4 @@ aaaa!
   - nx g @nrwl/node:lib esbuild-plugin-decorator --publishable --importPath=esbuild-plugin-decorator
 
 - nx koa-build nest-app --configuration=production
+- ts-node 参数顺序 https://github.com/TypeStrong/ts-node/issues/541
