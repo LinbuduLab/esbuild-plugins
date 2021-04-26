@@ -12,6 +12,6 @@ import type { TypeGraphQLGenSchema, NormalizedGenSchema } from './schema';
 import { normalizeSchema } from './lib/normalize-schema';
 
 export default async function (host: Tree, schema: TypeGraphQLGenSchema) {
-  const normalizedSchema = normalizeSchema(host, schema);
+  const normalizedSchema = await normalizeSchema(host, schema);
   console.log('normalizedSchema: ', normalizedSchema);
 }

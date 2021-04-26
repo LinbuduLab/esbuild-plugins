@@ -44,5 +44,5 @@
       "default": false
     }
   },
-  "required": ["app", "schema"]
+  "required": ["app"]
 }

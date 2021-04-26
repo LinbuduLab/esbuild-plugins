@@ -12,7 +12,9 @@ import type { TypeGraphQLGenSchema, NormalizedGenSchema } from '../schema';
 import { getAvailableAppsOrLibs } from 'nx-plugin-devkit';
 import spawn from 'cross-spawn';
 import path from 'path';
-
+import { generate as genqlGenerator } from '@genql/cli';
+import { RUNTIME_LIB_NAME } from '@genql/cli/src/config';
+import { generate as codeGenGenerator } from '@graphql-codegen/cli';
 // https://github.com/2fd/graphdoc/blob/gh-pages/introspection.graphql
 // CodeGen:
 // URL
@@ -53,10 +55,10 @@ import path from 'path';
 // spwanSync + cwd
 // e.g: genql --schema ./src/graphql/schema.graphql --output ./src/generated
 
-export function normalizeSchema(
+export async function normalizeSchema(
   host: Tree,
   schema: TypeGraphQLGenSchema
-): NormalizedGenSchema {
+) {
   const { app, failFast, genql, code, docs, schema: gqlSchema } = schema;
   console.log('schema: ', schema);
 
@@ -91,15 +93,73 @@ export function normalizeSchema(
     './app/graphql/schema.graphql'
   );
 
+  // D:\schematics\apps\nest-app\src\app\graphql\schema.graphql
   console.log('absSchemaPath: ', absSchemaPath);
 
-  const genqlOutputpATH = path.resolve(
+  const genqlOutputPath = path.resolve(
     workspaceRoot,
     sourceRoot,
     './app/generated/genql'
   );
 
-  console.log('genqlOutputpATH: ', genqlOutputpATH);
+  // D:\schematics\apps\nest-app\src\app\generated\genql
+  console.log('genqlOutputpATH: ', genqlOutputPath);
+
+  const codegenOutputPath = path.resolve(
+    workspaceRoot,
+    sourceRoot,
+    './app/generated/codegen'
+  );
+
+  const operationsPath = path.resolve(
+    workspaceRoot,
+    sourceRoot,
+    './app/graphql/operations'
+  );
+
+  // await genqlGenerator({
+  //   verbose: true,
+  //   schema: absSchemaPath,
+  //   output: genqlOutputPath,
+  // });
+
+  console.log(joinPathFragments(`${operationsPath}/**.graphql`));
+
+  console.log(
+    joinPathFragments(
+      process.cwd(),
+      'apps/nest-app/generated/codegen/generated.ts'
+    )
+  );
+
+  // !需要提前安装插件
+  await codeGenGenerator(
+    {
+      schema: absSchemaPath,
+      // documents: `${operationsPath}/*.graphql`,
+      generates: {
+        [process.cwd() + '/nest-app/generated/codegen/generated.ts']: {
+          plugins: [
+            'typescript',
+            // 'typescript-operations',
+            {
+              time: {
+                message: 'The file generated on: ',
+                format: 'YYYY.MM.DD HH:MM:SS a-z',
+              },
+            },
+            {
+              add: {
+                placement: 'prepend',
+                content: '/* eslint-disable @typescript-eslint/ban-types */',
+              },
+            },
+          ],
+        },
+      },
+    },
+    true
+  );
 
   // FIXME: 暂时全局安装顶替下
   // 到时候可以添加到package.json中？
@@ -119,14 +179,14 @@ export function normalizeSchema(
   // });
 
   // TODO: create genql example?
-  const x = spawn.sync(
-    `genql --schema ${absSchemaPath} --output ${genqlOutputpATH}`,
-    { shell: true }
-  );
+  // const x = spawn.sync(
+  //   `genql --schema ${absSchemaPath} --output ${genqlOutputpATH}`,
+  //   { shell: true }
+  // );
 
-  console.log(x.stdout?.toString());
-  console.log(x.error?.toString());
-  console.log(x.stderr?.toString());
+  // console.log(x.stdout?.toString());
+  // console.log(x.error?.toString());
+  // console.log(x.stderr?.toString());
 
   // x.on('message', (me) => {
   //   console.log(me.toString());
