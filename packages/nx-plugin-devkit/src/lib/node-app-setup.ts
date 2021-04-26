@@ -22,6 +22,7 @@ import {
   createNodeAppBuildConfig,
   createNodeAppServeConfig,
 } from './node-app-config';
+import { setDefaultProject } from './workspace';
 
 export function setupProxy<T extends BasicNormalizedAppGenSchema>(
   host: Tree,
@@ -91,8 +92,10 @@ export function createNodeAppProject<T extends BasicNormalizedAppGenSchema>(
   schema: T,
   buildTarget?: TargetConfiguration | null,
   serveTarget?: TargetConfiguration | null,
-  buildTargetName?: string,
-  serveTargetName?: string
+  serveProdTarget?: TargetConfiguration | null,
+  buildTargetName?: string | null,
+  serveTargetName?: string | null,
+  serveProdTargetName?: string | null
 ) {
   const project: ProjectConfiguration & NxJsonProjectConfiguration = {
     root: schema.projectRoot,
@@ -111,14 +114,19 @@ export function createNodeAppProject<T extends BasicNormalizedAppGenSchema>(
     tags: schema.parsedTags,
   };
 
+  if (serveProdTarget) {
+    project.targets = {
+      ...project.targets,
+      [serveProdTargetName ?? 'serve-prod']: createNodeAppServeConfig(
+        schema,
+        serveProdTarget
+      ),
+    };
+  }
+
   addProjectConfiguration(host, schema.projectName, project);
 
-  const workspace = readWorkspaceConfiguration(host);
-
-  if (!workspace.defaultProject) {
-    workspace.defaultProject = schema.projectName;
-    updateWorkspaceConfiguration(host, workspace);
-  }
+  setDefaultProject(host, schema);
 }
 
 export function createNodeAppFiles<T extends BasicNormalizedAppGenSchema>(

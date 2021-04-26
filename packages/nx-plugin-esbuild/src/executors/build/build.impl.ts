@@ -20,6 +20,7 @@ import { zip } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
 import dayjs from 'dayjs';
+import path from 'path';
 
 import { runESBuild } from './lib/esbuild-runner';
 import { runTSC } from './lib/tsc-runner';
@@ -216,7 +217,7 @@ export default function buildExecutor(
         console.log(buildResults.messageFragments.join('\n'));
         return {
           success: buildResults?.success && tscResults?.success,
-          outfile: 'dist-test/apps/nest-app/main.js',
+          outfile: path.join(options.outputPath, 'main.js'),
         };
       })
     )

@@ -2,7 +2,6 @@ import {
   formatFiles,
   Tree,
   installPackagesTask,
-  joinPathFragments,
   GeneratorCallback,
   addDependenciesToPackageJson,
 } from '@nrwl/devkit';
@@ -30,6 +29,7 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
     parsedTags,
     offsetFromRoot,
     watch,
+    projectSourceRoot,
     entry,
     outputPath,
     tsconfigPath: tsConfig,
@@ -42,6 +42,9 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
   const initTask = await createNodeInitTask(host);
   tasks.push(initTask);
 
+  const buildTargetName = override ? 'esbuild' : 'build';
+  const serveTargetName = override ? 'esserve' : 'serve';
+
   createNodeAppProject(
     host,
     normalizedSchema,
@@ -53,16 +56,45 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
         outputPath,
         watch,
         assets,
+        bundle: true,
+      },
+      configurations: {
+        production: {
+          fileReplacements: [
+            {
+              replace: `${projectSourceRoot}/environments/environment.ts`,
+              with: `${projectSourceRoot}/environments/environment.prod.ts`,
+            },
+          ],
+          aliases: [
+            {
+              from: './environments/environment',
+              to: path.resolve(
+                process.cwd(),
+                projectSourceRoot,
+                './environments/environment.prod.ts'
+              ),
+            },
+          ],
+        },
       },
     },
     {
       executor: 'nx-plugin-esbuild:serve',
       options: {
-        buildTarget: `${projectName}:build`,
+        buildTarget: `${projectName}:${buildTargetName}`,
       },
     },
-    override ? 'esbuild' : 'build',
-    override ? 'esserve' : 'serve'
+    {
+      executor: 'nx-plugin-esbuild:serve',
+      options: {
+        // TODO: configurate by schema option
+        buildTarget: `${projectName}:${buildTargetName}:production`,
+      },
+    },
+    buildTargetName,
+    serveTargetName,
+    'serve-prod'
   );
 
   createNodeAppFiles(host, normalizedSchema, path.join(__dirname, './files'));
