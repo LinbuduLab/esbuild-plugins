@@ -45,7 +45,7 @@ export interface ESBuildExecutorSchema {
   watch: boolean;
   skipTypeCheck: boolean;
   format: 'iife' | 'cjs' | 'esm';
-  platform: 'browser' | 'node';
+  platform: 'browser' | 'node' | 'neutral';
   sourceMap: boolean | 'external' | 'inline' | 'both';
   logLevel: 'info' | 'warning' | 'error' | 'silent';
   logLimit: number;

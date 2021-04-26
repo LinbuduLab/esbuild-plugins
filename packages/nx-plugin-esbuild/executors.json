@@ -10,11 +10,6 @@
       "implementation": "./src/executors/serve/serve.impl",
       "schema": "./src/executors/serve/schema.json",
       "description": "serve executor"
-    },
-    "tmp": {
-      "implementation": "./src/executors/serve/tmp.impl",
-      "schema": "./src/executors/serve/schema.json",
-      "description": "serve executor"
     }
   }
 }

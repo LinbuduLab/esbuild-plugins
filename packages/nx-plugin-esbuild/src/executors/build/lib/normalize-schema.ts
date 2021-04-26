@@ -57,9 +57,13 @@ export function normalizeBuildExecutorOptions(
     workspaceRoot
   );
 
+  // TODO: support platform like node15.1.0
+  // const platform = options.platform ?? process.version.slice(1);
+
   return {
     ...options,
     projectName,
+    // platform,
     // D:/PROJECT
     workspaceRoot,
     // apps/app1/src
