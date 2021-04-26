@@ -35,7 +35,8 @@
     "dayjs": "^1.10.4",
     "fs-extra": "^9.1.0",
     "rxjs": "^6.6.7",
-    "rxjs-for-await": "^0.0.2"
+    "rxjs-for-await": "^0.0.2",
+    "tree-kill": "^1.2.2"
   },
   "peerDependencies": {
     "@nrwl/devkit": "12.0.8",

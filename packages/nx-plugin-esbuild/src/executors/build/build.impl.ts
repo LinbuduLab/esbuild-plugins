@@ -34,6 +34,7 @@ import { bufferUntil } from './lib/buffer-until';
 
 export type ESBuildBuildEvent = {
   success: boolean;
+  outfile: string;
 };
 
 export default function buildExecutor(
@@ -208,17 +209,16 @@ export default function buildExecutor(
 
   return eachValueFrom(
     zip(esBuildSubscriber, tscSubscriber).pipe(
-      map(
-        ([buildResults, tscResults]): ExecutorStatus => {
-          console.log('\x1Bc');
-          console.log(tscResults.messageFragments.join('\n'));
-          console.log('\x1Bc');
-          console.log(buildResults.messageFragments.join('\n'));
-          return {
-            success: buildResults?.success && tscResults?.success,
-          };
-        }
-      )
+      map(([buildResults, tscResults]) => {
+        console.log('\x1Bc');
+        console.log(tscResults.messageFragments.join('\n'));
+        console.log('\x1Bc');
+        console.log(buildResults.messageFragments.join('\n'));
+        return {
+          success: buildResults?.success && tscResults?.success,
+          outfile: 'dist-test/apps/nest-app/main.js',
+        };
+      })
     )
   );
 }

@@ -99,6 +99,7 @@ specifiers:
   sort-package-json: ^1.49.0
   strip-comments: ^2.0.1
   terser: ^5.6.1
+  tree-kill: ^1.2.2
   ts-jest: 26.5.5
   ts-morph: ^10.0.2
   ts-node: ~9.1.1
@@ -215,6 +216,7 @@ devDependencies:
   sort-package-json: 1.49.0
   strip-comments: 2.0.1
   terser: 5.6.1
+  tree-kill: 1.2.2
   ts-jest: 26.5.5_jest@26.6.3+typescript@4.2.4
   ts-morph: 10.0.2
   ts-node: 9.1.1_typescript@4.2.4
