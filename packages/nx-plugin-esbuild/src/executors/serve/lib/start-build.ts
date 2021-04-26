@@ -5,7 +5,8 @@ import {
   readTargetOptions,
 } from '@nrwl/devkit';
 
-import { ESBuildBuildEvent } from '../../build/build.impl';
+import { ESBuildBuildEvent } from '../../build/lib/types';
+
 import { ESBuildRunnerOptions } from '../../build/lib/types';
 
 import { ESBuildServeExecutorSchema } from '../schema';

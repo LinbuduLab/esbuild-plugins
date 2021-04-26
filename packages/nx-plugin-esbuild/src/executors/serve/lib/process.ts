@@ -2,7 +2,8 @@ import { logger } from '@nrwl/devkit';
 import { ChildProcess, fork } from 'child_process';
 import { promisify } from 'util';
 
-import { ESBuildBuildEvent } from '../../build/build.impl';
+import { ESBuildBuildEvent } from '../../build/lib/types';
+
 import treeKill from 'tree-kill';
 
 import { NormalizedESBuildServeExecutorSchema } from '../schema';

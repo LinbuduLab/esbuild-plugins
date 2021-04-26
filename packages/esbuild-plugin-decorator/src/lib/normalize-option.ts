@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs-extra';
 import { CompilerOptions as TSCCompileOptions } from 'typescript';
 import { Options as SWCCompileOptions } from '@swc/core';
 import { pluginTitle, info, warn } from './log';
@@ -13,6 +14,8 @@ export type ESBuildPluginDecoratorOptions = {
   isNxProject?: boolean;
   tscCompilerOptions?: TSCCompileOptions;
   swcCompilerOptions?: SWCCompileOptions;
+
+  silent?: boolean;
 };
 
 export function normalizeOption(
@@ -20,7 +23,8 @@ export function normalizeOption(
 ): Required<ESBuildPluginDecoratorOptions> {
   const isNxProject = options.isNxProject ?? false;
 
-  // should use project tsconfig.json
+  const silent = options.silent ?? false;
+
   // if not specified, will use PROJECT_ROOT/tsconfig.json
   // (in nx project will use PROJECT_ROOT/tsconfig.base.json)
   const tsconfigPath = options.tsconfigPath
@@ -29,7 +33,13 @@ export function normalizeOption(
     ? path.join(process.cwd(), './tsconfig.base.json')
     : path.join(process.cwd(), './tsconfig.json');
 
-  // TODO: check does file exist here
+  const tsconfigExist = fs.existsSync(tsconfigPath);
+
+  if (!tsconfigExist) {
+    throw new Error(
+      `Failed to load ts config from ${tsconfigPath}, file does not exist.`
+    );
+  }
 
   console.log(
     `${pluginTitle()} ${info('Load ts config file from')} ${tsconfigPath}`
@@ -42,24 +52,27 @@ export function normalizeOption(
   const force = options.force ?? false;
   const compiler = options.compiler ?? 'tsc';
 
-  console.log(
-    `${pluginTitle()} ${info('Decorator Compilation by')} [${compiler}]\n`
-  );
+  !silent &&
+    console.log(
+      `${pluginTitle()} ${info('Decorator Compilation by')} [${compiler}]\n`
+    );
 
   if (compiler === 'tsc' && options.swcCompilerOptions) {
-    console.log(
-      `${pluginTitle()} ${warn(
-        "You're using tsc compiler with swc options, swc options will be ignored."
-      )}\n`
-    );
+    !silent &&
+      console.log(
+        `${pluginTitle()} ${warn(
+          "You're using tsc compiler with swc options, swc options will be ignored."
+        )}\n`
+      );
   }
 
   if (compiler === 'swc' && options.tscCompilerOptions) {
-    console.log(
-      `${pluginTitle()} ${warn(
-        "You're using swc compiler with tsc options, tsc options will be ignored."
-      )}\n`
-    );
+    !silent &&
+      console.log(
+        `${pluginTitle()} ${warn(
+          "You're using swc compiler with tsc options, tsc options will be ignored."
+        )}\n`
+      );
   }
 
   const tscCompilerOptions = options.tscCompilerOptions ?? {};
@@ -81,5 +94,6 @@ export function normalizeOption(
     compiler,
     tscCompilerOptions,
     swcCompilerOptions,
+    silent,
   };
 }

@@ -28,7 +28,6 @@ export function runESBuild(
 
     copyAssetFiles(assetsDirs);
 
-    // 不使用esbuild原本的watch能力
     // donot send extra params then build API need.
     const {
       watch: buildWatch,

@@ -1,20 +1,19 @@
-import {
-  ESBuildExecutorSchema,
-  NormalizedESBuildExecutorSchema as AAA,
-} from './schema';
+import { ESBuildExecutorSchema } from './schema';
 import type { ExecutorContext } from '@nrwl/devkit';
 import type { BuildOptions } from 'esbuild';
 import type { Observable } from 'rxjs';
 import type {
   TscRunnerOptions,
   RunnerSubcriber,
-  ExecutorStatus,
+  ESBuildBuildEvent,
 } from './lib/types';
 
 import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
 import { esbuildNodeExternalsPlugin } from 'esbuild-plugin-node-externals';
 import { esbuildFileSizePlugin } from 'esbuild-plugin-filesize';
 import { esbuildAliasPathPlugin } from 'esbuild-plugin-alias-path';
+
+import { bufferUntil } from 'nx-plugin-devkit';
 
 import { zip } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -29,14 +28,7 @@ import {
   collectESBuildRunnerMessages,
   collectTSCRunnerMessages,
 } from './lib/message-fragments';
-
 import { normalizeBuildExecutorOptions } from './lib/normalize-schema';
-import { bufferUntil } from './lib/buffer-until';
-
-export type ESBuildBuildEvent = {
-  success: boolean;
-  outfile: string;
-};
 
 export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
@@ -65,12 +57,14 @@ export default function buildExecutor(
 
   const plugins = [
     esbuildDecoratorPlugin({
-      // project config
+      // project owned tsconfig.json
       tsconfigPath: options.tsConfig,
       compiler: 'tsc',
-      swcCompilerOptions: {
-        jsc: { externalHelpers: true },
-      },
+      isNxProject: true,
+      silent: true,
+      // swcCompilerOptions: {
+      //   jsc: { externalHelpers: true },
+      // },
     }),
     options.externalDependencies === 'all' && esbuildNodeExternalsPlugin(),
     esbuildAliasPathPlugin({

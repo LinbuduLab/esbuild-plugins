@@ -12,13 +12,7 @@ import {
 
 import { parseTsConfig, tscCompiler } from './tsc-compiler';
 import { swcCompiler, defaultSWCCompilerOptions } from './swc-compiler';
-import {
-  info,
-  noDecoratorsFound,
-  pluginSkipped,
-  pluginTitle,
-  warn,
-} from './log';
+import { noDecoratorsFound, pluginSkipped } from './log';
 
 export const esbuildDecoratorPlugin = (
   options: Partial<ESBuildPluginDecoratorOptions> = {}
@@ -60,21 +54,17 @@ export const esbuildDecoratorPlugin = (
             !parsedTsConfig?.options?.experimentalDecorators);
 
         if (shouldSkipThisPlugin) {
-          pluginSkipped();
+          !options.silent && pluginSkipped();
 
           return;
         }
 
         const fileContent = await fs.readFile(path, 'utf8');
-        // console.log('fileContent: ', fileContent);
-        // console.log('path: ', path);
-        // .catch((err) => printDiagnostics({  path, err }));
 
         const hasDecorator = findDecorators(fileContent);
-        // console.log('hasDecorator: ', hasDecorator);
 
         if (!hasDecorator) {
-          noDecoratorsFound();
+          !options.silent && noDecoratorsFound();
           return;
         }
 
@@ -99,18 +89,17 @@ export const esbuildDecoratorPlugin = (
             !parsedSwcConfig.jsc.parser.decorators);
 
         if (shouldSkipThisPlugin) {
-          pluginSkipped();
+          !options.silent && pluginSkipped();
 
           return;
         }
 
         const fileContent = await fs.readFile(path, 'utf8');
-        // .catch((err) => printDiagnostics({  path, err }));
 
         const hasDecorator = findDecorators(fileContent);
 
         if (!hasDecorator) {
-          noDecoratorsFound();
+          !options.silent && noDecoratorsFound();
 
           return;
         }

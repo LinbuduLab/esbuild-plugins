@@ -1,10 +1,10 @@
-import { OperatorFunction, zip } from 'rxjs';
+import type { OperatorFunction, Observable } from 'rxjs';
 import { buffer, delay, filter, share } from 'rxjs/operators';
 
 export function bufferUntil<T>(
   notifier: (value: T) => boolean
 ): OperatorFunction<T, T[]> {
-  return function (source) {
+  return (source): Observable<T[]> => {
     // 使源ob成为多播 即多个订阅者会共享这一ob
     const shared$ = source.pipe(share());
     // notifier返回true时  until$才会有值发出

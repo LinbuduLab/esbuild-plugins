@@ -4,7 +4,7 @@ import { ChildProcess, fork } from 'child_process';
 import { promisify } from 'util';
 import treeKill from 'tree-kill';
 
-import { ESBuildBuildEvent } from '../build/build.impl';
+import { ESBuildBuildEvent } from '../build/lib/types';
 
 import {
   ESBuildServeExecutorSchema,

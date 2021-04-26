@@ -1,5 +1,5 @@
 import type { BuildOptions, BuildResult, BuildFailure } from 'esbuild';
-import { copyAssetFiles, AssetFileInputOutput } from 'nx-plugin-devkit';
+import type { AssetFileInputOutput } from 'nx-plugin-devkit';
 
 export type Insert = {
   banner: boolean;
@@ -27,10 +27,10 @@ export interface ESBuildRunnerResponse {
   buildFailure: BuildFailure | null;
 }
 
-export interface ExecutorStatus {
+export type ESBuildBuildEvent = {
   success: boolean;
-}
-
+  outfile: string;
+};
 export interface RunnerSubcriber {
   success: boolean;
   messageFragments: string[];
