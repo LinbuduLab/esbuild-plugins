@@ -1,4 +1,7 @@
-import type { ESBuildExecutorSchema } from './schema';
+import {
+  ESBuildExecutorSchema,
+  NormalizedESBuildExecutorSchema as AAA,
+} from './schema';
 import type { ExecutorContext } from '@nrwl/devkit';
 import type { BuildOptions } from 'esbuild';
 import type { Observable } from 'rxjs';
@@ -21,7 +24,6 @@ import dayjs from 'dayjs';
 import { runESBuild } from './lib/esbuild-runner';
 import { runTSC } from './lib/tsc-runner';
 import { pluginTitle, timeStamp, buildTimes } from './lib/log';
-
 import {
   collectESBuildRunnerMessages,
   collectTSCRunnerMessages,

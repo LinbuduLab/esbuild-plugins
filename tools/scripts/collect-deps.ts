@@ -98,7 +98,7 @@ async function main() {
       fs.readFileSync(path.resolve(projectPath, file), 'utf8'),
       { overwrite: true }
     );
-    sourceFile.getImportDeclarations().map((declaration) => {
+    sourceFile.getImportDeclarations().forEach((declaration) => {
       if (!declaration.isModuleSpecifierRelative()) {
         // this method does exist.
         // @ts-ignore
