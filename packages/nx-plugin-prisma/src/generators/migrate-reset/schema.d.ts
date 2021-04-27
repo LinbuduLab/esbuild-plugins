@@ -1,5 +1,5 @@
 export interface MigrateResetGeneratorSchema {
-    name: string;
-    tags?: string;
-    directory?: string;
+  name: string;
+  tags?: string;
+  directory?: string;
 }

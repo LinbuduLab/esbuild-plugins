@@ -1,4 +1,28 @@
 {
   "name": "vite-plugin-graphql",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "description": "vite plugin integration with graphql.",
+  "keywords": [
+    "vite",
+    "graphql",
+    "plugin",
+    "monorepo"
+  ],
+  "homepage": "https://github.com/PenumbraPro/nx-plugins/tree/master/packages/vite-plugin-graphql#readme",
+  "bugs": {
+    "url": "https://github.com/PenumbraPro/nx-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PenumbraPro/nx-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "dependencies": {
+    "graphql-tag": "^2.11.0"
+  },
+  "peerDependencies": {
+    "graphql": "^15.5.0",
+    "vite": "^2.2.1"
+  }
 }

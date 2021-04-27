@@ -1,6 +1,7 @@
 import path from 'path';
 import inquirer from 'inquirer';
 import fs from 'fs-extra';
+import chalk from 'chalk';
 import { Project } from 'ts-morph';
 import prettier from 'prettier';
 import sortPackageJson from 'sort-package-json';
@@ -32,7 +33,7 @@ async function collectDepsVersion(deps: string[]) {
   return depsInfoWithVersion;
 }
 
-async function collectDepsVersionFromRootPackage(deps: string[]) {
+function collectDepsVersionFromRootPackage(deps: string[]) {
   const depsInfoWithVersion: Record<string, string> = {};
 
   const rootPackge: Record<
@@ -57,26 +58,49 @@ async function collectDepsVersionFromRootPackage(deps: string[]) {
   return depsInfoWithVersion;
 }
 
+const cwd = process.cwd();
+const allPackages = fs.readdirSync(path.resolve(cwd, 'packages'));
+
+const esbuildPlugins = allPackages.filter((pkg) =>
+  pkg.startsWith('esbuild-plugin-')
+);
+
+const availablePackages = allPackages.filter(
+  (pkg) => pkg.startsWith('nx-plugin-') || pkg.startsWith('vite-plugin-')
+);
+
+const GENERATE_FOR_ALL_PACKAGES = 'all';
+
 async function main() {
-  const cwd = process.cwd();
-  const allPackages = fs.readdirSync(path.resolve(cwd, 'packages'));
-
-  const esbuildPlugins = allPackages.filter((pkg) =>
-    pkg.startsWith('esbuild-plugin-')
-  );
-
   const projectToCollectDeps: { project: string } = await inquirer.prompt([
     {
-      type: 'list',
+      type: 'checkbox',
       name: 'project',
-      message: 'Which project would you like to collect dependencies for?',
-      choices: allPackages.filter(
-        (pkg) => pkg.startsWith('nx-plugin-') || pkg.startsWith('vite-plugin-')
-      ),
+      message: 'Choose project you want to collect dependencies for',
+      choices: [...availablePackages, GENERATE_FOR_ALL_PACKAGES],
     },
   ]);
 
   const { project } = projectToCollectDeps;
+
+  if (project.length === 1 && !project.includes(GENERATE_FOR_ALL_PACKAGES)) {
+    handler(project);
+  } else if (
+    project.length >= 1 &&
+    !project.includes(GENERATE_FOR_ALL_PACKAGES)
+  ) {
+    for (const projectItem of project) {
+      handler(projectItem);
+    }
+  } else if (project.includes(GENERATE_FOR_ALL_PACKAGES)) {
+    for (const projectItem of availablePackages) {
+      handler(projectItem);
+    }
+  }
+}
+
+function handler(project: string) {
+  console.log(chalk.cyan(`Handling ${project} \n`));
 
   const projectPath = path.resolve(cwd, 'packages', project);
   const projectPkgFilePath = path.resolve(projectPath, 'package.json');
@@ -137,11 +161,9 @@ async function main() {
   // add to deps
   const addAsDeps = processedDeps.filter((dep) => !determineDepType(dep));
 
-  const peerDepsWithVersion = await collectDepsVersionFromRootPackage(
-    addAsPeerDeps
-  );
+  const peerDepsWithVersion = collectDepsVersionFromRootPackage(addAsPeerDeps);
 
-  const depsWithVersion = await collectDepsVersionFromRootPackage(addAsDeps);
+  const depsWithVersion = collectDepsVersionFromRootPackage(addAsDeps);
 
   const depsInfoToAdd = {
     dependencies: depsWithVersion,
@@ -176,6 +198,8 @@ async function main() {
       }
     )
   );
+
+  console.log(chalk.cyan(`Handled ${project} \n`));
 }
 
 main();

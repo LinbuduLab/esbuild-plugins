@@ -24,6 +24,8 @@
     "link": "pnpm link &&  pnpm link ../nx-plugin-devkit"
   },
   "dependencies": {
+    "@genql/cli": "^2.6.0",
+    "@graphql-codegen/cli": "^1.21.4",
     "cross-spawn": "^7.0.3",
     "ts-morph": "^10.0.2"
   },
