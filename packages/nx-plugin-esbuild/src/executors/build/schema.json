@@ -161,6 +161,12 @@
       "type": "boolean",
       "description": "Generates a package.json file with the project's node_module dependencies populated for installing in a container. If a package.json exists in the project's directory, it will be reused with dependencies populated.",
       "default": false
+    },
+    "decoratorHandler": {
+      "type": "string",
+      "description": "Decorator handler in compilayion.",
+      "enum": ["tsc", "swc"],
+      "default": "tsc"
     }
   },
   "required": ["tsConfig", "main"],

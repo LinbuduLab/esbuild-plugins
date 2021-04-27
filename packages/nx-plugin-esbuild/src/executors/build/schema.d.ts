@@ -30,6 +30,8 @@ import type { Insert, FormattedInsert } from './lib/types';
 // Source root
 // Tree shaking
 
+// TODO: tree-shaking、pure、img-process
+
 export interface ESBuildExecutorSchema {
   // required options
   main: string;
@@ -50,8 +52,6 @@ export interface ESBuildExecutorSchema {
   logLevel: 'info' | 'warning' | 'error' | 'silent';
   logLimit: number;
   metaFile: boolean;
-  extractLicenses: boolean;
-  minify: boolean;
   bundle: boolean;
   // default as "all", and will use esbuild-plugin-node-externals as handler
   externalDependencies: 'all' | 'none' | string[];
@@ -60,14 +60,20 @@ export interface ESBuildExecutorSchema {
   buildLibsFromSource: boolean;
   generatePackageJson: boolean;
 
+  // optimization options
+  minify: boolean;
+  // https://github.com/xz64/license-webpack-plugin
+  extractLicenses: boolean;
+
   // plugin options
-  // TODO: support swc
-  decoratorHandler: 'tsc' | 'swc' | 'none';
-  // TODO: add plugins below to schema when buildEnd hook released.
-  // TODO: support plugin-specified options
-  fileSizePlugin: boolean;
+  decoratorHandler: 'tsc' | 'swc';
+  // control by externalDependencies
   // externalPlugin: boolean;
-  hashPlugin: boolean;
+
+  // TODO: add plugins below to schema when buildEnd hook released.
+  // TODO: support plugin options
+  // fileSize: boolean;
+
   htmlPlugin: boolean;
   ignorePlugin: boolean;
   notifierPlugin: boolean;

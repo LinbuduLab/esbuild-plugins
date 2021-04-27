@@ -20,6 +20,8 @@ import {
   setupProxy,
 } from 'nx-plugin-devkit';
 
+import { createProductionConfiguration } from '../utils/preset-configuration';
+
 export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
   const normalizedSchema = normalizeSchema(host, schema);
 
@@ -35,6 +37,9 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
     tsconfigPath: tsConfig,
     assets,
     override,
+    bundle,
+    platform,
+    decoratorHandler,
   } = normalizedSchema;
 
   const tasks: GeneratorCallback[] = [];
@@ -56,27 +61,11 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
         outputPath,
         watch,
         assets,
-        bundle: true,
+        bundle,
+        decoratorHandler,
       },
       configurations: {
-        production: {
-          fileReplacements: [
-            {
-              replace: `${projectSourceRoot}/environments/environment.ts`,
-              with: `${projectSourceRoot}/environments/environment.prod.ts`,
-            },
-          ],
-          aliases: [
-            {
-              from: './environments/environment',
-              to: path.resolve(
-                process.cwd(),
-                projectSourceRoot,
-                './environments/environment.prod.ts'
-              ),
-            },
-          ],
-        },
+        production: createProductionConfiguration(projectSourceRoot),
       },
     },
     {

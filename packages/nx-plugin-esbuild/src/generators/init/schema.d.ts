@@ -5,13 +5,16 @@ import type {
 
 export interface ESBuildInitGeneratorExtraSchema {
   watch: boolean;
-  useTSCPluginForDecorator: boolean;
 
   entry: string;
   outputPath: string;
   tsconfigPath: string;
   assets: string[];
   override: boolean;
+
+  bundle: boolean;
+  platform: 'browser' | 'node' | 'neutral';
+  decoratorHandler: 'tsc' | 'swc';
 }
 
 export interface ESBuildInitGeneratorSchema

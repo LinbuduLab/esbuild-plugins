@@ -30,6 +30,17 @@
       "x-prompt": "Enable Build Watching?",
       "default": false
     },
+    "bundle": {
+      "type": "boolean",
+      "description": "Use bundle mode.",
+      "default": true
+    },
+    "platform": {
+      "type": "string",
+      "description": "Platform for generated code.",
+      "enum": ["browser", "node"],
+      "default": "node"
+    },
     "override": {
       "type": "boolean",
       "alias": "r",
@@ -51,11 +62,11 @@
       "alias": "o",
       "description": "Specify output path(absolute path like `specified-dist/apps/your-app`)"
     },
-    "useTSCPluginForDecorator": {
-      "type": "boolean",
-      "alias": "u",
-      "description": "Use TSC for decorator compilation(or will throw an error if decorators detected)",
-      "default": true
+    "decoratorHandler": {
+      "type": "string",
+      "description": "Decorator handler in compilayion.",
+      "enum": ["tsc", "swc"],
+      "default": "tsc"
     },
     "frontendProject": {
       "type": "string",

@@ -59,7 +59,7 @@ export default function buildExecutor(
     esbuildDecoratorPlugin({
       // project owned tsconfig.json
       tsconfigPath: options.tsConfig,
-      compiler: 'tsc',
+      compiler: options.decoratorHandler,
       isNxProject: true,
       silent: true,
       // swcCompilerOptions: {
