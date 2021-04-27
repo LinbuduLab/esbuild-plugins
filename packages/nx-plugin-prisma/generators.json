@@ -7,6 +7,41 @@
       "factory": "./src/generators/nx-plugin-prisma/generator",
       "schema": "./src/generators/nx-plugin-prisma/schema.json",
       "description": "nx-plugin-prisma generator"
+    },
+    "generate": {
+      "factory": "./src/generators/generate/generator",
+      "schema": "./src/generators/generate/schema.json",
+      "description": "generate generator"
+    },
+    "init": {
+      "factory": "./src/generators/init/generator",
+      "schema": "./src/generators/init/schema.json",
+      "description": "init generator"
+    },
+    "introspect": {
+      "factory": "./src/generators/introspect/generator",
+      "schema": "./src/generators/introspect/schema.json",
+      "description": "introspect generator"
+    },
+    "db-push": {
+      "factory": "./src/generators/db-push/generator",
+      "schema": "./src/generators/db-push/schema.json",
+      "description": "db-push generator"
+    },
+    "db-seed": {
+      "factory": "./src/generators/db-seed/generator",
+      "schema": "./src/generators/db-seed/schema.json",
+      "description": "db-seed generator"
+    },
+    "migrate-dev": {
+      "factory": "./src/generators/migrate-dev/generator",
+      "schema": "./src/generators/migrate-dev/schema.json",
+      "description": "migrate-dev generator"
+    },
+    "migrate-reset": {
+      "factory": "./src/generators/migrate-reset/generator",
+      "schema": "./src/generators/migrate-reset/schema.json",
+      "description": "migrate-reset generator"
     }
   }
 }

@@ -30,6 +30,7 @@ specifiers:
   '@nrwl/nx-plugin': 12.0.8
   '@nrwl/tao': 12.0.8
   '@nrwl/workspace': 12.0.8
+  '@prisma/client': ^2.21.2
   '@size-limit/file': ^4.10.2
   '@size-limit/preset-small-lib': ^4.10.2
   '@swc/core': ^1.2.54
@@ -91,6 +92,7 @@ specifiers:
   prettier: 2.2.1
   pretty: ^2.0.0
   pretty-quick: ^3.1.0
+  prisma: ^2.21.2
   read-pkg: ^6.0.0
   rxjs: ^6.6.7
   rxjs-for-await: ^0.0.2
@@ -147,6 +149,7 @@ devDependencies:
   '@nrwl/nx-plugin': 12.0.8_prettier@2.2.1+typescript@4.2.4
   '@nrwl/tao': 12.0.8
   '@nrwl/workspace': 12.0.8_prettier@2.2.1
+  '@prisma/client': 2.21.2_prisma@2.21.2
   '@size-limit/file': 4.10.2_size-limit@4.10.2
   '@size-limit/preset-small-lib': 4.10.2_c9842e0d0f204da45023774cd4f17286
   '@swc/core': 1.2.54
@@ -208,6 +211,7 @@ devDependencies:
   prettier: 2.2.1
   pretty: 2.0.0
   pretty-quick: 3.1.0_prettier@2.2.1
+  prisma: 2.21.2
   read-pkg: 6.0.0
   rxjs: 6.6.7
   rxjs-for-await: 0.0.2_rxjs@6.6.7
@@ -2362,6 +2366,29 @@ packages:
 
   /@polka/url/1.0.0-next.12:
     resolution: {integrity: sha512-6RglhutqrGFMO1MNUXp95RBuYIuc8wTnMAV5MUhLmjTOy78ncwOw7RgeQ/HeymkKXRhZd0s2DNrM1rL7unk3MQ==}
+    dev: true
+
+  /@prisma/client/2.21.2_prisma@2.21.2:
+    resolution: {integrity: sha512-UjkOXYpxLuHyoMDsP2m0LTcxhrjQa1dEOLFe3aDrO/BLrs/2yUxyPdtwSKxizRXFzuXSGkKIK225vcjZRuMpAg==}
+    engines: {node: '>=10.16'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d
+      prisma: 2.21.2
+    dev: true
+
+  /@prisma/engines-version/2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d:
+    resolution: {integrity: sha512-9/fE1gdPWmjbMjXUJjrTMt848TsgEnSjZCcJ1wu9OAcRlAKKJBLehftqC3gSEShDijvMYgeTdGU5snMpwmv4vg==}
+    dev: true
+
+  /@prisma/engines/2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d:
+    resolution: {integrity: sha512-L57tvSoom2GDWDqik4wrAUBvLTAv5MTm2OOzNMBKsv0w5cX7ONoZ8KnGQN+csmdJpQVBs93dIvIBm72OO+l/9Q==}
+    requiresBuild: true
     dev: true
 
   /@samverschueren/stream-to-observable/0.3.1_rxjs@6.6.7:
@@ -11059,6 +11086,15 @@ packages:
       condense-newlines: 0.2.1
       extend-shallow: 2.0.1
       js-beautify: 1.13.11
+    dev: true
+
+  /prisma/2.21.2:
+    resolution: {integrity: sha512-Ux9ovDIUHsMNLGLtuo6BBKCuuBVLpZmhM2LXF+VBUQvsbmsVfp3u5CRyHGEqaZqMibYQJISy7YZYF/RgozHKkQ==}
+    engines: {node: '>=10.4'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d
     dev: true
 
   /process-nextick-args/2.0.1:
