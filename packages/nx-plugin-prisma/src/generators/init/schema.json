@@ -5,25 +5,54 @@
   "title": "",
   "type": "object",
   "properties": {
-    "name": {
+    "app": {
       "type": "string",
       "description": "",
       "$default": {
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What name would you like to use?"
-    },
-    "tags": {
-      "type": "string",
-      "description": "Add tags to the project (used for linting)",
-      "alias": "t"
+      "x-prompt": "Which app would you like to init Prisma?"
     },
     "directory": {
       "type": "string",
-      "description": "A directory where the project is placed",
-      "alias": "d"
+      "alias": "d",
+      "description": "A directory where the prisma schema is located",
+      "default": "prisma"
+    },
+    "schema-name": {
+      "type": "string",
+      "alias": "d",
+      "description": "Prisma schema file name",
+      "default": "schema"
+    },
+    "datasource-provider": {
+      "type": "string",
+      "enum": ["sqlite", "postgresql", "mysql", "sqlserver"],
+      "description": "Prisma datasource provider",
+      "default": "sqlite"
+    },
+    "datasource-url": {
+      "type": "string",
+      "description": "Prisma datasource url",
+      "default": "env('DATABASE_URL')"
+    },
+    "client-provider": {
+      "type": "string",
+      "enum": ["prisma-client-js"],
+      "description": "Prisma client provider",
+      "default": "prisma-client-js"
+    },
+    "watch": {
+      "type": "boolean",
+      "description": "Watch the schema.prisma file and re-generate Prisma Client on file changes",
+      "default": false
+    },
+    "create-env-file": {
+      "type": "boolean",
+      "description": "Create .env file if it doesn't exist'",
+      "default": true
     }
   },
-  "required": ["name"]
+  "required": ["app"]
 }
