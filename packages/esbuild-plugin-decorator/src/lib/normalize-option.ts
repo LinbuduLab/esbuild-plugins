@@ -15,7 +15,7 @@ export type ESBuildPluginDecoratorOptions = {
   tscCompilerOptions?: TSCCompileOptions;
   swcCompilerOptions?: SWCCompileOptions;
 
-  silent?: boolean;
+  verbose?: boolean;
 };
 
 export function normalizeOption(
@@ -23,7 +23,7 @@ export function normalizeOption(
 ): Required<ESBuildPluginDecoratorOptions> {
   const isNxProject = options.isNxProject ?? false;
 
-  const silent = options.silent ?? false;
+  const verbose = options.verbose ?? true;
 
   // if not specified, will use PROJECT_ROOT/tsconfig.json
   // (in nx project will use PROJECT_ROOT/tsconfig.base.json)
@@ -52,13 +52,13 @@ export function normalizeOption(
   const force = options.force ?? false;
   const compiler = options.compiler ?? 'tsc';
 
-  !silent &&
+  verbose &&
     console.log(
       `${pluginTitle()} ${info('Decorator Compilation by')} [${compiler}]\n`
     );
 
   if (compiler === 'tsc' && options.swcCompilerOptions) {
-    !silent &&
+    verbose &&
       console.log(
         `${pluginTitle()} ${warn(
           "You're using tsc compiler with swc options, swc options will be ignored."
@@ -67,7 +67,7 @@ export function normalizeOption(
   }
 
   if (compiler === 'swc' && options.tscCompilerOptions) {
-    !silent &&
+    verbose &&
       console.log(
         `${pluginTitle()} ${warn(
           "You're using swc compiler with tsc options, tsc options will be ignored."
@@ -94,6 +94,6 @@ export function normalizeOption(
     compiler,
     tscCompilerOptions,
     swcCompilerOptions,
-    silent,
+    verbose,
   };
 }

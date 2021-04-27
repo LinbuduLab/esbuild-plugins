@@ -22,10 +22,8 @@ export const pluginSkipped = () => {
   );
 };
 
-export const noDecoratorsFound = () => {
+export const noDecoratorsFound = (path: string) => {
   console.log(
-    `${pluginTitle()} ${warn(
-      'Plugin Skipped. This will cause errors if typescrips file contains decorators.'
-    )}`
+    `${pluginTitle()} ${warn(`Decorators not detected in ${path}.`)}`
   );
 };

@@ -27,6 +27,7 @@ export const esbuildDecoratorPlugin = (
       cwd,
       isNxProject,
       compiler,
+      verbose,
       tscCompilerOptions,
       swcCompilerOptions,
     } = normalizedOptions;
@@ -54,7 +55,7 @@ export const esbuildDecoratorPlugin = (
             !parsedTsConfig?.options?.experimentalDecorators);
 
         if (shouldSkipThisPlugin) {
-          !options.silent && pluginSkipped();
+          verbose && pluginSkipped();
 
           return;
         }
@@ -64,7 +65,7 @@ export const esbuildDecoratorPlugin = (
         const hasDecorator = findDecorators(fileContent);
 
         if (!hasDecorator) {
-          !options.silent && noDecoratorsFound();
+          verbose && noDecoratorsFound(path);
           return;
         }
 
@@ -89,7 +90,7 @@ export const esbuildDecoratorPlugin = (
             !parsedSwcConfig.jsc.parser.decorators);
 
         if (shouldSkipThisPlugin) {
-          !options.silent && pluginSkipped();
+          verbose && pluginSkipped();
 
           return;
         }
@@ -99,7 +100,7 @@ export const esbuildDecoratorPlugin = (
         const hasDecorator = findDecorators(fileContent);
 
         if (!hasDecorator) {
-          !options.silent && noDecoratorsFound();
+          verbose && noDecoratorsFound(path);
 
           return;
         }

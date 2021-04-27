@@ -15,6 +15,10 @@ import path from 'path';
 import { generate as genqlGenerator } from '@genql/cli';
 import { RUNTIME_LIB_NAME } from '@genql/cli/src/config';
 import { generate as codeGenGenerator } from '@graphql-codegen/cli';
+// 只要有导入行为就不行，好家伙，看来也得命令行
+// import * as aa from '@2fd/graphdoc';
+// console.log('aa: ', aa);
+// console.log('GraphQLDocumentGenerator: ', GraphQLDocumentGenerator);
 // https://github.com/2fd/graphdoc/blob/gh-pages/introspection.graphql
 // CodeGen:
 // URL
@@ -71,7 +75,7 @@ export async function normalizeSchema(
   const appNames = apps.map((app) => app.appName);
 
   if (!appNames.includes(schema.app)) {
-    throw new Error(`App ${schema.app} doesnot exist!`);
+    throw new Error(`App ${schema.app} does not exist!`);
   }
 
   const projectName = names(schema.app).fileName;
@@ -128,38 +132,38 @@ export async function normalizeSchema(
   console.log(
     joinPathFragments(
       process.cwd(),
-      'apps/nest-app/generated/codegen/generated.ts'
+      'apps/nest-app/src/app/generated/codegen/generated.ts'
     )
   );
 
-  // !需要提前安装插件
-  await codeGenGenerator(
-    {
-      schema: absSchemaPath,
-      // documents: `${operationsPath}/*.graphql`,
-      generates: {
-        [process.cwd() + '/nest-app/generated/codegen/generated.ts']: {
-          plugins: [
-            'typescript',
-            // 'typescript-operations',
-            {
-              time: {
-                message: 'The file generated on: ',
-                format: 'YYYY.MM.DD HH:MM:SS a-z',
-              },
-            },
-            {
-              add: {
-                placement: 'prepend',
-                content: '/* eslint-disable @typescript-eslint/ban-types */',
-              },
-            },
-          ],
-        },
-      },
-    },
-    true
-  );
+  // // !需要提前安装插件
+  // await codeGenGenerator(
+  //   {
+  //     schema: absSchemaPath,
+  //     // documents: `${operationsPath}/*.graphql`,
+  //     generates: {
+  //       ['D:/schematics/nest-app/src/app/generated/codegen/generated.ts']: {
+  //         plugins: [
+  //           'typescript',
+  //           // 'typescript-operations',
+  //           {
+  //             time: {
+  //               message: 'The file generated on: ',
+  //               format: 'YYYY.MM.DD HH:MM:SS a-z',
+  //             },
+  //           },
+  //           {
+  //             add: {
+  //               placement: 'prepend',
+  //               content: '/* eslint-disable @typescript-eslint/ban-types */',
+  //             },
+  //           },
+  //         ],
+  //       },
+  //     },
+  //   },
+  //   true
+  // );
 
   // FIXME: 暂时全局安装顶替下
   // 到时候可以添加到package.json中？
