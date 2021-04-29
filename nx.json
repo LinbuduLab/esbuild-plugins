@@ -80,7 +80,7 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-snowpack"]
     },
-    "nx-plugin-devkit": { "tags": ["scope:nx"] },
+    "nx-plugin-devkit": { "tags": ["scope:nx", "scope:devkit"] },
     "nx-plugin-koa": { "tags": ["scope:nx"] },
     "nx-plugin-koa-e2e": {
       "tags": [],

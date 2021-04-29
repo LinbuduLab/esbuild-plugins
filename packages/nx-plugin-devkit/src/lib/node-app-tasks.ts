@@ -10,10 +10,9 @@ export async function createNodeInitTask(
   return initializeNodeApp(host);
 }
 
-export async function createNodeJestTask<T extends BasicNormalizedAppGenSchema>(
-  host: Tree,
-  schema: T
-): Promise<GeneratorCallback> {
+export async function createNodeJestTask<
+  NormalizedAppSchema extends BasicNormalizedAppGenSchema
+>(host: Tree, schema: NormalizedAppSchema): Promise<GeneratorCallback> {
   const jestTask = await jestProjectGenerator(host, {
     project: schema.projectName,
     setupFile: 'none',
@@ -25,10 +24,9 @@ export async function createNodeJestTask<T extends BasicNormalizedAppGenSchema>(
   return jestTask;
 }
 
-export async function createNodeLintTask<T extends BasicNormalizedAppGenSchema>(
-  host: Tree,
-  schema: T
-): Promise<GeneratorCallback> {
+export async function createNodeLintTask<
+  NormalizedAppSchema extends BasicNormalizedAppGenSchema
+>(host: Tree, schema: NormalizedAppSchema): Promise<GeneratorCallback> {
   const lintTask = await lintProjectGenerator(host, {
     linter: Linter.EsLint,
     project: schema.projectName,

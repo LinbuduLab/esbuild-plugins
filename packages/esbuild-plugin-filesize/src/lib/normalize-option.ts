@@ -1,10 +1,10 @@
 import fileSize from 'filesize';
 
-type FuncArgInferrer<T> = T extends (bytes: number, options: infer R) => string
+type OptionsInferrer<T> = T extends (bytes: number, options: infer R) => string
   ? R
   : void;
 
-export type FileSizeFormatOption = FuncArgInferrer<typeof fileSize>;
+export type FileSizeFormatOption = OptionsInferrer<typeof fileSize>;
 
 export interface Option {
   showMinifiedSize?: boolean;

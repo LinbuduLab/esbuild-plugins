@@ -6,10 +6,9 @@ import {
 
 import { BasicNormalizedAppGenSchema } from './shared-schema';
 
-export function setDefaultProject<T extends BasicNormalizedAppGenSchema>(
-  host: Tree,
-  schema: T
-): void {
+export function setDefaultProject<
+  NormalizedAppSchema extends BasicNormalizedAppGenSchema
+>(host: Tree, schema: NormalizedAppSchema): void {
   const workspace = readWorkspaceConfiguration(host);
 
   if (!workspace.defaultProject) {

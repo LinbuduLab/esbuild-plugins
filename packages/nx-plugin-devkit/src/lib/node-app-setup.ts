@@ -24,10 +24,9 @@ import {
 } from './node-app-config';
 import { setDefaultProject } from './workspace';
 
-export function setupProxy<T extends BasicNormalizedAppGenSchema>(
-  host: Tree,
-  schema: T
-) {
+export function setupProxy<
+  NormalizedAppSchema extends BasicNormalizedAppGenSchema
+>(host: Tree, schema: NormalizedAppSchema) {
   if (!schema.frontendProject) return;
 
   const projectConfig = readProjectConfiguration(host, schema.frontendProject);
@@ -87,9 +86,11 @@ export async function initializeNodeApp(host: Tree) {
   };
 }
 
-export function createNodeAppProject<T extends BasicNormalizedAppGenSchema>(
+export function createNodeAppProject<
+  NormalizedAppSchema extends BasicNormalizedAppGenSchema
+>(
   host: Tree,
-  schema: T,
+  schema: NormalizedAppSchema,
   buildTarget?: TargetConfiguration | null,
   serveTarget?: TargetConfiguration | null,
   serveProdTarget?: TargetConfiguration | null,
@@ -129,9 +130,11 @@ export function createNodeAppProject<T extends BasicNormalizedAppGenSchema>(
   setDefaultProject(host, schema);
 }
 
-export function createNodeAppFiles<T extends BasicNormalizedAppGenSchema>(
+export function createNodeAppFiles<
+  NormalizedAppSchema extends BasicNormalizedAppGenSchema
+>(
   host: Tree,
-  schema: T,
+  schema: NormalizedAppSchema,
   path: string,
   substitutions?: Record<string, unknown>
 ) {

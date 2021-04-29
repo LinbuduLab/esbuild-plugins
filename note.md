@@ -14,6 +14,7 @@ aaaa!
 - nx run nx-plugin-typegraphql:build
 - nx g @penumbra/nx-plugin-typegraphql:objecttype
 - nx g @nrwl/nx-plugin:plugin [pluginName]
+- node --loader ts-node/esm  .\convert-import-type.ts
 
 ## executors
 

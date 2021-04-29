@@ -129,6 +129,7 @@
     "date-fns": "^2.21.1",
     "dayjs": "^1.10.4",
     "dotenv": "8.2.0",
+    "es-module-lexer": "^0.4.1",
     "esbuild": "^0.11.11",
     "eslint": "7.24.0",
     "eslint-config-prettier": "8.2.0",

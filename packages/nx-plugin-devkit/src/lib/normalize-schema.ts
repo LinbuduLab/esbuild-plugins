@@ -12,9 +12,11 @@ import type {
   BasicNormalizedAppGenSchema,
 } from './shared-schema';
 
-export function normalizeNodeAppSchema<T extends BasicNodeAppGenSchema>(
+export function normalizeNodeAppSchema<
+  NormalizedAppSchema extends BasicNodeAppGenSchema
+>(
   host: Tree,
-  schema: T,
+  schema: NormalizedAppSchema,
   shouldThrowErrorOnAppExists?: boolean
 ): BasicNormalizedAppGenSchema {
   const throwErrorOnAppExists = shouldThrowErrorOnAppExists ?? true;

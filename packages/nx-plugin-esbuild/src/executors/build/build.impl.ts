@@ -1,4 +1,3 @@
-import { ESBuildExecutorSchema } from './schema';
 import type { ExecutorContext } from '@nrwl/devkit';
 import type { BuildOptions } from 'esbuild';
 import type { Observable } from 'rxjs';
@@ -7,6 +6,10 @@ import type {
   RunnerSubcriber,
   ESBuildBuildEvent,
 } from './lib/types';
+import type {
+  ESBuildExecutorSchema,
+  NormalizedESBuildExecutorSchema,
+} from './schema';
 
 import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
 import { esbuildNodeExternalsPlugin } from 'esbuild-plugin-node-externals';
@@ -61,7 +64,6 @@ export default function buildExecutor(
       tsconfigPath: options.tsConfig,
       compiler: options.decoratorHandler,
       isNxProject: true,
-      silent: true,
       // swcCompilerOptions: {
       //   jsc: { externalHelpers: true },
       // },

@@ -7,6 +7,11 @@ export type Insert = {
   content: string;
 };
 
+export const a = 1;
+export const func = () => {
+  console.log('');
+};
+
 export type InsertFileType = 'js' | 'css';
 
 export interface FormattedInsert {

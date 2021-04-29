@@ -2,8 +2,10 @@ import { joinPathFragments, TargetConfiguration } from '@nrwl/devkit';
 
 import type { BasicNormalizedAppGenSchema } from './shared-schema';
 
-export function createNodeAppBuildConfig<T extends BasicNormalizedAppGenSchema>(
-  schema: T,
+export function createNodeAppBuildConfig<
+  NormalizedAppSchema extends BasicNormalizedAppGenSchema
+>(
+  schema: NormalizedAppSchema,
   buildTarget: TargetConfiguration | null
 ): TargetConfiguration {
   const extendBuildTarget = buildTarget ?? {
@@ -45,8 +47,10 @@ export function createNodeAppBuildConfig<T extends BasicNormalizedAppGenSchema>(
   };
 }
 
-export function createNodeAppServeConfig<T extends BasicNormalizedAppGenSchema>(
-  schema: T,
+export function createNodeAppServeConfig<
+  NormalizedAppSchema extends BasicNormalizedAppGenSchema
+>(
+  schema: NormalizedAppSchema,
   serveTarget: TargetConfiguration | null
 ): TargetConfiguration {
   const extendServeTarget = serveTarget ?? {
