@@ -16,61 +16,80 @@ npm i nx-plugin-esbuild -D
 npm i nx-plugin-swc -D
 npm i nx-plugin-vite -D
 npm i nx-plugin-umi -D
-npm i nx-plugin-ice -D
 npm i nx-plugin-serverless -D
 npm i nx-plugin-snowpack -D
 
 
-
+# create TypeGraphQL Resolver includes FieldResolver
 nx g nx-plugin-typegraphql:resolver user --fields
+# create application based on TypeGraphQL + Apollo
 nx g nx-plugin-typegraphql:application tgql-app --minimal
-nx run tgql-app:gen --genql --doc
+# @graphql/code-gen & genql & @2fd/graphdoc generation
+nx run tgql-app:gen --genql --doc --codegen
 
-
-nx g nx-plugin-midway:application midway-graphql-app --graphql --typeorm
+# create application based on Midway + TypeGraphQL + Prisma
+nx g nx-plugin-midway:application midway-graphql-app --graphql --prisma
+# serve by midway-bin dev/build
 nx serve midway-graphql-app
+nx build midway-graphql-app
 
-nx g nx-plugin-prisma:application prisma-app --graphql --db=sqlite3
+# create application based on Koa + Prisma + GraphQL + SQLite3
+nx g nx-plugin-prisma:application prisma-app --koa --graphql --db=sqlite3
 nx setup prisma-app
 
+# create application based on ESBuild
 nx g nx-plugin-esbuild:init esbuild-app --watch
+nx serve esbuild-app
 nx build esbuild-app
 
+# create application based on SWC
 nx g nx-plugin-swc:init swc-app
 nx build swc-app
 
+# create application based on Vite + React
 nx g nx-plugin-vite:app vite-app --template react-tsx
 nx serve vite-app
+nx build vite-app
 
+# create application based on Umi
 nx g nx-plugin-umi:app umi-app
 nx serve umi-app
+nx build umi-app
 
-nx g nx-plugin-ice:app ice-app
-nx serve ice-app
-
+# create application based on SnowPack
 nx g nx-plugin-snowpack snowpack-app
 nx serve snowpack-app
+nx build snowpack-app
 ```
 
 ## Packages
 
 > Nx plugin with libraries.
 
-- `nx-plugin-typegraphql`:
-- `nx-plugin-midway`:
-- `nx-plugin-prisma`:
-- `nx-plugin-serverless`:
+- `nx-plugin-typegraphql`: Nx integration with TypeGraphQL
+- `nx-plugin-prisma`: Nx integration with Prisma2
+- `nx-plugin-serverless`: Nx integration with ALi-Cloud / Tencent-Cloud / Vercel Serverless Functions.
 
-> Nx plugin with bundler.
+> Nx plugin with NodeJS framworks.
 
-- `nx-plugin-esbuild`:
-- `nx-plugin-swc`:
-- `nx-plugin-vite`:
+- `nx-plugin-midway`: Nx integration with MidwayJS
+- `nx-plugin-koa`: Nx integration with Koa
+- `nx-plugin-fastify`: Nx integration with Fastify
+
+> Nx plugin with static site generation frameworks.
+
+- `nx-plugin-viteress`: Nx integration with VitePress
+
+> Nx plugin with compiler/bundler.
+
+- `nx-plugin-esbuild`: Nx integration with ESBuild
+- `nx-plugin-swc`: Nx integration with SWC project
+- `nx-plugin-vite`: Nx integration with Vite
+- `nx-plugin-snowpack`: Nx integration with SnowPack
 
 > Nx plugin with React based framework. (like @nrwl/next)
 
-- `nx-plugin-umi`:
-- `nx-plugin-ice`:
+- `nx-plugin-umi`: Nx integration with UmiJS
 
 > Useful utilities in Nx plugin development.
 
@@ -87,19 +106,23 @@ nx serve snowpack-app
 > Unavailable Pugins (Waiting for ESBuild plugin [buildEnd](*https://github.com/evanw/esbuild/issues/111#issuecomment-812829551*) hooks)
 
 - `esbuild-plugin-filesize`
+- `esbuild-plugin-html`
 
 > WIP
 
-- `esbuild-plugin-static-site`
 - `esbuild-plugin-circular-deps`
 - `esbuild-plugin-notifier`
 - `esbuild-plugin-graphql`
+
+### Vite-plugins
+
+- `vite-plugin-graphql`
 
 ## Global Progress
 
 - [ ] Release 0.1.0 for all plugins.
 - [ ] Detailed documentation for all plugins. (README file will only include links to packages README)
-- [ ] Refactor all plugins for `nx-plugin-devkit`
+- [ ] Refactor all plugins for methods extraction to`nx-plugin-devkit`
 
 ## Plugins
 
@@ -199,14 +222,6 @@ nx serve snowpack-app
 - [ ] preview (vite preview)
 
 ### nx-plugin-umi
-
-> **Experimental**
-
-#### generators
-
-### executors
-
-### nx-plugin-ice
 
 > **Experimental**
 
