@@ -32,6 +32,12 @@ const DELETE_PLUGIN_SCOPE = 'delete-plugin';
 const EXAMPLE_SCOPE = 'example';
 const WIP_SCOPE = 'wip';
 
+const NX_PLUGIN_SHARED = 'nx-shared';
+const ESBUILD_PLUGIN_SHARED = 'esbuild-shared';
+const VITE_PLUGIN_SHARED = 'vite-shared';
+const SNOWPACK_PLUGIN_SHARED = 'snowpack-shared';
+const UMI_PLUGIN_SHARED = 'umi-shared';
+
 // https://gitmoji.dev/
 module.exports = {
   types: [
@@ -82,6 +88,11 @@ module.exports = {
     WIP_SCOPE,
     TOOLS_SCOPE,
     ENHANCMENT_SCOPE,
+    NX_PLUGIN_SHARED,
+    ESBUILD_PLUGIN_SHARED,
+    VITE_PLUGIN_SHARED,
+    SNOWPACK_PLUGIN_SHARED,
+    UMI_PLUGIN_SHARED,
   ],
   disableEmoji: false,
   list: [

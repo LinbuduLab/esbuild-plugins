@@ -1,24 +1,13 @@
 import type { Plugin } from 'esbuild';
+import type { ESBuildPluginAliasPathOptions } from './normalize-options';
 
-export interface Alias {
-  from: string | RegExp;
-  to: string;
-}
-export interface AliasPathPlugin {
-  // alias
-  // {"a":"b"} or [{from:"", to:""}]
-  aliases?: Record<string, string> | Alias[];
-  // tsconfig-paths
-  paths?: Record<string, string>;
-  // nx fileReplacements
-}
+import { normalizeOption } from './normalize-options';
 
 // TODO: tsconfig-paths intergration
 export const esbuildPluginAliasPath = (
-  options: AliasPathPlugin = {}
+  options: ESBuildPluginAliasPathOptions = {}
 ): Plugin => {
-  const aliases = options.aliases ?? {};
-
+  const { aliases, paths } = normalizeOption(options);
   const aliasKeys = Object.keys(aliases);
 
   const escapedNamespace = new RegExp(
