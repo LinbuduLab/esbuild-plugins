@@ -1,6 +1,6 @@
 import { findPackagePaths } from './find-package-path';
 
-export interface Options {
+export interface ESBuildPluginNodeExternalsOptions {
   packagePaths: string | string[];
   withDeps: boolean;
   withDevDeps: boolean;
@@ -9,7 +9,8 @@ export interface Options {
   include: string[];
 }
 
-export interface NormalizedOptions extends Options {
+export interface NormalizedESBuildPluginNodeExternalsOptions
+  extends ESBuildPluginNodeExternalsOptions {
   packagePaths: string[];
 }
 
@@ -20,8 +21,8 @@ export const normalizeOptions = ({
   withPeerDeps,
   withOptDeps,
   include,
-}: Partial<Options> = {}): NormalizedOptions => {
-  const normalizedOptions: NormalizedOptions = {
+}: Partial<ESBuildPluginNodeExternalsOptions> = {}): NormalizedESBuildPluginNodeExternalsOptions => {
+  const normalizedOptions: NormalizedESBuildPluginNodeExternalsOptions = {
     packagePaths: [],
     withDeps: withDeps ?? true,
     withDevDeps: withDevDeps ?? true,

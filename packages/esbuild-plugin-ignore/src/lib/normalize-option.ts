@@ -1,22 +1,24 @@
-export interface Option {
+export interface ESBuildPluginIgnoreOption {
   resourceRegExp?: RegExp;
   contextRegExp?: RegExp;
   // checkResource?: (resourceRegExp: RegExp, contextRegExp: RegExp) => boolean;
 }
 
-export interface NormalizedOption extends Option {
+export interface NormalizedOption extends ESBuildPluginIgnoreOption {
   resourceRegExp?: RegExp;
   contextRegExp?: RegExp;
   // checkResource?: (resourceRegExp: RegExp, contextRegExp: RegExp) => boolean;
 }
 
-export function normalizeOptions(option: Option[] = []): NormalizedOption[] {
-  if (!option.length) {
-    console.log('Ignore Plugin Skipped.');
+export function normalizeOptions(
+  ignoreOptions: ESBuildPluginIgnoreOption[] = []
+): NormalizedOption[] {
+  if (!ignoreOptions.length) {
+    console.log('Ignore Plugin Skipped By Empty Ignore Options.');
   }
 
   // return option.filter(
   //   (pattern) => pattern.resourceRegExp || pattern.checkResource
   // );
-  return option.filter((pattern) => pattern.resourceRegExp);
+  return ignoreOptions.filter((pattern) => pattern.resourceRegExp);
 }

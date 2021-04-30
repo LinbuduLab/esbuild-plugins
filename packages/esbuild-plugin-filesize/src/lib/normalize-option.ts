@@ -6,7 +6,7 @@ type OptionsInferrer<T> = T extends (bytes: number, options: infer R) => string
 
 export type FileSizeFormatOption = OptionsInferrer<typeof fileSize>;
 
-export interface Option {
+export interface ESBuildPluginFileSizeOption {
   showMinifiedSize?: boolean;
   showGzippedSize?: boolean;
 
@@ -14,7 +14,7 @@ export interface Option {
   theme?: 'light' | 'dark';
 }
 
-export type NormalizedOption = Required<Option>;
+export type NormalizedESBuildPluginFileSizeOption = Required<ESBuildPluginFileSizeOption>;
 
 export type OutputFileSizeInfo = {
   fileSize: string;
@@ -30,8 +30,8 @@ export function normalizeOption({
   showMinifiedSize,
   showGzippedSize,
   format,
-}: Option): NormalizedOption {
-  const normalizedOption: NormalizedOption = {
+}: ESBuildPluginFileSizeOption): NormalizedESBuildPluginFileSizeOption {
+  const normalizedOption: NormalizedESBuildPluginFileSizeOption = {
     showMinifiedSize: showMinifiedSize ?? true,
     showGzippedSize: showGzippedSize ?? true,
     theme: 'dark',

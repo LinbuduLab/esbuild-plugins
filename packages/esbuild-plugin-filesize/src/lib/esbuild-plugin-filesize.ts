@@ -1,5 +1,5 @@
 import type { Plugin } from 'esbuild';
-import type { Option } from './normalize-option';
+import type { ESBuildPluginFileSizeOption } from './normalize-option';
 import { normalizeOption } from './normalize-option';
 
 import fs from 'fs-extra';
@@ -13,7 +13,9 @@ import dayjs from 'dayjs';
 
 import boxenReporter from './reporter';
 
-export function esbuildFileSizePlugin(options: Option = {}): Plugin {
+export function esbuildPluginFileSize(
+  options: ESBuildPluginFileSizeOption = {}
+): Plugin {
   const normalizeOptions = normalizeOption(options);
 
   const formatFileSize = (size: number): string =>

@@ -1,5 +1,5 @@
 import type { Plugin } from 'esbuild';
-import type { Option } from './normalize-option';
+import type { ESBuildPluginHtmlOption } from './normalize-option';
 import { normalizeOption } from './normalize-option';
 
 import fs from 'fs-extra';
@@ -14,7 +14,9 @@ import pretty from 'pretty';
 
 // 应该会选择第二种 但是暂时没看到方便的html ast解析库 这里用了笨办法
 
-export function esbuildHtmlPlugin(options: Option = {}): Plugin {
+export const esbuildPluginHtml = (
+  options: ESBuildPluginHtmlOption = {}
+): Plugin => {
   const normalizeOptions = normalizeOption(options);
 
   const {
@@ -51,4 +53,4 @@ export function esbuildHtmlPlugin(options: Option = {}): Plugin {
       fs.writeFileSync(outHtmlPath, pretty(htmlText));
     },
   };
-}
+};

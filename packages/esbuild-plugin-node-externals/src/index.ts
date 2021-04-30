@@ -1,1 +1,1 @@
-export { esbuildNodeExternalsPlugin } from './lib/index';
+export { esbuildPluginNodeExternals } from './lib/esbuild-plugin-node-externals';

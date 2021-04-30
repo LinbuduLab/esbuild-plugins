@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 
-export interface Option {
+export interface ESBuildPluginHtmlOption {
   title?: string;
   templatePath?: string;
   fileName?: string;
@@ -11,9 +11,11 @@ export interface Option {
   meta?: Record<string, string>;
 }
 
-export type NormalizedOption = Required<Option>;
+export type NormalizedOption = Required<ESBuildPluginHtmlOption>;
 
-export function normalizeOption(options: Option): NormalizedOption {
+export function normalizeOption(
+  options: ESBuildPluginHtmlOption
+): NormalizedOption {
   const normalizedOption: NormalizedOption = {
     title: 'ESBuild App',
     templatePath: './src/index.html',

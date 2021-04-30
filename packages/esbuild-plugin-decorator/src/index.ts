@@ -1,1 +1,1 @@
-export { esbuildDecoratorPlugin } from './lib/esbuild-plugin-decorator';
+export { esbuildPluginDecorator } from './lib/esbuild-plugin-decorator';

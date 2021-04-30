@@ -13,10 +13,10 @@ import {
   NormalizedESBuildExecutorSchema as XXX,
 } from './schema';
 
-import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
-import { esbuildNodeExternalsPlugin } from 'esbuild-plugin-node-externals';
-import { esbuildFileSizePlugin } from 'esbuild-plugin-filesize';
-import { esbuildAliasPathPlugin } from 'esbuild-plugin-alias-path';
+import { esbuildPluginDecorator } from 'esbuild-plugin-decorator';
+import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
+import { esbuildPluginFileSize } from 'esbuild-plugin-filesize';
+import { esbuildPluginAliasPath } from 'esbuild-plugin-alias-path';
 
 import { bufferUntil } from 'nx-plugin-devkit';
 
@@ -61,7 +61,7 @@ export default function buildExecutor(
   );
 
   const plugins = [
-    esbuildDecoratorPlugin({
+    esbuildPluginDecorator({
       // project owned tsconfig.json
       tsconfigPath: options.tsConfig,
       compiler: options.decoratorHandler,
@@ -71,8 +71,8 @@ export default function buildExecutor(
       //   jsc: { externalHelpers: true },
       // },
     }),
-    options.externalDependencies === 'all' && esbuildNodeExternalsPlugin(),
-    esbuildAliasPathPlugin({
+    options.externalDependencies === 'all' && esbuildPluginNodeExternals(),
+    esbuildPluginAliasPath({
       aliases: options.aliases,
     }),
     // esbuildFileSizePlugin(),

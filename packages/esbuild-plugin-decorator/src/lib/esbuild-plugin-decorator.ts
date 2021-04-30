@@ -18,7 +18,7 @@ import {
 } from './swc-compiler';
 import { noDecoratorsFound, pluginSkipped } from './log';
 
-export const esbuildDecoratorPlugin = (
+export const esbuildPluginDecorator = (
   options: Partial<ESBuildPluginDecoratorOptions> = {}
 ): Plugin => ({
   name: 'decorator',
