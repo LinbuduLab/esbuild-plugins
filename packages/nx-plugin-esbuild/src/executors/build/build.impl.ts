@@ -1,16 +1,16 @@
-import type { ExecutorContext } from '@nrwl/devkit';
-import type { BuildOptions } from 'esbuild';
-import type { Observable } from 'rxjs';
-import type {
+import { ExecutorContext } from '@nrwl/devkit';
+import { BuildOptions } from 'esbuild';
+import { Observable } from 'rxjs';
+import {
   TscRunnerOptions,
   RunnerSubcriber,
   ESBuildBuildEvent,
   a,
   func,
 } from './lib/types';
-import type {
+import {
   ESBuildExecutorSchema,
-  NormalizedESBuildExecutorSchema,
+  NormalizedESBuildExecutorSchema as XXX,
 } from './schema';
 
 import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';

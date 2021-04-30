@@ -1,6 +1,6 @@
-import type { ExecutorContext } from '@nrwl/devkit';
-import type { BuildOptions } from 'esbuild';
-import type { Observable } from 'rxjs';
+import { ExecutorContext } from '@nrwl/devkit';
+import { BuildOptions } from 'esbuild';
+import { Observable } from 'rxjs';
 import { esbuildDecoratorPlugin } from 'esbuild-plugin-decorator';
 import { esbuildNodeExternalsPlugin } from 'esbuild-plugin-node-externals';
 import { esbuildFileSizePlugin } from 'esbuild-plugin-filesize';
@@ -24,7 +24,7 @@ import {
 import { normalizeBuildExecutorOptions } from './lib/normalize-schema';
 import type { ESBuildBuildEvent, RunnerSubcriber, TscRunnerOptions } from "./lib/types";
 import { a, func } from "./lib/types";
-import type { ESBuildExecutorSchema, NormalizedESBuildExecutorSchema } from "./schema";
+import type { ESBuildExecutorSchema } from "./schema";
 
 export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
