@@ -14,10 +14,10 @@ export const warn = (text: string): string => chalk.yellow(text);
 
 export const err = (text: string): string => chalk.red(text);
 
-export const pluginSkipped = () => {
+export const pluginSkipped = (path: string) => {
   console.log(
     `${pluginTitle()} ${warn(
-      'Plugin Skipped. This will cause errors if typescrips file contains decorators.'
+      `Plugin skipped in ${path}. This will cause errors if typescrips file contains decorators.`
     )}`
   );
 };

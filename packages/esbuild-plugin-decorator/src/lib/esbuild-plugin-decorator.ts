@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import fs from 'fs-extra';
 import type { Plugin } from 'esbuild';
 import type { ParsedCommandLine } from 'typescript';
 import type { Options as SWCCompileOptions } from '@swc/core';
@@ -11,7 +11,11 @@ import {
 } from './normalize-option';
 
 import { parseTsConfig, tscCompiler } from './tsc-compiler';
-import { swcCompiler, defaultSWCCompilerOptions } from './swc-compiler';
+import {
+  swcCompiler,
+  defaultSWCCompilerOptions,
+  parseSWCConfig,
+} from './swc-compiler';
 import { noDecoratorsFound, pluginSkipped } from './log';
 
 export const esbuildDecoratorPlugin = (
@@ -23,6 +27,7 @@ export const esbuildDecoratorPlugin = (
 
     const {
       tsconfigPath,
+      swcrcPath,
       force,
       cwd,
       isNxProject,
@@ -55,7 +60,7 @@ export const esbuildDecoratorPlugin = (
             !parsedTsConfig?.options?.experimentalDecorators);
 
         if (shouldSkipThisPlugin) {
-          verbose && pluginSkipped();
+          verbose && pluginSkipped(path);
 
           return;
         }
@@ -77,11 +82,15 @@ export const esbuildDecoratorPlugin = (
     } else {
       build.onLoad({ filter: /\.ts$/ }, async ({ path }) => {
         if (!parsedSwcConfig) {
-          // TODO: support .swcrc
+          const swcrcConfig = parseSWCConfig(swcrcPath);
+
           parsedSwcConfig = merge(
             defaultSWCCompilerOptions,
+            swcrcConfig,
             swcCompilerOptions
           );
+
+          console.log('parsedSwcConfig: ', parsedSwcConfig);
         }
 
         const shouldSkipThisPlugin =
@@ -90,12 +99,12 @@ export const esbuildDecoratorPlugin = (
             !parsedSwcConfig.jsc.parser.decorators);
 
         if (shouldSkipThisPlugin) {
-          verbose && pluginSkipped();
+          verbose && pluginSkipped(path);
 
           return;
         }
 
-        const fileContent = await fs.readFile(path, 'utf8');
+        const fileContent = fs.readFileSync(path, 'utf8');
 
         const hasDecorator = findDecorators(fileContent);
 

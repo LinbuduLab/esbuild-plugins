@@ -1,9 +1,5 @@
 import { transformSync, Output, Options } from '@swc/core';
-
-// TODO: Support .swcrc config file
-export function parseSWCConfig(swcrcPath: string, cwd: string) {
-  void 0;
-}
+import jsonfile from 'jsonfile';
 
 export const defaultSWCCompilerOptions: Options = {
   swcrc: false,
@@ -13,7 +9,7 @@ export const defaultSWCCompilerOptions: Options = {
     lazy: false,
     noInterop: false,
   },
-
+  minify: true,
   isModule: true,
   jsc: {
     target: 'es5',
@@ -33,8 +29,14 @@ export const defaultSWCCompilerOptions: Options = {
   },
 };
 
+// not using configFile option
 export function swcCompiler(source: string, options: Options): Output {
   const swcOutput = transformSync(source, options);
 
   return swcOutput;
+}
+
+export function parseSWCConfig(swcrcPath: string) {
+  const swcrcConfig = jsonfile.readFileSync(swcrcPath, 'utf8');
+  return swcrcConfig;
 }

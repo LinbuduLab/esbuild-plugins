@@ -66,6 +66,7 @@ export default function buildExecutor(
       tsconfigPath: options.tsConfig,
       compiler: options.decoratorHandler,
       isNxProject: true,
+
       // swcCompilerOptions: {
       //   jsc: { externalHelpers: true },
       // },

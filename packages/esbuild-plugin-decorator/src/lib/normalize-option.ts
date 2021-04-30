@@ -2,11 +2,14 @@ import path from 'path';
 import fs from 'fs-extra';
 import { CompilerOptions as TSCCompileOptions } from 'typescript';
 import { Options as SWCCompileOptions } from '@swc/core';
-import { pluginTitle, info, warn } from './log';
+import { pluginTitle, info, warn, err } from './log';
 
-export type ESBuildPluginDecoratorOptions = {
+export interface ESBuildPluginDecoratorOptions {
   tsconfigPath?: string;
+  swcrcPath?: string;
+
   force?: boolean;
+
   cwd?: string;
 
   compiler?: 'tsc' | 'swc';
@@ -16,13 +19,17 @@ export type ESBuildPluginDecoratorOptions = {
   swcCompilerOptions?: SWCCompileOptions;
 
   verbose?: boolean;
-};
+}
 
 export function normalizeOption(
   options: ESBuildPluginDecoratorOptions = {}
 ): Required<ESBuildPluginDecoratorOptions> {
-  const isNxProject = options.isNxProject ?? false;
+  // default as workspace root
+  const cwd = options.cwd ?? process.cwd();
+  const force = options.force ?? false;
+  const compiler = options.compiler ?? 'tsc';
 
+  const isNxProject = options.isNxProject ?? false;
   const verbose = options.verbose ?? true;
 
   // if not specified, will use PROJECT_ROOT/tsconfig.json
@@ -30,11 +37,17 @@ export function normalizeOption(
   const tsconfigPath = options.tsconfigPath
     ? options.tsconfigPath
     : isNxProject
-    ? path.join(process.cwd(), './tsconfig.base.json')
-    : path.join(process.cwd(), './tsconfig.json');
+    ? path.resolve(cwd, './tsconfig.base.json')
+    : path.resolve(cwd, './tsconfig.json');
+
+  const swcrcPath = options.swcrcPath
+    ? options.swcrcPath
+    : path.resolve(cwd, './.swcrc');
 
   const tsconfigExist = fs.existsSync(tsconfigPath);
+  const swcrcExist = fs.existsSync(swcrcPath);
 
+  // ts config file is required even you are using swc as compiler
   if (!tsconfigExist) {
     throw new Error(
       `Failed to load ts config from ${tsconfigPath}, file does not exist.`
@@ -45,12 +58,19 @@ export function normalizeOption(
     `${pluginTitle()} ${info('Load ts config file from')} ${tsconfigPath}`
   );
 
-  const cwd = options.cwd ?? process.cwd();
+  if (compiler === 'swc' && !swcrcExist) {
+    console.log(
+      `${pluginTitle()} ${err(
+        `.swcrc file from ${swcrcPath} is not found, using default swc options`
+      )})`
+    );
+  } else if (compiler === 'swc' && swcrcExist) {
+    console.log(
+      `${pluginTitle()} ${info('Load swc config file from')} ${swcrcPath}`
+    );
+  }
 
   console.log(`${pluginTitle()} ${info('Current working directory')} ${cwd}`);
-
-  const force = options.force ?? false;
-  const compiler = options.compiler ?? 'tsc';
 
   verbose &&
     console.log(
@@ -88,6 +108,7 @@ export function normalizeOption(
 
   return {
     tsconfigPath,
+    swcrcPath,
     force,
     cwd,
     isNxProject,

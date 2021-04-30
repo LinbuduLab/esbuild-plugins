@@ -88,6 +88,9 @@ async function main() {
     const importsText = imports.map((importSpecifier) =>
       importSpecifier.getText()
     );
+    // .map((specifier) => {});
+
+    console.log('importsText: ', importsText);
 
     // 获取源文件的所有导出
     // Map<导出名，导出对象数组>
