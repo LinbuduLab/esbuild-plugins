@@ -1,6 +1,6 @@
 import execa from 'execa';
 import path from 'path';
-import fs from 'fs';
+import fs from 'fs-extra';
 import minimist from 'minimist';
 import chalk from 'chalk';
 import ora from 'ora';
