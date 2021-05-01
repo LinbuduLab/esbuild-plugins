@@ -8,6 +8,7 @@ import { updateVersion } from './update-version';
 import { publishNPMPackage } from './npm-publish';
 import { gitPush } from './git-push';
 import { readPackagesWithVersion } from './read-packages';
+import { changelog } from './changelog';
 
 const args = minimist(process.argv.slice(2), {
   alias: {
@@ -99,15 +100,18 @@ async function main() {
 
   await runIfNotDry(dryRun, 'nx', nxBuildFlags);
 
-  // step('\nGenerating changelog...');
-  // await run('yarn', ['changelog']);
+  step('\nGenerating changelog...');
+
+  if (!dryRun) {
+    changelog(targetProject);
+  }
 
   await gitPush(targetProject, releaseTag, dryRun);
 
   step('\nPublishing package...');
   await publishNPMPackage(targetProject, targetVersion, args);
 
-  if (args.dryRun) {
+  if (dryRun) {
     console.log(`\nDry run finished - run git diff to see package changes.`);
   }
 
