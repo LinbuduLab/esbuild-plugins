@@ -13,12 +13,14 @@ export interface Args {
   dryRun?: boolean;
   version?: string;
   tag?: string;
+  withDeps?: boolean;
 }
 
 const args = minimist(process.argv.slice(2), {
   alias: {
     'dry-run': 'dryRun',
     'skip-check': 'skipCheck',
+    'with-deps': 'withDeps',
   },
 }) as Args;
 
@@ -42,13 +44,13 @@ const inc = (currentVer: string, i: semver.ReleaseType) =>
 type RunnerFunc = (
   bin: string,
   args: string[],
-  opts?: Record<string, unknown>
+  opts?: execa.Options<string>
 ) => Promise<void>;
 
 const dryRun: RunnerFunc = async (
   bin: string,
   args: string[],
-  opts: Record<string, unknown> = {}
+  opts: execa.Options<string> = {}
 ) =>
   console.log(
     chalk.blue(`[dryrun] ${bin} ${args.join(' ')}`),
@@ -58,7 +60,7 @@ const dryRun: RunnerFunc = async (
 const exec: RunnerFunc = async (
   bin: string,
   args: string[],
-  opts: Record<string, unknown> = {}
+  opts: execa.Options<string> = {}
 ) => {
   await execa(bin, args, { stdio: 'inherit', ...opts });
 };
@@ -75,25 +77,24 @@ function updateVersion(project: string, version: string) {
   fs.writeFileSync(projectPkgPath, JSON.stringify(pkg, null, 2) + '\n');
 }
 
-async function publishPackage(
-  project: string,
-  version: string,
-  runIfNotDry: RunnerFunc
-) {
-  const publicArgs = [
-    'publish',
-    '--no-git-tag-version',
-    '--new-version',
-    version,
-    '--access',
-    'public',
-  ];
+async function publishPackage(project: string, version: string) {
+  const builtProjectDist = path.join(
+    process.cwd(),
+    'dist',
+    'packages',
+    project
+  );
+  const publicArgs = ['publish', '--access', 'public'];
   if (args.tag) {
     publicArgs.push(`--tag`, args.tag);
   }
+  if (args.dryRun) {
+    publicArgs.push('--dry-run');
+  }
   try {
-    await runIfNotDry('npm', publicArgs, {
+    await exec('npm', publicArgs, {
       stdio: 'pipe',
+      cwd: builtProjectDist,
     });
     console.log(chalk.green(`Successfully published ${project}@${version}`));
   } catch (e) {
@@ -167,13 +168,17 @@ async function main() {
     if (stdout) {
       step('\nCommitting changes...');
       await runIfNotDry('git', ['add', '-A']);
-      await runIfNotDry('git', ['commit', '-m', `release: ${tag}`]);
+      await runIfNotDry('git', [
+        'commit',
+        '-m',
+        `release${tmpTargetProject}: ${tag}`,
+      ]);
     } else {
       console.log('No changes to commit.');
     }
 
-    // step('\nPublishing package...');
-    // await publishPackage(tmpTargetProject, targetVersion, runIfNotDry);
+    step('\nPublishing package...');
+    await publishPackage(tmpTargetProject, targetVersion);
 
     step('\nPushing to GitHub...');
     await runIfNotDry('git', ['tag', tag]);

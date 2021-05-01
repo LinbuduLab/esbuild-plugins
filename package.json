@@ -42,7 +42,9 @@
     "dev:esbuild:alias": "nx run esbuild-plugin-alias-path:build && cd .\\dist\\packages\\esbuild-plugin-alias-path\\ && pnpm link",
     "commit": "git add -A && git-cz",
     "gen-pkg": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\collect-deps.ts && npm run format",
-    "convert-type": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\convert-import-type.ts"
+    "convert-type": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\convert-import-type.ts",
+    "release:dry": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\toolsscripts\release.ts --dry-run",
+    "release": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\toolsscripts\release.ts"
   },
   "private": true,
   "size-limit": [
