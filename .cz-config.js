@@ -1,44 +1,22 @@
 const fs = require('fs-extra');
+const path = require('path');
+const jsonfile = require('jsonfile');
+
+const { pluginKind, workspace: workspaceScope } = jsonfile.readFileSync(
+  path.resolve('./commit-scope.json')
+);
 
 const allPackages = fs.readdirSync('./packages');
 
-const nxPlugins = allPackages
-  .filter((package) => package.startsWith('nx-plugin-'))
+const pluginRelatedScope = allPackages
+  .filter((package) =>
+    pluginKind.some((kind) => package.startsWith(`${kind}-plugin-`))
+  )
   .map((package) => package.replace('-plugin-', '-'));
 
-const esbuildPlugins = allPackages
-  .filter((package) => package.startsWith('esbuild-plugin-'))
-  .map((package) => package.replace('-plugin-', '-'));
+const pluginShared = pluginKind.map((kind) => `${kind}-shared`);
 
-const vitePlugins = allPackages
-  .filter((package) => package.startsWith('vite-plugin-'))
-  .map((package) => package.replace('-plugin-', '-'));
-
-const snowpackPlugins = allPackages
-  .filter((package) => package.startsWith('snowpack-plugin-'))
-  .map((package) => package.replace('-plugin-', '-'));
-
-const umiPlugins = allPackages
-  .filter((package) => package.startsWith('umi-plugin-'))
-  .map((package) => package.replace('-plugin-', '-'));
-
-const WORKSPACE_CONFIGURATION_SCOPE = 'workspace';
-const TOOLS_SCOPE = 'tools';
-const ENHANCMENT_SCOPE = 'enhancement';
-const DOCUMENTATION_SCOPE = 'docs';
-const WEBSITE_SCOPE = 'website';
-const ADD_PLUGIN_SCOPE = 'add-plugin';
-const DELETE_PLUGIN_SCOPE = 'delete-plugin';
-const EXAMPLE_SCOPE = 'example';
-const WIP_SCOPE = 'wip';
-
-const NX_PLUGIN_SHARED = 'nx-shared';
-const ESBUILD_PLUGIN_SHARED = 'esbuild-shared';
-const VITE_PLUGIN_SHARED = 'vite-shared';
-const SNOWPACK_PLUGIN_SHARED = 'snowpack-shared';
-const UMI_PLUGIN_SHARED = 'umi-shared';
-
-// https://gitmoji.dev/
+// // https://gitmoji.dev/
 module.exports = {
   types: [
     { value: ':tada: init', name: 'init:     initial commit' },
@@ -73,27 +51,7 @@ module.exports = {
     { value: ':pencil2: typo', name: 'typo:     fix typo' },
     { value: ':bookmark: release', name: 'release:  release new version' },
   ],
-  scopes: [
-    ...nxPlugins,
-    ...esbuildPlugins,
-    ...vitePlugins,
-    ...snowpackPlugins,
-    ...umiPlugins,
-    WORKSPACE_CONFIGURATION_SCOPE,
-    DOCUMENTATION_SCOPE,
-    WEBSITE_SCOPE,
-    ADD_PLUGIN_SCOPE,
-    DELETE_PLUGIN_SCOPE,
-    EXAMPLE_SCOPE,
-    WIP_SCOPE,
-    TOOLS_SCOPE,
-    ENHANCMENT_SCOPE,
-    NX_PLUGIN_SHARED,
-    ESBUILD_PLUGIN_SHARED,
-    VITE_PLUGIN_SHARED,
-    SNOWPACK_PLUGIN_SHARED,
-    UMI_PLUGIN_SHARED,
-  ],
+  scopes: [...pluginRelatedScope, ...pluginShared, ...workspaceScope],
   disableEmoji: false,
   list: [
     'init',

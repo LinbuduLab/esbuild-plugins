@@ -1,0 +1,17 @@
+{
+  "pluginKind": ["nx", "esbuild", "vite", "snowpack", "umi", "vitepress"],
+  "workspace": [
+    "workspace",
+    "tools-generators",
+    "tools-scripts",
+    "docs",
+    "docs-site",
+    "add-plugin",
+    "remove-plugin",
+    "ci",
+    "examples",
+    "wip",
+    "plugin-executors",
+    "plugin-generators"
+  ]
+}
