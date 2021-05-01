@@ -43,8 +43,8 @@
     "commit": "git add -A && git-cz",
     "gen-pkg": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\collect-deps.ts && npm run format",
     "convert-type": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\convert-import-type.ts",
-    "release:dry": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\toolsscripts\release.ts --dry-run",
-    "release": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\toolsscripts\release.ts"
+    "release:dry": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\release\\release.ts --dry-run",
+    "release": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\release\\release.ts"
   },
   "private": true,
   "size-limit": [

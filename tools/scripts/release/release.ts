@@ -7,6 +7,7 @@ import { Args, releaseTypes, increVersion, runIfNotDry, step } from './util';
 import { updateVersion } from './update-version';
 import { publishNPMPackage } from './npm-publish';
 import { gitPush } from './git-push';
+import { readPackagesWithVersion } from './read-packages';
 
 const args = minimist(process.argv.slice(2), {
   alias: {
@@ -16,8 +17,7 @@ const args = minimist(process.argv.slice(2), {
   },
 }) as Args;
 
-// choose project
-// select or input version
+const packagesInfo = readPackagesWithVersion();
 
 async function main() {
   const {
@@ -28,19 +28,30 @@ async function main() {
     skipCheck = false,
   } = args;
 
-  const tmpTargetProject = 'nx-plugin-esbuild';
-  const tmpTargetVersion = '0.0.1-1';
-
   let targetVersion = version;
+  let targetProject = '';
 
-  if (!version) {
+  let { project }: Record<'project', string> = await enquirer.prompt({
+    type: 'select',
+    name: 'project',
+    message: 'Select release project',
+    choices: packagesInfo.map((info) => info.project),
+  });
+
+  targetProject = project;
+
+  const currentVersion = packagesInfo.find(
+    (info) => info.project === targetProject
+  ).version;
+
+  if (!targetVersion) {
     const { release }: Record<'release', string> = await enquirer.prompt({
       type: 'select',
       name: 'release',
       message: 'Select release type',
       choices: releaseTypes
         .map(
-          (incType) => `${incType} (${increVersion(tmpTargetVersion, incType)})`
+          (incType) => `${incType} (${increVersion(currentVersion, incType)})`
         )
         .concat(['custom']),
     });
@@ -50,7 +61,7 @@ async function main() {
         type: 'input',
         name: 'version',
         message: 'Input custom version',
-        initial: tmpTargetVersion,
+        initial: currentVersion,
       });
       targetVersion = version;
     } else {
@@ -60,46 +71,47 @@ async function main() {
     if (!semver.valid(targetVersion)) {
       throw new Error(`invalid target version: ${targetVersion}`);
     }
-
-    const tag = `${tmpTargetProject}@${targetVersion}`;
-
-    const { yes }: Record<'yes', string> = await enquirer.prompt({
-      type: 'confirm',
-      name: 'yes',
-      message: `Releasing ${tag}. Confirm?`,
-      initial: true,
-    });
-
-    if (!yes) {
-      return;
-    }
-    step('\nUpdating package version...');
-    updateVersion(tmpTargetProject, targetVersion, dryRun);
-
-    step('\nBuilding package...');
-    const nxBuildFlags = ['build', tmpTargetProject];
-
-    // TODO: more build flags
-    if (withDeps) {
-      nxBuildFlags.push('--with-deps');
-    }
-
-    await runIfNotDry(dryRun, 'nx', nxBuildFlags);
-
-    // step('\nGenerating changelog...');
-    // await run('yarn', ['changelog']);
-
-    await gitPush(tmpTargetProject, tag, dryRun);
-
-    step('\nPublishing package...');
-    await publishNPMPackage(tmpTargetProject, targetVersion, args);
-
-    if (args.dryRun) {
-      console.log(`\nDry run finished - run git diff to see package changes.`);
-    }
-
-    console.log();
   }
+
+  const releaseTag = `${targetProject}@${targetVersion}`;
+
+  const { yes }: Record<'yes', string> = await enquirer.prompt({
+    type: 'confirm',
+    name: 'yes',
+    message: `Releasing ${releaseTag}. Confirm?`,
+    initial: true,
+  });
+
+  if (!yes) {
+    return;
+  }
+
+  step('\nUpdating package version...');
+  updateVersion(targetProject, targetVersion, dryRun);
+
+  step('\nBuilding package...');
+  const nxBuildFlags = ['build', targetProject];
+
+  // TODO: more build flags
+  if (withDeps) {
+    nxBuildFlags.push('--with-deps');
+  }
+
+  await runIfNotDry(dryRun, 'nx', nxBuildFlags);
+
+  // step('\nGenerating changelog...');
+  // await run('yarn', ['changelog']);
+
+  await gitPush(targetProject, releaseTag, dryRun);
+
+  step('\nPublishing package...');
+  await publishNPMPackage(targetProject, targetVersion, args);
+
+  if (args.dryRun) {
+    console.log(`\nDry run finished - run git diff to see package changes.`);
+  }
+
+  console.log();
 }
 
 main();

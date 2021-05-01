@@ -27,7 +27,6 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-koa-e2e',
     '<rootDir>/packages/esbuild-plugin-alias-path',
     '<rootDir>/packages/esbuild-plugin-d',
-    '<rootDir>/packages/esbuild-plugin-graphql',
     '<rootDir>/packages/vite-plugin-graphql',
     '<rootDir>/packages/esbuild-plugin-notifier',
     '<rootDir>/packages/nx-plugin-vitepress',
