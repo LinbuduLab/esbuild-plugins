@@ -45,6 +45,7 @@ specifiers:
   '@types/node-notifier': ^8.0.0
   '@types/pacote': ^11.1.0
   '@types/pretty': ^2.0.0
+  '@types/semver': ^7.3.5
   '@types/strip-comments': ^2.0.0
   '@types/webpack': ^4.4.24
   '@types/webpack-dev-server': ^3.11.1
@@ -66,10 +67,12 @@ specifiers:
   date-fns: ^2.21.1
   dayjs: ^1.10.4
   dotenv: 8.2.0
+  enquirer: ^2.3.6
   es-module-lexer: ^0.4.1
   esbuild: ^0.11.11
   eslint: 7.24.0
   eslint-config-prettier: 8.2.0
+  execa: ^5.0.0
   filesize: ^6.2.5
   find-up: ^5.0.0
   fs-extra: ^9.1.0
@@ -85,6 +88,7 @@ specifiers:
   jsonfile: ^6.1.0
   latest-version: ^5.1.0
   lodash: ^4.17.21
+  minimist: ^1.2.5
   node-notifier: ^9.0.1
   node-watch: ^0.7.1
   npm-run-all: ^4.1.5
@@ -166,6 +170,7 @@ devDependencies:
   '@types/node-notifier': 8.0.0
   '@types/pacote': 11.1.0
   '@types/pretty': 2.0.0
+  '@types/semver': 7.3.5
   '@types/strip-comments': 2.0.0
   '@types/webpack': 4.41.27
   '@types/webpack-dev-server': 3.11.3
@@ -187,10 +192,12 @@ devDependencies:
   date-fns: 2.21.1
   dayjs: 1.10.4
   dotenv: 8.2.0
+  enquirer: 2.3.6
   es-module-lexer: 0.4.1
   esbuild: 0.11.11
   eslint: 7.24.0
   eslint-config-prettier: 8.2.0_eslint@7.24.0
+  execa: 5.0.0
   filesize: 6.2.5
   find-up: 5.0.0
   fs-extra: 9.1.0
@@ -206,6 +213,7 @@ devDependencies:
   jsonfile: 6.1.0
   latest-version: 5.1.0
   lodash: 4.17.21
+  minimist: 1.2.5
   node-notifier: 9.0.1
   node-watch: 0.7.1
   npm-run-all: 4.1.5
@@ -3031,6 +3039,10 @@ packages:
 
   /@types/scheduler/0.16.1:
     resolution: {integrity: sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==}
+    dev: true
+
+  /@types/semver/7.3.5:
+    resolution: {integrity: sha512-iotVxtCCsPLRAvxMFFgxL8HD2l4mAZ2Oin7/VJ2ooWO0VOK4EGOGmZWZn1uCq7RofR3I/1IOSjCHlFT71eVK0Q==}
     dev: true
 
   /@types/serve-static/1.13.9:
@@ -6494,6 +6506,21 @@ packages:
       strip-final-newline: 2.0.0
     dev: true
 
+  /execa/5.0.0:
+    resolution: {integrity: sha512-ov6w/2LCiuyO4RLYGdpFGjkcs0wMTgGE8PrkTHikeUy5iJekXyPIKUjifk5CsE0pt7sMCrMZ3YNqoCj6idQOnQ==}
+    engines: {node: '>=10'}
+    dependencies:
+      cross-spawn: 7.0.3
+      get-stream: 6.0.1
+      human-signals: 2.1.0
+      is-stream: 2.0.0
+      merge-stream: 2.0.0
+      npm-run-path: 4.0.1
+      onetime: 5.1.2
+      signal-exit: 3.0.3
+      strip-final-newline: 2.0.0
+    dev: true
+
   /exit/0.1.2:
     resolution: {integrity: sha1-BjJjj42HfMghB9MKD/8aF8uhzQw=}
     engines: {node: '>= 0.8.0'}
@@ -7125,6 +7152,11 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       pump: 3.0.0
+    dev: true
+
+  /get-stream/6.0.1:
+    resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}
+    engines: {node: '>=10'}
     dev: true
 
   /get-value/2.0.6:
@@ -7759,6 +7791,11 @@ packages:
   /human-signals/1.1.1:
     resolution: {integrity: sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==}
     engines: {node: '>=8.12.0'}
+    dev: true
+
+  /human-signals/2.1.0:
+    resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
+    engines: {node: '>=10.17.0'}
     dev: true
 
   /humanize-ms/1.2.1:
