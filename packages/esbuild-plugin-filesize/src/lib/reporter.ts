@@ -1,10 +1,13 @@
 import chalk from 'chalk';
 import boxen from 'boxen';
 
-import type { NormalizedOption, OutputFileSizeInfo } from './normalize-option';
+import type {
+  NormalizedESBuildPluginFileSizeOption,
+  OutputFileSizeInfo,
+} from './normalize-option';
 
 export default function boxenReporter(
-  { theme }: NormalizedOption,
+  { theme }: NormalizedESBuildPluginFileSizeOption,
   {
     fileSize,
     fileName,

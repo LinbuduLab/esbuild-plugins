@@ -4,6 +4,15 @@
   "title": "Info executor",
   "description": "",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "buildTarget": {
+      "type": "string",
+      "description": "The target to run to build you the app"
+    },
+    "serveTarget": {
+      "type": "string",
+      "description": "The target to run to serve you the app"
+    }
+  },
   "required": []
 }

@@ -1,8 +1,10 @@
-import { NormalizedOptions } from './normalize-options';
+import { NormalizedESBuildPluginNodeExternalsOptions } from './normalize-options';
 // TODO: use readJsonFile from @nrwl/workspace
 import jsonfile from 'jsonfile';
 
-export const collectDepsToExclude = (options: NormalizedOptions): string[] => {
+export const collectDepsToExclude = (
+  options: NormalizedESBuildPluginNodeExternalsOptions
+): string[] => {
   const depKeys: string[] = [
     options.withDeps ? 'dependencies' : undefined,
     options.withDevDeps ? 'devDependencies' : undefined,
