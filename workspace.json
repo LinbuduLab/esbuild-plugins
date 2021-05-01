@@ -607,7 +607,24 @@
             "tsConfig": "packages/nx-plugin-devkit/tsconfig.lib.json",
             "packageJson": "packages/nx-plugin-devkit/package.json",
             "main": "packages/nx-plugin-devkit/src/index.ts",
-            "assets": ["packages/nx-plugin-devkit/*.md"]
+            "assets": [
+              "packages/nx-plugin-devkit/*.md",
+              {
+                "input": "./packages/nx-plugin-devkit/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-devkit",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-devkit",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
           }
         }
       }

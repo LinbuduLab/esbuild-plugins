@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "executors": {
+    "exec": {
+      "implementation": "./src/executors/exec/exec.impl",
+      "schema": "./src/executors/exec/schema.json",
+      "description": "exec executor"
+    }
+  },
+  "builders": {
+    "exec": {
+      "implementation": "./src/executors/exec/exec.impl",
+      "schema": "./src/executors/exec/schema.json",
+      "description": "exec executor"
+    }
+  }
+}
