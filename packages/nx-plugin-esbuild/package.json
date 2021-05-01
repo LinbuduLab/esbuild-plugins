@@ -1,6 +1,6 @@
 {
   "name": "nx-plugin-esbuild",
-  "version": "0.0.1-2",
+  "version": "0.0.1-1",
   "description": "@nrwl/nx plugin integration with esbuild.",
   "keywords": [
     "nx",

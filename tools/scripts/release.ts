@@ -172,8 +172,8 @@ async function main() {
       console.log('No changes to commit.');
     }
 
-    step('\nPublishing package...');
-    await publishPackage(tmpTargetProject, targetVersion, runIfNotDry);
+    // step('\nPublishing package...');
+    // await publishPackage(tmpTargetProject, targetVersion, runIfNotDry);
 
     step('\nPushing to GitHub...');
     await runIfNotDry('git', ['tag', tag]);
