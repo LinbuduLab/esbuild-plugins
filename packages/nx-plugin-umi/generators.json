@@ -3,10 +3,15 @@
   "name": "nx-plugin-umi",
   "version": "0.0.1",
   "generators": {
-    "nx-plugin-umi": {
-      "factory": "./src/generators/nx-plugin-umi/generator",
-      "schema": "./src/generators/nx-plugin-umi/schema.json",
-      "description": "nx-plugin-umi generator"
+    "application": {
+      "factory": "./src/generators/application/generator",
+      "schema": "./src/generators/application/schema.json",
+      "description": "application generator"
+    },
+    "app": {
+      "factory": "./src/generators/application/generator",
+      "schema": "./src/generators/application/schema.json",
+      "description": "application generator"
     }
   }
 }

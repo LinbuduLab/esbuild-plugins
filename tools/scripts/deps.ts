@@ -5,25 +5,27 @@ export const PRESERVED_PACKAGE_PEER_DEPS = [
   // nx-plugin-typegraphql
   'reflect-metadata',
   'graphql',
-  'typegraphql',
+  // 'typegraphql',
   // nx-plugin-esbuild
   'esbuild',
   // nx-plugin-vite
   'vite',
   '@vitejs/plugin-react-refresh',
   '@vitejs/plugin-vue',
-  // nx-plugin-prisma1
+  // nx-plugin-prisma
   'prisma',
   '@prisma/client',
   // nx-plugin-koa
   'koa',
-  'routing-controllers',
+  // 'routing-controllers',
   // nx-plugin-swc
   '@swc/core',
   // shared
   'typescript',
   'webpack',
   'webpack-dev-server',
+  // nx-plugin-vitepress
+  'vitepress',
 ];
 
 export const PRESERVED_NX_PEER_DEPS = [

@@ -94,7 +94,12 @@
     "esbuild-plugin-alias-path": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-graphql": { "tags": [] },
     "vite-plugin-graphql": { "tags": [] },
-    "esbuild-plugin-notifier": { "tags": [] }
+    "esbuild-plugin-notifier": { "tags": [] },
+    "nx-plugin-vitepress": { "tags": [] },
+    "nx-plugin-vitepress-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-vitepress"]
+    }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

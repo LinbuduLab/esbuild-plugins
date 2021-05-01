@@ -3,10 +3,15 @@
   "name": "nx-plugin-midway",
   "version": "0.0.1",
   "generators": {
-    "nx-plugin-midway": {
-      "factory": "./src/generators/nx-plugin-midway/generator",
-      "schema": "./src/generators/nx-plugin-midway/schema.json",
-      "description": "nx-plugin-midway generator"
+    "application": {
+      "factory": "./src/generators/application/generator",
+      "schema": "./src/generators/application/schema.json",
+      "description": "application generator"
+    },
+    "app": {
+      "factory": "./src/generators/application/generator",
+      "schema": "./src/generators/application/schema.json",
+      "description": "application generator"
     }
   }
 }
