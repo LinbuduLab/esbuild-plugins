@@ -2,17 +2,9 @@
   "name": "nx-plugin-esbuild",
   "version": "0.0.1-2",
   "description": "@nrwl/nx plugin integration with esbuild.",
-  "keywords": [
-    "nx",
-    "@nrwl/nx",
-    "esbuild",
-    "plugin",
-    "monorepo"
-  ],
+  "keywords": ["nx", "@nrwl/nx", "esbuild", "plugin", "monorepo"],
   "homepage": "https://github.com/PenumbraPro/nx-plugins/tree/master/packages/nx-plugin-esbuild#readme",
-  "bugs": {
-    "url": "https://github.com/PenumbraPro/nx-plugins/issues"
-  },
+  "bugs": { "url": "https://github.com/PenumbraPro/nx-plugins/issues" },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PenumbraPro/nx-plugins.git"
@@ -35,6 +27,7 @@
     "dayjs": "^1.10.4",
     "dotenv": "8.2.0",
     "fs-extra": "^9.1.0",
+    "jsonfile": "^6.1.0",
     "rxjs": "^6.6.7",
     "rxjs-for-await": "^0.0.2",
     "tree-kill": "^1.2.2"

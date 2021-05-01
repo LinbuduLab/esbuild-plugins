@@ -39,7 +39,7 @@ const mergeCommonImports = (
   };
 };
 
-async function main() {
+export async function main() {
   const projectPath = path.join(
     process.cwd(),
     // '../../',
@@ -166,5 +166,3 @@ async function main() {
     sourceFile.getFullText()
   );
 }
-
-main();

@@ -1,5 +1,5 @@
 import path from 'path';
-import inquirer from 'inquirer';
+import enquirer from 'enquirer';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import { Project } from 'ts-morph';
@@ -16,7 +16,10 @@ import { createMissingFields } from './fill-package-json';
 // These dependencies should be add to [peerDependencies] field
 // Dep packages from this repo will add to [dependencies] field by
 // --buildableProjectDepsInPackageJsonType=dependencies flag
-import { PRESERVED_PACKAGE_PEER_DEPS, PRESERVED_NX_PEER_DEPS } from './deps';
+import {
+  PRESERVED_PACKAGE_PEER_DEPS,
+  PRESERVED_NX_PEER_DEPS,
+} from './constants';
 
 // TODO: support --dry-run flag
 // TODO: error handler
@@ -71,10 +74,10 @@ const availablePackages = allPackages.filter(
 
 const GENERATE_FOR_ALL_PACKAGES = 'all';
 
-async function main() {
-  const projectToCollectDeps: { project: string } = await inquirer.prompt([
+export async function main() {
+  const projectToCollectDeps: { project: string[] } = await enquirer.prompt([
     {
-      type: 'checkbox',
+      type: 'multiselect',
       name: 'project',
       message: 'Choose project you want to collect dependencies for',
       choices: [...availablePackages, GENERATE_FOR_ALL_PACKAGES],
@@ -84,7 +87,7 @@ async function main() {
   const { project } = projectToCollectDeps;
 
   if (project.length === 1 && !project.includes(GENERATE_FOR_ALL_PACKAGES)) {
-    handler(project);
+    handler(project[0]);
   } else if (
     project.length >= 1 &&
     !project.includes(GENERATE_FOR_ALL_PACKAGES)
@@ -201,5 +204,3 @@ function handler(project: string) {
 
   console.log(chalk.cyan(`Handled ${project} \n`));
 }
-
-main();

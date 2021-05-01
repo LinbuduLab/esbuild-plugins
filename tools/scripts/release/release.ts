@@ -7,7 +7,7 @@ import { Args, releaseTypes, increVersion, runIfNotDry, step } from './util';
 import { updateVersion } from './update-version';
 import { publishNPMPackage } from './npm-publish';
 import { gitPush } from './git-push';
-import { readPackagesWithVersion } from './read-packages';
+import { readPackagesWithVersion } from '../utils/read-packages';
 import { changelog } from './changelog';
 
 const args = minimist(process.argv.slice(2), {
@@ -20,7 +20,7 @@ const args = minimist(process.argv.slice(2), {
 
 const packagesInfo = readPackagesWithVersion();
 
-async function main() {
+export async function main() {
   const {
     dryRun = false,
     tag = '',
@@ -32,11 +32,11 @@ async function main() {
   let targetVersion = version;
   let targetProject = '';
 
-  let { project }: Record<'project', string> = await enquirer.prompt({
+  const { project }: Record<'project', string> = await enquirer.prompt({
     type: 'select',
-    name: 'project',
-    message: 'Select release project',
-    choices: packagesInfo.map((info) => info.project),
+    name: 'release',
+    message: 'Select release type',
+    choices: packagesInfo.map((pkg) => pkg.project),
   });
 
   targetProject = project;
@@ -117,5 +117,3 @@ async function main() {
 
   console.log();
 }
-
-main();
