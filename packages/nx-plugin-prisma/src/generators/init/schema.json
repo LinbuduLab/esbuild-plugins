@@ -17,12 +17,17 @@
     "directory": {
       "type": "string",
       "alias": "d",
+      "description": "A directory where the project is located"
+    },
+    "prisma-directory": {
+      "type": "string",
+      "alias": "p",
       "description": "A directory where the prisma schema is located",
-      "default": "prisma"
+      "default": "src/apps/prisma"
     },
     "schema-name": {
       "type": "string",
-      "alias": "d",
+      "alias": "s",
       "description": "Prisma schema file name",
       "default": "schema"
     },
@@ -32,10 +37,10 @@
       "description": "Prisma datasource provider",
       "default": "sqlite"
     },
-    "datasource-url": {
-      "type": "string",
-      "description": "Prisma datasource url",
-      "default": "env('DATABASE_URL')"
+    "use-project-env": {
+      "type": "boolean",
+      "description": "Create env file inside project",
+      "default": true
     },
     "client-provider": {
       "type": "string",
@@ -48,9 +53,9 @@
       "description": "Watch the schema.prisma file and re-generate Prisma Client on file changes",
       "default": false
     },
-    "create-env-file": {
+    "initial-schema": {
       "type": "boolean",
-      "description": "Create .env file if it doesn't exist'",
+      "description": "Create model definitions for generated schema",
       "default": true
     }
   },

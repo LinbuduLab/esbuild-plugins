@@ -2,11 +2,11 @@ import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
 import { Tree, readProjectConfiguration } from '@nrwl/devkit';
 
 import generator from './generator';
-import { MigrateDevGeneratorSchema } from './schema';
+import { SetupGeneratorSchema } from './schema';
 
-describe('migrate-dev generator', () => {
+describe('setup generator', () => {
   let appTree: Tree;
-  const options: MigrateDevGeneratorSchema = { name: 'test' };
+  const options: SetupGeneratorSchema = { name: 'test' };
 
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace();
@@ -16,5 +16,5 @@ describe('migrate-dev generator', () => {
     await generator(appTree, options);
     const config = readProjectConfiguration(appTree, 'test');
     expect(config).toBeDefined();
-  });
+  })
 });
