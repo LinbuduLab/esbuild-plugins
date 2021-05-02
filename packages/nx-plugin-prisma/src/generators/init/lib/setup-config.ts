@@ -30,10 +30,10 @@ export function createInitPrismaProjectConfiguration(
     },
   };
 
-  project.targets['prisma-db-push'] = {
+  project.targets['prisma-format'] = {
     executor: 'nx-plugin-devkit:exec',
     options: {
-      command: `prisma db push --preview-feature --schema=${cwd2SchemaRelativePath}`,
+      command: `prisma format --schema=${cwd2SchemaRelativePath}`,
       cwd: schema.projectRoot,
       parallel: false,
       color: true,
@@ -42,6 +42,43 @@ export function createInitPrismaProjectConfiguration(
     },
   };
 
+  project.targets['prisma-db-pull'] = {
+    executor: 'nx-plugin-devkit:exec',
+    options: {
+      command: `prisma db pull --preview-feature --skip-generate --schema=${cwd2SchemaRelativePath}`,
+      cwd: schema.projectRoot,
+      parallel: false,
+      color: true,
+      envFile: schema.envFilePath,
+      outputPath: schema.prismaSchemaDir,
+    },
+  };
+
+  project.targets['prisma-db-push'] = {
+    executor: 'nx-plugin-devkit:exec',
+    options: {
+      command: `prisma db push --preview-feature --skip-generate --schema=${cwd2SchemaRelativePath}`,
+      cwd: schema.projectRoot,
+      parallel: false,
+      color: true,
+      envFile: schema.envFilePath,
+      outputPath: schema.prismaSchemaDir,
+    },
+  };
+
+  project.targets['prisma-studio'] = {
+    executor: 'nx-plugin-devkit:exec',
+    options: {
+      command: `prisma studio --browser chrome --port 7777 --schema=${cwd2SchemaRelativePath}`,
+      cwd: schema.projectRoot,
+      parallel: false,
+      color: true,
+      envFile: schema.envFilePath,
+      outputPath: schema.prismaSchemaDir,
+    },
+  };
+
+  // FIXME: Build Error
   project.targets['build'] = {
     executor: '@nrwl/node:build',
     outputs: ['{options.outputPath}'],

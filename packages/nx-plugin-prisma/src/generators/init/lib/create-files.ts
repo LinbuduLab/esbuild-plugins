@@ -8,13 +8,13 @@ export function initPrismaFiles(
   host: Tree,
   schema: NormalizedPrismaInitGeneratorSchema
 ) {
-  createNodeAppFiles(host, schema, path.join(__dirname, './files/app'), {
+  createNodeAppFiles(host, schema, path.join(__dirname, '../files/app'), {
     SchemaName: schema.schemaName,
   });
 
   generateFiles(
     host,
-    path.join(__dirname, './files/prisma'),
+    path.join(__dirname, '../files/prisma'),
     schema.prismaSchemaDir,
     {
       tmpl: '',
