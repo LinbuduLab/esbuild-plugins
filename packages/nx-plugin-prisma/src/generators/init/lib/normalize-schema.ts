@@ -38,35 +38,42 @@ export function normalizeSchema(
   );
   console.log('basicNormalizedAppGenSchema: ', basicNormalizedAppGenSchema);
 
-  const cwd = process.cwd();
-  // WORKSPACE/apps/app1/src/apps/prisma/schema.prisma
-  const prismaSchemaPath = joinPathFragments(
-    cwd,
+  const cwd = host.root;
+
+  const clientOutput = schema.clientOutput ?? './client';
+
+  const prismaSchemaDir = joinPathFragments(
     basicNormalizedAppGenSchema.projectSourceRoot,
-    schema.prismaDirectory,
+    schema.prismaDirectory
+  );
+
+  // WORKSPACE/apps/app1/src/apps/prisma/schema.prisma
+
+  const prismaSchemaPath = joinPathFragments(
+    prismaSchemaDir,
     `${schema.schemaName}.prisma`
   );
 
+  // 似乎不需要是完整路径，apps/app1/.env 或 .env 即可
+  // const envFilePath = schema.useProjectEnv
+  //   ? joinPathFragments(cwd, basicNormalizedAppGenSchema.projectRoot, '.env')
+  //   : joinPathFragments(cwd, '.env');
+
   const envFilePath = schema.useProjectEnv
-    ? joinPathFragments(cwd, basicNormalizedAppGenSchema.projectRoot, '.env')
-    : joinPathFragments(cwd, '.env');
+    ? joinPathFragments(basicNormalizedAppGenSchema.projectRoot, '.env')
+    : '.env';
 
   // TODO: 这个还需要特殊处理吧
   const datasourceUrl = "env('DATABASE_URL')";
 
-  if (
-    schema.clientProvider !== 'prisma-client-js' &&
-    !schema.clientProvider.startsWith('.')
-  ) {
-    throw new Error(
-      `Prisma client provider supports only 'prisma-client-js' or relative path, received ${schema.clientProvider}`
-    );
-  }
   return {
     ...schema,
     ...basicNormalizedAppGenSchema,
     prismaSchemaPath,
     envFilePath,
     datasourceUrl,
+    prismaSchemaDir,
+    clientProvider: 'prisma-client-js',
+    clientOutput,
   };
 }

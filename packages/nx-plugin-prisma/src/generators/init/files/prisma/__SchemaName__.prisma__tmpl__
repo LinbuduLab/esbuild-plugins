@@ -1,0 +1,17 @@
+generator client {
+  provider = "<%= ClientProvider %>"
+  output   = "<%= ClientOutput %>"
+}
+
+datasource db {
+  provider = "<%= DatasourceProvider %>"
+  url      = <%= DatasourceURL %>
+}
+
+// TODO: only create initial schema when initial schema is true
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String
+  nickName String?
+}

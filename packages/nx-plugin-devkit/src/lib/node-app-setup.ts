@@ -136,17 +136,15 @@ export function createNodeAppFiles<
   host: Tree,
   schema: NormalizedAppSchema,
   path: string,
-  substitutions?: Record<string, unknown>
+  substitutions: Record<string, unknown> = {}
 ) {
-  generateFiles(
-    host,
-    path,
-    schema.projectRoot,
-    substitutions ?? {
-      tmpl: '',
-      name: schema.projectName,
-      root: schema.projectRoot,
-      offset: offsetFromRoot(schema.projectRoot),
-    }
-  );
+  const subs = {
+    tmpl: '',
+    name: schema.projectName,
+    root: schema.projectRoot,
+    offset: offsetFromRoot(schema.projectRoot),
+    ...substitutions,
+  };
+
+  generateFiles(host, path, schema.projectRoot, subs);
 }

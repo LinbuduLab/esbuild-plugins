@@ -33,7 +33,7 @@
       "type": "string",
       "alias": "p",
       "description": "A directory where the prisma schema is located",
-      "default": "apps/prisma"
+      "default": "app/prisma"
     },
     "schemaName": {
       "type": "string",
@@ -52,10 +52,9 @@
       "description": "Create env file inside project",
       "default": true
     },
-    "clientProvider": {
+    "clientOutput": {
       "type": "string",
-      "description": "Prisma client provider",
-      "default": "prisma-client-js"
+      "description": "Prisma client output"
     },
     "watch": {
       "type": "boolean",
