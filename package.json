@@ -41,10 +41,10 @@
     "dev:esbuild:html": "nx run esbuild-plugin-html:build && cd .\\dist\\packages\\esbuild-plugin-html\\ && pnpm link",
     "dev:esbuild:alias": "nx run esbuild-plugin-alias-path:build && cd .\\dist\\packages\\esbuild-plugin-alias-path\\ && pnpm link",
     "commit": "git add -A && git-cz",
-    "gen-pkg": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\collect-deps.ts && npm run format",
+    "collect-dep": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\collect-deps\\collect-deps.ts && npm run format",
     "convert-type": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\convert-import-type.ts",
-    "release:dry": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\release\\release.ts --dry-run",
-    "release": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\release\\release.ts"
+    "release:dry": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\release-project\\release-project.ts --dry-run",
+    "release": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\release\\release-project.ts"
   },
   "private": true,
   "size-limit": [

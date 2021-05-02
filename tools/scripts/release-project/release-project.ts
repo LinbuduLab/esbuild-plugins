@@ -9,6 +9,7 @@ import { publishNPMPackage } from './npm-publish';
 import { gitPush } from './git-push';
 import { readPackagesWithVersion } from '../utils/read-packages';
 import { changelog } from './changelog';
+import { selectSingleProject, selectScope } from '../utils/select-project';
 
 const args = minimist(process.argv.slice(2), {
   alias: {
@@ -30,16 +31,8 @@ export async function main() {
   } = args;
 
   let targetVersion = version;
-  let targetProject = '';
-
-  const { project }: Record<'project', string> = await enquirer.prompt({
-    type: 'select',
-    name: 'release',
-    message: 'Select release type',
-    choices: packagesInfo.map((pkg) => pkg.project),
-  });
-
-  targetProject = project;
+  const scope = await selectScope();
+  const targetProject = await selectSingleProject([], null, scope);
 
   const currentVersion = packagesInfo.find(
     (info) => info.project === targetProject
@@ -117,3 +110,5 @@ export async function main() {
 
   console.log();
 }
+
+main();

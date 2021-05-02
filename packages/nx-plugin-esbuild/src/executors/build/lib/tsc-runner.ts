@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import path from 'path';
 import fs from 'fs-extra';
 import { error, info, success, plainText } from './log';
+import execa from 'execa';
 
 import type { TscRunnerOptions, TscRunnerResponse } from './types';
 
@@ -33,7 +34,7 @@ export function runTSC({ tsconfigPath, watch, root }: TscRunnerOptions) {
     const errorSig = 'error TS';
 
     let errorCount = 0;
-    const childProcess = spawn(tscBinPath, args, {
+    const childProcess = execa(tscBinPath, args, {
       // set shell to be true, or add suffix '.cmd'/".exe"/".bat" in Windows
       shell: true,
       // child_process.stdio.pipe(sub_process)

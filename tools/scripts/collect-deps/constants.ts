@@ -1,4 +1,6 @@
-// These dependencies will be add to peerDependencies
+// These dependencies should be add to [peerDependencies] field
+// Dep packages from this repo will add to [dependencies] field by
+// --buildableProjectDepsInPackageJsonType=dependencies flag
 export const PRESERVED_PACKAGE_PEER_DEPS = [
   // TODO: 对于这些peerDeps 如果没有导入 就不会生成到最终的deps中
   // 要么在文档中提示添加 要么用个对象专门存放这个关系 添加到最终的生成依赖中
