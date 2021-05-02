@@ -26,7 +26,7 @@
     "help": "nx help",
     "dev:tgql": "nx run nx-plugin-typegraphql:build --with-deps && cd .\\dist\\packages\\nx-plugin-typegraphql\\ && npm run link",
     "dev:midway": "nx run nx-plugin-midway:build && cd .\\dist\\packages\\nx-plugin-midway\\ && pnpm link",
-    "dev:prisma": "nx run nx-plugin-prisma:build && cd .\\dist\\packages\\nx-plugin-prisma\\ && pnpm link",
+    "dev:prisma": "nx run nx-plugin-prisma:build --with-deps && cd .\\dist\\packages\\nx-plugin-prisma\\ && npm run link",
     "dev:serverless": "nx run nx-plugin-serverless:build && cd .\\dist\\packages\\nx-plugin-serverless\\ && pnpm link",
     "dev:esbuild": "nx run nx-plugin-esbuild:build --with-deps && cd .\\dist\\packages\\nx-plugin-esbuild\\ && npm run link",
     "dev:swc": "nx run nx-plugin-swc:build && cd .\\dist\\packages\\nx-plugin-swc\\ && pnpm link",

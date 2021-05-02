@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "generators": {
     "init": {
-      "factory": "./src/generators/init/generator",
+      "factory": "./src/generators/init/init.impl",
       "schema": "./src/generators/init/schema.json",
       "description": "init generator"
     },

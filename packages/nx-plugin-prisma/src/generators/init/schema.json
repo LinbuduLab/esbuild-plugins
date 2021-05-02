@@ -19,32 +19,41 @@
       "alias": "d",
       "description": "A directory where the project is located"
     },
-    "prisma-directory": {
+    "tags": {
+      "type": "string",
+      "description": "Add tags to the project (used for linting)",
+      "alias": "t"
+    },
+    "frontendProject": {
+      "type": "string",
+      "alias": "f",
+      "description": "Frontend project that needs to access this application. This sets up proxy configuration."
+    },
+    "prismaDirectory": {
       "type": "string",
       "alias": "p",
       "description": "A directory where the prisma schema is located",
-      "default": "src/apps/prisma"
+      "default": "apps/prisma"
     },
-    "schema-name": {
+    "schemaName": {
       "type": "string",
       "alias": "s",
       "description": "Prisma schema file name",
       "default": "schema"
     },
-    "datasource-provider": {
+    "datasourceProvider": {
       "type": "string",
       "enum": ["sqlite", "postgresql", "mysql", "sqlserver"],
       "description": "Prisma datasource provider",
       "default": "sqlite"
     },
-    "use-project-env": {
+    "useProjectEnv": {
       "type": "boolean",
       "description": "Create env file inside project",
       "default": true
     },
-    "client-provider": {
+    "clientProvider": {
       "type": "string",
-      "enum": ["prisma-client-js"],
       "description": "Prisma client provider",
       "default": "prisma-client-js"
     },
@@ -53,7 +62,7 @@
       "description": "Watch the schema.prisma file and re-generate Prisma Client on file changes",
       "default": false
     },
-    "initial-schema": {
+    "initialSchema": {
       "type": "boolean",
       "description": "Create model definitions for generated schema",
       "default": true

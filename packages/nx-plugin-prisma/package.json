@@ -20,6 +20,10 @@
   "license": "MIT",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
   "main": "src/index.js",
+  "scripts": {
+    "link": "pnpm link && npm-run-all --print-label --print-name  link:**",
+    "link:devkit": " pnpm link ../nx-plugin-devkit"
+  },
   "dependencies": {},
   "peerDependencies": {
     "@nrwl/devkit": "12.0.8"
