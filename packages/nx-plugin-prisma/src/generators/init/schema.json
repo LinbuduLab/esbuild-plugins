@@ -56,11 +56,6 @@
       "type": "string",
       "description": "Prisma client output"
     },
-    "watch": {
-      "type": "boolean",
-      "description": "Watch the schema.prisma file and re-generate Prisma Client on file changes",
-      "default": false
-    },
     "initialSchema": {
       "type": "boolean",
       "description": "Create model definitions for generated schema",

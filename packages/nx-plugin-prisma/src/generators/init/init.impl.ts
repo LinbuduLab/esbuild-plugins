@@ -28,8 +28,7 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
 
   initPrismaFiles(host, normalizedSchema);
 
-  // 抽离到nx-plugin-devkit
-  // createExecTargets
+  // TODO: extract as createExecTargets
   const projectConfig = createInitPrismaProjectConfiguration(normalizedSchema);
   addProjectConfiguration(host, normalizedSchema.projectName, projectConfig);
 

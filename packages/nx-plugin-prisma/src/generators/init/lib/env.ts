@@ -1,6 +1,11 @@
 import { stripIndents } from '@nrwl/devkit';
 
-export const envContent = (dbUrl: string) => stripIndents`
+export const envContent = (
+  dbUrl: string,
+  existContent?: string
+) => stripIndents`
+      ${existContent}
+
       # Environment variables declared in this file are automatically made available to Prisma.
       # See the documentation for more detail: https://pris.ly/d/prisma-schema#using-environment-variables
 

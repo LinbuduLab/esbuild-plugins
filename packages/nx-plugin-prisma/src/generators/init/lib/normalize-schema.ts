@@ -7,38 +7,16 @@ import {
   PrismaInitGeneratorExtraSchema,
   NormalizedPrismaInitGeneratorSchema,
 } from '../schema';
-// schema:  {
-//   app: 'nest-app',
-//   'prisma-directory': 'apps/prisma',
-//   'schema-name': 'schema',
-//   'datasource-provider': 'sqlite',
-//   'use-project-env': true,
-//   'client-provider': 'prisma-client-js',
-//   watch: false,
-//   'initial-schema': true
-// }
-// basicNormalizedAppGenSchema:  {
-//   projectName: 'nest-app',
-//   projectRoot: 'apps/nest-app',
-//   projectSourceRoot: 'apps/nest-app/src',
-//   projectDirectory: 'nest-app',
-//   parsedTags: [],
-//   offsetFromRoot: '../../',
-//   frontendProject: undefined
-// }
+
 export function normalizeSchema(
   host: Tree,
   schema: PrismaInitGeneratorSchema
 ): NormalizedPrismaInitGeneratorSchema {
-  console.log('schema: ', schema);
   const basicNormalizedAppGenSchema = normalizeNodeAppSchema(
     host,
     schema,
     false
   );
-  console.log('basicNormalizedAppGenSchema: ', basicNormalizedAppGenSchema);
-
-  const cwd = host.root;
 
   const clientOutput = schema.clientOutput ?? './client';
 
@@ -63,7 +41,6 @@ export function normalizeSchema(
     ? joinPathFragments(basicNormalizedAppGenSchema.projectRoot, '.env')
     : '.env';
 
-  // TODO: 这个还需要特殊处理吧
   const datasourceUrl = "env('DATABASE_URL')";
 
   return {
