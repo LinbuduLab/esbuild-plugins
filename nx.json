@@ -99,7 +99,12 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-vitepress"]
     },
-    "vite-plugin-prisma": { "tags": [] }
+    "vite-plugin-prisma": { "tags": [] },
+    "nx-plugin-parcel": { "tags": [] },
+    "nx-plugin-parcel-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-parcel"]
+    }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

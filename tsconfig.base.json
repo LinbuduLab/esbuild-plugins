@@ -48,7 +48,8 @@
         "packages/esbuild-plugin-notifier/src/index.ts"
       ],
       "nx-plugin-vitepress": ["packages/nx-plugin-vitepress/src/index.ts"],
-      "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"]
+      "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"],
+      "nx-plugin-parcel": ["packages/nx-plugin-parcel/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

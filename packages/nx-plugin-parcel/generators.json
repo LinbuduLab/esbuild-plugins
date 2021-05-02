@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-plugin-parcel",
+  "version": "0.0.1",
+  "generators": {
+    "nx-plugin-parcel": {
+      "factory": "./src/generators/nx-plugin-parcel/generator",
+      "schema": "./src/generators/nx-plugin-parcel/schema.json",
+      "description": "nx-plugin-parcel generator"
+    }
+  }
+}
