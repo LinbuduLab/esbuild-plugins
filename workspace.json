@@ -1014,6 +1014,38 @@
           }
         }
       }
+    },
+    "vite-plugin-prisma": {
+      "root": "packages/vite-plugin-prisma",
+      "sourceRoot": "packages/vite-plugin-prisma/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/vite-plugin-prisma/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/vite-plugin-prisma"],
+          "options": {
+            "jestConfig": "packages/vite-plugin-prisma/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/vite-plugin-prisma",
+            "tsConfig": "packages/vite-plugin-prisma/tsconfig.lib.json",
+            "packageJson": "packages/vite-plugin-prisma/package.json",
+            "main": "packages/vite-plugin-prisma/src/index.ts",
+            "assets": ["packages/vite-plugin-prisma/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }

@@ -1,6 +1,6 @@
 {
   "cli": "nx",
-  "id": "esbuild-plugin-generator",
+  "id": "eb",
   "type": "object",
   "properties": {
     "name": {

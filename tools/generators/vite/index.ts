@@ -1,3 +1,1 @@
-import vite from '../vite-plugin-generator/index';
-
-export default vite;
+export { default } from '../vite-plugin-generator/index';

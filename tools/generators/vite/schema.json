@@ -1,6 +1,6 @@
 {
   "cli": "nx",
-  "id": "vite-plugin-generator",
+  "id": "vite",
   "type": "object",
   "properties": {
     "name": {

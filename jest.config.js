@@ -26,10 +26,10 @@ module.exports = {
     '<rootDir>/packages/nx-plugin-koa',
     '<rootDir>/e2e\\nx-plugin-koa-e2e',
     '<rootDir>/packages/esbuild-plugin-alias-path',
-    '<rootDir>/packages/esbuild-plugin-d',
     '<rootDir>/packages/vite-plugin-graphql',
     '<rootDir>/packages/esbuild-plugin-notifier',
     '<rootDir>/packages/nx-plugin-vitepress',
     '<rootDir>/e2e\\nx-plugin-vitepress-e2e',
+    '<rootDir>/packages/vite-plugin-prisma',
   ],
 };

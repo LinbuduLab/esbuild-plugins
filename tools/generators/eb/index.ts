@@ -1,3 +1,1 @@
-import esbuild from '../esbuild-plugin-generator/index';
-
-export default esbuild;
+export { default } from '../esbuild-plugin-generator/index';
