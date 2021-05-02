@@ -123,6 +123,7 @@ specifiers:
   webpack-sources: 1.4.3
   webpack-subresource-integrity: ^1.5.1
   yaml: ^1.10.2
+  yargs: ^16.2.0
   yargs-parser: ^20.2.7
 
 dependencies:
@@ -250,6 +251,7 @@ devDependencies:
   webpack-sources: 1.4.3
   webpack-subresource-integrity: 1.5.2_webpack@4.42.0
   yaml: 1.10.2
+  yargs: 16.2.0
   yargs-parser: 20.2.7
 
 packages:
