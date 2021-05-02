@@ -4,8 +4,9 @@ generator client {
 }
 
 datasource db {
-  provider = "<%= DatasourceProvider %>"
-  url      = <%= DatasourceURL %>
+  provider = "<%= DatasourceProvider _%>"
+  <%# use unescaped tag to get env('DATABASE_URL') %>
+  url      = <%- DatasourceURL %>
 }
 
 // TODO: only create initial schema when initial schema is true

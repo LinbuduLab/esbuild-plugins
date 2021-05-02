@@ -27,6 +27,7 @@ import {
 } from 'nx-plugin-devkit';
 import { PrismaInitGeneratorSchema } from './schema';
 import { normalizeSchema } from './lib/normalize-schema';
+import { envContent } from './lib/env';
 
 export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
   const normalizedSchema = normalizeSchema(host, schema);
@@ -56,7 +57,7 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
       ClientProvider: normalizedSchema.clientProvider,
       ClientOutput: normalizedSchema.clientOutput,
       // FIXME: 转义'字符
-      DatasourceURL: normalizedSchema.datasourceUrl.replace("'", '\\"'),
+      DatasourceURL: normalizedSchema.datasourceUrl.replaceAll("'", '"'),
       DatasourceProvider: normalizedSchema.datasourceProvider,
     }
   );
@@ -66,18 +67,18 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
       ? 'file:../../db.sqlite'
       : 'SET_DATABASE_URL_HERE';
 
+  host.write(
+    path.join(normalizedSchema.projectRoot, '.env'),
+    envContent(envDBUrl)
+  );
+
   if (normalizedSchema.useProjectEnv) {
-    generateFiles(
-      host,
-      path.join(__dirname, './files/env'),
-      normalizedSchema.projectRoot,
-      {
-        tmpl: '',
-        DBURL: envDBUrl,
-      }
+    host.write(
+      path.join(normalizedSchema.projectRoot, '.env'),
+      envContent(envDBUrl)
     );
   } else {
-    console.log('Or create env file at workspace root');
+    host.write(path.join('.env'), envContent(envDBUrl));
   }
 
   // 抽离到nx-plugin-devkit
@@ -90,10 +91,11 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
   };
 
   // prisma generate
+  // TODO: 计算cwd到schema location
   project.targets['prisma-generate'] = {
     executor: 'nx-plugin-devkit:exec',
     options: {
-      commands: ['prisma generate'],
+      command: 'prisma generate --schema=./',
       cwd: normalizedSchema.projectRoot,
       parallel: false,
       color: true,
