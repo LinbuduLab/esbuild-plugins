@@ -1,13 +1,11 @@
 {
   "name": "nx-plugin-devkit",
   "version": "0.0.1-1",
-  "description": "@nrwl/nx plugin integration with devkit.",
+  "description": "Nx plugin development utilities collection",
   "keywords": [
     "nx",
-    "@nrwl/nx",
-    "devkit",
     "plugin",
-    "monorepo"
+    "devkit"
   ],
   "homepage": "https://github.com/PenumbraPro/nx-plugins/tree/master/packages/nx-plugin-devkit#readme",
   "bugs": {
@@ -21,9 +19,12 @@
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
   "dependencies": {
     "chalk": "^4.1.0",
+    "dotenv": "8.2.0",
+    "execa": "^5.0.0",
     "fs-extra": "^9.1.0",
     "glob": "^7.1.6",
-    "rxjs": "^6.6.7"
+    "rxjs": "^6.6.7",
+    "yargs-parser": "^20.2.7"
   },
   "peerDependencies": {
     "@nrwl/devkit": "12.0.8",

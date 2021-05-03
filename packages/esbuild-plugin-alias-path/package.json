@@ -2,9 +2,17 @@
   "name": "esbuild-plugin-alias-path",
   "version": "0.0.1-1",
   "description": "ESBuild plugin integration with alias-path.",
-  "keywords": ["esbuild", "ESBuild", "alias-path", "plugin", "monorepo"],
+  "keywords": [
+    "esbuild",
+    "ESBuild",
+    "alias-path",
+    "plugin",
+    "monorepo"
+  ],
   "homepage": "https://github.com/PenumbraPro/nx-plugins/tree/master/packages/esbuild-plugin-alias-path#readme",
-  "bugs": { "url": "https://github.com/PenumbraPro/nx-plugins/issues" },
+  "bugs": {
+    "url": "https://github.com/PenumbraPro/nx-plugins/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PenumbraPro/nx-plugins.git"
@@ -12,5 +20,7 @@
   "license": "MIT",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
   "dependencies": {},
-  "peerDependencies": { "esbuild": "^0.11.11" }
+  "peerDependencies": {
+    "esbuild": "^0.11.11"
+  }
 }

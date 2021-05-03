@@ -52,6 +52,18 @@ export const createMissingFields = (projectName: string) => {
 
   const homepage = `https://github.com/PenumbraPro/nx-plugins/tree/master/packages/${projectName}#readme`;
 
+  if (projectName === 'nx-plugin-devkit') {
+    return {
+      license,
+      description: 'Nx plugin development utilities collection',
+      keywords: ['nx', 'plugin', 'devkit'],
+      repository,
+      author,
+      bugs,
+      homepage,
+    };
+  }
+
   return {
     license,
     description,

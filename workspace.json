@@ -333,9 +333,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-swc/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["packages/nx-plugin-swc/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -398,9 +396,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-vite/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["packages/nx-plugin-vite/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -463,9 +459,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-umi/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["packages/nx-plugin-umi/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -642,9 +636,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-koa/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["packages/nx-plugin-koa/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -696,6 +688,136 @@
             "npmPackageName": "nx-plugin-koa",
             "pluginOutputPath": "dist/packages/nx-plugin-koa",
             "jestConfig": "e2e/nx-plugin-koa-e2e/jest.config.js"
+          }
+        }
+      }
+    },
+    "nx-plugin-vitepress": {
+      "root": "packages/nx-plugin-vitepress",
+      "sourceRoot": "packages/nx-plugin-vitepress/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/nx-plugin-vitepress/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-vitepress"],
+          "options": {
+            "jestConfig": "packages/nx-plugin-vitepress/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-vitepress",
+            "tsConfig": "packages/nx-plugin-vitepress/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-vitepress/package.json",
+            "main": "packages/nx-plugin-vitepress/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-vitepress/*.md",
+              {
+                "input": "./packages/nx-plugin-vitepress/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-vitepress",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-vitepress",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-vitepress-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-plugin-vitepress-e2e",
+      "sourceRoot": "e2e\\nx-plugin-vitepress-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-vitepress:build",
+            "npmPackageName": "nx-plugin-vitepress",
+            "pluginOutputPath": "dist/packages/nx-plugin-vitepress",
+            "jestConfig": "e2e/nx-plugin-vitepress-e2e/jest.config.js"
+          }
+        }
+      }
+    },
+    "nx-plugin-parcel": {
+      "root": "packages/nx-plugin-parcel",
+      "sourceRoot": "packages/nx-plugin-parcel/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/nx-plugin-parcel/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-parcel"],
+          "options": {
+            "jestConfig": "packages/nx-plugin-parcel/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-parcel",
+            "tsConfig": "packages/nx-plugin-parcel/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-parcel/package.json",
+            "main": "packages/nx-plugin-parcel/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-parcel/*.md",
+              {
+                "input": "./packages/nx-plugin-parcel/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-parcel",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-parcel",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-parcel-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-plugin-parcel-e2e",
+      "sourceRoot": "e2e\\nx-plugin-parcel-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-parcel:build",
+            "npmPackageName": "nx-plugin-parcel",
+            "pluginOutputPath": "dist/packages/nx-plugin-parcel",
+            "jestConfig": "e2e/nx-plugin-parcel-e2e/jest.config.js"
           }
         }
       }
@@ -894,38 +1016,6 @@
         }
       }
     },
-    "vite-plugin-graphql": {
-      "root": "packages/vite-plugin-graphql",
-      "sourceRoot": "packages/vite-plugin-graphql/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/vite-plugin-graphql/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/vite-plugin-graphql"],
-          "options": {
-            "jestConfig": "packages/vite-plugin-graphql/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/vite-plugin-graphql",
-            "tsConfig": "packages/vite-plugin-graphql/tsconfig.lib.json",
-            "packageJson": "packages/vite-plugin-graphql/package.json",
-            "main": "packages/vite-plugin-graphql/src/index.ts",
-            "assets": ["packages/vite-plugin-graphql/*.md"]
-          }
-        }
-      }
-    },
     "esbuild-plugin-notifier": {
       "root": "packages/esbuild-plugin-notifier",
       "sourceRoot": "packages/esbuild-plugin-notifier/src",
@@ -958,22 +1048,22 @@
         }
       }
     },
-    "nx-plugin-vitepress": {
-      "root": "packages/nx-plugin-vitepress",
-      "sourceRoot": "packages/nx-plugin-vitepress/src",
+    "vite-plugin-graphql": {
+      "root": "packages/vite-plugin-graphql",
+      "sourceRoot": "packages/vite-plugin-graphql/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/nx-plugin-vitepress/**/*.ts"]
+            "lintFilePatterns": ["packages/vite-plugin-graphql/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-vitepress"],
+          "outputs": ["coverage/packages/vite-plugin-graphql"],
           "options": {
-            "jestConfig": "packages/nx-plugin-vitepress/jest.config.js",
+            "jestConfig": "packages/vite-plugin-graphql/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -981,44 +1071,11 @@
           "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/packages/nx-plugin-vitepress",
-            "tsConfig": "packages/nx-plugin-vitepress/tsconfig.lib.json",
-            "packageJson": "packages/nx-plugin-vitepress/package.json",
-            "main": "packages/nx-plugin-vitepress/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-vitepress/*.md",
-              {
-                "input": "./packages/nx-plugin-vitepress/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-vitepress",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./packages/nx-plugin-vitepress",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "nx-plugin-vitepress-e2e": {
-      "projectType": "application",
-      "root": "e2e\\nx-plugin-vitepress-e2e",
-      "sourceRoot": "e2e\\nx-plugin-vitepress-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-plugin-vitepress:build",
-            "npmPackageName": "nx-plugin-vitepress",
-            "pluginOutputPath": "dist/packages/nx-plugin-vitepress",
-            "jestConfig": "e2e/nx-plugin-vitepress-e2e/jest.config.js"
+            "outputPath": "dist/packages/vite-plugin-graphql",
+            "tsConfig": "packages/vite-plugin-graphql/tsconfig.lib.json",
+            "packageJson": "packages/vite-plugin-graphql/package.json",
+            "main": "packages/vite-plugin-graphql/src/index.ts",
+            "assets": ["packages/vite-plugin-graphql/*.md"]
           }
         }
       }
@@ -1054,74 +1111,7 @@
           }
         }
       }
-    },
-    "nx-plugin-parcel": {
-      "root": "packages/nx-plugin-parcel",
-      "sourceRoot": "packages/nx-plugin-parcel/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-parcel/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-parcel"],
-          "options": {
-            "jestConfig": "packages/nx-plugin-parcel/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/nx-plugin-parcel",
-            "tsConfig": "packages/nx-plugin-parcel/tsconfig.lib.json",
-            "packageJson": "packages/nx-plugin-parcel/package.json",
-            "main": "packages/nx-plugin-parcel/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-parcel/*.md",
-              {
-                "input": "./packages/nx-plugin-parcel/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-parcel",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./packages/nx-plugin-parcel",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "nx-plugin-parcel-e2e": {
-      "projectType": "application",
-      "root": "e2e\\nx-plugin-parcel-e2e",
-      "sourceRoot": "e2e\\nx-plugin-parcel-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-plugin-parcel:build",
-            "npmPackageName": "nx-plugin-parcel",
-            "pluginOutputPath": "dist/packages/nx-plugin-parcel",
-            "jestConfig": "e2e/nx-plugin-parcel-e2e/jest.config.js"
-          }
-        }
-      }
     }
   },
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+  "cli": { "defaultCollection": "@nrwl/workspace" }
 }

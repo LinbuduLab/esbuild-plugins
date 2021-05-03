@@ -86,25 +86,25 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-koa"]
     },
+    "nx-plugin-vitepress": { "tags": [] },
+    "nx-plugin-vitepress-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-vitepress"]
+    },
+    "nx-plugin-parcel": { "tags": [] },
+    "nx-plugin-parcel-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-parcel"]
+    },
     "esbuild-plugin-decorator": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-node-externals": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-filesize": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-ignore": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-html": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-alias-path": { "tags": ["scope:esbuild"] },
-    "vite-plugin-graphql": { "tags": [] },
     "esbuild-plugin-notifier": { "tags": [] },
-    "nx-plugin-vitepress": { "tags": [] },
-    "nx-plugin-vitepress-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-vitepress"]
-    },
-    "vite-plugin-prisma": { "tags": [] },
-    "nx-plugin-parcel": { "tags": [] },
-    "nx-plugin-parcel-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-parcel"]
-    }
+    "vite-plugin-graphql": { "tags": [] },
+    "vite-plugin-prisma": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

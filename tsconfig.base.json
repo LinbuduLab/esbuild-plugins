@@ -27,6 +27,8 @@
       "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"],
       "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"],
       "nx-plugin-koa": ["packages/nx-plugin-koa/src/index.ts"],
+      "nx-plugin-vitepress": ["packages/nx-plugin-vitepress/src/index.ts"],
+      "nx-plugin-parcel": ["packages/nx-plugin-parcel/src/index.ts"],
       "esbuild-plugin-html": ["packages/esbuild-plugin-html/src/index.ts"],
       "esbuild-plugin-decorator": [
         "packages/esbuild-plugin-decorator/src/index.ts"
@@ -43,13 +45,11 @@
       "esbuild-plugin-alias-path": [
         "packages/esbuild-plugin-alias-path/src/index.ts"
       ],
-      "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"],
       "esbuild-plugin-notifier": [
         "packages/esbuild-plugin-notifier/src/index.ts"
       ],
-      "nx-plugin-vitepress": ["packages/nx-plugin-vitepress/src/index.ts"],
-      "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"],
-      "nx-plugin-parcel": ["packages/nx-plugin-parcel/src/index.ts"]
+      "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"],
+      "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
