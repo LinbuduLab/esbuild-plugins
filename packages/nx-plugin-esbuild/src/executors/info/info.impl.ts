@@ -11,8 +11,7 @@ import jsonfile from 'jsonfile';
 import execa from 'execa';
 import { ESBuildInfoExecutorSchema } from './schema';
 import { normalizeInfoExecutorSchema } from './lib/normalize-schema';
-import { report } from '@nrwl/workspace/src/command-line/report';
-
+import { nxReportHandler, envInfo } from 'nx-plugin-devkit';
 // info executor：
 // nx esinfo project1
 // nx report
@@ -50,26 +49,16 @@ export default async function infoExecutor(
   console.log(`Project build target: ${options.buildTarget}`);
   console.log(`Project serve target: ${options.serveTarget}`);
 
-  const nxReportHandler = report.handler;
-
   nxReportHandler();
 
-  const envInfos = await envinfo.run(
-    {
-      System: ['OS', 'CPU'],
-      Binaries: ['Node', 'Yarn', 'npm'],
-      Browsers: ['Chrome', 'Firefox', 'Safari'],
-      npmPackages: [
-        'nx-plugin-esbuild',
-        'nx-plugin-devkit',
-        'esbuild',
-        'esbuild-plugin-decorator',
-        'esbuild-plugin-node-externals',
-        'esbuild-plugin-alias-path',
-      ],
-    },
-    { json: false, showNotFound: true }
-  );
+  const envInfos = await envInfo([
+    'nx-plugin-esbuild',
+    'nx-plugin-devkit',
+    'esbuild',
+    'esbuild-plugin-decorator',
+    'esbuild-plugin-node-externals',
+    'esbuild-plugin-alias-path',
+  ]);
 
   console.log(envInfos);
 

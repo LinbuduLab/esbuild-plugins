@@ -17,12 +17,12 @@ import {
 import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
 
 import { nxVersion } from '@nrwl/node/src/utils/versions';
-import type { BasicNormalizedAppGenSchema } from './shared-schema';
+import type { BasicNormalizedAppGenSchema } from '../shared-schema';
 import {
   createNodeAppBuildConfig,
   createNodeAppServeConfig,
 } from './node-app-config';
-import { setDefaultProject } from './workspace';
+import { setDefaultProject } from '../workspace';
 
 export function setupProxy<
   NormalizedAppSchema extends BasicNormalizedAppGenSchema

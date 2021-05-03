@@ -1,4 +1,4 @@
-import { getAvailableAppsOrLibs } from './get-avaliable-projects';
+import { getAvailableAppsOrLibs } from '../get-avaliable-projects';
 import {
   getWorkspaceLayout,
   names,
@@ -10,7 +10,7 @@ import {
 import type {
   BasicNodeAppGenSchema,
   BasicNormalizedAppGenSchema,
-} from './shared-schema';
+} from '../shared-schema';
 
 export function normalizeNodeAppSchema<
   NormalizedAppSchema extends BasicNodeAppGenSchema

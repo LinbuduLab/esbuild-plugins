@@ -2,7 +2,7 @@ import { Tree, joinPathFragments, GeneratorCallback } from '@nrwl/devkit';
 import { jestProjectGenerator } from '@nrwl/jest';
 import { Linter, lintProjectGenerator } from '@nrwl/linter';
 import { initializeNodeApp } from './node-app-setup';
-import type { BasicNormalizedAppGenSchema } from './shared-schema';
+import type { BasicNormalizedAppGenSchema } from '../shared-schema';
 
 export async function createNodeInitTask(
   host: Tree

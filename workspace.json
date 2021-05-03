@@ -1111,6 +1111,12 @@
           }
         }
       }
+    },
+    "nx-plugin-parcel3618914": {
+      "root": "packages/nx-plugin-parcel3618914",
+      "projectType": "library",
+      "sourceRoot": "packages/nx-plugin-parcel3618914/src",
+      "targets": { "build": { "executor": "@penumbra/nx-plugin-parcel:build" } }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }

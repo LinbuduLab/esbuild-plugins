@@ -1,6 +1,6 @@
 import { joinPathFragments, TargetConfiguration } from '@nrwl/devkit';
 
-import type { BasicNormalizedAppGenSchema } from './shared-schema';
+import type { BasicNormalizedAppGenSchema } from '../shared-schema';
 
 export function createNodeAppBuildConfig<
   NormalizedAppSchema extends BasicNormalizedAppGenSchema

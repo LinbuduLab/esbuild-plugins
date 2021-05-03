@@ -104,7 +104,8 @@
     "esbuild-plugin-alias-path": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-notifier": { "tags": [] },
     "vite-plugin-graphql": { "tags": [] },
-    "vite-plugin-prisma": { "tags": [] }
+    "vite-plugin-prisma": { "tags": [] },
+    "nx-plugin-parcel3618914": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }
