@@ -109,6 +109,11 @@
       "description": "Files to inject as globals variables, should provide with suffix (.js/.ts)",
       "default": []
     },
+    "define": {
+      "type": "object",
+      "description": "ESBuild define options, support string literal replacement only",
+      "default": {}
+    },
     "metaFile": {
       "type": "boolean",
       "description": "Generates a 'meta.json' file by esbuild",

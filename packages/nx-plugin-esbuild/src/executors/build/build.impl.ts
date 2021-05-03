@@ -104,7 +104,11 @@ export default function buildExecutor(
     footer: options.inserts.footer,
     metafile: options.metaFile,
     minify: options.minify,
+    minifyIdentifiers: options.minify,
+    minifyWhitespace: options.minify,
+    minifySyntax: options.minify,
     inject: options.inject,
+    define: options.define,
   };
 
   let buildCounter = 1;

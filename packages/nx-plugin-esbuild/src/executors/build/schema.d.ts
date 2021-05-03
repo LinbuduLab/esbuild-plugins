@@ -60,6 +60,14 @@ export interface ESBuildExecutorSchema {
 
   inject: string | string[];
 
+  // "'true'" >>> "true"
+  // "true" >>> true
+  // "[]" >>> []
+  // "'[]'" ??? "[]"
+  define?: {
+    [key: string]: string;
+  };
+
   // nx options
   buildLibsFromSource: boolean;
   generatePackageJson: boolean;
