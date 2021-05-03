@@ -46,6 +46,21 @@ export function normalizeBuildExecutorOptions(
     options.format = 'iife';
   }
 
+  if (!Array.isArray(options.inject)) {
+    options.inject = [options.inject];
+  }
+
+  const normalizedInject = options.inject.map((injectPath) => {
+    if (!injectPath.endsWith('.js') && !injectPath.endsWith('.ts')) {
+      throw new Error(
+        `${injectPath} should be specified with suffix (.js/.ts)`
+      );
+    }
+    const normalizedInjectPath = path.join(projectSourceRoot, injectPath);
+
+    return normalizedInjectPath;
+  });
+
   const fileReplacements = normalizeFileReplacements(
     workspaceRoot,
     options.fileReplacements
@@ -82,5 +97,6 @@ export function normalizeBuildExecutorOptions(
     assets: normalizeAssets(options.assets, workspaceRoot, options.outputPath),
     inserts: formattedInserts,
     aliases,
+    inject: normalizedInject,
   };
 }

@@ -9,9 +9,11 @@ import type { Insert, FormattedInsert } from './lib/types';
 // TODO: options to support
 // √：options integrated
 // × options that will not be integrated
-// Define
+// TODO: JSX auto import support
+// focusing on node currently
+// Define √
 // Format √
-// Inject
+// Inject√
 // Loader
 // Outdir & Outfile
 // Platform √
@@ -56,6 +58,8 @@ export interface ESBuildExecutorSchema {
   // default as "all", and will use esbuild-plugin-node-externals as handler
   externalDependencies: 'all' | 'none' | string[];
 
+  inject: string | string[];
+
   // nx options
   buildLibsFromSource: boolean;
   generatePackageJson: boolean;
@@ -88,4 +92,5 @@ export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
   assets: AssetFileInputOutput[];
   inserts: FormattedInsert;
   aliases: Alias[];
+  inject: string[];
 }

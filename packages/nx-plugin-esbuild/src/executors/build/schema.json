@@ -101,6 +101,14 @@
       "description": "Dependencies to keep external to the bundle. (\"all\" (default, will use esbuild-plugin-node-externals), \"none\", or an array of module names)",
       "default": "all"
     },
+    "inject": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Files to inject as globals variables, should provide with suffix (.js/.ts)",
+      "default": []
+    },
     "metaFile": {
       "type": "boolean",
       "description": "Generates a 'meta.json' file by esbuild",
