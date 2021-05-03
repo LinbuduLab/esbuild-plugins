@@ -1,10 +1,7 @@
-import { Tree, joinPathFragments, getWorkspaceLayout } from '@nrwl/devkit';
+import { Tree, joinPathFragments } from '@nrwl/devkit';
 import { normalizeNodeAppSchema } from 'nx-plugin-devkit';
-import path from 'path';
-import fs from 'fs-extra';
 import {
   PrismaInitGeneratorSchema,
-  PrismaInitGeneratorExtraSchema,
   NormalizedPrismaInitGeneratorSchema,
 } from '../schema';
 

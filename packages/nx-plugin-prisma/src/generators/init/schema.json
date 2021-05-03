@@ -62,5 +62,10 @@
       "default": true
     }
   },
+  "collectArgs": {
+    "type": "boolean",
+    "description": "Collect all args in options.args",
+    "default": false
+  },
   "required": ["app"]
 }

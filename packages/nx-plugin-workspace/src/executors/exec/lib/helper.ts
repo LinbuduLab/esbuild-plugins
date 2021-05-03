@@ -16,9 +16,7 @@ export const parseArgs = (options: DevkitExecSchema) => {
   // 将schema中多余的选项收集起来，如a:1，b:2,dry-run:true
   // 收集为{}的形式
   if (!args) {
-    const { useCamelCase, ...unknownOptionsTreatedAsArgs } = Object.keys(
-      options
-    )
+    const unknownOptionsTreatedAsArgs = Object.keys(options)
       .filter((p) => schemaProps.indexOf(p) === -1)
       .map((p) => transformer(p))
       .reduce(
@@ -28,24 +26,29 @@ export const parseArgs = (options: DevkitExecSchema) => {
         {} as Record<string, string>
       );
 
+    options.useCamelCase
+      ? delete unknownOptionsTreatedAsArgs['useCamelCase']
+      : delete unknownOptionsTreatedAsArgs['use-camel-case'];
+
     console.log(
-      `Extra options was regarded as command arguments: ${Object.keys(
+      `Extra options was regarded as command arguments: [${Object.keys(
         unknownOptionsTreatedAsArgs
-      )}`
+      )}]`
     );
 
     return unknownOptionsTreatedAsArgs;
   }
 
   // passing unknown options to some libs will cause errors(like Prisma)
-  const { _, useCamelCase, ...parsedArgs } = yargsParser(
-    args.replace(/(^"|"$)/g, ''),
-    {
-      configuration: {
-        'camel-case-expansion': false,
-      },
-    }
-  );
+  const { _, ...parsedArgs } = yargsParser(args.replace(/(^"|"$)/g, ''), {
+    configuration: {
+      'camel-case-expansion': false,
+    },
+  });
+
+  options.useCamelCase
+    ? delete parsedArgs['useCamelCase']
+    : delete parsedArgs['use-camel-case'];
 
   return parsedArgs;
 };

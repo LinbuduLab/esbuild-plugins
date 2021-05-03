@@ -29,6 +29,8 @@ export interface PrismaInitGeneratorExtraSchema {
   clientProvider: 'prisma-client-js';
   // 创建一个简单的model
   initialSchema: boolean;
+  // 生成的项目配置中会使用args来存放所有参数
+  collectArgs: boolean;
   // TODO: 多client支持
   // TODO: generate、db、migrate选项支持
 }
