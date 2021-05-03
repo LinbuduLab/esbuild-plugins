@@ -105,7 +105,12 @@
     "esbuild-plugin-notifier": { "tags": [] },
     "vite-plugin-graphql": { "tags": [] },
     "vite-plugin-prisma": { "tags": [] },
-    "nx-plugin-parcel3618914": { "tags": [] }
+    "nx-plugin-parcel3618914": { "tags": [] },
+    "nx-plugin-workspace": { "tags": [] },
+    "nx-plugin-workspace-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-workspace"]
+    }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

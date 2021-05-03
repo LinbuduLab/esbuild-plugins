@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "executors": {
+    "exec": {
+      "implementation": "./src/executors/exec/exec.tmpl",
+      "schema": "./src/executors/exec/schema.json",
+      "description": "exec executor"
+    },
+    "convert-import-type": {
+      "implementation": "./src/executors/convert-import-type/executor",
+      "schema": "./src/executors/convert-import-type/schema.json",
+      "description": "convert-import-type executor"
+    }
+  }
+}

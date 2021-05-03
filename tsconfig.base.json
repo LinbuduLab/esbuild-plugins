@@ -49,7 +49,8 @@
         "packages/esbuild-plugin-notifier/src/index.ts"
       ],
       "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"],
-      "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"]
+      "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"],
+      "nx-plugin-workspace": ["packages/nx-plugin-workspace/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

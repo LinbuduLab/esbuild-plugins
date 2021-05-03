@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "name": "nx-plugin-parcel",
+  "name": "nx-plugin-workspace",
   "version": "0.0.1",
   "generators": {}
 }
