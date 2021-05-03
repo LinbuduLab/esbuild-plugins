@@ -11,6 +11,12 @@ export default async function (
   loadEnvVars(options.envFile);
   const normalized = normalizeSchema(options);
 
+  if (!normalized.command.length) {
+    throw new Error(
+      'No Commands Found! Please check is there any command specified in target configuration?'
+    );
+  }
+
   try {
     const success = normalized.parallel
       ? await runInParallel(normalized, context)

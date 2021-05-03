@@ -99,21 +99,20 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-parcel"]
     },
+    "nx-plugin-workspace": { "tags": ["scope:nx"] },
+    "nx-plugin-workspace-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-workspace"]
+    },
     "esbuild-plugin-decorator": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-node-externals": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-filesize": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-ignore": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-html": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-alias-path": { "tags": ["scope:esbuild"] },
-    "esbuild-plugin-notifier": { "tags": [] },
-    "vite-plugin-graphql": { "tags": [] },
-    "vite-plugin-prisma": { "tags": [] },
-    "nx-plugin-parcel3618914": { "tags": [] },
-    "nx-plugin-workspace": { "tags": [] },
-    "nx-plugin-workspace-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-workspace"]
-    }
+    "esbuild-plugin-notifier": { "tags": ["scope:esbuild"] },
+    "vite-plugin-graphql": { "tags": ["scope:vite"] },
+    "vite-plugin-prisma": { "tags": ["scope:vite"] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

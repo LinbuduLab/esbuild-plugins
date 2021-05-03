@@ -29,6 +29,7 @@
       "nx-plugin-koa": ["packages/nx-plugin-koa/src/index.ts"],
       "nx-plugin-vitepress": ["packages/nx-plugin-vitepress/src/index.ts"],
       "nx-plugin-parcel": ["packages/nx-plugin-parcel/src/index.ts"],
+      "nx-plugin-workspace": ["packages/nx-plugin-workspace/src/index.ts"],
       "esbuild-plugin-html": ["packages/esbuild-plugin-html/src/index.ts"],
       "esbuild-plugin-decorator": [
         "packages/esbuild-plugin-decorator/src/index.ts"
@@ -49,8 +50,7 @@
         "packages/esbuild-plugin-notifier/src/index.ts"
       ],
       "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"],
-      "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"],
-      "nx-plugin-workspace": ["packages/nx-plugin-workspace/src/index.ts"]
+      "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

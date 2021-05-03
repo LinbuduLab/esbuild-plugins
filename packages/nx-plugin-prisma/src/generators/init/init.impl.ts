@@ -16,10 +16,11 @@ import { PrismaInitGeneratorSchema } from './schema';
 import { normalizeSchema } from './lib/normalize-schema';
 import { initPrismaFiles } from './lib/create-files';
 import { createInitPrismaProjectConfiguration } from './lib/setup-config';
+import { updateGitIgnore } from 'nx-plugin-devkit';
 
 export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
+  updateGitIgnore(host, ['d/']);
   const normalizedSchema = normalizeSchema(host, schema);
-  console.log('normalizedSchema: ', normalizedSchema);
 
   const tasks: GeneratorCallback[] = [];
 
