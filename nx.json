@@ -34,7 +34,10 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-midway"]
     },
-    "nx-plugin-prisma": { "tags": ["scope:nx"] },
+    "nx-plugin-prisma": {
+      "tags": ["scope:nx"],
+      "implicitDependencies": ["nx-plugin-workspace"]
+    },
     "nx-plugin-prisma-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-prisma"]

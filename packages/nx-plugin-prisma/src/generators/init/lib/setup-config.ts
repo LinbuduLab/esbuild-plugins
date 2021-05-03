@@ -19,7 +19,7 @@ export function createInitPrismaProjectConfiguration(
 
   // prisma generate
   project.targets['prisma-generate'] = {
-    executor: 'nx-plugin-devkit:exec',
+    executor: 'nx-plugin-workspace:exec',
     options: {
       command: `prisma generate --schema=${cwd2SchemaRelativePath}`,
       cwd: schema.projectRoot,
@@ -31,7 +31,7 @@ export function createInitPrismaProjectConfiguration(
   };
 
   project.targets['prisma-format'] = {
-    executor: 'nx-plugin-devkit:exec',
+    executor: 'nx-plugin-workspace:exec',
     options: {
       command: `prisma format --schema=${cwd2SchemaRelativePath}`,
       cwd: schema.projectRoot,
@@ -43,7 +43,7 @@ export function createInitPrismaProjectConfiguration(
   };
 
   project.targets['prisma-db-pull'] = {
-    executor: 'nx-plugin-devkit:exec',
+    executor: 'nx-plugin-workspace:exec',
     options: {
       command: `prisma db pull --preview-feature --skip-generate --schema=${cwd2SchemaRelativePath}`,
       cwd: schema.projectRoot,
@@ -55,7 +55,7 @@ export function createInitPrismaProjectConfiguration(
   };
 
   project.targets['prisma-db-push'] = {
-    executor: 'nx-plugin-devkit:exec',
+    executor: 'nx-plugin-workspace:exec',
     options: {
       command: `prisma db push --preview-feature --skip-generate --schema=${cwd2SchemaRelativePath}`,
       cwd: schema.projectRoot,
@@ -67,7 +67,7 @@ export function createInitPrismaProjectConfiguration(
   };
 
   project.targets['prisma-studio'] = {
-    executor: 'nx-plugin-devkit:exec',
+    executor: 'nx-plugin-workspace:exec',
     options: {
       command: `prisma studio --browser chrome --port 7777 --schema=${cwd2SchemaRelativePath}`,
       cwd: schema.projectRoot,

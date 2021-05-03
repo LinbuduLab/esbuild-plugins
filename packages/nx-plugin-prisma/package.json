@@ -22,6 +22,7 @@
   "main": "src/index.js",
   "scripts": {
     "link": "pnpm link && npm-run-all --print-label --print-name  link:**",
+    "link:workspace": " pnpm link ../nx-plugin-workspace",
     "link:devkit": " pnpm link ../nx-plugin-devkit"
   },
   "dependencies": {},
