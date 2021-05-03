@@ -18,7 +18,7 @@ export function loadEnvVars(path?: string) {
     try {
       dotenv.config();
     } catch (e) {
-      console.log('e: ', e);
+      console.error(e);
     }
   }
 }

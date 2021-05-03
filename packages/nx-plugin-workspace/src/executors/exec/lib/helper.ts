@@ -3,70 +3,51 @@ import type { DevkitExecSchema } from './types';
 import path from 'path';
 import { schemaProps } from './types';
 import yargsParser from 'yargs-parser';
-import execa from 'execa';
-import { processEnv } from './env';
-
-export function createExecaProcess(
-  command: string,
-  color: boolean,
-  cwd: string
-) {
-  return new Promise((res, rej) => {
-    const childProcess = execa(command, {
-      env: processEnv(color),
-      extendEnv: true,
-      cwd,
-      stdio: 'inherit',
-    });
-
-    const processExitListener = () => childProcess.kill();
-    process.on('exit', processExitListener);
-    process.on('SIGTERM', processExitListener);
-
-    childProcess.on('exit', () => {
-      res(childProcess.exitCode === 0);
-    });
-  });
-}
-
-export function createSyncExecaProcess(
-  command: string,
-  color: boolean,
-  cwd: string
-) {
-  execa.sync(command, {
-    env: processEnv(color),
-    stdio: 'inherit',
-    cwd,
-  });
-}
+import kebabCase from 'lodash/kebabCase';
+import camelCase from 'lodash/camelCase';
 
 export const parseArgs = (options: DevkitExecSchema) => {
-  const args = options.args;
-  // 将多余的选项收集起来，如a:1，b:2,dry-run:true
-  //
-  if (!args) {
-    const unknownOptionsTreatedAsArgs = Object.keys(options)
-      .filter((p) => schemaProps.indexOf(p) === -1)
-      .reduce((m, c) => ((m[c] = options[c]), m), {});
+  // schema 中可以使用任意形式的选项格式，最终通过useCamelCase控制
+  // 只需要支持camelCase和kebabCase这两个即可
+  const transformer = options.useCamelCase ? camelCase : kebabCase;
 
-    // TODO: log here
+  const args = options.args;
+
+  // 将schema中多余的选项收集起来，如a:1，b:2,dry-run:true
+  // 收集为{}的形式
+  if (!args) {
+    const { useCamelCase, ...unknownOptionsTreatedAsArgs } = Object.keys(
+      options
+    )
+      .filter((p) => schemaProps.indexOf(p) === -1)
+      .map((p) => transformer(p))
+      .reduce(
+        (unknownOptionsMap, key) => (
+          (unknownOptionsMap[key] = options[key]), unknownOptionsMap
+        ),
+        {} as Record<string, string>
+      );
+
+    console.log(
+      `Extra options was regarded as command arguments: ${Object.keys(
+        unknownOptionsTreatedAsArgs
+      )}`
+    );
+
     return unknownOptionsTreatedAsArgs;
   }
 
-  return yargsParser(args.replace(/(^"|"$)/g, ''), {
-    configuration: { 'camel-case-expansion': true },
-  });
-};
+  // passing unknown options to some libs will cause errors(like Prisma)
+  const { _, useCamelCase, ...parsedArgs } = yargsParser(
+    args.replace(/(^"|"$)/g, ''),
+    {
+      configuration: {
+        'camel-case-expansion': false,
+      },
+    }
+  );
 
-export const camelCase = (input: string) => {
-  if (input.indexOf('-') > 1) {
-    return input
-      .toLowerCase()
-      .replace(/-(.)/g, (_match, group1) => group1.toUpperCase());
-  } else {
-    return input;
-  }
+  return parsedArgs;
 };
 
 export const normalizeCommand = (
@@ -74,6 +55,8 @@ export const normalizeCommand = (
   args: Record<string, string>,
   forwardAllArgs: boolean
 ) => {
+  // {args.xxx} 会被args.xxx的值填充
+  // 这里将会固定使用驼峰填充属性？
   if (command.indexOf('{args.') > -1) {
     const regex = /{args\.([^}]+)}/g;
     return command.replace(regex, (_, group: string) => args[camelCase(group)]);

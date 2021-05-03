@@ -1,5 +1,4 @@
 import type {
-  CommandItem,
   DevkitExecSchema,
   NormalizedCommandItem,
   NormalizedExecSchema,
@@ -9,7 +8,9 @@ import { parseArgs, normalizeCommand } from './helper';
 export const normalizeSchema = (
   schema: DevkitExecSchema
 ): NormalizedExecSchema => {
+  // extra args
   const parsedArgs = parseArgs(schema);
+
   const commands: NormalizedCommandItem[] = [];
   let parallel = true;
 
@@ -38,5 +39,6 @@ export const normalizeSchema = (
     commands,
     parsedArgs,
     parallel,
+    useCamelCase: schema.useCamelCase ?? false,
   };
 };

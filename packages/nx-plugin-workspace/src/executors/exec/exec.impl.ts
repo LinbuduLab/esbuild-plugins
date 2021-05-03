@@ -18,7 +18,7 @@ export default async function (
     return { success };
   } catch (e) {
     throw new Error(
-      `ERROR: Something went wrong in @nrwl/run-commands - ${e.message}`
+      `ERROR: Something went wrong in nx-plugin-workspace - ${e.message}`
     );
   }
 }
