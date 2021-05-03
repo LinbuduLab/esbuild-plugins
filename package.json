@@ -138,6 +138,7 @@
     "dayjs": "^1.10.4",
     "dotenv": "8.2.0",
     "enquirer": "^2.3.6",
+    "envinfo": "^7.8.1",
     "es-module-lexer": "^0.4.1",
     "esbuild": "^0.11.11",
     "eslint": "7.24.0",

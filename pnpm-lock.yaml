@@ -71,6 +71,7 @@ specifiers:
   dayjs: ^1.10.4
   dotenv: 8.2.0
   enquirer: ^2.3.6
+  envinfo: ^7.8.1
   es-module-lexer: ^0.4.1
   esbuild: ^0.11.11
   eslint: 7.24.0
@@ -200,6 +201,7 @@ devDependencies:
   dayjs: 1.10.4
   dotenv: 8.2.0
   enquirer: 2.3.6
+  envinfo: 7.8.1
   es-module-lexer: 0.4.1
   esbuild: 0.11.11
   eslint: 7.24.0
@@ -6430,6 +6432,12 @@ packages:
   /env-paths/2.2.1:
     resolution: {integrity: sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==}
     engines: {node: '>=6'}
+    dev: true
+
+  /envinfo/7.8.1:
+    resolution: {integrity: sha512-/o+BXHmB7ocbHEAs6F2EnG0ogybVVUdkRunTT2glZU9XAaGmhqskrvKwqXuDfNjEO0LZKWdejEEpnq8aM0tOaw==}
+    engines: {node: '>=4'}
+    hasBin: true
     dev: true
 
   /err-code/2.0.3:

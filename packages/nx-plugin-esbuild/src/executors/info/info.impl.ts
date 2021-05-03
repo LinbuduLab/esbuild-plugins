@@ -5,16 +5,28 @@ import {
   readProjectConfiguration,
   readJson,
 } from '@nrwl/devkit';
+import envinfo from 'envinfo';
 import path from 'path';
 import jsonfile from 'jsonfile';
+import execa from 'execa';
 import { ESBuildInfoExecutorSchema } from './schema';
 import { normalizeInfoExecutorSchema } from './lib/normalize-schema';
+import { report } from '@nrwl/workspace/src/command-line/report';
 
 // info executor：
+// nx esinfo project1
+// nx report
+// +
+// esbuild、esbuild插件的版本
+// 合并esbuild-nx.json后的配置
+// +
+// envinfo 输出
+
 // esbuild、esbuild插件 依赖版本
 // esbuild配置
 // esbuild插件配置
 // 当前project相关信息
+// nx相关信息
 
 export default async function infoExecutor(
   rawOptions: ESBuildInfoExecutorSchema,
@@ -35,28 +47,31 @@ export default async function infoExecutor(
 
   const options = normalizeInfoExecutorSchema(rawOptions, context);
 
-  // TODO: error handle
-  const rootPackageJsonContent = jsonfile.readFileSync(
-    path.resolve(context.root, 'package.json')
+  console.log(`Project build target: ${options.buildTarget}`);
+  console.log(`Project serve target: ${options.serveTarget}`);
+
+  const nxReportHandler = report.handler;
+
+  nxReportHandler();
+
+  const envInfos = await envinfo.run(
+    {
+      System: ['OS', 'CPU'],
+      Binaries: ['Node', 'Yarn', 'npm'],
+      Browsers: ['Chrome', 'Firefox', 'Safari'],
+      npmPackages: [
+        'nx-plugin-esbuild',
+        'nx-plugin-devkit',
+        'esbuild',
+        'esbuild-plugin-decorator',
+        'esbuild-plugin-node-externals',
+        'esbuild-plugin-alias-path',
+      ],
+    },
+    { json: false, showNotFound: true }
   );
 
-  const deps = {
-    ...rootPackageJsonContent['devDependencies'],
-    ...rootPackageJsonContent['dependencies'],
-  };
-
-  const depNames = Object.keys(deps);
-  if (!depNames.includes('esbuild')) {
-    console.log(
-      'ESBuild was not installed. Run nx g nx-plugin-esbuild:setup to xxx, or run nx g nx-plugin-esbuild:init to xxx'
-    );
-    return {
-      success: false,
-    };
-  }
-
-  // find from lock file?
-  console.log(`ESBuild Version: ${deps['esbuild']}`);
+  console.log(envInfos);
 
   return {
     success: true,
