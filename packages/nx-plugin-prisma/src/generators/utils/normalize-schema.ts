@@ -1,14 +1,14 @@
 import { Tree, joinPathFragments } from '@nrwl/devkit';
 import { normalizeNodeAppSchema } from 'nx-plugin-devkit';
 import {
-  PrismaInitGeneratorSchema,
-  NormalizedPrismaInitGeneratorSchema,
-} from '../schema';
+  PrismaGeneratorSchema,
+  NormalizedPrismaGeneratorSchema,
+} from './schema-types';
 
 export function normalizeSchema(
   host: Tree,
-  schema: PrismaInitGeneratorSchema
-): NormalizedPrismaInitGeneratorSchema {
+  schema: PrismaGeneratorSchema
+): NormalizedPrismaGeneratorSchema {
   const basicNormalizedAppGenSchema = normalizeNodeAppSchema(
     host,
     schema,

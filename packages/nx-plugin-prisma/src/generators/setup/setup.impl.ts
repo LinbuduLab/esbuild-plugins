@@ -9,9 +9,9 @@ import {
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
 import { PrismaSetupGeneratorSchema } from './schema';
-import { normalizeSchema } from './lib/normalize-schema';
-import { initPrismaFiles } from './lib/create-files';
-import { createInitPrismaProjectConfiguration } from './lib/setup-config';
+import { normalizeSchema } from '../utils/normalize-schema';
+import { createPrismaSchemaFiles } from '../utils/create-files';
+import { createPrismaProjectConfiguration } from '../utils/setup-config';
 import { updateGitIgnore } from 'nx-plugin-devkit';
 
 export default async function (host: Tree, schema: PrismaSetupGeneratorSchema) {
@@ -20,9 +20,9 @@ export default async function (host: Tree, schema: PrismaSetupGeneratorSchema) {
 
   const tasks: GeneratorCallback[] = [];
 
-  initPrismaFiles(host, normalizedSchema);
+  createPrismaSchemaFiles(host, normalizedSchema);
 
-  const projectConfig = createInitPrismaProjectConfiguration(normalizedSchema);
+  const projectConfig = createPrismaProjectConfiguration(normalizedSchema);
   updateProjectConfiguration(host, normalizedSchema.projectName, projectConfig);
 
   await formatFiles(host);

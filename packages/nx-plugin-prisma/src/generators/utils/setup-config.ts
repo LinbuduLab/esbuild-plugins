@@ -4,11 +4,11 @@ import {
   normalizePath,
 } from '@nrwl/devkit';
 import path from 'path';
-import { NormalizedPrismaSetupGeneratorSchema } from '../schema';
+import { NormalizedPrismaGeneratorSchema } from './schema-types';
 import merge from 'lodash/merge';
 
-export function createInitPrismaProjectConfiguration(
-  schema: NormalizedPrismaSetupGeneratorSchema
+export function createPrismaProjectConfiguration(
+  schema: NormalizedPrismaGeneratorSchema
 ): ProjectConfiguration & NxJsonProjectConfiguration {
   const project: ProjectConfiguration & NxJsonProjectConfiguration = {
     root: schema.projectRoot,

@@ -1,15 +1,15 @@
 import { generateFiles, Tree } from '@nrwl/devkit';
 import path from 'path';
 import { createNodeAppFiles } from 'nx-plugin-devkit';
-import { NormalizedPrismaInitGeneratorSchema } from '../schema';
+import { NormalizedPrismaGeneratorSchema } from './schema-types';
 import { envContent } from './env';
 
-export function initPrismaFiles(
+export function createPrismaSchemaFiles(
   host: Tree,
-  schema: NormalizedPrismaInitGeneratorSchema
+  schema: NormalizedPrismaGeneratorSchema
 ) {
   // create basic files
-  createNodeAppFiles(host, schema, path.join(__dirname, '../files/app'), {
+  createNodeAppFiles(host, schema, path.join(__dirname, './files/app'), {
     SchemaName: schema.schemaName,
   });
 
@@ -18,7 +18,7 @@ export function initPrismaFiles(
     host,
     path.join(
       __dirname,
-      schema.initialSchema ? '../files/prisma' : '../files/prisma-empty'
+      schema.initialSchema ? './files/prisma' : './files/prisma-empty'
     ),
     schema.prismaSchemaDir,
     {

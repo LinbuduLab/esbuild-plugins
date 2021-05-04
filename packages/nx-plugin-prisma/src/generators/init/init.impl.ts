@@ -11,15 +11,15 @@ import {
   createNodeJestTask,
   createNodeLintTask,
   setDefaultProject,
+  updateGitIgnore,
 } from 'nx-plugin-devkit';
+
 import { PrismaInitGeneratorSchema } from './schema';
-import { normalizeSchema } from './lib/normalize-schema';
-import { initPrismaFiles } from './lib/create-files';
-import { createInitPrismaProjectConfiguration } from './lib/setup-config';
-import { updateGitIgnore } from 'nx-plugin-devkit';
+import { normalizeSchema } from '../utils/normalize-schema';
+import { createPrismaSchemaFiles } from '../utils/create-files';
+import { createPrismaProjectConfiguration } from '../utils/setup-config';
 
 export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
-  updateGitIgnore(host, ['d/']);
   const normalizedSchema = normalizeSchema(host, schema);
 
   const tasks: GeneratorCallback[] = [];
@@ -27,10 +27,9 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
   const initTask = await createNodeInitTask(host);
   tasks.push(initTask);
 
-  initPrismaFiles(host, normalizedSchema);
+  createPrismaSchemaFiles(host, normalizedSchema);
 
-  // TODO: extract as createExecTargets
-  const projectConfig = createInitPrismaProjectConfiguration(normalizedSchema);
+  const projectConfig = createPrismaProjectConfiguration(normalizedSchema);
   addProjectConfiguration(host, normalizedSchema.projectName, projectConfig);
 
   const lintTask = await createNodeLintTask(host, normalizedSchema);
