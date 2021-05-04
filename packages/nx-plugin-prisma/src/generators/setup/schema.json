@@ -5,14 +5,14 @@
   "title": "",
   "type": "object",
   "properties": {
-    "name": {
+    "app": {
       "type": "string",
       "description": "",
       "$default": {
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What name would you like to use?"
+      "x-prompt": "Which app would you like to init Prisma?"
     },
     "tags": {
       "type": "string",
@@ -23,7 +23,49 @@
       "type": "string",
       "description": "A directory where the project is placed",
       "alias": "d"
+    },
+    "frontendProject": {
+      "type": "string",
+      "alias": "f",
+      "description": "Frontend project that needs to access this application. This sets up proxy configuration."
+    },
+    "prismaDirectory": {
+      "type": "string",
+      "alias": "p",
+      "description": "A directory where the prisma schema is located",
+      "default": "app/prisma"
+    },
+    "schemaName": {
+      "type": "string",
+      "alias": "s",
+      "description": "Prisma schema file name",
+      "default": "schema"
+    },
+    "datasourceProvider": {
+      "type": "string",
+      "enum": ["sqlite", "postgresql", "mysql", "sqlserver"],
+      "description": "Prisma datasource provider",
+      "default": "sqlite"
+    },
+    "useProjectEnv": {
+      "type": "boolean",
+      "description": "Create env file inside project",
+      "default": true
+    },
+    "clientOutput": {
+      "type": "string",
+      "description": "Prisma client output"
+    },
+    "initialSchema": {
+      "type": "boolean",
+      "description": "Create model definitions for generated schema",
+      "default": true
     }
   },
-  "required": ["name"]
+  "collectArgs": {
+    "type": "boolean",
+    "description": "Collect all args in options.args",
+    "default": false
+  },
+  "required": ["app"]
 }

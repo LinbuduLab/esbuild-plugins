@@ -5,6 +5,7 @@ import {
   Tree,
   offsetFromRoot,
   joinPathFragments,
+  normalizePath,
 } from '@nrwl/devkit';
 
 import type {
@@ -40,7 +41,9 @@ export function normalizeNodeAppSchema<
 
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
 
-  const projectRoot = `${getWorkspaceLayout(host).appsDir}/${projectDirectory}`;
+  const projectRoot = normalizePath(
+    `${getWorkspaceLayout(host).appsDir}/${projectDirectory}`
+  );
 
   const projectSourceRoot = joinPathFragments(projectRoot, 'src');
 

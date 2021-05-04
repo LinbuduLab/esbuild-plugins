@@ -1,0 +1,15 @@
+generator client {
+  provider = "<%= ClientProvider %>"
+  output   = "<%= ClientOutput %>"
+}
+<%# use unescaped tag to get env('DATABASE_URL') _%>
+datasource db {
+  provider = "<%= DatasourceProvider _%>"
+  url = <%- DatasourceURL %>
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String
+  nickName String?
+}
