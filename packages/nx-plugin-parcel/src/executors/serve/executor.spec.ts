@@ -1,9 +1,9 @@
-import { BuildExecutorSchema } from './schema';
+import { ServeExecutorSchema } from './schema';
 import executor from './executor';
 
-const options: BuildExecutorSchema = {};
+const options: ServeExecutorSchema = {};
 
-describe('Build Executor', () => {
+describe('Serve Executor', () => {
   it('can run', async () => {
     const output = await executor(options);
     expect(output.success).toBe(true);
