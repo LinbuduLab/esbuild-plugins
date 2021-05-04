@@ -68,7 +68,29 @@ export function createPrismaProjectConfiguration(
       },
     },
     basicPrismaTargetConfiguration,
-    schemaOption
+    schemaOption,
+    {
+      options: {
+        watch: false,
+      },
+    }
+  );
+
+  project.targets['introspect'] = merge(
+    {
+      executor: 'nx-plugin-workspace:exec',
+      options: {
+        command: 'prisma introspect',
+      },
+    },
+    schemaOption,
+    basicPrismaTargetConfiguration,
+    {
+      options: {
+        force: false,
+        print: true,
+      },
+    }
   );
 
   project.targets['prisma-format'] = merge(
@@ -101,7 +123,13 @@ export function createPrismaProjectConfiguration(
       },
     },
     basicPrismaTargetConfiguration,
-    previewFeatureOption
+    previewFeatureOption,
+    {
+      skipGenerate: false,
+      forceReset: false,
+      acceptDataLoss: false,
+      help: false,
+    }
   );
 
   project.targets['prisma-studio'] = merge(
