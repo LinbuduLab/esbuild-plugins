@@ -68,6 +68,8 @@ export interface ESBuildExecutorSchema {
     [key: string]: string;
   };
 
+  skipTypeCheck: boolean;
+
   // nx options
   buildLibsFromSource: boolean;
   generatePackageJson: boolean;

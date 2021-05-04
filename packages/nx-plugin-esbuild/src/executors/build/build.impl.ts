@@ -113,12 +113,10 @@ export default function buildExecutor(
 
   let buildCounter = 1;
 
-  const timeStringESBuild = dayjs().format('H:mm:ss A');
-  const prefixESBuild = `${pluginTitle(
-    'nx-plugin-esbuild'
-  )} ESBuild ${buildTimes(`[${buildCounter}]`)} ${timeStamp(
-    timeStringESBuild
-  )}`;
+  const prefixESBuild = () =>
+    `${pluginTitle('nx-plugin-esbuild')} ESBuild ${buildTimes(
+      `[${buildCounter}]`
+    )} ${timeStamp(dayjs().format('H:mm:ss A'))}`;
 
   // TODO: enable specify watch dir
   // apps/app1/src
@@ -141,7 +139,7 @@ export default function buildExecutor(
       collectESBuildRunnerMessages(
         { buildResult, buildFailure },
         messageFragments,
-        prefixESBuild
+        prefixESBuild()
       );
 
       return {
@@ -151,13 +149,27 @@ export default function buildExecutor(
     })
   );
 
+  if (options.skipTypeCheck) {
+    return eachValueFrom(
+      esBuildSubscriber.pipe(
+        map((buildResults) => {
+          console.log(buildResults.messageFragments.join('\n'));
+          return {
+            success: buildResults?.success,
+            outfile: path.join(options.outputPath, 'main.js'),
+          };
+        })
+      )
+    );
+  }
+
   // TODO: skip type check
   let typeCounter = 1;
-  const timeStringTsc = dayjs().format('H:mm:ss A');
 
-  const prefixTsc = `${pluginTitle('nx-plugin-esbuild')} TSC ${buildTimes(
-    `[${typeCounter}]`
-  )} ${timeStamp(timeStringTsc)}`;
+  const prefixTsc = () =>
+    `${pluginTitle('nx-plugin-esbuild')} TSC ${buildTimes(
+      `[${typeCounter}]`
+    )} ${timeStamp(dayjs().format('H:mm:ss A'))}`;
 
   const tscRunnerOptions: TscRunnerOptions = {
     tsconfigPath: options.tsConfig,
@@ -183,7 +195,7 @@ export default function buildExecutor(
         hasErrors = true;
       }
 
-      collectTSCRunnerMessages(res, messageFragments, prefixTsc);
+      collectTSCRunnerMessages(res, messageFragments, prefixTsc());
 
       return { info, error, end, hasErrors, messageFragments };
     }),
@@ -215,9 +227,9 @@ export default function buildExecutor(
   return eachValueFrom(
     zip(esBuildSubscriber, tscSubscriber).pipe(
       map(([buildResults, tscResults]) => {
-        console.log('\x1Bc');
+        // console.log('\x1Bc');
         console.log(tscResults.messageFragments.join('\n'));
-        console.log('\x1Bc');
+        // console.log('\x1Bc');
         console.log(buildResults.messageFragments.join('\n'));
         return {
           success: buildResults?.success && tscResults?.success,

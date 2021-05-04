@@ -89,8 +89,6 @@ export const esbuildPluginDecorator = (
             swcrcConfig,
             swcCompilerOptions
           );
-
-          console.log('parsedSwcConfig: ', parsedSwcConfig);
         }
 
         const shouldSkipThisPlugin =
