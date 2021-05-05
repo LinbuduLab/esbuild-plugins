@@ -1,14 +1,4 @@
-import {
-  ExecutorContext,
-  readWorkspaceConfiguration,
-  readTargetOptions,
-  readProjectConfiguration,
-  readJson,
-} from '@nrwl/devkit';
-import envinfo from 'envinfo';
-import path from 'path';
-import jsonfile from 'jsonfile';
-import execa from 'execa';
+import { ExecutorContext } from '@nrwl/devkit';
 import { ESBuildInfoExecutorSchema } from './schema';
 import { normalizeInfoExecutorSchema } from './lib/normalize-schema';
 import { nxReportHandler, envInfo } from 'nx-plugin-devkit';

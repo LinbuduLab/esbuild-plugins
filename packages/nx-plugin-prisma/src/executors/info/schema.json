@@ -4,6 +4,12 @@
   "title": "Info executor",
   "description": "",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "showPrismaTargets": {
+      "type": "boolean",
+      "description": "Display all information about Prisma basic schema",
+      "default": true
+    }
+  },
   "required": []
 }

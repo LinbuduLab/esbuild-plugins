@@ -1,1 +1,1 @@
-export interface InfoExecutorSchema {} // eslint-disable-line
+export interface PrismaInfoExecutorSchema {}
