@@ -10,12 +10,15 @@ export async function runInParallel(
   const cwd = calculateCwd(options.cwd, context);
 
   const processGroup = options.commands.map((c) =>
-    createExecaProcess(c.command, options.color, cwd).then(
-      (success: boolean) => ({
-        success,
-        command: c.command,
-      })
-    )
+    createExecaProcess(
+      c.command,
+      options.color,
+      options.useLocalPackage,
+      cwd
+    ).then((success: boolean) => ({
+      success,
+      command: c.command,
+    }))
   );
 
   const processExecResults = await Promise.all(processGroup);
@@ -41,7 +44,12 @@ export async function runSerially(
   const cwd = calculateCwd(options.cwd, context);
 
   for (const c of options.commands) {
-    createSyncExecaProcess(c.command, options.color, cwd);
+    createSyncExecaProcess(
+      c.command,
+      options.color,
+      options.useLocalPackage,
+      cwd
+    );
   }
   return true;
 }

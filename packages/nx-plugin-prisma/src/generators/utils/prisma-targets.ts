@@ -18,6 +18,7 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
       envFile: schema.envFilePath,
       outputPath: schema.prismaSchemaDir,
       useCamelCase: false,
+      useLocalPackage: true,
     },
   };
 

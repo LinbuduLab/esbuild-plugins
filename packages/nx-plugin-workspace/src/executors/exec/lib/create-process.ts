@@ -4,11 +4,12 @@ import { processEnv } from './env';
 export function createExecaProcess(
   command: string,
   color: boolean,
+  useLocalPackage: boolean,
   cwd: string
 ) {
   return new Promise((res, rej) => {
     const childProcess = execa(command, {
-      env: processEnv(color),
+      env: processEnv(color, useLocalPackage),
       extendEnv: true,
       cwd,
       stdio: 'inherit',
@@ -32,11 +33,12 @@ export function createExecaProcess(
 export function createSyncExecaProcess(
   command: string,
   color: boolean,
+  useLocalPackage: boolean,
   cwd: string
 ) {
   execa.sync(command, {
     extendEnv: true,
-    env: processEnv(color),
+    env: processEnv(color, useLocalPackage),
     stdio: 'inherit',
     cwd,
   });

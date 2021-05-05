@@ -1,10 +1,17 @@
 import dotenv from 'dotenv';
+import npmRunPath from 'npm-run-path';
 
-export function processEnv(color: boolean) {
-  const env = { ...process.env };
+export function processEnv(color: boolean, useLocalPackage: boolean) {
+  const env = useLocalPackage
+    ? {
+        ...process.env,
+        ...npmRunPath.env(),
+      }
+    : { ...process.env };
   if (color) {
     env.FORCE_COLOR = `${color}`;
   }
+
   return env;
 }
 

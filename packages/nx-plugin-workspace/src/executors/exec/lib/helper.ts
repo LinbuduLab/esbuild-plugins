@@ -1,12 +1,12 @@
 import { ExecutorContext } from '@nrwl/devkit';
-import type { DevkitExecSchema } from './types';
+import type { WorkspaceExecSchema } from './types';
 import path from 'path';
 import { schemaProps } from './types';
 import yargsParser from 'yargs-parser';
 import kebabCase from 'lodash/kebabCase';
 import camelCase from 'lodash/camelCase';
 
-export const parseArgs = (options: DevkitExecSchema) => {
+export const parseArgs = (options: WorkspaceExecSchema) => {
   // schema 中可以使用任意形式的选项格式，最终通过useCamelCase控制
   // 只需要支持camelCase和kebabCase这两个即可
   const transformer = options.useCamelCase ? camelCase : kebabCase;

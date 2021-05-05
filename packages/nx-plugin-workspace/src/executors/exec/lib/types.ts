@@ -5,9 +5,7 @@ export type NormalizedCommandItem = {
 
 export type CommandItem = NormalizedCommandItem | string;
 
-// TODO: schemaDirAsCWD
-
-export interface DevkitExecSchema {
+export interface WorkspaceExecSchema {
   command?: string;
   commands: CommandItem[];
   color?: boolean;
@@ -17,14 +15,15 @@ export interface DevkitExecSchema {
   envFile?: string;
   outputPath?: string | string[];
   useCamelCase?: boolean;
+  useLocalPackage?: boolean;
 }
 
-export interface NormalizedExecSchema extends DevkitExecSchema {
+export interface NormalizedExecSchema extends WorkspaceExecSchema {
   commands: NormalizedCommandItem[];
   parsedArgs: Record<string, string>;
 }
 
-export type SchemaProps = keyof DevkitExecSchema;
+export type SchemaProps = keyof WorkspaceExecSchema;
 
 export const schemaProps: (SchemaProps | string)[] = [
   'command',
@@ -35,4 +34,5 @@ export const schemaProps: (SchemaProps | string)[] = [
   'args',
   'envFile',
   'outputPath',
+  'useLocalPackage',
 ];

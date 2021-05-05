@@ -1,12 +1,12 @@
 import type {
-  DevkitExecSchema,
+  WorkspaceExecSchema,
   NormalizedCommandItem,
   NormalizedExecSchema,
 } from './types';
 import { parseArgs, normalizeCommand } from './helper';
 
 export const normalizeSchema = (
-  schema: DevkitExecSchema
+  schema: WorkspaceExecSchema
 ): NormalizedExecSchema => {
   // extra args
   const parsedArgs = parseArgs(schema);

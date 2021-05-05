@@ -1,11 +1,11 @@
 import { ExecutorContext } from '@nrwl/devkit';
-import type { DevkitExecSchema } from './lib/types';
+import type { WorkspaceExecSchema } from './lib/types';
 import { normalizeSchema } from './lib/normalize-schema';
 import { loadEnvVars } from './lib/env';
 import { runInParallel, runSerially } from './lib/runner';
 
 export default async function (
-  options: DevkitExecSchema,
+  options: WorkspaceExecSchema,
   context: ExecutorContext
 ): Promise<{ success: boolean }> {
   loadEnvVars(options.envFile);

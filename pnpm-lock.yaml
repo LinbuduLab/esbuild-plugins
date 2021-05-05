@@ -96,6 +96,7 @@ specifiers:
   node-notifier: ^9.0.1
   node-watch: ^0.7.1
   npm-run-all: ^4.1.5
+  npm-run-path: ^4.0.1
   ora: ^5.4.0
   pacote: ^11.3.1
   parcel-bundler: ^1.12.5
@@ -228,6 +229,7 @@ devDependencies:
   node-notifier: 9.0.1
   node-watch: 0.7.1
   npm-run-all: 4.1.5
+  npm-run-path: 4.0.1
   ora: 5.4.0
   pacote: 11.3.1
   parcel-bundler: 1.12.5
