@@ -86,7 +86,6 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
           skipGenerate: false,
           forceReset: false,
           acceptDataLoss: false,
-          help: false,
         },
       };
 
@@ -101,6 +100,45 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
           schema: cwd2SchemaRelativePath,
           browser: 'chrome',
           port: 7777,
+        },
+      };
+
+  const prismaMigrateResetOption = schema.collectArgs
+    ? {
+        options: {
+          args: `--schema=${cwd2SchemaRelativePath} --force=false --skip-generate --skip-seed`,
+        },
+      }
+    : {
+        options: {
+          schema: cwd2SchemaRelativePath,
+          force: false,
+          skipGenerate: true,
+          skipSeed: true,
+        },
+      };
+
+  const prismaMigrateDeployOption = schema.collectArgs
+    ? {
+        options: {
+          args: `--schema=${cwd2SchemaRelativePath}`,
+        },
+      }
+    : {
+        options: {
+          schema: cwd2SchemaRelativePath,
+        },
+      };
+
+  const prismaMigrateStatusOption = schema.collectArgs
+    ? {
+        options: {
+          args: `--schema=${cwd2SchemaRelativePath}`,
+        },
+      }
+    : {
+        options: {
+          schema: cwd2SchemaRelativePath,
         },
       };
 
@@ -164,6 +202,36 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
       },
       basicPrismaTargetConfiguration,
       prismaStudioOption
+    ),
+    'prisma-migrate-reset': merge(
+      {
+        executor: 'nx-plugin-workspace:exec',
+        options: {
+          command: 'prisma migrate reset',
+        },
+      },
+      basicPrismaTargetConfiguration,
+      prismaMigrateResetOption
+    ),
+    'prisma-migrate-deploy': merge(
+      {
+        executor: 'nx-plugin-workspace:exec',
+        options: {
+          command: 'prisma migrate deploy',
+        },
+      },
+      basicPrismaTargetConfiguration,
+      prismaMigrateDeployOption
+    ),
+    'prisma-migrate-status': merge(
+      {
+        executor: 'nx-plugin-workspace:exec',
+        options: {
+          command: 'prisma migrate status',
+        },
+      },
+      basicPrismaTargetConfiguration,
+      prismaMigrateStatusOption
     ),
   };
 
