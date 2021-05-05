@@ -9,7 +9,11 @@ import {
 
 export interface PrismaSetupGeneratorSchema
   extends BasicNodeAppGenSchema,
-    PrismaGeneratorSchema {}
+    PrismaGeneratorSchema {
+  override: boolean;
+}
 
 export interface NormalizedPrismaSetupGeneratorSchema
-  extends NormalizedPrismaGeneratorSchema {}
+  extends NormalizedPrismaGeneratorSchema {
+  override: boolean;
+}

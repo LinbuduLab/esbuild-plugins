@@ -11,12 +11,13 @@ import {
   createNodeJestTask,
   createNodeLintTask,
   setDefaultProject,
+  setupProxy,
 } from 'nx-plugin-devkit';
 
 import { PrismaInitGeneratorSchema } from './schema';
 import { normalizeSchema } from '../utils/normalize-schema';
 import { createPrismaSchemaFiles } from '../utils/create-files';
-import { createPrismaProjectConfiguration } from '../utils/setup-config';
+import { initPrismaProjectConfiguration } from '../utils/setup-config';
 import { addPrismaClientToGitIgnore } from '../utils/add-to-git-ignore';
 
 export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
@@ -29,7 +30,7 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
 
   createPrismaSchemaFiles(host, normalizedSchema);
 
-  const projectConfig = createPrismaProjectConfiguration(normalizedSchema);
+  const projectConfig = initPrismaProjectConfiguration(normalizedSchema);
   addProjectConfiguration(host, normalizedSchema.projectName, projectConfig);
 
   const lintTask = await createNodeLintTask(host, normalizedSchema);
@@ -40,9 +41,11 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
 
   addPrismaClientToGitIgnore(host, normalizedSchema);
 
-  await formatFiles(host);
-
   setDefaultProject(host, normalizedSchema);
+
+  setupProxy(host, normalizedSchema);
+
+  await formatFiles(host);
 
   return () => {
     installPackagesTask(host);

@@ -9,7 +9,7 @@
       "description": "init generator"
     },
     "setup": {
-      "factory": "./src/generators/setup/generator",
+      "factory": "./src/generators/setup/setup.impl",
       "schema": "./src/generators/setup/schema.json",
       "description": "setup generator"
     }
