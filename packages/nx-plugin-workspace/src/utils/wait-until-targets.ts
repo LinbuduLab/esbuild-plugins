@@ -1,9 +1,11 @@
 import { runExecutor, parseTargetString, ExecutorContext } from '@nrwl/devkit';
 
-import { NodeServeExecutorSchema } from '../schema';
+export interface RunWaitUntilTargetsOptions {
+  waitUntilTargets: string[];
+}
 
-export function runWaitUntilTargets(
-  options: NodeServeExecutorSchema,
+export function runWaitUntilTargets<T extends RunWaitUntilTargetsOptions>(
+  options: T,
   context: ExecutorContext
 ): Promise<{ success: boolean }[]> {
   return Promise.all(
@@ -18,9 +20,9 @@ export function runWaitUntilTargets(
         resolve(event.value as { success: boolean });
 
         // Continue iterating
-        while (!event.done) {
-          event = await output.next();
-        }
+        // while (!event.done) {
+        //   event = await output.next();
+        // }
       });
     })
   );

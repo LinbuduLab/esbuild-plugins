@@ -5,6 +5,7 @@ import { promisify } from 'util';
 import treeKill from 'tree-kill';
 
 import { BuildExecutorEvent } from '../../utils';
+import { runWaitUntilTargets } from '../../utils/wait-until-targets';
 
 import {
   NodeServeExecutorSchema,
@@ -13,7 +14,6 @@ import {
 
 import { normalizeServeExecutorOptions } from './lib/normalize-schema';
 import { startBuild } from './lib/start-build';
-import { runWaitUntilTargets } from './lib/wait-until-targets';
 import dotenv from 'dotenv';
 
 dotenv.config();

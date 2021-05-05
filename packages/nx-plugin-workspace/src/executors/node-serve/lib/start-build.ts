@@ -14,10 +14,13 @@ export async function* startBuild(
   context: ExecutorContext
 ) {
   const buildTarget = parseTargetString(options.buildTarget);
-  // const buildOptions = readTargetOptions(
-  //   buildTarget,
-  //   context
-  // );
+  if (buildTarget.configuration) {
+    console.log(
+      `Serve target invoked with configuration: ${buildTarget.configuration}`
+    );
+  }
+
+  const buildOptions = readTargetOptions(buildTarget, context);
 
   // TODO: build executor optimization options
   // if (buildOptions.optimization) {

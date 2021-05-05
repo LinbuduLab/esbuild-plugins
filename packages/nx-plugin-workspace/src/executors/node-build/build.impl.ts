@@ -12,7 +12,7 @@ import {
   createTmpTsConfig,
 } from '@nrwl/workspace/src/utilities/buildable-libs-utils';
 import { runWebpack } from './lib/webpack-runner';
-import webpack from 'webpack';
+import webpack, { Configuration } from 'webpack';
 
 import { map, tap } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
@@ -23,6 +23,8 @@ import { OUT_FILENAME } from '@nrwl/node/src/utils/config';
 import { BuildNodeBuilderOptions } from '@nrwl/node/src/utils/types';
 import { normalizeBuildOptions } from '@nrwl/node/src/utils/normalize';
 import { generatePackageJson } from '@nrwl/node/src/utils/generate-package-json';
+import { runWaitUntilTargets } from '../../utils/wait-until-targets';
+
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -32,8 +34,12 @@ export type NodeBuildEvent = {
   success: boolean;
 };
 
+export interface TmpNodeBuildExecutorSchema extends BuildNodeBuilderOptions {
+  waitUntilTarget: string[];
+}
+
 export function buildExecutor(
-  rawOptions: BuildNodeBuilderOptions,
+  rawOptions: TmpNodeBuildExecutorSchema,
   context: ExecutorContext
 ) {
   const { sourceRoot, root } = context.workspace.projects[context.projectName];
@@ -111,17 +117,27 @@ export function buildExecutor(
     generatePackageJson(context.projectName, projGraph, options);
   }
 
-  const config = options.webpackConfig.reduce((currentConfig, plugin) => {
-    return require(plugin)(currentConfig, {
-      options,
-      configuration: context.configurationName,
-    });
-  }, getNodeWebpackConfig(options));
+  const config: Configuration = options.webpackConfig.reduce(
+    (currentConfig, plugin) => {
+      return require(plugin)(currentConfig, {
+        options,
+        configuration: context.configurationName,
+      });
+    },
+    getNodeWebpackConfig(options)
+  );
 
   return eachValueFrom(
     runWebpack(config, webpack).pipe(
       tap((stats) => {
-        console.info(stats.toString(config.stats));
+        console.info(
+          stats.toString({
+            timings: true,
+            chunks: true,
+            modules: true,
+            colors: true,
+          })
+        );
       }),
       map((stats) => {
         return {

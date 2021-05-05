@@ -7,6 +7,8 @@ export interface NodeBuildExecutorSchema extends WebpackBasedExecutorSchema {
   externalDependencies: 'all' | 'none' | string[];
   buildLibsFromSource?: boolean;
   generatePackageJson?: boolean;
+
+  runWaitUntilTargets: string[];
 }
 
 export interface NormalizedNodeBuildExecutorSchema
