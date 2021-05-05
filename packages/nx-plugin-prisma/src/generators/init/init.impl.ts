@@ -11,13 +11,13 @@ import {
   createNodeJestTask,
   createNodeLintTask,
   setDefaultProject,
-  updateGitIgnore,
 } from 'nx-plugin-devkit';
 
 import { PrismaInitGeneratorSchema } from './schema';
 import { normalizeSchema } from '../utils/normalize-schema';
 import { createPrismaSchemaFiles } from '../utils/create-files';
 import { createPrismaProjectConfiguration } from '../utils/setup-config';
+import { addPrismaClientToGitIgnore } from '../utils/add-to-git-ignore';
 
 export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
   const normalizedSchema = normalizeSchema(host, schema);
@@ -37,6 +37,8 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
 
   const jestTask = await createNodeJestTask(host, normalizedSchema);
   tasks.push(jestTask);
+
+  addPrismaClientToGitIgnore(host, normalizedSchema);
 
   await formatFiles(host);
 

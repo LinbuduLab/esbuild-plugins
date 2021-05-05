@@ -12,10 +12,9 @@ import { PrismaSetupGeneratorSchema } from './schema';
 import { normalizeSchema } from '../utils/normalize-schema';
 import { createPrismaSchemaFiles } from '../utils/create-files';
 import { createPrismaProjectConfiguration } from '../utils/setup-config';
-import { updateGitIgnore } from 'nx-plugin-devkit';
+import { addPrismaClientToGitIgnore } from '../utils/add-to-git-ignore';
 
 export default async function (host: Tree, schema: PrismaSetupGeneratorSchema) {
-  // updateGitIgnore(host, ['prisma/client/']);
   const normalizedSchema = normalizeSchema(host, schema);
 
   const tasks: GeneratorCallback[] = [];
@@ -24,6 +23,8 @@ export default async function (host: Tree, schema: PrismaSetupGeneratorSchema) {
 
   const projectConfig = createPrismaProjectConfiguration(normalizedSchema);
   updateProjectConfiguration(host, normalizedSchema.projectName, projectConfig);
+
+  addPrismaClientToGitIgnore(host, normalizedSchema);
 
   await formatFiles(host);
 

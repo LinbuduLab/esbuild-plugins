@@ -5,7 +5,6 @@ export function updateGitIgnore(host: Tree, patterns: string[]) {
   const gitIgnoreContent = '.gitignore';
 
   const existGitIgnoreContent = host
-
     .read(gitIgnoreContent)
     .toString('utf8')
     .trimRight();
@@ -17,8 +16,9 @@ export function updateGitIgnore(host: Tree, patterns: string[]) {
   if (!newPatterns.length) return;
 
   const updatedGitIgnoreContent = `
-    ${existGitIgnoreContent},
-    ${newPatterns.join('\n').trim()}`.trim();
+    ${existGitIgnoreContent}
+
+${newPatterns.join('\n').trim()}`;
 
   host.write(gitIgnoreContent, updatedGitIgnoreContent);
 }
