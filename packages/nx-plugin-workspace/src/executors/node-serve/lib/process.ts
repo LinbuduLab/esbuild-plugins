@@ -2,15 +2,14 @@ import { logger } from '@nrwl/devkit';
 import { ChildProcess, fork } from 'child_process';
 import { promisify } from 'util';
 
-import { ESBuildBuildEvent } from '../../build/lib/types';
+import { BuildExecutorEvent } from '../../../utils';
 
 import treeKill from 'tree-kill';
-
-import { NormalizedESBuildServeExecutorSchema } from '../schema';
+import { NormalizedNodeServeExecutorSchema } from '../schema';
 
 export function runProcess(
-  event: ESBuildBuildEvent,
-  options: NormalizedESBuildServeExecutorSchema,
+  event: BuildExecutorEvent,
+  options: NormalizedNodeServeExecutorSchema,
   subProcess: ChildProcess
 ) {
   if (subProcess || !event.success) {

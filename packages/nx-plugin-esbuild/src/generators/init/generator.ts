@@ -69,13 +69,13 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
       },
     },
     {
-      executor: 'nx-plugin-esbuild:serve',
+      executor: 'nx-plugin-workspace:node-serve',
       options: {
         buildTarget: `${projectName}:${buildTargetName}`,
       },
     },
     {
-      executor: 'nx-plugin-esbuild:serve',
+      executor: 'nx-plugin-workspace:node-serve',
       options: {
         // TODO: configurate by schema option
         buildTarget: `${projectName}:${buildTargetName}:production`,

@@ -15,6 +15,11 @@
       "implementation": "./src/executors/node-build/build.impl",
       "schema": "./src/executors/node-build/schema.json",
       "description": "node-build executor"
+    },
+    "node-serve": {
+      "implementation": "./src/executors/node-serve/serve.impl",
+      "schema": "./src/executors/node-serve/schema.json",
+      "description": "serve executor"
     }
   }
 }

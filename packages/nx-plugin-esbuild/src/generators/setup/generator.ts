@@ -52,7 +52,7 @@ export default async function (
 
   const setupServeTargetConfig = {
     ...serveTargetConfig,
-    executor: 'nx-plugin-esbuild:serve',
+    executor: 'nx-plugin-workspace:node-serve',
     options: {
       ...(serveTargetConfig.options ?? {}),
       buildTarget: `${projectName}:build`,

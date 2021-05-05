@@ -1,15 +1,14 @@
 import { ExecutorContext, parseTargetString } from '@nrwl/devkit';
-
+import { InspectType } from '../../../utils';
 import {
-  ESBuildServeExecutorSchema,
-  NormalizedESBuildServeExecutorSchema,
-  InspectType,
+  NodeServeExecutorSchema,
+  NormalizedNodeServeExecutorSchema,
 } from '../schema';
 
 export function normalizeServeExecutorOptions(
-  options: ESBuildServeExecutorSchema,
+  options: NodeServeExecutorSchema,
   context: ExecutorContext
-): NormalizedESBuildServeExecutorSchema {
+): NormalizedNodeServeExecutorSchema {
   const { targets } = context.workspace.projects[context.projectName];
 
   const projectTargets = Object.keys(targets);

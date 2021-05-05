@@ -4,11 +4,11 @@ import { ChildProcess, fork } from 'child_process';
 import { promisify } from 'util';
 import treeKill from 'tree-kill';
 
-import { ESBuildBuildEvent } from '../build/lib/types';
+import { BuildExecutorEvent } from '../../utils';
 
 import {
-  ESBuildServeExecutorSchema,
-  NormalizedESBuildServeExecutorSchema,
+  NodeServeExecutorSchema,
+  NormalizedNodeServeExecutorSchema,
 } from './schema';
 
 import { normalizeServeExecutorOptions } from './lib/normalize-schema';
@@ -21,7 +21,7 @@ dotenv.config();
 let subProcess: ChildProcess = null;
 
 export async function* executeExecutor(
-  options: ESBuildServeExecutorSchema,
+  options: NodeServeExecutorSchema,
   context: ExecutorContext
 ) {
   const normalizedOptions = normalizeServeExecutorOptions(options, context);
@@ -53,8 +53,8 @@ export async function* executeExecutor(
 }
 
 function runProcess(
-  event: ESBuildBuildEvent,
-  options: NormalizedESBuildServeExecutorSchema
+  event: BuildExecutorEvent,
+  options: NormalizedNodeServeExecutorSchema
 ) {
   if (subProcess || !event.success) {
     return;
@@ -66,8 +66,8 @@ function runProcess(
 }
 
 async function handleBuildEvent(
-  event: ESBuildBuildEvent,
-  options: NormalizedESBuildServeExecutorSchema
+  event: BuildExecutorEvent,
+  options: NormalizedNodeServeExecutorSchema
 ) {
   if ((!event.success || options.watch) && subProcess) {
     await killProcess();

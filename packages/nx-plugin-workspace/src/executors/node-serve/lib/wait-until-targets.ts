@@ -1,9 +1,9 @@
 import { runExecutor, parseTargetString, ExecutorContext } from '@nrwl/devkit';
 
-import { ESBuildServeExecutorSchema } from '../schema';
+import { NodeServeExecutorSchema } from '../schema';
 
 export function runWaitUntilTargets(
-  options: ESBuildServeExecutorSchema,
+  options: NodeServeExecutorSchema,
   context: ExecutorContext
 ): Promise<{ success: boolean }[]> {
   return Promise.all(

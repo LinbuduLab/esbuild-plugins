@@ -5,22 +5,19 @@ import {
   readTargetOptions,
 } from '@nrwl/devkit';
 
-import { ESBuildBuildEvent } from '../../build/lib/types';
-
-import { ESBuildRunnerOptions } from '../../build/lib/types';
-
-import { ESBuildServeExecutorSchema } from '../schema';
+import { BuildExecutorEvent } from '../../../utils';
+import { NodeServeExecutorSchema } from '../schema';
 
 // 前置钩子不需要包含build 因为这里本来就会执行一次build
 export async function* startBuild(
-  options: ESBuildServeExecutorSchema,
+  options: NodeServeExecutorSchema,
   context: ExecutorContext
 ) {
   const buildTarget = parseTargetString(options.buildTarget);
-  const buildOptions = readTargetOptions<ESBuildRunnerOptions>(
-    buildTarget,
-    context
-  );
+  // const buildOptions = readTargetOptions(
+  //   buildTarget,
+  //   context
+  // );
 
   // TODO: build executor optimization options
   // if (buildOptions.optimization) {
@@ -34,7 +31,7 @@ export async function* startBuild(
   //           ************************************************`);
   // }
 
-  yield* await runExecutor<ESBuildBuildEvent>(
+  yield* await runExecutor<BuildExecutorEvent>(
     buildTarget,
     {
       watch: options.watch,

@@ -29,20 +29,26 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-typegraphql"]
     },
-    "nx-plugin-midway": { "tags": ["scope:nx"] },
+    "nx-plugin-midway": {
+      "tags": ["scope:nx"],
+      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+    },
     "nx-plugin-midway-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-midway"]
     },
     "nx-plugin-prisma": {
       "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-workspace"]
+      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
     },
     "nx-plugin-prisma-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-prisma"]
     },
-    "nx-plugin-serverless": { "tags": ["scope:nx"] },
+    "nx-plugin-serverless": {
+      "tags": ["scope:nx"],
+      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+    },
     "nx-plugin-serverless-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-serverless"]
@@ -51,6 +57,7 @@
       "tags": ["scope:nx"],
       "implicitDependencies": [
         "nx-plugin-devkit",
+        "nx-plugin-workspace",
         "esbuild-plugin-decorator",
         "esbuild-plugin-node-externals",
         "esbuild-plugin-filesize",
@@ -63,22 +70,34 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-esbuild"]
     },
-    "nx-plugin-swc": { "tags": ["scope:nx"] },
+    "nx-plugin-swc": {
+      "tags": ["scope:nx"],
+      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+    },
     "nx-plugin-swc-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-swc"]
     },
-    "nx-plugin-vite": { "tags": ["scope:nx"] },
+    "nx-plugin-vite": {
+      "tags": ["scope:nx"],
+      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+    },
     "nx-plugin-vite-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-vite"]
     },
-    "nx-plugin-umi": { "tags": ["scope:nx"] },
+    "nx-plugin-umi": {
+      "tags": ["scope:nx"],
+      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+    },
     "nx-plugin-umi-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-umi"]
     },
-    "nx-plugin-snowpack": { "tags": ["scope:nx"] },
+    "nx-plugin-snowpack": {
+      "tags": ["scope:nx"],
+      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+    },
     "nx-plugin-snowpack-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-snowpack"]
@@ -92,17 +111,26 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-koa"]
     },
-    "nx-plugin-vitepress": { "tags": [] },
+    "nx-plugin-vitepress": {
+      "tags": ["scope:nx"],
+      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+    },
     "nx-plugin-vitepress-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-vitepress"]
     },
-    "nx-plugin-parcel": { "tags": [] },
+    "nx-plugin-parcel": {
+      "tags": ["scope:nx"],
+      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+    },
     "nx-plugin-parcel-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-parcel"]
     },
-    "nx-plugin-workspace": { "tags": ["scope:nx"] },
+    "nx-plugin-workspace": {
+      "tags": ["scope:nx"],
+      "implicitDependencies": ["nx-plugin-devkit"]
+    },
     "nx-plugin-workspace-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-workspace"]
