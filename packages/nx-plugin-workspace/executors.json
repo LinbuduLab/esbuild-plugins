@@ -20,6 +20,11 @@
       "implementation": "./src/executors/node-serve/serve.impl",
       "schema": "./src/executors/node-serve/schema.json",
       "description": "serve executor"
+    },
+    "light-node-serve": {
+      "implementation": "./src/executors/light-node-serve/serve.impl",
+      "schema": "./src/executors/light-node-serve/schema.json",
+      "description": "light-node-serve executor"
     }
   }
 }
