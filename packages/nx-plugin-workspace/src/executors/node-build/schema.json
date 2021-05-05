@@ -136,7 +136,7 @@
       "default": false
     }
   },
-  "required": ["tsConfig", "main"],
+  "required": ["main", "tsConfig"],
 
   "definitions": {
     "assetPattern": {

@@ -31,7 +31,7 @@ export default async function (host: Tree, schema: KoaAppGeneratorSchema) {
   tasks.push(initTask);
 
   createNodeAppProject(host, normalizedSchema, {
-    executor: 'nx-plugin-koa:build',
+    executor: 'nx-plugin-workspace:node-build',
     options: {
       progress: true,
       verbose: true,

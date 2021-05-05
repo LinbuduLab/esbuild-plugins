@@ -23,12 +23,9 @@ import { OUT_FILENAME } from '@nrwl/node/src/utils/config';
 import { BuildNodeBuilderOptions } from '@nrwl/node/src/utils/types';
 import { normalizeBuildOptions } from '@nrwl/node/src/utils/normalize';
 import { generatePackageJson } from '@nrwl/node/src/utils/generate-package-json';
+import dotenv from 'dotenv';
 
-try {
-  require('dotenv').config();
-} catch (e) {
-  console.log('e: ', e);
-}
+dotenv.config();
 
 export type NodeBuildEvent = {
   outfile: string;
@@ -39,25 +36,6 @@ export function buildExecutor(
   rawOptions: BuildNodeBuilderOptions,
   context: ExecutorContext
 ) {
-  // console.log('rawOptions: ', rawOptions);
-  // outputPath
-  // main
-  // tsConfig
-  // assets
-  // fileReplacements
-  // watch
-  // sourceMap
-  // progress
-  // externalDependencies
-  // statsJson
-  // verbose
-  // extractLicenses
-  // optimization
-  // showCircularDependencies
-  // maxWorkers
-  // memoryLimit
-  // webpackConfig
-  // generatePackageJson
   const { sourceRoot, root } = context.workspace.projects[context.projectName];
 
   if (!sourceRoot) {
@@ -128,6 +106,7 @@ export function buildExecutor(
     }
   }
 
+  // 适用于构建库时，会生成package.json
   if (options.generatePackageJson) {
     generatePackageJson(context.projectName, projGraph, options);
   }
