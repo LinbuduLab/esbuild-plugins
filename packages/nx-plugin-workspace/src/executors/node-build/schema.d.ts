@@ -9,9 +9,13 @@ export interface NodeBuildExecutorSchema extends WebpackBasedExecutorSchema {
   generatePackageJson?: boolean;
 
   runWaitUntilTargets: string[];
+
+  enableAnalytics: boolean;
 }
 
 export interface NormalizedNodeBuildExecutorSchema
   extends NodeBuildExecutorSchema {
   webpackConfig: string[];
+
+  enableAnalytics: boolean;
 }

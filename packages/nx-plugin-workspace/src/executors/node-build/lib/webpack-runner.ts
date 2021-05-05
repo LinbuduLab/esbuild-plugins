@@ -1,16 +1,45 @@
-import type { Stats, Configuration } from 'webpack';
+import type { Stats, Configuration, Plugin } from 'webpack';
 import type { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 
 import { Observable } from 'rxjs';
-
+import SMP from 'speed-measure-webpack-plugin';
+import FriendlyError from 'friendly-errors-webpack-plugin';
+import Bar from 'webpackbar';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { extname } from 'path';
+
 import * as url from 'url';
 
 export function runWebpack(
   config: Configuration,
-  webpack: typeof import('webpack')
+  webpack: typeof import('webpack'),
+  name: string,
+  enableAnalytics: boolean = false
 ): Observable<Stats> {
   return new Observable<Stats>((subscriber) => {
+    const plugins: Plugin[] = [
+      new Bar({
+        name,
+        profile: true,
+      }),
+      new FriendlyError({
+        clearConsole: false,
+      }),
+    ];
+
+    if (enableAnalytics) {
+      plugins.push(
+        new SMP({ outputFormat: 'humanVerbose' }),
+        (new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          reportTitle: name,
+          openAnalyzer: false,
+        }) as unknown) as Plugin
+      );
+    }
+
+    config.plugins.push(...plugins);
+
     const webpackCompiler = webpack(config);
 
     function callback(err: Error, stats: Stats) {

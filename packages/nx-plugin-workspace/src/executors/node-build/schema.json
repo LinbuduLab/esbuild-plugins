@@ -135,6 +135,11 @@
       "description": "Generates a package.json file with the project's node_module dependencies populated for installing in a container. If a package.json exists in the project's directory, it will be reused with dependencies populated.",
       "default": false
     },
+    "enableAnalytics": {
+      "type": "boolean",
+      "description": "Enable analytics by SpeedMeasurePlugin & BundleAnalyzePlugin",
+      "default": false
+    },
     "waitUntilTargets": {
       "type": "array",
       "description": "The targets to run to before starting the node app",

@@ -36,12 +36,15 @@ export type NodeBuildEvent = {
 
 export interface TmpNodeBuildExecutorSchema extends BuildNodeBuilderOptions {
   waitUntilTarget: string[];
+  enableAnalytics: boolean;
 }
 
 export function buildExecutor(
   rawOptions: TmpNodeBuildExecutorSchema,
   context: ExecutorContext
 ) {
+  const { enableAnalytics } = rawOptions;
+
   const { sourceRoot, root } = context.workspace.projects[context.projectName];
 
   if (!sourceRoot) {
@@ -128,7 +131,7 @@ export function buildExecutor(
   );
 
   return eachValueFrom(
-    runWebpack(config, webpack).pipe(
+    runWebpack(config, webpack, context.projectName, enableAnalytics).pipe(
       tap((stats) => {
         console.info(
           stats.toString({
