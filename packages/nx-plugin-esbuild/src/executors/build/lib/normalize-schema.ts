@@ -66,13 +66,13 @@ export function normalizeBuildExecutorOptions(
     options.fileReplacements
   );
 
-  const aliases = fileReplacements2Alias(
-    options.fileReplacements,
-    projectSourceRoot,
-    workspaceRoot
-  );
+  // const aliases = fileReplacements2Alias(
+  //   options.fileReplacements,
+  //   projectSourceRoot,
+  //   workspaceRoot
+  // );
 
-  // TODO: support platform like node15.1.0
+  // TODO: support platform input like: node15.1.0
   // const platform = options.platform ?? process.version.slice(1);
 
   return {
@@ -96,7 +96,7 @@ export function normalizeBuildExecutorOptions(
     skipTypeCheck: options.skipTypeCheck,
     assets: normalizeAssets(options.assets, workspaceRoot, options.outputPath),
     inserts: formattedInserts,
-    aliases,
+    alias: options.alias,
     inject: normalizedInject,
   };
 }

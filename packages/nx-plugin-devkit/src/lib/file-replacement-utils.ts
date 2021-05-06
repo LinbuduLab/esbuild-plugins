@@ -1,4 +1,5 @@
 import path from 'path';
+import { normalizePath } from '@nrwl/devkit';
 
 export type FileReplacement = {
   replace: string;
@@ -25,22 +26,22 @@ export function normalizeFileReplacements(
 export function fileReplacements2Alias(
   fileReplacements: FileReplacement[],
   projectSourceRoot: string,
-
-  workspaceRoot: string
-) {
+  workspaceRoot: string,
+  asRecord: boolean = false
+): Alias[] {
   const aliases: Alias[] = [];
 
   fileReplacements.forEach(({ replace, with: target }) => {
-    const normalizeReplacePath = replace.replaceAll('\\', '/');
-    const normalizeSourcePath = projectSourceRoot.replaceAll('\\', '/');
+    const normalizeReplacePath = normalizePath(replace);
+    const normalizeSourcePath = normalizePath(projectSourceRoot);
 
     const aliasFrom = normalizeReplacePath
-
       .split(`${normalizeSourcePath}/`)[1]
       .replace('.ts', '');
 
     const aliasFromRegExp = new RegExp(aliasFrom);
     const aliasTo = path.resolve(workspaceRoot, target);
+
     aliases.push({
       from: aliasFromRegExp,
       to: aliasTo,

@@ -73,7 +73,7 @@ export default function buildExecutor(
     }),
     options.externalDependencies === 'all' && esbuildPluginNodeExternals(),
     esbuildPluginAliasPath({
-      aliases: options.aliases,
+      alias: options.alias,
     }),
     // esbuildFileSizePlugin(),
   ];

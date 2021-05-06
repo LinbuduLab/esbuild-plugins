@@ -43,7 +43,7 @@ export interface ESBuildExecutorSchema {
   assets: string[] | AssetsItem[];
   inserts: string[] | Insert[];
   fileReplacements: FileReplacement[];
-  aliases: AliasReplacement[];
+  alias: Record<string, string>;
 
   // optional options with default values
   watch: boolean;
@@ -101,6 +101,6 @@ export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
   projectSourceRoot: string;
   assets: AssetFileInputOutput[];
   inserts: FormattedInsert;
-  aliases: Alias[];
+  alias: Record<string, string>;
   inject: string[];
 }
