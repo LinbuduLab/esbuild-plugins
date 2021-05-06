@@ -91,7 +91,7 @@
     "@graphql-codegen/typescript-resolvers": "^1.19.1",
     "@graphql-codegen/typescript-type-graphql": "^1.18.4",
     "@nrwl/cli": "12.0.8",
-    "@nrwl/devkit": "12.0.8",
+    "@nrwl/devkit": "12.1.1",
     "@nrwl/eslint-plugin-nx": "12.0.8",
     "@nrwl/jest": "12.0.8",
     "@nrwl/linter": "12.0.8",
