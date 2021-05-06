@@ -53,7 +53,8 @@
       "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"],
       "esbuild-plugin-node-polyfill": [
         "packages/esbuild-plugin-node-polyfill/src/index.ts"
-      ]
+      ],
+      "esbuild-plugin-graphql": ["packages/esbuild-plugin-graphql/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

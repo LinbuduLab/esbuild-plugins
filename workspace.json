@@ -1210,6 +1210,38 @@
           }
         }
       }
+    },
+    "esbuild-plugin-graphql": {
+      "root": "packages/esbuild-plugin-graphql",
+      "sourceRoot": "packages/esbuild-plugin-graphql/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-graphql/**/*.ts"]
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-graphql",
+            "tsConfig": "packages/esbuild-plugin-graphql/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-graphql/package.json",
+            "main": "packages/esbuild-plugin-graphql/src/index.ts",
+            "assets": ["packages/esbuild-plugin-graphql/*.md"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-graphql"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-graphql/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }

@@ -144,7 +144,8 @@
     "esbuild-plugin-notifier": { "tags": ["scope:esbuild"] },
     "vite-plugin-graphql": { "tags": ["scope:vite"] },
     "vite-plugin-prisma": { "tags": ["scope:vite"] },
-    "esbuild-plugin-node-polyfill": { "tags": [] }
+    "esbuild-plugin-node-polyfill": { "tags": [] },
+    "esbuild-plugin-graphql": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }
