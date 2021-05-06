@@ -38,5 +38,6 @@ module.exports = {
     '<rootDir>/packages/esbuild-plugin-node-polyfill',
     '<rootDir>/packages/esbuild-plugin-graphql',
     '<rootDir>/packages/parcel-plugin-assets',
+    '<rootDir>/packages/vite-plugin-gundam',
   ],
 };
