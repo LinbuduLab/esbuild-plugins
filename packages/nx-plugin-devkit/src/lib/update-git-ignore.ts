@@ -1,6 +1,6 @@
 import { Tree } from '@nrwl/devkit';
 
-// eminded by https://github.com/ZachJW34/nx-plus/blob/master/libs/docusaurus/src/schematics/app/schematic.ts
+// reminded by https://github.com/ZachJW34/nx-plus/blob/master/libs/docusaurus/src/schematics/app/schematic.ts
 export function updateGitIgnore(host: Tree, patterns: string[]) {
   const gitIgnoreContent = '.gitignore';
 

@@ -13,6 +13,28 @@ export function initPrismaProjectConfiguration(
 ): ProjectConfiguration & NxJsonProjectConfiguration {
   const { prismaRelatedTargets } = prismaTargetsConfig(schema);
 
+  if (schema.noDBPull) {
+    delete prismaRelatedTargets['prisma-db-pull'];
+  }
+
+  if (schema.noDBPush) {
+    delete prismaRelatedTargets['prisma-db-push'];
+  }
+
+  if (schema.noMigrate) {
+    delete prismaRelatedTargets['prisma-migrate-status'];
+    delete prismaRelatedTargets['prisma-migrate-deploy'];
+    delete prismaRelatedTargets['prisma-migrate-reset'];
+  }
+
+  if (schema.noIntrospect) {
+    delete prismaRelatedTargets['prisma-introspect'];
+  }
+
+  if (schema.noStudio) {
+    delete prismaRelatedTargets['prisma-studio'];
+  }
+
   const project: ProjectConfiguration & NxJsonProjectConfiguration = {
     root: schema.projectRoot,
     sourceRoot: schema.projectSourceRoot,

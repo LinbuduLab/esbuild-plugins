@@ -5,6 +5,20 @@ import {
   OptionalKind,
 } from 'ts-morph';
 
+const project = new Project();
+
+const sourceFile = project.createSourceFile(path, content, {
+  overwrite: true,
+});
+
+const exportDeclaration: OptionalKind<ExportDeclarationStructure> = {
+  kind: StructureKind.ExportDeclaration,
+  isTypeOnly: false,
+  moduleSpecifier: `./${directory}/${fileName}`,
+};
+
+sourceFile.addExportDeclaration(exportDeclaration);
+
 export function appendExportToIndexFile(
   path: string,
   content: string,

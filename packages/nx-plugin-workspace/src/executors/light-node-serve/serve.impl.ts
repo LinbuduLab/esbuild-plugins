@@ -1,11 +1,10 @@
 import { LightNodeServeExecutorSchema } from './schema';
 
 export default async function runExecutor(
-  options: LightNodeServeExecutorSchema,
+  options: LightNodeServeExecutorSchema
 ) {
-  console.log('Executor ran for LightNodeServe', options)
+  console.log('Executor ran for LightNodeServe', options);
   return {
-    success: true
-  }
+    success: true,
+  };
 }
-

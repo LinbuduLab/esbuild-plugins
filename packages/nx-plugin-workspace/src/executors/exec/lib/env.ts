@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import npmRunPath from 'npm-run-path';
 
-export function processEnv(color: boolean, useLocalPackage: boolean) {
+export function processEnv(color: boolean, useLocalPackage = false) {
   const env = useLocalPackage
     ? {
         ...process.env,

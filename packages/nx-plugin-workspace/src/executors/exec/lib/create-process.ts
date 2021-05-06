@@ -9,10 +9,11 @@ export function createExecaProcess(
 ) {
   return new Promise((res, rej) => {
     const childProcess = execa(command, {
-      env: processEnv(color, useLocalPackage),
+      env: processEnv(color),
       extendEnv: true,
       cwd,
       stdio: 'inherit',
+      preferLocal: useLocalPackage,
     });
 
     const processExitListener = () => childProcess.kill();
@@ -38,8 +39,9 @@ export function createSyncExecaProcess(
 ) {
   execa.sync(command, {
     extendEnv: true,
-    env: processEnv(color, useLocalPackage),
+    env: processEnv(color),
     stdio: 'inherit',
     cwd,
+    preferLocal: useLocalPackage,
   });
 }

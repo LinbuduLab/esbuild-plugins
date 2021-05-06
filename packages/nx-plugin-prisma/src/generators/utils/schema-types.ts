@@ -28,6 +28,12 @@ export interface PrismaGeneratorExtraSchema {
   collectArgs: boolean;
   // TODO: 多client支持
   // TODO: generate、db、migrate选项支持
+
+  noDBPull: boolean;
+  noDBPush: boolean;
+  noStudio: boolean;
+  noMigrate: boolean;
+  noIntrospect: boolean;
 }
 
 export interface PrismaGeneratorSchema
