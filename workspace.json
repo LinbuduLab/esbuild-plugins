@@ -880,7 +880,7 @@
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
             "target": "nx-plugin-workspace:build",
-            "npmPackageName": "@penumbra/nx-plugin-workspace",
+            "npmPackageName": "nx-plugin-workspace",
             "pluginOutputPath": "dist/packages/nx-plugin-workspace",
             "jestConfig": "e2e/nx-plugin-workspace-e2e/jest.config.js"
           }
@@ -1173,6 +1173,40 @@
             "packageJson": "packages/vite-plugin-prisma/package.json",
             "main": "packages/vite-plugin-prisma/src/index.ts",
             "assets": ["packages/vite-plugin-prisma/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-node-polyfill": {
+      "root": "packages/esbuild-plugin-node-polyfill",
+      "sourceRoot": "packages/esbuild-plugin-node-polyfill/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/esbuild-plugin-node-polyfill/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-node-polyfill"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-node-polyfill/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-node-polyfill",
+            "tsConfig": "packages/esbuild-plugin-node-polyfill/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-node-polyfill/package.json",
+            "main": "packages/esbuild-plugin-node-polyfill/src/index.ts",
+            "assets": ["packages/esbuild-plugin-node-polyfill/*.md"]
           }
         }
       }

@@ -60,9 +60,10 @@ export default async function (
       tmpl: '',
       offset: offsetFromRoot(normalizedSchema.projectRoot),
       pluginName: className.replace('Esbuild', 'ESBuild'),
-      lowerCasePluginName: fileName.replace('esbuild-plugin', ''),
+      lowerCasePluginName: fileName.replace('esbuild-plugin-', 'esbuild:'),
       pluginFuncName: propertyName,
       PluginFileName: fileName,
+      packageName: fileName,
     }
   );
 

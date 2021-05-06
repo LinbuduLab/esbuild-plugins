@@ -50,7 +50,10 @@
         "packages/esbuild-plugin-notifier/src/index.ts"
       ],
       "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"],
-      "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"]
+      "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"],
+      "esbuild-plugin-node-polyfill": [
+        "packages/esbuild-plugin-node-polyfill/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
