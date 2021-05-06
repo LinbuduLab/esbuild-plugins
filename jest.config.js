@@ -37,5 +37,6 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-workspace-e2e',
     '<rootDir>/packages/esbuild-plugin-node-polyfill',
     '<rootDir>/packages/esbuild-plugin-graphql',
+    '<rootDir>/packages/parcel-plugin-assets',
   ],
 };

@@ -1242,6 +1242,38 @@
           }
         }
       }
+    },
+    "parcel-plugin-assets": {
+      "root": "packages/parcel-plugin-assets",
+      "sourceRoot": "packages/parcel-plugin-assets/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/parcel-plugin-assets/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/parcel-plugin-assets"],
+          "options": {
+            "jestConfig": "packages/parcel-plugin-assets/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/parcel-plugin-assets",
+            "tsConfig": "packages/parcel-plugin-assets/tsconfig.lib.json",
+            "packageJson": "packages/parcel-plugin-assets/package.json",
+            "main": "packages/parcel-plugin-assets/src/index.ts",
+            "assets": ["packages/parcel-plugin-assets/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }
