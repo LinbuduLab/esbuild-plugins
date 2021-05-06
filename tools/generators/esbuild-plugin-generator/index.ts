@@ -9,6 +9,9 @@ import {
   generateFiles,
   offsetFromRoot,
   joinPathFragments,
+  readProjectConfiguration,
+  updateProjectConfiguration,
+  getWorkspaceLayout,
 } from '@nrwl/devkit';
 import path from 'path';
 import { nxVersion } from '@nrwl/workspace/src/utils/versions';
@@ -35,6 +38,34 @@ export default async function (
     publishable: true,
     unitTestRunner: 'jest',
     testEnvironment: 'node',
+  });
+
+  const projectConfiguration = readProjectConfiguration(
+    host,
+    normalizedSchema.projectName
+  );
+
+  const { appsDir, libsDir } = getWorkspaceLayout(host);
+
+  const { targets } = projectConfiguration;
+
+  const extendedTargets = {
+    ...targets,
+    build: {
+      executor: '@nrwl/node:package',
+      outputs: ['{options.outputPath}'],
+      options: {
+        outputPath: `dist/packages/${normalizedSchema.projectName}`,
+        tsConfig: `${libsDir}/${normalizedSchema.projectName}/tsconfig.lib.json`,
+        packageJson: `${libsDir}/${normalizedSchema.projectName}/package.json`,
+        main: `${libsDir}/${normalizedSchema.projectName}/src/index.ts`,
+        assets: [`${libsDir}/${normalizedSchema.projectName}/*.md`],
+      },
+    },
+  };
+  updateProjectConfiguration(host, normalizedSchema.projectName, {
+    ...projectConfiguration,
+    targets: extendedTargets,
   });
 
   addDependenciesToPackageJson(
