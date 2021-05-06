@@ -11,4 +11,4 @@ export * from './lib/shared-schema';
 export * from './lib/tool-type';
 export * from './lib/log';
 export * from './lib/buffer-until';
-export * from './lib/update-git-ignore';
+export * from './lib/update-ignore';

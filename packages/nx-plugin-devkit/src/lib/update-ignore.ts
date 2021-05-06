@@ -22,3 +22,25 @@ ${newPatterns.join('\n').trim()}`;
 
   host.write(gitIgnoreContent, updatedGitIgnoreContent);
 }
+
+export function updatePrettierIgnore(host: Tree, patterns: string[]) {
+  const prettierIgnoreContent = '.prettierignore';
+
+  const existPrettierIgnoreContent = host
+    .read(prettierIgnoreContent)
+    .toString('utf8')
+    .trimRight();
+
+  const newPatterns = patterns.filter(
+    (pattern) => !existPrettierIgnoreContent.includes(pattern)
+  );
+
+  if (!newPatterns.length) return;
+
+  const updatedGitIgnoreContent = `
+    ${existPrettierIgnoreContent}
+
+${newPatterns.join('\n').trim()}`;
+
+  host.write(existPrettierIgnoreContent, updatedGitIgnoreContent);
+}

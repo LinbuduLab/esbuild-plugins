@@ -12,7 +12,7 @@ import { normalizeSchema } from '../utils/normalize-schema';
 import { createPrismaSchemaFiles } from '../utils/create-files';
 import { setupPrismaProjectConfiguration } from '../utils/setup-config';
 import { shouldOverrideExistPrismaTargets } from './lib/should-override';
-import { addPrismaClientToGitIgnore } from '../utils/add-to-git-ignore';
+import { addPrismaClientToIgnore } from '../utils/update-ignore';
 
 export default async function (host: Tree, schema: PrismaSetupGeneratorSchema) {
   const normalizedSchema = normalizeSchema(host, schema);
@@ -29,7 +29,7 @@ export default async function (host: Tree, schema: PrismaSetupGeneratorSchema) {
   const projectConfig = setupPrismaProjectConfiguration(host, normalizedSchema);
   updateProjectConfiguration(host, normalizedSchema.projectName, projectConfig);
 
-  addPrismaClientToGitIgnore(host, normalizedSchema);
+  addPrismaClientToIgnore(host, normalizedSchema);
 
   setupProxy(host, normalizedSchema);
 
