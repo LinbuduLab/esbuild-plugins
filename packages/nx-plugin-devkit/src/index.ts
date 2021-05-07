@@ -12,3 +12,4 @@ export * from './lib/tool-type';
 export * from './lib/log';
 export * from './lib/buffer-until';
 export * from './lib/update-ignore';
+export * from './lib/date';

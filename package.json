@@ -149,6 +149,7 @@
     "envinfo": "^7.8.1",
     "es-module-lexer": "^0.4.1",
     "esbuild": "^0.11.11",
+    "escape-string-regexp": "^5.0.0",
     "eslint": "7.24.0",
     "eslint-config-prettier": "8.2.0",
     "execa": "^5.0.0",
