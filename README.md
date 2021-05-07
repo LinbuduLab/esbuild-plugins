@@ -18,48 +18,31 @@ npm i nx-plugin-vite -D
 npm i nx-plugin-umi -D
 npm i nx-plugin-serverless -D
 npm i nx-plugin-snowpack -D
+npm i nx-plugin-parcel -D
+npm i nx-plugin-vitepress -D
 
 
 # create TypeGraphQL Resolver includes FieldResolver
 nx g nx-plugin-typegraphql:resolver user --fields
-# create application based on TypeGraphQL + Apollo
-nx g nx-plugin-typegraphql:application tgql-app --minimal
+# create minimal application based on TypeGraphQL + Apollo
+nx g nx-plugin-typegraphql:application graphql-app --minimal
 # @graphql/code-gen & genql & @2fd/graphdoc generation
 nx run tgql-app:gen --genql --doc --codegen
 
-# create application based on Midway + TypeGraphQL + Prisma
-nx g nx-plugin-midway:application midway-graphql-app --graphql --prisma
-# serve by midway-bin dev/build
-nx serve midway-graphql-app
-nx build midway-graphql-app
-
-# create application based on Koa + Prisma + GraphQL + SQLite3
-nx g nx-plugin-prisma:application prisma-app --koa --graphql --db=sqlite3
+# create empty application with SQLite
+nx g nx-plugin-prisma:init prisma-app --datasourceProvider=sqlite
 nx setup prisma-app
 
 # create application based on ESBuild
-nx g nx-plugin-esbuild:init esbuild-app --watch
+nx g nx-plugin-esbuild:init esbuild-app
 nx serve esbuild-app
 nx build esbuild-app
-
-# create application based on SWC
-nx g nx-plugin-swc:init swc-app
-nx build swc-app
 
 # create application based on Vite + React
 nx g nx-plugin-vite:app vite-app --template react-tsx
 nx serve vite-app
 nx build vite-app
-
-# create application based on Umi
-nx g nx-plugin-umi:app umi-app
-nx serve umi-app
-nx build umi-app
-
-# create application based on SnowPack
-nx g nx-plugin-snowpack snowpack-app
-nx serve snowpack-app
-nx build snowpack-app
+nx info vite-app
 ```
 
 ## Packages
@@ -110,13 +93,20 @@ nx build snowpack-app
 
 > WIP
 
-- `esbuild-plugin-circular-deps`
 - `esbuild-plugin-notifier`
 - `esbuild-plugin-graphql`
+- `esbuild-plugin-alias-path`
+- `esbuild-plugin-node-polyfill`
 
 ### Vite-plugins
 
 - `vite-plugin-graphql`
+- `vite-plugin-prisma`
+- `vite-plugin-gundam`
+
+### Parcel-plugins
+
+- `parcel-plugin-assets`
 
 ## Global Progress
 

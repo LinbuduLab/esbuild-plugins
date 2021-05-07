@@ -32,5 +32,5 @@ export type RequiredKeys<T> = {
 }[keyof T];
 
 export type OptionalKeys<T> = {
-  [K in keyof T]-?: Record<string, unknown> extends Pick<T, K> ? never : K;
+  [K in keyof T]-?: Record<string, unknown> extends Pick<T, K> ? K : never;
 }[keyof T];
