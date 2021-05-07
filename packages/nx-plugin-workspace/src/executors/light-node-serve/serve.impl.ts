@@ -1,42 +1,17 @@
 import { ExecutorContext } from '@nrwl/devkit';
-import {
-  LightNodeServeExecutorSchema,
-  NormalizedLightNodeServeExecutorSchema,
-} from './schema';
+import { NormalizedLightNodeServeExecutorSchema } from './schema';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
 
 import { startExeca } from './lib/execa';
 
-// TODO:
-// schema:
-// --ignore-watch >>> assets
-// --watch-deps >>> false
-// --debug >>> false
-// --quiet
-// --polling X
-// --debounce
-// --clear false
-// --watch
-// --exit-child
-// --rs
-// --cache-directory
-
-// --transpileOnly
-
-// --registerPath
-
-// --emit
-
 export default function runExecutor(
   options: NormalizedLightNodeServeExecutorSchema,
   context: ExecutorContext
 ) {
-  const { main, tsConfig } = options;
-
   return eachValueFrom(
-    startExeca(tsConfig, main).pipe(
+    startExeca(options).pipe(
       map(() => {
         return {
           success: true,

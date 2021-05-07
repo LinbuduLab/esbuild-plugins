@@ -6,6 +6,7 @@ export interface LightNodeServeExecutorSchema {
   watch: boolean;
   // ts-node options
   preferTsExts: boolean;
+  transpileOnly: boolean;
   logError: boolean;
   registerPath: boolean;
   compiler: string;

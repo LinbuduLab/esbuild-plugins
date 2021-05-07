@@ -20,18 +20,23 @@
     },
     "preferTsExts": {
       "type": "boolean",
-      "description": "ts-node pretty option",
+      "description": "ts-node prefer-ts-exts option",
       "default": true
+    },
+    "transpileOnly": {
+      "type": "boolean",
+      "description": "ts-node transpile-only option",
+      "default": false
     },
     "logError": {
       "type": "boolean",
-      "description": "ts-node pretty option",
+      "description": "ts-node log-error option",
       "default": true
     },
     "registerPath": {
       "type": "boolean",
-      "description": "ts-node pretty option",
-      "default": true
+      "description": "ts-node -r tsconfig-paths/register option",
+      "default": false
     },
     "compiler": {
       "type": "string",
