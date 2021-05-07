@@ -9,6 +9,26 @@ import { eachValueFrom } from 'rxjs-for-await';
 
 import { startExeca } from './lib/execa';
 
+// TODO:
+// schema:
+// --ignore-watch >>> assets
+// --watch-deps >>> false
+// --debug >>> false
+// --quiet
+// --polling X
+// --debounce
+// --clear false
+// --watch
+// --exit-child
+// --rs
+// --cache-directory
+
+// --transpileOnly
+
+// --registerPath
+
+// --emit
+
 export default function runExecutor(
   options: NormalizedLightNodeServeExecutorSchema,
   context: ExecutorContext

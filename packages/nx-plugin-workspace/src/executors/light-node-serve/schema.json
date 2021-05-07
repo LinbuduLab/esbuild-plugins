@@ -17,6 +17,74 @@
       "type": "boolean",
       "description": "Run build when files change.",
       "default": true
+    },
+    "preferTsExts": {
+      "type": "boolean",
+      "description": "ts-node pretty option",
+      "default": true
+    },
+    "logError": {
+      "type": "boolean",
+      "description": "ts-node pretty option",
+      "default": true
+    },
+    "registerPath": {
+      "type": "boolean",
+      "description": "ts-node pretty option",
+      "default": true
+    },
+    "compiler": {
+      "type": "string",
+      "description": "ts-node compiler option",
+      "default": "typescript"
+    },
+    "skipProject": {
+      "type": "boolean",
+      "description": "ts-node skip-project option",
+      "default": false
+    },
+    "skipIgnore": {
+      "type": "boolean",
+      "description": "ts-node skip-ignore option",
+      "default": false
+    },
+    "emit": {
+      "type": "boolean",
+      "description": "ts-node emit option",
+      "default": false
+    },
+    "clearConsole": {
+      "type": "boolean",
+      "description": "node-dev clear option",
+      "default": false
+    },
+    "debounce": {
+      "type": "number",
+      "description": "node-dev debounce option",
+      "default": 100
+    },
+    "ignore": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "node-dev ignore option",
+      "default": []
+    },
+    "deps": {
+      "type": "number",
+      "description": "node-dev deps option",
+      "default": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "node-dev timestamp option",
+      "default": "HH:MM:ss"
+    },
+    "vm": {
+      "type": "boolean",
+      "description": "node-dev vm option",
+      "default": true
     }
   },
   "required": ["main", "tsConfig"],
