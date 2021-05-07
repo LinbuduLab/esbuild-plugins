@@ -15,7 +15,9 @@ export function normalizeSchema(
     false
   );
 
-  const clientOutput = schema.clientOutput ?? './client';
+  // FIXME: client output support
+  // const clientOutput = schema.clientOutput ?? './client';
+  const clientOutput = schema.clientOutput ?? 'node_modules/.prisma/client';
 
   const prismaSchemaDir = joinPathFragments(
     basicNormalizedAppGenSchema.projectSourceRoot,

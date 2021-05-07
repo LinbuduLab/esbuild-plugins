@@ -3,6 +3,7 @@ import {
   ProjectConfiguration,
   NxJsonProjectConfiguration,
   readProjectConfiguration,
+  joinPathFragments,
 } from '@nrwl/devkit';
 import { NormalizedPrismaGeneratorSchema } from './schema-types';
 import merge from 'lodash/merge';
@@ -12,6 +13,44 @@ export function initPrismaProjectConfiguration(
   schema: NormalizedPrismaGeneratorSchema
 ): ProjectConfiguration & NxJsonProjectConfiguration {
   const { prismaRelatedTargets } = prismaTargetsConfig(schema);
+
+  console.log('schema: ', schema);
+
+  const commonTargets = {
+    build: {
+      executor: 'nx-plugin-workspace:node-build',
+      outputs: ['{options.outputPath}'],
+      options: {
+        outputPath: joinPathFragments('dist/apps', schema.projectDirectory),
+        main: joinPathFragments(schema.projectSourceRoot, 'main.ts'),
+        tsConfig: joinPathFragments(schema.projectRoot, 'tsconfig.app.json'),
+        assets: [joinPathFragments(schema.projectSourceRoot, 'assets')],
+      },
+      configurations: {
+        production: {
+          optimization: true,
+          extractLicenses: true,
+          inspect: false,
+          fileReplacements: [
+            {
+              replace: joinPathFragments(
+                schema.projectSourceRoot,
+                'environments/environment.ts'
+              ),
+              with: joinPathFragments(
+                schema.projectSourceRoot,
+                'environments/environment.prod.ts'
+              ),
+            },
+          ],
+        },
+      },
+    },
+    serve: {
+      executor: 'nx-plugin-workspace:node-serve',
+      options: { buildTarget: `${schema.projectName}:build` },
+    },
+  };
 
   if (schema.noDBPull) {
     delete prismaRelatedTargets['prisma-db-pull'];
@@ -39,7 +78,8 @@ export function initPrismaProjectConfiguration(
     root: schema.projectRoot,
     sourceRoot: schema.projectSourceRoot,
     projectType: 'application',
-    targets: prismaRelatedTargets,
+    // TODO: control by schema option
+    targets: { ...commonTargets, ...prismaRelatedTargets },
   };
 
   return project;
