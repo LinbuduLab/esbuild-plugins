@@ -47,7 +47,8 @@
     "convert-type": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\convert-import-type.ts",
     "release:dry": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\release-project\\release-project.ts --dry-run",
     "release": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\release\\release-project.ts",
-    "sort": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\sort-config-file\\sort-config-file.ts"
+    "sort": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\sort-config-file\\sort-config-file.ts",
+    "schema2ts": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\schema-to-ts\\schema-to-ts.ts"
   },
   "private": true,
   "size-limit": [
@@ -165,6 +166,7 @@
     "hasha": "^5.2.2",
     "husky": "^6.0.0",
     "jest": "26.6.3",
+    "json-schema-to-ts": "^1.6.3",
     "jsonfile": "^6.1.0",
     "latest-version": "^5.1.0",
     "lodash": "^4.17.21",
@@ -193,6 +195,7 @@
     "ts-jest": "26.5.5",
     "ts-morph": "^10.0.2",
     "ts-node": "~9.1.1",
+    "ts-node-dev": "^1.1.6",
     "tslib": "^2.2.0",
     "typescript": "~4.2.4",
     "vite": "^2.2.1",
