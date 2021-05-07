@@ -3,6 +3,18 @@ import path from 'path';
 import { NormalizedPrismaGeneratorSchema } from './schema-types';
 import merge from 'lodash/merge';
 
+export const avaliablePrismaTargets = [
+  'prisma-generate',
+  'prisma-introspect',
+  'prisma-format',
+  'prisma-studio',
+  'prisma-db-pull',
+  'prisma-db-push',
+  'prisma-migrate-reset',
+  'prisma-migrate-deploy',
+  'prisma-migrate-status',
+];
+
 export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
   const cwd2SchemaRelativePath = normalizePath(
     path.relative(schema.projectRoot, schema.prismaSchemaPath)

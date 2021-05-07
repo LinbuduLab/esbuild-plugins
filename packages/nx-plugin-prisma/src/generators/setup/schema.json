@@ -65,12 +65,12 @@
       "type": "boolean",
       "description": "Override project configuration if project contains prisma targets already",
       "default": false
+    },
+    "collectArgs": {
+      "type": "boolean",
+      "description": "Collect all args in options.args",
+      "default": false
     }
-  },
-  "collectArgs": {
-    "type": "boolean",
-    "description": "Collect all args in options.args",
-    "default": false
   },
   "required": ["app"]
 }

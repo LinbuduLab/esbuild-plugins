@@ -12,7 +12,6 @@ export function createPrismaSchemaFiles(
   createNodeAppFiles(host, schema, path.join(__dirname, './files/app'), {
     SchemaName: schema.schemaName,
   });
-
   // create prisma schema
   generateFiles(
     host,
@@ -23,7 +22,7 @@ export function createPrismaSchemaFiles(
     schema.prismaSchemaDir,
     {
       tmpl: '',
-      SchemaName: schema.schemaName,
+      SchemaName: schema.schemaName.trim(),
       ClientProvider: schema.clientProvider,
       ClientOutput: schema.clientOutput,
       // prisma schema does not allow single quote

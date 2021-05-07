@@ -2,10 +2,10 @@ import { Tree } from '@nrwl/devkit';
 
 // reminded by https://github.com/ZachJW34/nx-plus/blob/master/libs/docusaurus/src/schematics/app/schematic.ts
 export function updateGitIgnore(host: Tree, patterns: string[]) {
-  const gitIgnoreContent = '.gitignore';
+  const gitIgnorePath = '.gitignore';
 
   const existGitIgnoreContent = host
-    .read(gitIgnoreContent)
+    .read(gitIgnorePath)
     .toString('utf8')
     .trimRight();
 
@@ -20,14 +20,14 @@ export function updateGitIgnore(host: Tree, patterns: string[]) {
 
 ${newPatterns.join('\n').trim()}`;
 
-  host.write(gitIgnoreContent, updatedGitIgnoreContent);
+  host.write(gitIgnorePath, updatedGitIgnoreContent);
 }
 
 export function updatePrettierIgnore(host: Tree, patterns: string[]) {
-  const prettierIgnoreContent = '.prettierignore';
+  const prettierIgnore = '.prettierignore';
 
   const existPrettierIgnoreContent = host
-    .read(prettierIgnoreContent)
+    .read(prettierIgnore)
     .toString('utf8')
     .trimRight();
 
@@ -42,5 +42,5 @@ export function updatePrettierIgnore(host: Tree, patterns: string[]) {
 
 ${newPatterns.join('\n').trim()}`;
 
-  host.write(existPrettierIgnoreContent, updatedGitIgnoreContent);
+  host.write(prettierIgnore, updatedGitIgnoreContent);
 }
