@@ -204,7 +204,7 @@
     "webpack-bundle-analyzer": "^4.4.1",
     "webpack-dev-server": "3.11.2",
     "webpack-merge": "4.2.1",
-    "webpack-node-externals": "1.7.2",
+    "webpack-node-externals": "3.0.0",
     "webpack-sources": "1.4.3",
     "webpack-subresource-integrity": "^1.5.1",
     "webpackbar": "^5.0.0-3",
