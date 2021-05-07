@@ -200,7 +200,7 @@
     "typescript": "~4.2.4",
     "vite": "^2.2.4",
     "vitepress": "^0.13.2",
-    "webpack": "4.42.0",
+    "webpack": "5.36.2",
     "webpack-bundle-analyzer": "^4.4.1",
     "webpack-dev-server": "3.11.2",
     "webpack-merge": "4.2.1",
