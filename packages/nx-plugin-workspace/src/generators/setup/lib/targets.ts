@@ -52,10 +52,24 @@ export const setupTargets = (
     },
   };
 
+  const execTarget = {
+    executor: 'nx-plugin-workspace:exec',
+    options: {
+      command: 'echo "__JUST_EMPTY_WORKSPACE_EXEC__"',
+      cwd: projectRoot,
+      parallel: false,
+      color: true,
+      outputPath: `dist/${projectRoot}`,
+      useCamelCase: false,
+      useLocalPackage: true,
+    },
+  };
+
   return {
     build: schema.build ? nodeBuildTarget : undefined,
     serve: schema.serve ? nodeServeTarget : undefined,
     'serve-prod': schema.serve ? nodeServeProdTarget : undefined,
     dev: schema.dev ? devTarget : undefined,
+    exec: schema.exec ? execTarget : undefined,
   };
 };

@@ -33,7 +33,8 @@ export default async function (
     normalizePath(originProjectConfiguration.sourceRoot)
   );
 
-  const { build, serve, dev } = targets;
+  // TODO:
+  const { build, serve, dev, exec } = targets;
   const serveProd = targets['serv-prod'];
 
   // not use merge here, because we want to override origin targets entirely
@@ -43,6 +44,7 @@ export default async function (
     serve,
     'serve-prod': serveProd,
     dev,
+    exec,
   };
 
   originProjectConfiguration.targets = updatedTargets;
