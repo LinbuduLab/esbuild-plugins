@@ -2,11 +2,5 @@
   "$schema": "http://json-schema.org/schema",
   "name": "nx-plugin-serverless",
   "version": "0.0.1",
-  "generators": {
-    "nx-plugin-serverless": {
-      "factory": "./src/generators/nx-plugin-serverless/generator",
-      "schema": "./src/generators/nx-plugin-serverless/schema.json",
-      "description": "nx-plugin-serverless generator"
-    }
-  }
+  "generators": {}
 }

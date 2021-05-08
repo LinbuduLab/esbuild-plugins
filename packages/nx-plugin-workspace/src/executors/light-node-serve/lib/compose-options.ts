@@ -6,7 +6,7 @@ import {
 export const getNodeDevOptions = (schema: LightNodeServeExecutorSchema) => {
   // replace with Primitive
   const args: string[] = [
-    `--ignore=${schema.ignore.join(' ')}`,
+    `--ignore=${schema.ignore}`,
     // `--timestamp=${schema.timestamp}`,
     `--deps=${schema.deps}`,
     `--debounce=${schema.debounce}`,

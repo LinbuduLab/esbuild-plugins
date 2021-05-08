@@ -24,6 +24,8 @@ export const startExeca = (schema: LightNodeServeExecutorSchema) => {
   const commandArgs = [
     // ...nodeDevOptions,
     '--respawn',
+    '--deps=1',
+    '--debounce=200',
     ...tsNodeOptions,
     '--',
     main,
