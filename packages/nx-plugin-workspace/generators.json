@@ -7,6 +7,11 @@
       "factory": "./src/generators/setup/setup.impl",
       "schema": "./src/generators/setup/schema.json",
       "description": "setup generator"
+    },
+    "react-scripts": {
+      "factory": "./src/generators/react-scripts/generator",
+      "schema": "./src/generators/react-scripts/schema.json",
+      "description": "react-scripts generator"
     }
   }
 }
