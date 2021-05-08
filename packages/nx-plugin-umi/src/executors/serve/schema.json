@@ -1,10 +1,9 @@
 {
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "title": "Build executor",
+  "title": "Serve executor",
   "description": "",
   "type": "object",
   "properties": {},
-  "additionalProperties": true,
   "required": []
 }

@@ -10,6 +10,11 @@
       "implementation": "./src/executors/info/executor",
       "schema": "./src/executors/info/schema.json",
       "description": "info executor"
+    },
+    "serve": {
+      "implementation": "./src/executors/serve/serve.impl",
+      "schema": "./src/executors/serve/schema.json",
+      "description": "serve executor"
     }
   }
 }

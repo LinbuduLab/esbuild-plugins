@@ -88,7 +88,7 @@
     },
     "nx-plugin-umi": {
       "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+      "implicitDependencies": []
     },
     "nx-plugin-umi-e2e": {
       "tags": [],
