@@ -1,4 +1,3 @@
-import { BuildExecutorSchema } from './schema';
 import execa from 'execa';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';

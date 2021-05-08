@@ -121,7 +121,7 @@
     },
     "nx-plugin-parcel": {
       "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+      "implicitDependencies": []
     },
     "nx-plugin-parcel-e2e": {
       "tags": [],
