@@ -55,3 +55,20 @@ export function getAvailableLibs(host: Tree): Array<AvaliableLib> {
 
   return libs;
 }
+
+export function getAvailableApps(host: Tree): Array<AvaliableApp> {
+  const projects = getProjects(host);
+  const apps: Array<AvaliableApp> = [];
+
+  projects.forEach((project, appName) => {
+    if (project.projectType === 'application') {
+      apps.push({
+        appName,
+        root: project.root,
+        sourceRoot: project.sourceRoot,
+      });
+    }
+  });
+
+  return apps;
+}

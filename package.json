@@ -36,7 +36,7 @@
     "dev:snowpack": "nx run nx-plugin-snowpack:build && cd .\\dist\\packages\\nx-plugin-snowpack\\ && pnpm link",
     "dev:koa": "nx run nx-plugin-koa:build --with-deps && cd .\\dist\\packages\\nx-plugin-koa\\ && npm run link",
     "dev:devkit": "nx run nx-plugin-devkit:build && cd .\\dist\\packages\\nx-plugin-devkit\\ && pnpm link",
-    "dev:workspace": "nx run nx-plugin-workspace:build --with-deps && cd .\\dist\\packages\\nx-plugin-workspace\\ && pnpm link",
+    "dev:workspace": "nx run nx-plugin-workspace:build --with-deps && cd .\\dist\\packages\\nx-plugin-workspace\\ && npm run link",
     "dev:esbuild:decorator": "nx run esbuild-plugin-decorator:build && cd .\\dist\\packages\\esbuild-plugin-decorator\\ && pnpm link",
     "dev:esbuild:externals": "nx run esbuild-plugin-node-externals:build && cd .\\dist\\packages\\esbuild-plugin-node-externals\\ && pnpm link",
     "dev:esbuild:filesize": "nx run esbuild-plugin-filesize:build && cd .\\dist\\packages\\esbuild-plugin-filesize\\ && pnpm link",
