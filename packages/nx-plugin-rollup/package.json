@@ -1,5 +1,5 @@
 {
-  "name": "@penumbra/nx-plugin-rollup",
+  "name": "nx-plugin-rollup",
   "version": "0.0.1",
   "main": "src/index.js",
   "generators": "./generators.json",
