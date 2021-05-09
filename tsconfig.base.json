@@ -58,7 +58,8 @@
       "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"],
       "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"],
       "vite-plugin-gundam": ["packages/vite-plugin-gundam/src/index.ts"],
-      "parcel-plugin-assets": ["packages/parcel-plugin-assets/src/index.ts"]
+      "parcel-plugin-assets": ["packages/parcel-plugin-assets/src/index.ts"],
+      "nx-plugin-rollup": ["packages/nx-plugin-rollup/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

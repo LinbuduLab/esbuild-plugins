@@ -86,10 +86,7 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-vite"]
     },
-    "nx-plugin-umi": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
+    "nx-plugin-umi": { "tags": ["scope:nx"], "implicitDependencies": [] },
     "nx-plugin-umi-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-umi"]
@@ -119,10 +116,7 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-vitepress"]
     },
-    "nx-plugin-parcel": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
+    "nx-plugin-parcel": { "tags": ["scope:nx"], "implicitDependencies": [] },
     "nx-plugin-parcel-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-parcel"]
@@ -147,7 +141,12 @@
     "vite-plugin-graphql": { "tags": ["scope:vite"] },
     "vite-plugin-prisma": { "tags": ["scope:vite"] },
     "vite-plugin-gundam": { "tags": [] },
-    "parcel-plugin-assets": { "tags": [] }
+    "parcel-plugin-assets": { "tags": [] },
+    "nx-plugin-rollup": { "tags": [] },
+    "nx-plugin-rollup-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-rollup"]
+    }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

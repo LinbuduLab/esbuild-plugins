@@ -39,5 +39,7 @@ module.exports = {
     '<rootDir>/packages/esbuild-plugin-graphql',
     '<rootDir>/packages/parcel-plugin-assets',
     '<rootDir>/packages/vite-plugin-gundam',
+    '<rootDir>/packages/nx-plugin-rollup',
+    '<rootDir>/e2e\\nx-plugin-rollup-e2e',
   ],
 };

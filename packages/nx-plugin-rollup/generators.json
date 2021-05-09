@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-plugin-rollup",
+  "version": "0.0.1",
+  "generators": {
+    "init": {
+      "factory": "./src/generators/init/init.impl",
+      "schema": "./src/generators/init/schema.json",
+      "description": "init generator"
+    },
+    "setup": {
+      "factory": "./src/generators/setup/setup.impl",
+      "schema": "./src/generators/setup/schema.json",
+      "description": "setup generator"
+    }
+  }
+}
