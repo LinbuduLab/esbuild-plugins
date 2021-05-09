@@ -25,18 +25,36 @@ import {
 export default async function (host: Tree, schema: KoaAppGeneratorSchema) {
   const normalizedSchema = normalizeSchema(host, schema);
 
+  const { projectName } = normalizedSchema;
+
   const tasks: GeneratorCallback[] = [];
 
   const initTask = await createNodeInitTask(host);
   tasks.push(initTask);
 
-  createNodeAppProject(host, normalizedSchema, {
-    executor: 'nx-plugin-workspace:node-build',
-    options: {
-      progress: true,
-      verbose: true,
+  // TODO: 在创建应用时，可选使用@nrwl/node作为executor或者nx-workspace
+  createNodeAppProject(
+    host,
+    normalizedSchema,
+    {
+      executor: 'nx-plugin-workspace:node-build',
+      options: {
+        progress: true,
+        verbose: true,
+      },
     },
-  });
+    {
+      executor: 'nx-plugin-workspace:node-serve',
+      options: {
+        buildTarget: `${projectName}:build`,
+      },
+      configurations: {
+        production: {
+          buildTarget: `${projectName}:build:production`,
+        },
+      },
+    }
+  );
 
   createNodeAppFiles(host, normalizedSchema, path.join(__dirname, './files'));
 

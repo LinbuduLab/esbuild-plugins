@@ -4,6 +4,7 @@ import {
   NxJsonProjectConfiguration,
   readProjectConfiguration,
   joinPathFragments,
+  TargetConfiguration,
 } from '@nrwl/devkit';
 import { NormalizedPrismaGeneratorSchema } from './schema-types';
 import merge from 'lodash/merge';
@@ -16,7 +17,7 @@ export function initPrismaProjectConfiguration(
 
   console.log('schema: ', schema);
 
-  const commonTargets = {
+  const commonTargets: Record<string, TargetConfiguration> = {
     build: {
       executor: 'nx-plugin-workspace:node-build',
       outputs: ['{options.outputPath}'],
@@ -49,6 +50,9 @@ export function initPrismaProjectConfiguration(
     serve: {
       executor: 'nx-plugin-workspace:node-serve',
       options: { buildTarget: `${schema.projectName}:build` },
+      configurations: {
+        buildTarget: `${schema.projectName}:build:production`,
+      },
     },
   };
 

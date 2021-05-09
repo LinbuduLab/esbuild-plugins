@@ -1,3 +1,4 @@
+import { TargetConfiguration } from '@nrwl/devkit';
 import { WorkspaceSetupGeneratorSchema } from '../schema';
 
 export const setupTargets = (
@@ -6,7 +7,7 @@ export const setupTargets = (
   projectRoot: string,
   sourceRoot: string
 ) => {
-  const nodeBuildTarget = {
+  const nodeBuildTarget: TargetConfiguration = {
     executor: 'nx-plugin-workspace:node-build',
     outputs: ['{options.outputPath}'],
     options: {
@@ -33,14 +34,14 @@ export const setupTargets = (
     },
   };
 
-  const nodeServeTarget = {
+  const nodeServeTarget: TargetConfiguration = {
     executor: 'nx-plugin-workspace:node-serve',
     options: { buildTarget: `${appName}:build` },
-  };
-
-  const nodeServeProdTarget = {
-    executor: 'nx-plugin-workspace:node-serve',
-    options: { buildTarget: `${appName}:build:production` },
+    configurations: {
+      production: {
+        buildTarget: `${appName}:build:production`,
+      },
+    },
   };
 
   const devTarget = {
@@ -68,7 +69,6 @@ export const setupTargets = (
   return {
     build: schema.build ? nodeBuildTarget : undefined,
     serve: schema.serve ? nodeServeTarget : undefined,
-    'serve-prod': schema.serve ? nodeServeProdTarget : undefined,
     dev: schema.dev ? devTarget : undefined,
     exec: schema.exec ? execTarget : undefined,
   };

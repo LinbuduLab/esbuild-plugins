@@ -2,11 +2,14 @@ import { joinPathFragments, TargetConfiguration } from '@nrwl/devkit';
 
 import type { BasicNormalizedAppGenSchema } from '../shared-schema';
 
+// 如果没有传入覆写的配置
+// 则使用@nrwl/node:build/serve作为executor
+// TODO: 默认使用 nx-plugin-workspace
 export function createNodeAppBuildConfig<
   NormalizedAppSchema extends BasicNormalizedAppGenSchema
 >(
   schema: NormalizedAppSchema,
-  buildTarget: TargetConfiguration | null
+  buildTarget?: TargetConfiguration | null
 ): TargetConfiguration {
   const extendBuildTarget = buildTarget ?? {
     executor: undefined,
@@ -51,7 +54,9 @@ export function createNodeAppServeConfig<
   NormalizedAppSchema extends BasicNormalizedAppGenSchema
 >(
   schema: NormalizedAppSchema,
-  serveTarget: TargetConfiguration | null
+  serveTarget?: TargetConfiguration | null,
+  buildTargetName?: string | null,
+  prodConfigurationName?: string | null
 ): TargetConfiguration {
   const extendServeTarget = serveTarget ?? {
     executor: undefined,
@@ -59,13 +64,19 @@ export function createNodeAppServeConfig<
     configurations: {},
   };
 
+  const projectBuildTargetName = buildTargetName ?? 'build';
+  const projectProdConfigurationName = prodConfigurationName ?? 'production';
+
   return {
     executor: extendServeTarget.executor ?? '@nrwl/node:execute',
     options: {
-      buildTarget: `${schema.projectName}:build`,
+      buildTarget: `${schema.projectName}:${projectBuildTargetName}`,
       ...extendServeTarget.options,
     },
     configurations: {
+      [projectProdConfigurationName]: {
+        buildTarget: `${schema.projectName}:${projectBuildTargetName}:${prodConfigurationName}`,
+      },
       ...extendServeTarget.configurations,
     },
   };

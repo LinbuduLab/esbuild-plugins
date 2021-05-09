@@ -35,14 +35,12 @@ export default async function (
 
   // TODO:
   const { build, serve, dev, exec } = targets;
-  const serveProd = targets['serv-prod'];
 
   // not use merge here, because we want to override origin targets entirely
   const updatedTargets = {
     ...originProjectConfiguration.targets,
     build,
     serve,
-    'serve-prod': serveProd,
     dev,
     exec,
   };

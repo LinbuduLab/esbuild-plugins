@@ -73,17 +73,14 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
       options: {
         buildTarget: `${projectName}:${buildTargetName}`,
       },
-    },
-    {
-      executor: 'nx-plugin-workspace:node-serve',
-      options: {
-        // TODO: configurate by schema option
-        buildTarget: `${projectName}:${buildTargetName}:production`,
+      configurations: {
+        production: {
+          buildTarget: `${projectName}:${buildTargetName}:production`,
+        },
       },
     },
     buildTargetName,
-    serveTargetName,
-    'serve-prod'
+    serveTargetName
   );
 
   createNodeAppFiles(host, normalizedSchema, path.join(__dirname, './files'));

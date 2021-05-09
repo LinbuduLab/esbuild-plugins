@@ -93,37 +93,26 @@ export function createNodeAppProject<
   schema: NormalizedAppSchema,
   buildTarget?: TargetConfiguration | null,
   serveTarget?: TargetConfiguration | null,
-  serveProdTarget?: TargetConfiguration | null,
   buildTargetName?: string | null,
-  serveTargetName?: string | null,
-  serveProdTargetName?: string | null
+  serveTargetName?: string | null
 ) {
+  const projectBuildTargetName = buildTargetName ?? 'build';
+  const projectServeTargetName = serveTargetName ?? 'serve';
+
   const project: ProjectConfiguration & NxJsonProjectConfiguration = {
     root: schema.projectRoot,
     sourceRoot: joinPathFragments(schema.projectRoot, 'src'),
     projectType: 'application',
     targets: {
-      [buildTargetName ?? 'build']: createNodeAppBuildConfig(
+      [projectBuildTargetName]: createNodeAppBuildConfig(schema, buildTarget),
+      [projectServeTargetName]: createNodeAppServeConfig(
         schema,
-        buildTarget
-      ),
-      [serveTargetName ?? 'serve']: createNodeAppServeConfig(
-        schema,
-        serveTarget
+        serveTarget,
+        projectBuildTargetName
       ),
     },
     tags: schema.parsedTags,
   };
-
-  if (serveProdTarget) {
-    project.targets = {
-      ...project.targets,
-      [serveProdTargetName ?? 'serve-prod']: createNodeAppServeConfig(
-        schema,
-        serveProdTarget
-      ),
-    };
-  }
 
   addProjectConfiguration(host, schema.projectName, project);
 
