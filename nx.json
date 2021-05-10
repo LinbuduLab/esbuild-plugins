@@ -146,7 +146,8 @@
     "nx-plugin-rollup-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-rollup"]
-    }
+    },
+    "rollup-plugin-static-serve": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }
