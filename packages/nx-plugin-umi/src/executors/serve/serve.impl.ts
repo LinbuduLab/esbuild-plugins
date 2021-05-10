@@ -15,7 +15,6 @@ import { startUmiServe } from '../utils/start-umi-serve';
 export default function runExecutor(options: any) {
   // 有无现成的ChildProcess转Promise？
   // 看起来不需要，只要模仿umi fork处理一下inspection相关即可
-
   return eachValueFrom(
     startUmiServe(options.cwd).pipe(
       tap((x) => {

@@ -61,6 +61,9 @@ specifiers:
   '@types/webpackbar': ^4.0.1
   '@typescript-eslint/eslint-plugin': 4.22.1
   '@typescript-eslint/parser': 4.22.1
+  '@umijs/bundler-webpack': ^3.4.15
+  '@umijs/core': ^3.4.15
+  '@umijs/deps': ^3.4.15
   '@umijs/preset-react': ^1.8.7
   '@umijs/utils': ^3.4.15
   '@vitejs/create-app': ^2.2.5
@@ -213,6 +216,9 @@ devDependencies:
   '@types/webpackbar': 4.0.1
   '@typescript-eslint/eslint-plugin': 4.22.1_f2cf9a191be19a59b06aad4f4e4a9af1
   '@typescript-eslint/parser': 4.22.1_eslint@7.25.0+typescript@4.2.4
+  '@umijs/bundler-webpack': 3.4.15
+  '@umijs/core': 3.4.15
+  '@umijs/deps': 3.4.15
   '@umijs/preset-react': 1.8.7_c897ad4fc6ad802669b0090ca0eb48d3
   '@umijs/utils': 3.4.15
   '@vitejs/create-app': 2.2.5
