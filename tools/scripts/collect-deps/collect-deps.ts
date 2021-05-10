@@ -16,8 +16,10 @@ export async function main() {
     scope
   );
 
+  // single one
   if (projects.length === 1 && !projects.includes(GENERATE_FOR_ALL_PACKAGES)) {
     handler(projects[0]);
+    // multi
   } else if (
     projects.length >= 1 &&
     !projects.includes(GENERATE_FOR_ALL_PACKAGES)
@@ -25,6 +27,7 @@ export async function main() {
     for (const projectItem of projects) {
       handler(projectItem);
     }
+    // all
   } else if (projects.includes(GENERATE_FOR_ALL_PACKAGES)) {
     for (const projectItem of availablePackages) {
       handler(projectItem);

@@ -16,7 +16,13 @@ import {
   PRESERVED_NX_PEER_DEPS,
 } from './constants';
 import { collectDepsVersionFromRootPackage } from './collect-dep-version';
-import { esbuildPlugins } from '../utils/packages';
+import {
+  esbuildPlugins,
+  vitePlugins,
+  umiPlugins,
+  parcelPlugins,
+  rollupPlugins,
+} from '../utils/packages';
 
 export function handler(project: string) {
   console.log(chalk.cyan(`Handling ${project} \n`));
@@ -60,7 +66,15 @@ export function handler(project: string) {
     [...PRESERVED_NX_PEER_DEPS, ...PRESERVED_PACKAGE_PEER_DEPS].includes(dep);
 
   // these deps will be added to the package.json in build
-  const depsToExlude = [...esbuildPlugins, 'nx-plugin-devkit'];
+  const depsToExlude = [
+    ...esbuildPlugins,
+    ...vitePlugins,
+    ...umiPlugins,
+    ...parcelPlugins,
+    ...rollupPlugins,
+    'nx-plugin-devkit',
+    'nx-plugin-workspace',
+  ];
 
   // TODO: optimize by lodash method
   const processedDeps = uniq(

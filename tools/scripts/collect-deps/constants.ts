@@ -7,7 +7,7 @@ export const PRESERVED_PACKAGE_PEER_DEPS = [
   // nx-plugin-typegraphql
   'reflect-metadata',
   'graphql',
-  // 'typegraphql',
+  'type-graphql',
   // nx-plugin-esbuild
   'esbuild',
   // nx-plugin-vite
@@ -19,15 +19,27 @@ export const PRESERVED_PACKAGE_PEER_DEPS = [
   '@prisma/client',
   // nx-plugin-koa
   'koa',
-  // 'routing-controllers',
+  'routing-controllers',
   // nx-plugin-swc
   '@swc/core',
+  // nx-plugin-vitepress
+  'vitepress',
+  // nx-plugin-parcel
+  'parcel',
+  // nx-plugin-rollup
+  'rollup',
+  // nx-plugin-umi
+  'umi',
+  // nx-plugin-midway
+  'midway',
+  'midway-bin',
+  // nx-plugin-snowpack
+  'snowpack',
   // shared
   'typescript',
   'webpack',
   'webpack-dev-server',
-  // nx-plugin-vitepress
-  'vitepress',
+  'tslib',
 ];
 
 export const PRESERVED_NX_PEER_DEPS = [
