@@ -4,6 +4,32 @@
   "title": "Info executor",
   "description": "",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "plugin": {
+      "type": "boolean",
+      "description": "umi plugin",
+      "default": true
+    },
+    "version": {
+      "type": "boolean",
+      "description": "umi version",
+      "default": true
+    },
+    "webpack": {
+      "type": "boolean",
+      "description": "umi webpack",
+      "default": true
+    },
+    "verboseWebpackReport": {
+      "type": "boolean",
+      "description": "umi webpack report with all rules & plugins",
+      "default": false
+    },
+    "cwd": {
+      "type": "string",
+      "description": "cwd"
+    }
+  },
+  "additionalProperties": true,
   "required": []
 }
