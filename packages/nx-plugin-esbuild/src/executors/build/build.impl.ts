@@ -74,6 +74,7 @@ export default function buildExecutor(
     options.externalDependencies === 'all' && esbuildPluginNodeExternals(),
     esbuildPluginAliasPath({
       alias: options.alias,
+      tsconfigPath: options.tsConfig,
     }),
     // esbuildFileSizePlugin(),
   ];

@@ -1,41 +1,44 @@
 import type { Plugin } from 'esbuild';
-import type { ESBuildPluginAliasPathOptions } from './normalize-options';
+import type { Options } from './normalize-options';
 
 import { normalizeOption } from './normalize-options';
 
-import { nodeModuleNameResolver, sys, CompilerOptions } from 'typescript';
-import { loadCompilerOptions } from './load-compiler-options';
+import { nodeModuleNameResolver, sys } from 'typescript';
 import { escapeNamespace } from './escape-namespace';
-import merge from 'lodash/merge';
 
 const debug = require('debug')('esbuild:alias-path');
 
-export const esbuildPluginAliasPath = (
-  options: ESBuildPluginAliasPathOptions = {}
-): Plugin => {
-  const { alias, paths, baseUrl, tsconfigPath } = normalizeOption(options);
+const pluginName = 'esbuild:alias-path';
+
+export const esbuildPluginAliasPath = (options: Options = {}): Plugin => {
+  const { alias, skip, tsconfigPath, compilerOptions } = normalizeOption(
+    options
+  );
+
+  if (skip) {
+    return {
+      name: pluginName,
+      setup(build) {},
+    };
+  }
 
   const escapedNamespace = escapeNamespace(Object.keys(alias));
 
-  const compilerOptions: CompilerOptions = merge(
-    loadCompilerOptions(tsconfigPath),
-    baseUrl,
-    paths
-  );
-
   return {
-    name: 'alias-path',
+    name: pluginName,
     setup(build) {
-      build.onResolve({ filter: escapedNamespace }, ({ path: filePath }) => {
-        if (!alias[filePath]) {
+      // handle alias replacement
+      build.onResolve({ filter: escapedNamespace }, ({ path: fromPath }) => {
+        if (!alias[fromPath]) {
           return null;
         }
 
         return {
-          path: alias[filePath],
+          path: alias[fromPath],
         };
       });
 
+      // handle tsconfig paths mapping
       build.onResolve(
         { filter: /.*/ },
         async ({ path: filePath, importer }) => {
@@ -56,7 +59,7 @@ export const esbuildPluginAliasPath = (
           const { resolvedModule } = nodeModuleNameResolver(
             filePath,
             importer,
-            compilerOptions || {},
+            compilerOptions,
             sys
           );
 

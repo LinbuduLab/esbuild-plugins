@@ -1,4 +1,3 @@
-import { nodeModuleNameResolver, sys } from 'typescript';
 import findUp from 'find-up';
 import { CompilerOptions } from 'typescript';
 import jsonfile from 'jsonfile';

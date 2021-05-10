@@ -1,0 +1,9 @@
+  build.onResolve({ filter: escapedNamespace }, ({ path: filePath }) => {
+        if (!alias[filePath]) {
+          return null;
+        }
+
+        return {
+          path: alias[filePath],
+        };
+      });

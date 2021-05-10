@@ -1,65 +1,78 @@
-import path from 'path';
+import { CompilerOptions } from 'typescript';
+import { loadCompilerOptions } from './load-compiler-options';
+import fs from 'fs-extra';
 
-export interface Alias {
-  from: string | RegExp;
-  to: string;
-}
-
-export interface ESBuildPluginAliasPathOptions {
+export interface Options {
   // alias default as {}
-  // {"a":"b"} or [{from:"a", to:"b"}]
+  // {"a":"b"}
   alias?: Record<string, string>;
-  resolveModule?: boolean;
-  // tsconfig.json paths
 
-  baseUrl?: string;
-  paths?: Record<string, string[]>;
-
-  // tsconfig.json baseUrl
   // path of tsconfig.json
   tsconfigPath?: string;
+
+  skip?: boolean;
+
+  // TODO: nx customization
+  nx?: {
+    enabled?: boolean;
+    projectSourceRoot?: string;
+  };
 }
 
-export interface NormalizedESBuildPluginAliasPathOptions {
+export interface NormalizedOptions {
   alias: Record<string, string>;
-  resolveModule: boolean;
-  baseUrl: string | undefined;
-  paths: Record<string, string[]>;
+
   tsconfigPath: string | undefined;
+  compilerOptions: CompilerOptions | null;
+
+  skip: boolean;
 }
 
-export function normalizeOption(
-  options: ESBuildPluginAliasPathOptions = {}
-): NormalizedESBuildPluginAliasPathOptions {
-  const alias = options?.alias ?? {};
-  const paths = options?.paths ?? {};
+export function normalizeOption(options: Options = {}): NormalizedOptions {
+  const normalizedAlias = options.alias ?? {};
+
+  const tsconfigPath = options.tsconfigPath ?? undefined;
+
+  const tsconfigPathInexist = tsconfigPath && !fs.existsSync(tsconfigPath);
+
+  if (tsconfigPathInexist) {
+    throw new Error(
+      `[esbuild-plugin-alis-path] tsconfig ${tsconfigPath} does not exist.`
+    );
+  }
+
+  const compilerOptions = loadCompilerOptions(tsconfigPath) || {};
+
+  // FIXME:
+  const shouldSkipThisPlugin =
+    options.skip ??
+    (tsconfigPathInexist &&
+      !Object.keys(normalizedAlias).length &&
+      !compilerOptions.paths);
 
   // path which is not absolute and not start with ./ or ../ will be regarded as module, and use require.resolve(module) to resolve paths
   // this feature is to support nx json configuration
-  const resolveModule = options?.resolveModule ?? true;
+  // const resolveModule = options?.resolveModule ?? true;
 
-  const normalizedAlias: Record<string, string> = {};
+  // const normalizedAlias: Record<string, string> = {};
 
-  for (const [from, to] of Object.entries(alias)) {
-    if (
-      !path.isAbsolute(to) &&
-      !to.startsWith('.') &&
-      !to.startsWith('..') &&
-      resolveModule
-    ) {
-      normalizedAlias[from] = require.resolve(to);
-    } else {
-      normalizedAlias[from] = to;
-    }
-  }
-
-  const normalizedPaths = Object.keys(paths).length ? paths : {};
+  // for (const [from, to] of Object.entries(alias)) {
+  //   if (
+  //     !path.isAbsolute(to) &&
+  //     !to.startsWith('.') &&
+  //     !to.startsWith('..') &&
+  //     resolveModule
+  //   ) {
+  //     normalizedAlias[from] = require.resolve(to);
+  //   } else {
+  //     normalizedAlias[from] = to;
+  //   }
+  // }
 
   return {
     alias: normalizedAlias,
-    paths: normalizedPaths,
-    resolveModule,
-    baseUrl: options?.baseUrl,
-    tsconfigPath: options?.tsconfigPath,
+    tsconfigPath,
+    compilerOptions,
+    skip: shouldSkipThisPlugin,
   };
 }
