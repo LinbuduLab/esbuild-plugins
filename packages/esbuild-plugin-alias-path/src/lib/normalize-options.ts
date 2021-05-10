@@ -11,12 +11,6 @@ export interface Options {
   tsconfigPath?: string;
 
   skip?: boolean;
-
-  // TODO: nx customization
-  nx?: {
-    enabled?: boolean;
-    projectSourceRoot?: string;
-  };
 }
 
 export interface NormalizedOptions {
@@ -29,7 +23,7 @@ export interface NormalizedOptions {
 }
 
 export function normalizeOption(options: Options = {}): NormalizedOptions {
-  const normalizedAlias = options.alias ?? {};
+  const alias = options.alias ?? {};
 
   const tsconfigPath = options.tsconfigPath ?? undefined;
 
@@ -47,14 +41,14 @@ export function normalizeOption(options: Options = {}): NormalizedOptions {
   const shouldSkipThisPlugin =
     options.skip ??
     (tsconfigPathInexist &&
-      !Object.keys(normalizedAlias).length &&
+      !Object.keys(alias).length &&
       !compilerOptions.paths);
 
   // path which is not absolute and not start with ./ or ../ will be regarded as module, and use require.resolve(module) to resolve paths
   // this feature is to support nx json configuration
   // const resolveModule = options?.resolveModule ?? true;
 
-  // const normalizedAlias: Record<string, string> = {};
+  const normalizedAlias: Record<string, string> = {};
 
   // for (const [from, to] of Object.entries(alias)) {
   //   if (

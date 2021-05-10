@@ -1,7 +1,5 @@
 import execa from 'execa';
 import { from, Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
-import { eachValueFrom } from 'rxjs-for-await';
 
 // parcel serve <entries>
 // 如果
@@ -20,8 +18,8 @@ import { eachValueFrom } from 'rxjs-for-await';
 
 export const startServe = (cwd: string) => {
   return from(
-    execa(
-      'parcel',
+    execa.node(
+      require.resolve('parcel/lib/cli'),
       [
         'serve',
         // cache目录这个选项，最好放在工作区根目录
@@ -34,7 +32,6 @@ export const startServe = (cwd: string) => {
       ],
       {
         stdio: 'inherit',
-        preferLocal: true,
         cwd,
       }
     )

@@ -4,7 +4,7 @@ import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
 
-import { startServe } from '../utils/startServe';
+import { startServe } from '../utils/start-serve';
 
 import path from 'path';
 import Parcel from '@parcel/core';
