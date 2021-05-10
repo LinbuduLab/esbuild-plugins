@@ -152,7 +152,7 @@
     "date-fns": "^2.21.2",
     "dayjs": "^1.10.4",
     "debug": "^4.3.1",
-    "dotenv": "9.0.0",
+    "dotenv": "9.0.1",
     "enquirer": "^2.3.6",
     "envinfo": "^7.8.1",
     "es-module-lexer": "^0.4.1",
