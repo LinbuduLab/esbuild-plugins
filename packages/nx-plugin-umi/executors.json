@@ -7,7 +7,7 @@
       "description": "build executor"
     },
     "info": {
-      "implementation": "./src/executors/info/executor",
+      "implementation": "./src/executors/info/info.impl",
       "schema": "./src/executors/info/schema.json",
       "description": "info executor"
     },
