@@ -19,11 +19,7 @@ function getConfigFile(opts: { cwd: string }) {
   return configFile ? join(opts.cwd, configFile) : null;
 }
 
-export default (cwd?: string) => {
-  // 1. read user config
-  // 2. if have webpack5:
-  // 3. init webpack with webpack5 flag
-
+export default (cwd?: string, useWebpack5: boolean = false) => {
   const configFile = getConfigFile({ cwd: cwd ?? process.cwd() });
   console.log(
     chalk.green(`initWebpack is loading config file from ${configFile}`)
@@ -31,17 +27,18 @@ export default (cwd?: string) => {
 
   const configContent = configFile ? readFileSync(configFile, 'utf-8') : '';
 
-  // TODO: detect with ast
-  const haveWebpack5 =
-    configContent.includes('webpack5:') &&
-    !configContent.includes('// webpack5:') &&
-    !configContent.includes('//webpack5:');
+  // // TODO: detect with ast
+  // const haveWebpack5 =
+  //   configContent.includes('webpack5:') &&
+  //   !configContent.includes('// webpack5:') &&
+  //   !configContent.includes('//webpack5:');
 
-  if (haveWebpack5 || process.env.USE_WEBPACK_5) {
+  if (useWebpack5 || process.env.USE_WEBPACK_5) {
     process.env.USE_WEBPACK_5 = '1';
-    console.log(chalk.green(`Using Webpack 5`));
+    console.log(chalk.cyan(`Using Webpack 5`));
     init(true);
   } else {
+    console.log(chalk.green(`Using Webpack 4`));
     init();
   }
 
