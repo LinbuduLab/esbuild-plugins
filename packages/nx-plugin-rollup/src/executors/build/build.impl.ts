@@ -9,10 +9,19 @@ import typescriptPlugin from 'rollup-plugin-typescript2';
 import jsonPlugin from '@rollup/plugin-json';
 import nodeResolvePlugin from '@rollup/plugin-node-resolve';
 
+import { builder } from './lib/build';
 import { watchBuilder } from './lib/watch';
 
 // TODO: enable watch
 export default function runExecutor(options: RollupBuildSchema) {
+  if (!options.watch) {
+    return builder(options).then((x) => {
+      return {
+        success: true,
+      };
+    });
+  }
+
   return eachValueFrom(
     watchBuilder(options).pipe(
       map((x) => {

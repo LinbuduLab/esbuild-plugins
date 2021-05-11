@@ -1,5 +1,13 @@
 {
-  "pluginKind": ["nx", "esbuild", "vite", "snowpack", "umi", "vitepress"],
+  "pluginKind": [
+    "nx",
+    "esbuild",
+    "vite",
+    "snowpack",
+    "umi",
+    "vitepress",
+    "rollup"
+  ],
   "workspace": [
     "workspace",
     "tools-generators",

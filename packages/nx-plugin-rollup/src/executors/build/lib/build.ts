@@ -6,8 +6,10 @@ import { tap, map, switchMap } from 'rxjs/operators';
 import { rollup, watch } from 'rollup';
 
 import typescriptPlugin from 'rollup-plugin-typescript2';
+import { terser as terserPlugin } from 'rollup-plugin-terser';
 import jsonPlugin from '@rollup/plugin-json';
 import nodeResolvePlugin from '@rollup/plugin-node-resolve';
+import progressPlugin from '../experimental-plugins/progress';
 
 export const builder = async (options: RollupBuildSchema) => {
   const bundler = await rollup({
@@ -20,6 +22,8 @@ export const builder = async (options: RollupBuildSchema) => {
       // progressPlugin(),
       jsonPlugin(),
       nodeResolvePlugin(),
+      terserPlugin(),
+      progressPlugin(),
     ],
     watch: {
       buildDelay: 200,
