@@ -43,5 +43,7 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-rollup-e2e',
     '<rootDir>/packages/rollup-plugin-static-serve',
     '<rootDir>/packages/rollup-plugin-graphql-loader',
+    '<rootDir>/packages/rollup-plugin-swc-compiler',
+    '<rootDir>/packages/rollup-plugin-esbuild-compiler',
   ],
 };

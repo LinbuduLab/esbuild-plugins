@@ -1437,6 +1437,72 @@
           }
         }
       }
+    },
+    "rollup-plugin-swc-compiler": {
+      "root": "packages/rollup-plugin-swc-compiler",
+      "sourceRoot": "packages/rollup-plugin-swc-compiler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/rollup-plugin-swc-compiler/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/rollup-plugin-swc-compiler"],
+          "options": {
+            "jestConfig": "packages/rollup-plugin-swc-compiler/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/rollup-plugin-swc-compiler",
+            "tsConfig": "packages/rollup-plugin-swc-compiler/tsconfig.lib.json",
+            "packageJson": "packages/rollup-plugin-swc-compiler/package.json",
+            "main": "packages/rollup-plugin-swc-compiler/src/index.ts",
+            "assets": ["packages/rollup-plugin-swc-compiler/*.md"]
+          }
+        }
+      }
+    },
+    "rollup-plugin-esbuild-compiler": {
+      "root": "packages/rollup-plugin-esbuild-compiler",
+      "sourceRoot": "packages/rollup-plugin-esbuild-compiler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/rollup-plugin-esbuild-compiler/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/rollup-plugin-esbuild-compiler"],
+          "options": {
+            "jestConfig": "packages/rollup-plugin-esbuild-compiler/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/rollup-plugin-esbuild-compiler",
+            "tsConfig": "packages/rollup-plugin-esbuild-compiler/tsconfig.lib.json",
+            "packageJson": "packages/rollup-plugin-esbuild-compiler/package.json",
+            "main": "packages/rollup-plugin-esbuild-compiler/src/index.ts",
+            "assets": ["packages/rollup-plugin-esbuild-compiler/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }

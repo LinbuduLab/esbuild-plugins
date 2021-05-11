@@ -65,6 +65,12 @@
       ],
       "rollup-plugin-graphql-loader": [
         "packages/rollup-plugin-graphql-loader/src/index.ts"
+      ],
+      "rollup-plugin-swc-compiler": [
+        "packages/rollup-plugin-swc-compiler/src/index.ts"
+      ],
+      "rollup-plugin-esbuild-compiler": [
+        "packages/rollup-plugin-esbuild-compiler/src/index.ts"
       ]
     }
   },
