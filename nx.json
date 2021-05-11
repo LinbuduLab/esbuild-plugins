@@ -31,7 +31,7 @@
     },
     "nx-plugin-midway": {
       "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+      "implicitDependencies": []
     },
     "nx-plugin-midway-e2e": {
       "tags": [],
@@ -39,7 +39,7 @@
     },
     "nx-plugin-prisma": {
       "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+      "implicitDependencies": []
     },
     "nx-plugin-prisma-e2e": {
       "tags": [],
@@ -47,7 +47,7 @@
     },
     "nx-plugin-serverless": {
       "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+      "implicitDependencies": []
     },
     "nx-plugin-serverless-e2e": {
       "tags": [],
@@ -72,7 +72,7 @@
     },
     "nx-plugin-swc": {
       "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+      "implicitDependencies": []
     },
     "nx-plugin-swc-e2e": {
       "tags": [],
@@ -80,7 +80,7 @@
     },
     "nx-plugin-vite": {
       "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+      "implicitDependencies": []
     },
     "nx-plugin-vite-e2e": {
       "tags": [],
@@ -93,7 +93,7 @@
     },
     "nx-plugin-snowpack": {
       "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+      "implicitDependencies": []
     },
     "nx-plugin-snowpack-e2e": {
       "tags": [],
@@ -102,7 +102,7 @@
     "nx-plugin-devkit": { "tags": ["scope:nx", "scope:devkit"] },
     "nx-plugin-koa": {
       "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+      "implicitDependencies": []
     },
     "nx-plugin-koa-e2e": {
       "tags": [],
@@ -110,7 +110,7 @@
     },
     "nx-plugin-vitepress": {
       "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+      "implicitDependencies": []
     },
     "nx-plugin-vitepress-e2e": {
       "tags": [],

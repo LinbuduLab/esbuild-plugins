@@ -35,11 +35,19 @@ export const PRESERVED_PACKAGE_PEER_DEPS = [
   'midway-bin',
   // nx-plugin-snowpack
   'snowpack',
+  '@snowpack/plugin-typescript',
+  '@snowpack/plugin-dotenv',
+  '@snowpack/plugin-react-refresh',
+  '@snowpack/plugin-babel',
+  '@snowpack/plugin-sass',
+  '@snowpack/plugin-postcss',
   // shared
   'typescript',
   'webpack',
   'webpack-dev-server',
   'tslib',
+  'react',
+  'react-dom',
 ];
 
 export const PRESERVED_NX_PEER_DEPS = [
