@@ -61,6 +61,7 @@ specifiers:
   '@types/node-notifier': ^8.0.0
   '@types/pacote': ^11.1.0
   '@types/pretty': ^2.0.0
+  '@types/rollup-plugin-progress': ^1.1.0
   '@types/semver': ^7.3.5
   '@types/speed-measure-webpack-plugin': ^1.3.3
   '@types/strip-comments': ^2.0.0
@@ -235,6 +236,7 @@ devDependencies:
   '@types/node-notifier': 8.0.0
   '@types/pacote': 11.1.0
   '@types/pretty': 2.0.0
+  '@types/rollup-plugin-progress': 1.1.0
   '@types/semver': 7.3.5
   '@types/speed-measure-webpack-plugin': 1.3.3
   '@types/strip-comments': 2.0.0
@@ -6847,6 +6849,13 @@ packages:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
       '@types/node': 15.0.2
+    dev: true
+
+  /@types/rollup-plugin-progress/1.1.0:
+    resolution: {integrity: sha512-QJh+EajBxAiR86RHle8rgYVufleyqVZUE5uRCyJSI7xD6PLbLSz7V3zSZ7NksgETzToEy9Q7n8gz723yRLtCSQ==}
+    dependencies:
+      '@types/node': 15.0.2
+      rollup: 0.63.5
     dev: true
 
   /@types/scheduler/0.16.1:
@@ -20353,6 +20362,14 @@ packages:
       rollup: 2.47.0
       source-map: 0.7.3
       yargs: 16.2.0
+    dev: true
+
+  /rollup/0.63.5:
+    resolution: {integrity: sha512-dFf8LpUNzIj3oE0vCvobX6rqOzHzLBoblyFp+3znPbjiSmSvOoK2kMKx+Fv9jYduG1rvcCfCveSgEaQHjWRF6g==}
+    hasBin: true
+    dependencies:
+      '@types/estree': 0.0.39
+      '@types/node': 15.0.2
     dev: true
 
   /rollup/2.37.1:
