@@ -74,6 +74,9 @@
       ],
       "snowpack-plugin-graphql-import": [
         "packages/snowpack-plugin-graphql-import/src/index.ts"
+      ],
+      "snowpack-plugin-hash-gen": [
+        "packages/snowpack-plugin-hash-gen/src/index.ts"
       ]
     }
   },

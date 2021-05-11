@@ -46,5 +46,6 @@ module.exports = {
     '<rootDir>/packages/rollup-plugin-swc-compiler',
     '<rootDir>/packages/rollup-plugin-esbuild-compiler',
     '<rootDir>/packages/snowpack-plugin-graphql-import',
+    '<rootDir>/packages/snowpack-plugin-hash-gen',
   ],
 };

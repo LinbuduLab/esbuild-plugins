@@ -1537,6 +1537,38 @@
           }
         }
       }
+    },
+    "snowpack-plugin-hash-gen": {
+      "root": "packages/snowpack-plugin-hash-gen",
+      "sourceRoot": "packages/snowpack-plugin-hash-gen/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/snowpack-plugin-hash-gen/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-hash-gen"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-hash-gen/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-hash-gen",
+            "tsConfig": "packages/snowpack-plugin-hash-gen/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-hash-gen/package.json",
+            "main": "packages/snowpack-plugin-hash-gen/src/index.ts",
+            "assets": ["packages/snowpack-plugin-hash-gen/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }

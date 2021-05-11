@@ -151,7 +151,8 @@
     "rollup-plugin-graphql-loader": { "tags": [] },
     "rollup-plugin-swc-compiler": { "tags": [] },
     "rollup-plugin-esbuild-compiler": { "tags": [] },
-    "snowpack-plugin-graphql-import": { "tags": [] }
+    "snowpack-plugin-graphql-import": { "tags": [] },
+    "snowpack-plugin-hash-gen": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }
