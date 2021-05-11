@@ -2,6 +2,7 @@ import { Plugin } from 'rollup';
 import chalk from 'chalk';
 import { normalizePath } from '@rollup/pluginutils';
 
+// ehhanced by terminal progress package
 interface Progress {
   total: number;
   loaded: number;
