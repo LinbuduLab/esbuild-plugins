@@ -1403,6 +1403,40 @@
           }
         }
       }
+    },
+    "rollup-plugin-graphql-loader": {
+      "root": "packages/rollup-plugin-graphql-loader",
+      "sourceRoot": "packages/rollup-plugin-graphql-loader/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/rollup-plugin-graphql-loader/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/rollup-plugin-graphql-loader"],
+          "options": {
+            "jestConfig": "packages/rollup-plugin-graphql-loader/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/rollup-plugin-graphql-loader",
+            "tsConfig": "packages/rollup-plugin-graphql-loader/tsconfig.lib.json",
+            "packageJson": "packages/rollup-plugin-graphql-loader/package.json",
+            "main": "packages/rollup-plugin-graphql-loader/src/index.ts",
+            "assets": ["packages/rollup-plugin-graphql-loader/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }

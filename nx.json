@@ -147,7 +147,8 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-rollup"]
     },
-    "rollup-plugin-static-serve": { "tags": [] }
+    "rollup-plugin-static-serve": { "tags": [] },
+    "rollup-plugin-graphql-loader": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

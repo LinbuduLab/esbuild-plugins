@@ -62,6 +62,9 @@
       "nx-plugin-rollup": ["packages/nx-plugin-rollup/src/index.ts"],
       "rollup-plugin-static-serve": [
         "packages/rollup-plugin-static-serve/src/index.ts"
+      ],
+      "rollup-plugin-graphql-loader": [
+        "packages/rollup-plugin-graphql-loader/src/index.ts"
       ]
     }
   },

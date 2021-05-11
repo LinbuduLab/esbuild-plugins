@@ -42,5 +42,6 @@ module.exports = {
     '<rootDir>/packages/nx-plugin-rollup',
     '<rootDir>/e2e\\nx-plugin-rollup-e2e',
     '<rootDir>/packages/rollup-plugin-static-serve',
+    '<rootDir>/packages/rollup-plugin-graphql-loader',
   ],
 };
