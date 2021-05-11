@@ -14,10 +14,13 @@ interface NormalizedSchema extends ReactScriptsGeneratorSchema {
   projectName: string;
   projectRoot: string;
   projectDirectory: string;
-  parsedTags: string[]
+  parsedTags: string[];
 }
 
-function normalizeOptions(host: Tree, options: ReactScriptsGeneratorSchema): NormalizedSchema {
+function normalizeOptions(
+  host: Tree,
+  options: ReactScriptsGeneratorSchema
+): NormalizedSchema {
   const name = names(options.name).fileName;
   const projectDirectory = options.directory
     ? `${names(options.directory).fileName}/${name}`
@@ -38,32 +41,36 @@ function normalizeOptions(host: Tree, options: ReactScriptsGeneratorSchema): Nor
 }
 
 function addFiles(host: Tree, options: NormalizedSchema) {
-    const templateOptions = {
-      ...options,
-      ...names(options.name),
-      offsetFromRoot: offsetFromRoot(options.projectRoot),
-      template: ''
-    };
-    generateFiles(host, path.join(__dirname, 'files'), options.projectRoot, templateOptions);
+  const templateOptions = {
+    ...options,
+    ...names(options.name),
+    offsetFromRoot: offsetFromRoot(options.projectRoot),
+    template: '',
+  };
+  generateFiles(
+    host,
+    path.join(__dirname, 'files'),
+    options.projectRoot,
+    templateOptions
+  );
 }
 
-export default async function (host: Tree, options: ReactScriptsGeneratorSchema) {
+export default async function (
+  host: Tree,
+  options: ReactScriptsGeneratorSchema
+) {
   const normalizedOptions = normalizeOptions(host, options);
-  addProjectConfiguration(
-    host,
-    normalizedOptions.projectName,
-    {
-      root: normalizedOptions.projectRoot,
-      projectType: 'library',
-      sourceRoot: `${normalizedOptions.projectRoot}/src`,
-      targets: {
-        build: {
-          executor: "@penumbra/nx-plugin-workspace:build",
-        },
+  addProjectConfiguration(host, normalizedOptions.projectName, {
+    root: normalizedOptions.projectRoot,
+    projectType: 'library',
+    sourceRoot: `${normalizedOptions.projectRoot}/src`,
+    targets: {
+      build: {
+        executor: '@penumbra/nx-plugin-workspace:build',
       },
-      tags: normalizedOptions.parsedTags,
-    }
-  );
+    },
+    tags: normalizedOptions.parsedTags,
+  });
   addFiles(host, normalizedOptions);
   await formatFiles(host);
 }

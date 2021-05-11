@@ -14,8 +14,6 @@ import ParcelFS from '@parcel/fs';
 // 和Vite插件一样 需要重点处理的是publicURL
 
 export default function runExecutor(options: Record<string, string>) {
-  console.log('Executor ran for Build', options);
-
   return eachValueFrom(
     startServe(options.cwd).pipe(
       tap((x) => {

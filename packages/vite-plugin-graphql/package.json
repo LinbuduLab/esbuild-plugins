@@ -1,5 +1,5 @@
 {
-  "name": "vite-plugin-graphql",
+  "name": "vite-plugin-graphql-loader",
   "version": "0.0.1",
   "description": "vite plugin integration with graphql.",
   "keywords": [
