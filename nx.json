@@ -150,7 +150,8 @@
     "rollup-plugin-static-serve": { "tags": [] },
     "rollup-plugin-graphql-loader": { "tags": [] },
     "rollup-plugin-swc-compiler": { "tags": [] },
-    "rollup-plugin-esbuild-compiler": { "tags": [] }
+    "rollup-plugin-esbuild-compiler": { "tags": [] },
+    "snowpack-plugin-graphql-import": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

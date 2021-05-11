@@ -45,5 +45,6 @@ module.exports = {
     '<rootDir>/packages/rollup-plugin-graphql-loader',
     '<rootDir>/packages/rollup-plugin-swc-compiler',
     '<rootDir>/packages/rollup-plugin-esbuild-compiler',
+    '<rootDir>/packages/snowpack-plugin-graphql-import',
   ],
 };

@@ -71,6 +71,9 @@
       ],
       "rollup-plugin-esbuild-compiler": [
         "packages/rollup-plugin-esbuild-compiler/src/index.ts"
+      ],
+      "snowpack-plugin-graphql-import": [
+        "packages/snowpack-plugin-graphql-import/src/index.ts"
       ]
     }
   },

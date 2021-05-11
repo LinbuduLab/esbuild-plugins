@@ -1,8 +1,3 @@
-// 预置一批插件
-// 顺序
-// alias (options.alias)
-// node-resolve
-
 import { Plugin } from 'rollup';
 
 import { terser as terserPlugin } from 'rollup-plugin-terser';
