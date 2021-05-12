@@ -1,8 +1,10 @@
-export interface SnowpackServeSchema {
-  // root workspaceRoot
-  cwd: string;
-  workspace: string;
-  mountRoot: stirng;
-  configPath: string;
-  outputPath: string;
-}
+import {
+  SnowpackSharedSchema,
+  NormalizedSnowpackSharedSchema,
+} from '../../utils/types';
+
+export interface SnowpackServeSchema extends SnowpackSharedSchema {}
+
+export interface NormalizedSnowpackServeSchema
+  extends Required<SnowpackServeSchema>,
+    NormalizedSnowpackSharedSchema {}

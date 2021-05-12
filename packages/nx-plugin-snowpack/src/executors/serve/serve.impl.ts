@@ -1,18 +1,18 @@
 import { ExecutorContext } from '@nrwl/devkit';
 import { SnowpackServeSchema } from './schema';
 import { eachValueFrom } from 'rxjs-for-await';
-import { map, tap } from 'rxjs/operators';
-import { SnowpackConfig } from 'snowpack';
-import path from 'path';
-import fs from 'fs-extra';
-import { startServe } from './lib/start-serve';
+import { map } from 'rxjs/operators';
+import { snowpackServer } from './lib/snowpack-server';
+import { normalizeSchema } from './lib/normalize-schema';
 
 export default function runExecutor(
   options: SnowpackServeSchema,
   context: ExecutorContext
 ) {
+  const normalizedSchema = normalizeSchema(options, context);
+
   return eachValueFrom(
-    startServe(options).pipe(
+    snowpackServer(normalizedSchema).pipe(
       map(() => {
         return {
           success: true,

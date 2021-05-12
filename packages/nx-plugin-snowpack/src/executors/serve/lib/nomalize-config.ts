@@ -3,33 +3,33 @@ import {
   loadConfiguration,
   SnowpackUserConfig,
 } from 'snowpack';
-import { NormalizedSnowpackBuildSchema } from '../schema';
+import { NormalizedSnowpackServeSchema } from '../schema';
 
 const defaultSnowpackBuildOptions = (
-  options: NormalizedSnowpackBuildSchema
+  options: NormalizedSnowpackServeSchema
 ): SnowpackUserConfig => {
   return {
     root: options.cwd,
     workspaceRoot: options.workspaceRoot,
-    mode: 'production' as 'production',
-    buildOptions: {
-      watch: options.watch,
-      out: options.outputPath,
-      // clean: true,
-      // baseUrl: options.cwd,
+    mode: 'development' as 'development',
+    devOptions: {
+      secure: false,
+      port: 9797,
+      output: 'dashboard',
+      hmr: true,
+      hmrDelay: 100,
     },
   };
 };
 
 export const createSnowpackConfig = (
-  options: NormalizedSnowpackBuildSchema
+  options: NormalizedSnowpackServeSchema
 ) => {
   const config = createConfiguration(defaultSnowpackBuildOptions(options));
-
   return config;
 };
 
-export const loadSnowpackConfig = (options: NormalizedSnowpackBuildSchema) => {
+export const loadSnowpackConfig = (options: NormalizedSnowpackServeSchema) => {
   return loadConfiguration(
     defaultSnowpackBuildOptions(options),
     options.configPath
