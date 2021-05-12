@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-plugin-vuepress",
+  "version": "0.0.1",
+  "generators": {
+    "setup": {
+      "factory": "./src/generators/setup/generator",
+      "schema": "./src/generators/setup/schema.json",
+      "description": "setup generator"
+    },
+    "application": {
+      "factory": "./src/generators/application/generator",
+      "schema": "./src/generators/application/schema.json",
+      "description": "application generator"
+    },
+     "app": {
+      "factory": "./src/generators/application/generator",
+      "schema": "./src/generators/application/schema.json",
+      "description": "application generator"
+    },
+    "plugin": {
+      "factory": "./src/generators/plugin/generator",
+      "schema": "./src/generators/plugin/schema.json",
+      "description": "plugin generator"
+    }
+  }
+}

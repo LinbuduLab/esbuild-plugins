@@ -21,8 +21,8 @@ export const snowpackBuild = (
             )
           );
         })
-
         .catch((error) => {
+          console.log('error: ', error);
           subscriber.error({
             success: false,
           });

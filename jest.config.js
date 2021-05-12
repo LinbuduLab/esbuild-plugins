@@ -47,5 +47,7 @@ module.exports = {
     '<rootDir>/packages/rollup-plugin-esbuild-compiler',
     '<rootDir>/packages/snowpack-plugin-graphql-import',
     '<rootDir>/packages/snowpack-plugin-hash-gen',
+    '<rootDir>/packages/nx-plugin-vuepress',
+    '<rootDir>/e2e\\nx-plugin-vuepress-e2e',
   ],
 };

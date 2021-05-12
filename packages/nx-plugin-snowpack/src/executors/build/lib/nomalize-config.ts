@@ -14,9 +14,9 @@ const defaultSnowpackBuildOptions = (
     workspaceRoot: options.workspaceRoot,
     mode: 'production' as 'production',
     buildOptions: {
-      watch: options.watch,
-      out: options.outputPath,
-      clean: true,
+      // watch: options.watch,
+      // out: options.outputPath,
+      // clean: true,
       // baseUrl: options.absCwd,
       // relative to out
       // metaUrlPath: '_snowpack',

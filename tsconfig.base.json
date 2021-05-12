@@ -77,7 +77,8 @@
       ],
       "snowpack-plugin-hash-gen": [
         "packages/snowpack-plugin-hash-gen/src/index.ts"
-      ]
+      ],
+      "nx-plugin-vuepress": ["packages/nx-plugin-vuepress/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

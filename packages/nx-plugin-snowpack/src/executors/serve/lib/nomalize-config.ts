@@ -5,7 +5,7 @@ import {
 } from 'snowpack';
 import { NormalizedSnowpackServeSchema } from '../schema';
 
-const defaultSnowpackBuildOptions = (
+const defaultSnowpackServeOptions = (
   options: NormalizedSnowpackServeSchema
 ): SnowpackUserConfig => {
   return {
@@ -25,13 +25,13 @@ const defaultSnowpackBuildOptions = (
 export const createSnowpackConfig = (
   options: NormalizedSnowpackServeSchema
 ) => {
-  const config = createConfiguration(defaultSnowpackBuildOptions(options));
+  const config = createConfiguration(defaultSnowpackServeOptions(options));
   return config;
 };
 
 export const loadSnowpackConfig = (options: NormalizedSnowpackServeSchema) => {
   return loadConfiguration(
-    defaultSnowpackBuildOptions(options),
+    defaultSnowpackServeOptions(options),
     options.configPath
   );
 };
