@@ -17,17 +17,19 @@ export const normalizeSchema = <T extends SnowpackSharedSchema>(
     projectName
   ];
 
+  let absCwd: string = '';
+
   if (schema.cwd && !path.isAbsolute(schema.cwd)) {
-    schema.cwd = path.resolve(workspaceRoot, schema.cwd);
+    absCwd = path.resolve(workspaceRoot, schema.cwd);
   } else if (!schema.cwd) {
-    schema.cwd = path.resolve(workspaceRoot, projectRoot);
+    absCwd = path.resolve(workspaceRoot, projectRoot);
   }
 
   if (!schema.workspaceRoot) {
     schema.workspaceRoot = workspaceRoot;
   }
 
-  const snowpackConfigPath = path.resolve(schema.cwd, schema.configPath);
+  const snowpackConfigPath = path.resolve(absCwd, schema.configPath);
 
   if (!fs.existsSync(snowpackConfigPath)) {
     throw new Error(
@@ -38,6 +40,7 @@ export const normalizeSchema = <T extends SnowpackSharedSchema>(
   return {
     ...schema,
     cwd: schema.cwd,
+    absCwd,
     workspaceRoot: schema.workspaceRoot,
     projectName,
     projectRoot,

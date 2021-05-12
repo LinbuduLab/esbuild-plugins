@@ -10,6 +10,7 @@ export interface SnowpackSharedSchema {
 }
 
 export interface NormalizedSnowpackSharedSchema {
+  absCwd: string;
   projectName: string;
   projectRoot: string;
   projectSourceRoot: string;

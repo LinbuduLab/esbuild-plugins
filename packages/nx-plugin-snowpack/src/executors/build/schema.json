@@ -32,6 +32,16 @@
       "type": "boolean",
       "description": "snowpack watch",
       "default": true
+    },
+    "clearCache": {
+      "type": "boolean",
+      "description": "snowpack clear cache",
+      "default": false
+    },
+    "verbose": {
+      "type": "boolean",
+      "description": "snowpack verbose logger",
+      "default": false
     }
   },
   "additionalProperties": true,

@@ -9,15 +9,15 @@ const defaultSnowpackBuildOptions = (
   options: NormalizedSnowpackServeSchema
 ): SnowpackUserConfig => {
   return {
-    root: options.cwd,
+    root: options.absCwd,
     workspaceRoot: options.workspaceRoot,
     mode: 'development' as 'development',
     devOptions: {
       secure: false,
       port: 9797,
       output: 'dashboard',
-      hmr: true,
-      hmrDelay: 100,
+      // hmr: true,
+      // hmrDelay: 100,
     },
   };
 };

@@ -5,10 +5,13 @@ export interface SnowpackBuildSchema {
   configPath: string;
   outputPath: string;
   watch: boolean;
+  clearCache: boolean;
+  verbose: boolean;
 }
 
 export interface NormalizedSnowpackBuildSchema
   extends Required<SnowpackBuildSchema> {
+  absCwd: string;
   projectName: string;
   projectRoot: string;
   projectSourceRoot: string;
