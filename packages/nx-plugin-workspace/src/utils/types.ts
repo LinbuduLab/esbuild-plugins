@@ -2,7 +2,7 @@ import { AssetsItem, FileReplacement } from 'nx-plugin-devkit';
 
 export type BuildExecutorEvent = {
   success: boolean;
-  outfile: string;
+  outfile?: string;
 };
 
 export interface OptimizationOptions {

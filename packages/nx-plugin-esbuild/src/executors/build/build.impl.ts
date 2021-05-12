@@ -5,18 +5,19 @@ import {
   TscRunnerOptions,
   RunnerSubcriber,
   ESBuildBuildEvent,
-  a,
-  func,
 } from './lib/types';
 import {
   ESBuildExecutorSchema,
-  NormalizedESBuildExecutorSchema as XXX,
+  NormalizedESBuildExecutorSchema,
 } from './schema';
 
 import { esbuildPluginDecorator } from 'esbuild-plugin-decorator';
 import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
-import { esbuildPluginFileSize } from 'esbuild-plugin-filesize';
 import { esbuildPluginAliasPath } from 'esbuild-plugin-alias-path';
+// import { esbuildPluginFileSize } from 'esbuild-plugin-filesize';
+// import { esbuildPluginIgnore } from 'esbuild-plugin-ignore-module';
+// import { esbuildPluginNodePolyfill } from 'esbuild-plugin-node-polyfill';
+// import { esbuildPluginNotifier } from 'esbuild-plugin-notifier';
 
 import { bufferUntil } from 'nx-plugin-devkit';
 
@@ -62,14 +63,9 @@ export default function buildExecutor(
 
   const plugins = [
     esbuildPluginDecorator({
-      // project owned tsconfig.json
       tsconfigPath: options.tsConfig,
       compiler: options.decoratorHandler,
       isNxProject: true,
-
-      // swcCompilerOptions: {
-      //   jsc: { externalHelpers: true },
-      // },
     }),
     options.externalDependencies === 'all' && esbuildPluginNodeExternals(),
     esbuildPluginAliasPath({
@@ -134,6 +130,7 @@ export default function buildExecutor(
       buildCounter++;
     }),
 
+    // ESBuildRunnerResponse >>> RunnerSubcriber
     map(({ buildResult, buildFailure }) => {
       const messageFragments: string[] = [];
 
@@ -164,7 +161,6 @@ export default function buildExecutor(
     );
   }
 
-  // TODO: skip type check
   let typeCounter = 1;
 
   const prefixTsc = () =>
@@ -174,8 +170,7 @@ export default function buildExecutor(
 
   const tscRunnerOptions: TscRunnerOptions = {
     tsconfigPath: options.tsConfig,
-    // use watch option from ESBuild option
-    watch: Boolean(esbuildRunnerOptions.watch),
+    watch: options.watch,
     root: options.workspaceRoot,
   };
 
@@ -202,7 +197,7 @@ export default function buildExecutor(
     }),
 
     bufferUntil(({ info, error }) =>
-      // 原作者的意思应该是info中获得Found 1 errors这样的字样，说明tsc走完了一次编译
+      // info中获得Found 1 errors这样的字样，说明tsc走完了一次编译
       {
         return (
           !!info?.match(/Found\s\d*\serror/) ||
@@ -228,9 +223,7 @@ export default function buildExecutor(
   return eachValueFrom(
     zip(esBuildSubscriber, tscSubscriber).pipe(
       map(([buildResults, tscResults]) => {
-        // console.log('\x1Bc');
         console.log(tscResults.messageFragments.join('\n'));
-        // console.log('\x1Bc');
         console.log(buildResults.messageFragments.join('\n'));
         return {
           success: buildResults?.success && tscResults?.success,

@@ -28,7 +28,7 @@ export function runESBuild(
 
     copyAssetFiles(assetsDirs);
 
-    // donot send extra params then build API need.
+    // donot send extra params then ESBuild build API need.
     const {
       watch: buildWatch,
       assets: _uselessAssetsOption,

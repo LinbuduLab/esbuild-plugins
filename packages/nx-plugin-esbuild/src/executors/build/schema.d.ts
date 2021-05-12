@@ -15,7 +15,7 @@ import type { Insert, FormattedInsert } from './lib/types';
 // Format √
 // Inject√
 // Loader
-// Outdir & Outfile
+// Outdir & Outfile √
 // Platform √
 // Splitting
 // Target

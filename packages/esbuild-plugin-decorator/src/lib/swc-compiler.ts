@@ -37,6 +37,10 @@ export function swcCompiler(source: string, options: Options): Output {
 }
 
 export function parseSWCConfig(swcrcPath: string) {
-  const swcrcConfig = jsonfile.readFileSync(swcrcPath, 'utf8');
-  return swcrcConfig;
+  try {
+    const swcrcConfig = jsonfile.readFileSync(swcrcPath, 'utf8');
+    return swcrcConfig;
+  } catch (error) {
+    return {};
+  }
 }

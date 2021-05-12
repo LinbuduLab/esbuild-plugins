@@ -34,6 +34,7 @@ export interface ESBuildRunnerResponse {
 }
 
 export interface ESBuildBuildEvent extends BuildExecutorEvent {}
+
 export interface RunnerSubcriber {
   success: boolean;
   messageFragments: string[];
