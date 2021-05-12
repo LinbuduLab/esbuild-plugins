@@ -1,31 +1,19 @@
 import { ExecutorContext } from '@nrwl/devkit';
 import { SnowpackBuildSchema } from './schema';
 import { eachValueFrom } from 'rxjs-for-await';
-import { map, tap } from 'rxjs/operators';
-import { SnowpackConfig } from 'snowpack';
-import path from 'path';
-import fs from 'fs-extra';
-import { builder } from './lib/watch-build';
+import { map } from 'rxjs/operators';
+
+import { snowpackBuild } from './lib/snowpack-build';
+import { normalizeSchema } from './lib/normalize-schema';
 
 export default function runExecutor(
   options: SnowpackBuildSchema,
   context: ExecutorContext
 ) {
-  let snowpackConfigFileContent = {} as SnowpackConfig;
-
-  // TODO: support loadConfiguration
-  // if (
-  //   options.configPath &&
-  //   fs.existsSync(path.resolve(options.cwd, options.configPath))
-  // ) {
-  //   snowpackConfigFileContent = require(path.resolve(
-  //     options.cwd,
-  //     options.configPath
-  //   ));
-  // }
+  const normalizedSchema = normalizeSchema(options, context);
 
   return eachValueFrom(
-    builder(options, snowpackConfigFileContent).pipe(
+    snowpackBuild(normalizedSchema).pipe(
       map(() => {
         return {
           success: true,

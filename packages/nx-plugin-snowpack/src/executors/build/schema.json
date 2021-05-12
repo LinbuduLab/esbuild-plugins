@@ -4,6 +4,36 @@
   "title": "Build executor",
   "description": "",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "cwd": {
+      "type": "string",
+      "description": "snowpack root(absolute path)"
+    },
+    "workspaceRoot": {
+      "type": "string",
+      "description": "snowpack workspace(absolute path)"
+    },
+    "mountRoot": {
+      "type": "string",
+      "description": "snowpack mount(relative path to cwd(root))",
+      "default": "/"
+    },
+    "configPath": {
+      "type": "string",
+      "description": "snowpack configPath(relative path to cwd(root))",
+      "default": "snowpack.config.js"
+    },
+    "outputPath": {
+      "type": "string",
+      "description": "snowpack outputPath(relative path to cwd(root))",
+      "default": "build"
+    },
+    "watch": {
+      "type": "boolean",
+      "description": "snowpack watch",
+      "default": true
+    }
+  },
+  "additionalProperties": true,
   "required": []
 }

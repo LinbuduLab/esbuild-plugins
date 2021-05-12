@@ -1,9 +1,15 @@
 export interface SnowpackBuildSchema {
-  // root workspaceRoot
-  cwd: string;
-  workspace: string;
+  cwd?: string;
+  workspaceRoot?: string;
   mountRoot: stirng;
   configPath: string;
   outputPath: string;
   watch: boolean;
+}
+
+export interface NormalizedSnowpackBuildSchema
+  extends Required<SnowpackBuildSchema> {
+  projectName: string;
+  projectRoot: string;
+  projectSourceRoot: string;
 }
