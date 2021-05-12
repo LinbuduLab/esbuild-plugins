@@ -5,6 +5,5 @@ export interface SnowpackBuildSchema {
   mountRoot: stirng;
   configPath: string;
   outputPath: string;
-  configPath: string;
   watch: boolean;
 }
