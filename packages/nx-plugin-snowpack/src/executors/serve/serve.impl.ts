@@ -29,15 +29,16 @@ export default function runExecutor(
   const config = createConfiguration({
     root: options.cwd,
     workspaceRoot: options.workspace,
-    // mount: {
-    //   public: { url: options.mountRoot, static: true },
-    //   src: { url: `${options.mountRoot}/dist` },
-    // },
+    mount: {
+      public: { url: options.mountRoot, static: true },
+      src: { url: `${options.mountRoot}/dist` },
+    },
     mode: 'production',
     devOptions: {
       port: 6666,
     },
     buildOptions: {
+      watch: false,
       out: options.outputPath,
     },
   });
