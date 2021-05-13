@@ -136,7 +136,8 @@
     "nx-plugin-vuepress-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-vuepress"]
-    }
+    },
+    "esbuild-plugin-run": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

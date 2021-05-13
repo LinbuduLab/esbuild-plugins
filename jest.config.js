@@ -49,5 +49,6 @@ module.exports = {
     '<rootDir>/packages/snowpack-plugin-hash-gen',
     '<rootDir>/packages/nx-plugin-vuepress',
     '<rootDir>/e2e\\nx-plugin-vuepress-e2e',
+    '<rootDir>/packages/esbuild-plugin-run',
   ],
 };
