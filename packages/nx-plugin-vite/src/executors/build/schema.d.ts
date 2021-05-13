@@ -1,1 +1,8 @@
-export interface BuildExecutorSchema {} // eslint-disable-line
+export interface ViteBuildSchema {
+  root: string;
+  configFile: string;
+}
+
+export interface Res {
+  success: boolean;
+}
