@@ -50,5 +50,7 @@ module.exports = {
     '<rootDir>/packages/nx-plugin-vuepress',
     '<rootDir>/e2e\\nx-plugin-vuepress-e2e',
     '<rootDir>/packages/esbuild-plugin-run',
+    '<rootDir>/packages/nx-plugin-ice',
+    '<rootDir>/e2e\\nx-plugin-ice-e2e',
   ],
 };
