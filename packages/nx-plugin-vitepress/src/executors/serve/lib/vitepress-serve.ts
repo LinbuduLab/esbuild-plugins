@@ -1,20 +1,18 @@
 import { VitepressServeSchema, Res } from '../schema';
 import { from, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { createServer } from 'vitepress';
+import { serve } from 'vitepress';
 
 export const startVitePressServe = (
   schema: VitepressServeSchema
 ): Observable<Res> => {
   return new Observable((subscriber) => {
-    createServer(schema.root).then((server) => {
-      from(server.listen()).pipe(
-        tap(() => {
-          subscriber.next({
-            success: true,
-          });
-        })
-      );
-    });
+    from(serve({ root: schema.root })).pipe(
+      tap(() => {
+        subscriber.next({
+          success: true,
+        });
+      })
+    );
   });
 };
