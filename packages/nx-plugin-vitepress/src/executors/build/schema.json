@@ -4,6 +4,56 @@
   "title": "Build executor",
   "description": "",
   "type": "object",
-  "properties": {},
-  "required": []
+  "properties": {
+    "root": {
+      "type": "string"
+    },
+    "viteConfigPath": {
+      "type": "string"
+    },
+    "outDir": {
+      "type": "string",
+      "default": "dist"
+    },
+    "assetsDir": {
+      "type": "string",
+      "default": "assets"
+    },
+    "assetsInlineLimit": {
+      "type": "number",
+      "default": 4096
+    },
+    "sourcemap": {
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "string", "enum": ["inline"] }
+      ],
+      "default": false
+    },
+    "minify": {
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "string", "enum": ["terser", "esbuild"] }
+      ],
+      "default": "esbuild"
+    },
+    "write": {
+      "type": "boolean",
+      "default": true
+    },
+    "manifest": {
+      "type": "boolean",
+      "default": true
+    },
+    "brotliSize": {
+      "type": "boolean",
+      "default": true
+    },
+    "watch": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "additionalProperties": true,
+  "required": ["root"]
 }
