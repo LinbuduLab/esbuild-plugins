@@ -1,1 +1,8 @@
-export interface ServeExecutorSchema {} // eslint-disable-line
+export interface VuePressServeSchema {
+  root: string;
+  configPath: string;
+}
+
+export interface Res {
+  success: boolean;
+}
