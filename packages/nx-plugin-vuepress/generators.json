@@ -13,7 +13,7 @@
       "schema": "./src/generators/application/schema.json",
       "description": "application generator"
     },
-     "app": {
+    "app": {
       "factory": "./src/generators/application/generator",
       "schema": "./src/generators/application/schema.json",
       "description": "application generator"
