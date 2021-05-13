@@ -80,7 +80,8 @@
       ],
       "nx-plugin-vuepress": ["packages/nx-plugin-vuepress/src/index.ts"],
       "esbuild-plugin-run": ["packages/esbuild-plugin-run/src/index.ts"],
-      "@penumbra/nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"]
+      "@penumbra/nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
+      "@penumbra/nx-plugin-dumi": ["packages/nx-plugin-dumi/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

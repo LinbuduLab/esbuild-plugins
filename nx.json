@@ -142,6 +142,11 @@
     "nx-plugin-ice-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-ice"]
+    },
+    "nx-plugin-dumi": { "tags": [] },
+    "nx-plugin-dumi-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-dumi"]
     }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }

@@ -1991,6 +1991,77 @@
           }
         }
       }
+    },
+    "nx-plugin-dumi": {
+      "root": "packages/nx-plugin-dumi",
+      "sourceRoot": "packages/nx-plugin-dumi/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/nx-plugin-dumi/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/nx-plugin-dumi"
+          ],
+          "options": {
+            "jestConfig": "packages/nx-plugin-dumi/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-dumi",
+            "tsConfig": "packages/nx-plugin-dumi/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-dumi/package.json",
+            "main": "packages/nx-plugin-dumi/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-dumi/*.md",
+              {
+                "input": "./packages/nx-plugin-dumi/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-dumi",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-dumi",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-dumi-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-plugin-dumi-e2e",
+      "sourceRoot": "e2e\\nx-plugin-dumi-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-dumi:build",
+            "npmPackageName": "@penumbra/nx-plugin-dumi",
+            "pluginOutputPath": "dist/packages/nx-plugin-dumi",
+            "jestConfig": "e2e/nx-plugin-dumi-e2e/jest.config.js"
+          }
+        }
+      }
     }
   },
   "cli": {

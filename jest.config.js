@@ -52,5 +52,7 @@ module.exports = {
     '<rootDir>/packages/esbuild-plugin-run',
     '<rootDir>/packages/nx-plugin-ice',
     '<rootDir>/e2e\\nx-plugin-ice-e2e',
+    '<rootDir>/packages/nx-plugin-dumi',
+    '<rootDir>/e2e\\nx-plugin-dumi-e2e',
   ],
 };
