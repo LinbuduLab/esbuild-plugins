@@ -1,11 +1,16 @@
-import { ServeExecutorSchema } from './schema';
+import { DumiServeSchema } from './schema';
+import { eachValueFrom } from 'rxjs-for-await';
+import { tap, map } from 'rxjs/operators';
+import dumiServe from './lib/dumi-serve';
 
-export default async function runExecutor(
-  options: ServeExecutorSchema,
-) {
-  console.log('Executor ran for Serve', options)
-  return {
-    success: true
-  }
+export default function runExecutor(options: DumiServeSchema) {
+  return eachValueFrom(
+    dumiServe(options.cwd).pipe(
+      map(() => {
+        return {
+          success: true,
+        };
+      })
+    )
+  );
 }
-
