@@ -54,5 +54,7 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-ice-e2e',
     '<rootDir>/packages/nx-plugin-dumi',
     '<rootDir>/e2e\\nx-plugin-dumi-e2e',
+    '<rootDir>/packages/nx-plugin-release',
+    '<rootDir>/e2e\\nx-plugin-release-e2e',
   ],
 };
