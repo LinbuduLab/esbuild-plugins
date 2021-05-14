@@ -1,8 +1,5 @@
 import type { Plugin } from 'esbuild';
-import type {
-  ESBuildPluginFileSizeOption,
-  FileSizeFormatOption,
-} from './normalize-option';
+import type { ESBuildPluginFileSizeOption } from './normalize-option';
 import { normalizeOption } from './normalize-option';
 
 import fs from 'fs-extra';
@@ -19,24 +16,24 @@ import boxenReporter from './reporter';
 export function esbuildPluginFileSize(
   options: ESBuildPluginFileSizeOption = {}
 ): Plugin {
-  const normalizeOptions = normalizeOption(options);
+  const normalizedOptions = normalizeOption(options);
   const buildAt = dayjs().format('H:mm:ss A');
 
   const formatFileSize = (size: number): string =>
     fileSize(size, options.format);
 
-  function handleFileSizeDisplay(fileName: string, filePath: string) {
+  async function handleFileSizeDisplay(filePath: string) {
     const fileSizeBytes = fs.statSync(filePath).size;
     const fileContent = fs.readFileSync(filePath, 'utf8');
-    const minifiedContent = terser.minify(fileContent).code;
+    const minifiedContent = (await terser.minify(fileContent)).code;
 
     const fileSize = formatFileSize(fileSizeBytes);
     const gzippedSize = formatFileSize(gzipSize.sync(fileContent));
     const minifiedSize = formatFileSize(minifiedContent.length);
 
-    boxenReporter(normalizeOptions, {
+    boxenReporter(normalizedOptions, {
       fileSize,
-      fileName,
+      fileName: filePath,
       minifiedSize,
       gzippedSize,
       buildAt,
@@ -47,22 +44,34 @@ export function esbuildPluginFileSize(
   return {
     name: 'fileSize',
     // waiting for buildEnd hook, too...
-    setup(build) {
+    async setup(build) {
       const { outdir, outfile } = build.initialOptions;
 
-      // 对于outfile 直接读取
-      // 对于outdir 读取目录下所有文件并显示体积
-      // 支持exclude选项
+      if (outfile) {
+        const originFilePath = path.resolve(outfile);
 
-      const originFilePath = path.resolve(outfile);
+        if (!fs.existsSync(originFilePath)) {
+          return;
+        }
 
-      if (!fs.existsSync(originFilePath)) {
-        return;
+        await handleFileSizeDisplay(originFilePath);
+      } else if (outdir) {
+        const originDirPath = path.resolve(outdir);
+
+        if (!fs.existsSync(originDirPath)) {
+          return;
+        }
+
+        const files = fs
+          .readdirSync(originDirPath)
+          .filter((str) =>
+            normalizedOptions.exclude.every((ex) => !str.match(ex))
+          );
+
+        for (const file of files) {
+          await handleFileSizeDisplay(path.resolve(outdir, file));
+        }
       }
-
-      // TODO: handle edge cases: inexist...
-
-      handleFileSizeDisplay(outfile, originFilePath);
     },
   };
 }

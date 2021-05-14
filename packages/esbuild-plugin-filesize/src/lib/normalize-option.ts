@@ -12,9 +12,14 @@ export interface ESBuildPluginFileSizeOption {
 
   format?: FileSizeFormatOption;
   theme?: 'light' | 'dark';
+
+  exclude?: string | string[];
 }
 
-export type NormalizedESBuildPluginFileSizeOption = Required<ESBuildPluginFileSizeOption>;
+export interface NormalizedESBuildPluginFileSizeOption
+  extends Required<ESBuildPluginFileSizeOption> {
+  exclude: string[];
+}
 
 export type OutputFileSizeInfo = {
   fileSize: string;
@@ -30,6 +35,7 @@ export function normalizeOption({
   showMinifiedSize,
   showGzippedSize,
   format,
+  exclude,
 }: ESBuildPluginFileSizeOption): NormalizedESBuildPluginFileSizeOption {
   const normalizedOption: NormalizedESBuildPluginFileSizeOption = {
     showMinifiedSize: showMinifiedSize ?? true,
@@ -44,6 +50,7 @@ export function normalizeOption({
       spacer: ' ',
       ...(format ?? {}),
     },
+    exclude: exclude ? (Array.isArray(exclude) ? exclude : [exclude]) : [],
   };
 
   return normalizedOption;
