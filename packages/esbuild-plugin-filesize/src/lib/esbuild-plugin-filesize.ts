@@ -1,5 +1,8 @@
 import type { Plugin } from 'esbuild';
-import type { ESBuildPluginFileSizeOption } from './normalize-option';
+import type {
+  ESBuildPluginFileSizeOption,
+  FileSizeFormatOption,
+} from './normalize-option';
 import { normalizeOption } from './normalize-option';
 
 import fs from 'fs-extra';
@@ -17,38 +20,49 @@ export function esbuildPluginFileSize(
   options: ESBuildPluginFileSizeOption = {}
 ): Plugin {
   const normalizeOptions = normalizeOption(options);
+  const buildAt = dayjs().format('H:mm:ss A');
 
   const formatFileSize = (size: number): string =>
-    fileSize(size, normalizeOptions.format);
+    fileSize(size, options.format);
+
+  function handleFileSizeDisplay(fileName: string, filePath: string) {
+    const fileSizeBytes = fs.statSync(filePath).size;
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const minifiedContent = terser.minify(fileContent).code;
+
+    const fileSize = formatFileSize(fileSizeBytes);
+    const gzippedSize = formatFileSize(gzipSize.sync(fileContent));
+    const minifiedSize = formatFileSize(minifiedContent.length);
+
+    boxenReporter(normalizeOptions, {
+      fileSize,
+      fileName,
+      minifiedSize,
+      gzippedSize,
+      buildAt,
+      outputPath: filePath,
+    });
+  }
 
   return {
     name: 'fileSize',
     // waiting for buildEnd hook, too...
-    async setup(build) {
-      const { outdir, outfile = 'main.js' } = build.initialOptions;
+    setup(build) {
+      const { outdir, outfile } = build.initialOptions;
 
-      const originFilePath = path.join(outdir, outfile);
+      // 对于outfile 直接读取
+      // 对于outdir 读取目录下所有文件并显示体积
+      // 支持exclude选项
+
+      const originFilePath = path.resolve(outfile);
+
+      if (!fs.existsSync(originFilePath)) {
+        return;
+      }
 
       // TODO: handle edge cases: inexist...
 
-      const fileSizeBytes = fs.statSync(originFilePath).size;
-      const fileContent = fs.readFileSync(originFilePath, 'utf8');
-      const minifiedContent = (await terser.minify(fileContent)).code;
-
-      const fileSize = formatFileSize(fileSizeBytes);
-      const gzippedSize = formatFileSize(gzipSize.sync(fileContent));
-      const minifiedSize = formatFileSize(minifiedContent.length);
-
-      const buildAt = dayjs().format('H:mm:ss A');
-
-      boxenReporter(normalizeOptions, {
-        fileSize,
-        fileName: outfile,
-        minifiedSize,
-        gzippedSize,
-        buildAt,
-        outputPath: originFilePath,
-      });
+      handleFileSizeDisplay(outfile, originFilePath);
     },
   };
 }
