@@ -1,5 +1,8 @@
 import type { Plugin } from 'esbuild';
-import type { ESBuildPluginFileSizeOption } from './normalize-option';
+import type {
+  ESBuildPluginFileSizeOption,
+  OutputFileSizeInfo,
+} from './normalize-option';
 import { normalizeOption } from './normalize-option';
 
 import fs from 'fs-extra';
@@ -11,7 +14,10 @@ import terser from 'terser';
 
 import dayjs from 'dayjs';
 
-import boxenReporter from './reporter';
+import {
+  boxenSingleOutputReporter,
+  boxenMultiOutputReporter,
+} from './reporter';
 
 export function esbuildPluginFileSize(
   options: ESBuildPluginFileSizeOption = {}
@@ -30,15 +36,11 @@ export function esbuildPluginFileSize(
     const fileSize = formatFileSize(fileSizeBytes);
     const gzippedSize = formatFileSize(gzipSize.sync(fileContent));
     const minifiedSize = formatFileSize(minifiedContent.length);
-
-    boxenReporter(normalizedOptions, {
+    return {
       fileSize,
-      fileName: filePath,
-      minifiedSize,
       gzippedSize,
-      buildAt,
-      outputPath: filePath,
-    });
+      minifiedSize,
+    };
   }
 
   return {
@@ -54,7 +56,19 @@ export function esbuildPluginFileSize(
           return;
         }
 
-        await handleFileSizeDisplay(originFilePath);
+        const {
+          fileSize,
+          minifiedSize,
+          gzippedSize,
+        } = await handleFileSizeDisplay(originFilePath);
+
+        boxenSingleOutputReporter(normalizedOptions, {
+          fileSize,
+          fileName: originFilePath,
+          minifiedSize,
+          gzippedSize,
+          outputPath: originFilePath,
+        });
       } else if (outdir) {
         const originDirPath = path.resolve(outdir);
 
@@ -66,11 +80,22 @@ export function esbuildPluginFileSize(
           .readdirSync(originDirPath)
           .filter((str) =>
             normalizedOptions.exclude.every((ex) => !str.match(ex))
-          );
+          )
+          .map((filePath) => path.resolve(outdir, filePath));
+
+        const infos: OutputFileSizeInfo[] = [];
 
         for (const file of files) {
-          await handleFileSizeDisplay(path.resolve(outdir, file));
+          const tmp = await handleFileSizeDisplay(file);
+
+          infos.push({
+            ...tmp,
+            fileName: file,
+            outputPath: file,
+          });
         }
+
+        boxenMultiOutputReporter(normalizedOptions, infos);
       }
     },
   };

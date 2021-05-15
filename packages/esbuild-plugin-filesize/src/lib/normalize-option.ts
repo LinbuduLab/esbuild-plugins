@@ -28,7 +28,6 @@ export type OutputFileSizeInfo = {
   gzippedSize: string;
 
   outputPath: string;
-  buildAt: string;
 };
 
 export function normalizeOption({
@@ -36,11 +35,12 @@ export function normalizeOption({
   showGzippedSize,
   format,
   exclude,
+  theme,
 }: ESBuildPluginFileSizeOption): NormalizedESBuildPluginFileSizeOption {
   const normalizedOption: NormalizedESBuildPluginFileSizeOption = {
     showMinifiedSize: showMinifiedSize ?? true,
     showGzippedSize: showGzippedSize ?? true,
-    theme: 'dark',
+    theme: theme ?? 'dark',
     format: {
       base: 2,
       bits: false,
