@@ -94,6 +94,7 @@ specifiers:
   boxen: ^5.0.1
   chalk: ^4.1.1
   chokidar: ^3.5.1
+  cli-table3: ^0.6.0
   co: ^4.6.0
   commitizen: ^4.2.3
   commitlint-config-cz: ^0.13.2
@@ -285,6 +286,7 @@ devDependencies:
   boxen: 5.0.1
   chalk: 4.1.1
   chokidar: 3.5.1
+  cli-table3: 0.6.0
   co: 4.6.0
   commitizen: 4.2.3
   commitlint-config-cz: 0.13.2_@commitlint+cli@12.1.1
@@ -9940,6 +9942,16 @@ packages:
   /cli-spinners/2.6.0:
     resolution: {integrity: sha512-t+4/y50K/+4xcCRosKkA7W4gTr1MySvLV0q+PxmG7FJ5g+66ChKurYjxBCjHggHH3HA5Hh9cy+lcUGWDqVH+4Q==}
     engines: {node: '>=6'}
+    dev: true
+
+  /cli-table3/0.6.0:
+    resolution: {integrity: sha512-gnB85c3MGC7Nm9I/FkiasNBOKjOiO1RNuXXarQms37q4QMpWdlbBgD/VnOStA2faG1dpXMv31RFApjX1/QdgWQ==}
+    engines: {node: 10.* || >= 12.*}
+    dependencies:
+      object-assign: 4.1.1
+      string-width: 4.2.2
+    optionalDependencies:
+      colors: 1.4.0
     dev: true
 
   /cli-truncate/0.2.1:

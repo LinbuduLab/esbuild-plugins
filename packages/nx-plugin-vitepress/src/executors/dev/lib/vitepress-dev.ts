@@ -1,13 +1,14 @@
-import { VitepressDevSchema, Res } from '../schema';
+import { NormalizedVitepressDevSchema } from '../schema';
 import { from, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { createServer } from 'vitepress';
+import { Res } from '../../../utils/types';
 
 export const startVitePressDev = (
-  schema: VitepressDevSchema
+  schema: NormalizedVitepressDevSchema
 ): Observable<Res> => {
   return new Observable((subscriber) => {
-    createServer(schema.root).then((server) => {
+    createServer(schema.root, schema.serverOptions).then((server) => {
       from(server.listen()).pipe(
         tap(() => {
           subscriber.next({
