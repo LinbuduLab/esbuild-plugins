@@ -13,7 +13,7 @@ export default function runExecutor(
 ) {
   const normalizedSchema = normalizeSchema(schema, context);
 
-  return eachValueFrom(
+  return eachValueFrom<Res>(
     startVitePressDev(normalizedSchema).pipe(
       map(() => {
         return {

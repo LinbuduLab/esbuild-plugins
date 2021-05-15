@@ -4,6 +4,14 @@
   "title": "Serve executor",
   "description": "",
   "type": "object",
-  "properties": {},
-  "required": []
+  "properties": {
+    "root": {
+      "type": "string"
+    },
+    "port": {
+      "type": "number",
+      "default": 3000
+    }
+  },
+  "required": ["root"]
 }
