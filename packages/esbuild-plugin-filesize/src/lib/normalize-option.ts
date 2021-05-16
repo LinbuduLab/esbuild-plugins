@@ -9,6 +9,8 @@ export type FileSizeFormatOption = OptionsInferrer<typeof fileSize>;
 export interface ESBuildPluginFileSizeOption {
   showMinifiedSize?: boolean;
   showGzippedSize?: boolean;
+  showBrotliSize?: boolean;
+  showPluginTitle?: boolean;
 
   format?: FileSizeFormatOption;
   theme?: 'light' | 'dark';
@@ -26,6 +28,7 @@ export type OutputFileSizeInfo = {
   fileName: string;
   minifiedSize: string;
   gzippedSize: string;
+  brotliSize: string;
 
   outputPath: string;
 };
@@ -33,6 +36,8 @@ export type OutputFileSizeInfo = {
 export function normalizeOption({
   showMinifiedSize,
   showGzippedSize,
+  showBrotliSize,
+  showPluginTitle,
   format,
   exclude,
   theme,
@@ -40,6 +45,8 @@ export function normalizeOption({
   const normalizedOption: NormalizedESBuildPluginFileSizeOption = {
     showMinifiedSize: showMinifiedSize ?? true,
     showGzippedSize: showGzippedSize ?? true,
+    showBrotliSize: showBrotliSize ?? true,
+    showPluginTitle: showPluginTitle ?? true,
     theme: theme ?? 'dark',
     format: {
       base: 2,

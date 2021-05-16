@@ -11,8 +11,7 @@ import path from 'path';
 import fileSize from 'filesize';
 import gzipSize from 'gzip-size';
 import terser from 'terser';
-
-import dayjs from 'dayjs';
+import { sync as brotliSync } from 'brotli-size';
 
 import {
   boxenSingleOutputReporter,
@@ -23,10 +22,9 @@ export function esbuildPluginFileSize(
   options: ESBuildPluginFileSizeOption = {}
 ): Plugin {
   const normalizedOptions = normalizeOption(options);
-  const buildAt = dayjs().format('H:mm:ss A');
 
   const formatFileSize = (size: number): string =>
-    fileSize(size, options.format);
+    fileSize(size, normalizedOptions.format);
 
   async function handleFileSizeDisplay(filePath: string) {
     const fileSizeBytes = fs.statSync(filePath).size;
@@ -36,10 +34,12 @@ export function esbuildPluginFileSize(
     const fileSize = formatFileSize(fileSizeBytes);
     const gzippedSize = formatFileSize(gzipSize.sync(fileContent));
     const minifiedSize = formatFileSize(minifiedContent.length);
+    const brotliSize = formatFileSize(brotliSync(fileContent));
     return {
       fileSize,
       gzippedSize,
       minifiedSize,
+      brotliSize,
     };
   }
 
@@ -60,6 +60,7 @@ export function esbuildPluginFileSize(
           fileSize,
           minifiedSize,
           gzippedSize,
+          brotliSize,
         } = await handleFileSizeDisplay(originFilePath);
 
         boxenSingleOutputReporter(normalizedOptions, {
@@ -68,6 +69,7 @@ export function esbuildPluginFileSize(
           minifiedSize,
           gzippedSize,
           outputPath: originFilePath,
+          brotliSize,
         });
       } else if (outdir) {
         const originDirPath = path.resolve(outdir);
