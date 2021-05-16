@@ -19,9 +19,8 @@ export default (options: RunOptions = {}): Plugin => {
     name: 'esbuild:run',
     async setup({ initialOptions, onEnd }) {
       if (
-        initialOptions.write &&
         typeof initialOptions.write === 'boolean' &&
-        (initialOptions.write as boolean) === false
+        initialOptions.write === false
       ) {
         console.warn(
           chalk.yellow('WARN'),
