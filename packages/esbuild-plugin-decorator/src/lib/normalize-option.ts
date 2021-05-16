@@ -5,19 +5,31 @@ import { Options as SWCCompileOptions } from '@swc/core';
 import { pluginTitle, info, warn, err } from './log';
 
 export interface ESBuildPluginDecoratorOptions {
+  // tsconfig path (tsconfig.json)
+  // swc config path (.swcrc)
   tsconfigPath?: string;
   swcrcPath?: string;
 
+  // force specified compiler for all code compilation
+  // (even no decorators are found)
+  // if set to false, plugin will be skipped when no decorators are found
   force?: boolean;
 
   cwd?: string;
 
+  // use typescript or @swc/core for decorator compilation
   compiler?: 'tsc' | 'swc';
 
+  // when innx project, will search tsconfig.base.json
+  // when tsconfigPath is not speficied
+  // there will be more customization for nx-workspace in the future
   isNxProject?: boolean;
+
+  // extra compile options
   tscCompilerOptions?: TSCCompileOptions;
   swcCompilerOptions?: SWCCompileOptions;
 
+  // verbose logging
   verbose?: boolean;
 }
 
@@ -60,17 +72,20 @@ export function normalizeOption(
 
   if (compiler === 'swc' && !swcrcExist) {
     console.log(
-      `${pluginTitle()} ${err(
-        `.swcrc file from ${swcrcPath} is not found, using default swc options`
-      )})`
+      verbose &&
+        `${pluginTitle()} ${err(
+          `.swcrc file from ${swcrcPath} is not found, using default swc options`
+        )})`
     );
   } else if (compiler === 'swc' && swcrcExist) {
-    console.log(
-      `${pluginTitle()} ${info('Load swc config file from')} ${swcrcPath}`
-    );
+    verbose &&
+      console.log(
+        `${pluginTitle()} ${info('Load swc config file from')} ${swcrcPath}`
+      );
   }
 
-  console.log(`${pluginTitle()} ${info('Current working directory')} ${cwd}`);
+  verbose &&
+    console.log(`${pluginTitle()} ${info('Current working directory')} ${cwd}`);
 
   verbose &&
     console.log(

@@ -54,10 +54,18 @@ export const esbuildPluginDecorator = (
           };
         }
 
-        const shouldSkipThisPlugin =
-          !force &&
-          (!parsedTsConfig?.options?.emitDecoratorMetadata ||
-            !parsedTsConfig?.options?.experimentalDecorators);
+        const decoratorConfigExist =
+          parsedTsConfig?.options?.emitDecoratorMetadata &&
+          parsedTsConfig?.options?.experimentalDecorators;
+
+        // force: true
+        // plugin will not be skipped
+        // force: false
+        // when decoratorConfigExist: false
+        // skip plugin
+        // else
+        // apply plugin
+        const shouldSkipThisPlugin = force ? false : !decoratorConfigExist;
 
         if (shouldSkipThisPlugin) {
           verbose && pluginSkipped(path);
@@ -91,10 +99,18 @@ export const esbuildPluginDecorator = (
           );
         }
 
-        const shouldSkipThisPlugin =
-          !force &&
-          (!parsedSwcConfig.jsc.transform.decoratorMetadata ||
-            !parsedSwcConfig.jsc.parser.decorators);
+        const decoratorConfigExist =
+          parsedSwcConfig.jsc.transform.decoratorMetadata &&
+          parsedSwcConfig.jsc.parser.decorators;
+
+        // force: true
+        // plugin will not be skipped
+        // force: false
+        // when decoratorConfigExist: false
+        // skip plugin
+        // else
+        // apply plugin
+        const shouldSkipThisPlugin = force ? false : !decoratorConfigExist;
 
         if (shouldSkipThisPlugin) {
           verbose && pluginSkipped(path);

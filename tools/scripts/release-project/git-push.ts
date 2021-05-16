@@ -13,7 +13,7 @@ export const gitPush = async (
     await runIfNotDry(dryRun, 'git', [
       'commit',
       '-m',
-      `release${project}: ${tag}`,
+      `release ${project}: ${tag}`,
     ]);
   } else {
     console.log('No changes to commit.');

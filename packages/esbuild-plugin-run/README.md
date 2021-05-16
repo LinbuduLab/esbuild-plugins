@@ -25,9 +25,7 @@ import run from 'esbuild-plugin-run';
     entryPoints: ['./demo.ts'],
     bundle: true,
     outfile: './dist/main.js',
-    plugins: [
-      run(),
-    ],
+    plugins: [run()],
   });
 })();
 ```

@@ -22,7 +22,6 @@ pnpm i esbuild-plugin-filesize -D
 yarn add esbuild-plugin-filesize -D
 ```
 
-
 ```typescript
 import { build } from 'esbuild';
 import { esbuildPluginFileSize } from 'esbuild-plugin-filesize';
@@ -32,9 +31,7 @@ import { esbuildPluginFileSize } from 'esbuild-plugin-filesize';
     entryPoints: ['./demo.ts'],
     bundle: true,
     outfile: './dist/main.js',
-    plugins: [
-      esbuildPluginFileSize()
-    ],
+    plugins: [esbuildPluginFileSize()],
   });
 })();
 ```

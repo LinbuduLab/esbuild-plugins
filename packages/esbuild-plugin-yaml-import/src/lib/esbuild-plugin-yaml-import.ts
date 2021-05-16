@@ -1,11 +1,10 @@
 import path from 'path';
 import { Plugin } from 'esbuild';
 import fs from 'fs-extra';
-import chalk from 'chalk';
 import JSYaml, { LoadOptions as JSYamlOptions } from 'js-yaml';
 import { TextDecoder } from 'util';
 
-const debug = require('debug')('plugin:yaml');
+// const debug = require('debug')('plugin:yaml');
 
 export interface Options {
   jsyamlLoadOptions?: JSYamlOptions;
