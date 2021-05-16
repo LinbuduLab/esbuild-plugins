@@ -54,7 +54,7 @@
     "collect-deps": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\collect-deps\\collect-deps.ts && npm run format",
     "convert-type": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\convert-import-type.ts",
     "release:dry": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\release-project\\release-project.ts --dry-run",
-    "release": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\release\\release-project.ts",
+    "release": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\release-project\\release-project.ts",
     "sort": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\sort-config-file\\sort-config-file.ts",
     "schema2ts": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\schema-to-ts\\schema-to-ts.ts"
   },
