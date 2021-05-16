@@ -148,6 +148,7 @@
     "esbuild-plugin-compress": { "tags": [] },
     "esbuild-plugin-markdown-import": { "tags": [] },
     "esbuild-plugin-copy": { "tags": [] },
+    "esbuild-plugin-svgr-import": { "tags": [] },
     "vite-plugin-graphql": { "tags": ["scope:vite"] },
     "vite-plugin-prisma": { "tags": ["scope:vite"] },
     "vite-plugin-gundam": { "tags": [] },
@@ -158,7 +159,10 @@
     "rollup-plugin-esbuild-compiler": { "tags": [] },
     "snowpack-plugin-graphql-import": { "tags": [] },
     "snowpack-plugin-hash-gen": { "tags": [] },
-    "esbuild-plugin-svgr-import": { "tags": [] }
+    "parcel-plugin-markdown-import": { "tags": [] },
+    "parcel-plugin-compress": { "tags": [] },
+    "parcel-plugin-cleanup": { "tags": [] },
+    "parcel-plugin-esbuild-compiler": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

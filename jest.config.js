@@ -62,5 +62,9 @@ module.exports = {
     '<rootDir>/packages/esbuild-plugin-markdown-import',
     '<rootDir>/packages/esbuild-plugin-copy',
     '<rootDir>/packages/esbuild-plugin-svgr-import',
+    '<rootDir>/packages/parcel-plugin-markdown-import',
+    '<rootDir>/packages/parcel-plugin-compress',
+    '<rootDir>/packages/parcel-plugin-cleanup',
+    '<rootDir>/packages/parcel-plugin-esbuild-compiler',
   ],
 };

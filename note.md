@@ -49,4 +49,4 @@ aaaa!
 - nx koa-build nest-app --configuration=production
 - ts-node 参数顺序 https://github.com/TypeStrong/ts-node/issues/541
 
-nx g @nrwl/node:lib esbuild-plugin-svgr-import --publishable --importPath=esbuild-plugin-svgr-import
+nx g @nrwl/node:lib parcel-plugin-esbuild-compiler --publishable --importPath=parcel-plugin-esbuild-compiler

@@ -69,6 +69,9 @@
         "packages/esbuild-plugin-markdown-import/src/index.ts"
       ],
       "esbuild-plugin-copy": ["packages/esbuild-plugin-copy/src/index.ts"],
+      "esbuild-plugin-svgr-import": [
+        "packages/esbuild-plugin-svgr-import/src/index.ts"
+      ],
       "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"],
       "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"],
       "vite-plugin-gundam": ["packages/vite-plugin-gundam/src/index.ts"],
@@ -96,8 +99,18 @@
       "@penumbra/nx-plugin-release": [
         "packages/nx-plugin-release/src/index.ts"
       ],
-      "esbuild-plugin-svgr-import": [
-        "packages/esbuild-plugin-svgr-import/src/index.ts"
+      "parcel-plugin-markdown-import": [
+        "packages/parcel-plugin-markdown-import/src/index.ts"
+      ],
+      "parcel-plugin-compress": [
+        "packages/parcel-plugin-compress/src/index.ts"
+      ],
+      "parcel-plugin-cleanup": ["packages/parcel-plugin-cleanup/src/index.ts"],
+      "parcel-plugin-copy-assets": [
+        "packages/parcel-plugin-copy-assets/src/index.ts"
+      ],
+      "parcel-plugin-esbuild-compiler": [
+        "packages/parcel-plugin-esbuild-compiler/src/index.ts"
       ]
     }
   },

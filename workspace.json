@@ -1694,6 +1694,38 @@
         }
       }
     },
+    "esbuild-plugin-svgr-import": {
+      "root": "packages/esbuild-plugin-svgr-import",
+      "sourceRoot": "packages/esbuild-plugin-svgr-import/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-svgr-import/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-svgr-import"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-svgr-import/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-svgr-import",
+            "tsConfig": "packages/esbuild-plugin-svgr-import/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-svgr-import/package.json",
+            "main": "packages/esbuild-plugin-svgr-import/src/index.ts",
+            "assets": ["packages/esbuild-plugin-svgr-import/*.md"]
+          }
+        }
+      }
+    },
     "vite-plugin-graphql": {
       "root": "packages/vite-plugin-graphql",
       "sourceRoot": "packages/vite-plugin-graphql/src",
@@ -2020,22 +2052,24 @@
         }
       }
     },
-    "esbuild-plugin-svgr-import": {
-      "root": "packages/esbuild-plugin-svgr-import",
-      "sourceRoot": "packages/esbuild-plugin-svgr-import/src",
+    "parcel-plugin-markdown-import": {
+      "root": "packages/parcel-plugin-markdown-import",
+      "sourceRoot": "packages/parcel-plugin-markdown-import/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-svgr-import/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/parcel-plugin-markdown-import/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-svgr-import"],
+          "outputs": ["coverage/packages/parcel-plugin-markdown-import"],
           "options": {
-            "jestConfig": "packages/esbuild-plugin-svgr-import/jest.config.js",
+            "jestConfig": "packages/parcel-plugin-markdown-import/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -2043,11 +2077,109 @@
           "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/packages/esbuild-plugin-svgr-import",
-            "tsConfig": "packages/esbuild-plugin-svgr-import/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-svgr-import/package.json",
-            "main": "packages/esbuild-plugin-svgr-import/src/index.ts",
-            "assets": ["packages/esbuild-plugin-svgr-import/*.md"]
+            "outputPath": "dist/packages/parcel-plugin-markdown-import",
+            "tsConfig": "packages/parcel-plugin-markdown-import/tsconfig.lib.json",
+            "packageJson": "packages/parcel-plugin-markdown-import/package.json",
+            "main": "packages/parcel-plugin-markdown-import/src/index.ts",
+            "assets": ["packages/parcel-plugin-markdown-import/*.md"]
+          }
+        }
+      }
+    },
+    "parcel-plugin-compress": {
+      "root": "packages/parcel-plugin-compress",
+      "sourceRoot": "packages/parcel-plugin-compress/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/parcel-plugin-compress/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/parcel-plugin-compress"],
+          "options": {
+            "jestConfig": "packages/parcel-plugin-compress/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/parcel-plugin-compress",
+            "tsConfig": "packages/parcel-plugin-compress/tsconfig.lib.json",
+            "packageJson": "packages/parcel-plugin-compress/package.json",
+            "main": "packages/parcel-plugin-compress/src/index.ts",
+            "assets": ["packages/parcel-plugin-compress/*.md"]
+          }
+        }
+      }
+    },
+    "parcel-plugin-cleanup": {
+      "root": "packages/parcel-plugin-cleanup",
+      "sourceRoot": "packages/parcel-plugin-cleanup/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/parcel-plugin-cleanup/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/parcel-plugin-cleanup"],
+          "options": {
+            "jestConfig": "packages/parcel-plugin-cleanup/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/parcel-plugin-cleanup",
+            "tsConfig": "packages/parcel-plugin-cleanup/tsconfig.lib.json",
+            "packageJson": "packages/parcel-plugin-cleanup/package.json",
+            "main": "packages/parcel-plugin-cleanup/src/index.ts",
+            "assets": ["packages/parcel-plugin-cleanup/*.md"]
+          }
+        }
+      }
+    },
+    "parcel-plugin-esbuild-compiler": {
+      "root": "packages/parcel-plugin-esbuild-compiler",
+      "sourceRoot": "packages/parcel-plugin-esbuild-compiler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/parcel-plugin-esbuild-compiler/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/parcel-plugin-esbuild-compiler"],
+          "options": {
+            "jestConfig": "packages/parcel-plugin-esbuild-compiler/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/parcel-plugin-esbuild-compiler",
+            "tsConfig": "packages/parcel-plugin-esbuild-compiler/tsconfig.lib.json",
+            "packageJson": "packages/parcel-plugin-esbuild-compiler/package.json",
+            "main": "packages/parcel-plugin-esbuild-compiler/src/index.ts",
+            "assets": ["packages/parcel-plugin-esbuild-compiler/*.md"]
           }
         }
       }
