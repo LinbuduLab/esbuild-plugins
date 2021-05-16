@@ -16,7 +16,7 @@ export default (options: RunOptions = {}): Plugin => {
 
   return {
     name: 'esbuild:run',
-    async setup({ initialOptions }) {
+    async setup({ initialOptions, onEnd }) {
       if (
         initialOptions.write &&
         typeof initialOptions.write === 'boolean' &&
@@ -61,29 +61,25 @@ export default (options: RunOptions = {}): Plugin => {
         return execaProcess;
       };
 
-      if (!fs.existsSync(filePath)) {
-        return;
-      }
-
-      process.stdin.resume();
-      process.stdin.setEncoding('utf8');
-
-      process.stdin.on('data', (data) => {
-        const line = data.toString().trim().toLowerCase();
-        if (line === 'rs' || line === 'restart') {
-          runner(filePath);
-        } else if (line === 'cls' || line === 'clear') {
-          console.clear();
+      onEnd(async () => {
+        if (!fs.existsSync(filePath)) {
+          return;
         }
-      });
 
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          debug('resolved');
-          runner(filePath).then((cp) => {
-            resolve();
-          });
-        }, 1000);
+        debug('resolved');
+        runner(filePath);
+
+        process.stdin.resume();
+        process.stdin.setEncoding('utf8');
+
+        process.stdin.on('data', (data) => {
+          const line = data.toString().trim().toLowerCase();
+          if (line === 'rs' || line === 'restart') {
+            runner(filePath);
+          } else if (line === 'cls' || line === 'clear') {
+            console.clear();
+          }
+        });
       });
     },
   };
