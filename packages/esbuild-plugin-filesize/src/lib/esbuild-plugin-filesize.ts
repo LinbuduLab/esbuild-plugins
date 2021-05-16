@@ -46,59 +46,61 @@ export function esbuildPluginFileSize(
   return {
     name: 'fileSize',
     // waiting for buildEnd hook, too...
-    async setup(build) {
-      const { outdir, outfile } = build.initialOptions;
+    async setup({ initialOptions, onEnd }) {
+      const { outdir, outfile } = initialOptions;
 
-      if (outfile) {
-        const originFilePath = path.resolve(outfile);
+      onEnd(async () => {
+        if (outfile) {
+          const originFilePath = path.resolve(outfile);
 
-        if (!fs.existsSync(originFilePath)) {
-          return;
-        }
+          if (!fs.existsSync(originFilePath)) {
+            return;
+          }
 
-        const {
-          fileSize,
-          minifiedSize,
-          gzippedSize,
-          brotliSize,
-        } = await handleFileSizeDisplay(originFilePath);
+          const {
+            fileSize,
+            minifiedSize,
+            gzippedSize,
+            brotliSize,
+          } = await handleFileSizeDisplay(originFilePath);
 
-        boxenSingleOutputReporter(normalizedOptions, {
-          fileSize,
-          fileName: originFilePath,
-          minifiedSize,
-          gzippedSize,
-          outputPath: originFilePath,
-          brotliSize,
-        });
-      } else if (outdir) {
-        const originDirPath = path.resolve(outdir);
-
-        if (!fs.existsSync(originDirPath)) {
-          return;
-        }
-
-        const files = fs
-          .readdirSync(originDirPath)
-          .filter((str) =>
-            normalizedOptions.exclude.every((ex) => !str.match(ex))
-          )
-          .map((filePath) => path.resolve(outdir, filePath));
-
-        const infos: OutputFileSizeInfo[] = [];
-
-        for (const file of files) {
-          const tmp = await handleFileSizeDisplay(file);
-
-          infos.push({
-            ...tmp,
-            fileName: file,
-            outputPath: file,
+          boxenSingleOutputReporter(normalizedOptions, {
+            fileSize,
+            fileName: originFilePath,
+            minifiedSize,
+            gzippedSize,
+            outputPath: originFilePath,
+            brotliSize,
           });
-        }
+        } else if (outdir) {
+          const originDirPath = path.resolve(outdir);
 
-        boxenMultiOutputReporter(normalizedOptions, infos);
-      }
+          if (!fs.existsSync(originDirPath)) {
+            return;
+          }
+
+          const files = fs
+            .readdirSync(originDirPath)
+            .filter((str) =>
+              normalizedOptions.exclude.every((ex) => !str.match(ex))
+            )
+            .map((filePath) => path.resolve(outdir, filePath));
+
+          const infos: OutputFileSizeInfo[] = [];
+
+          for (const file of files) {
+            const tmp = await handleFileSizeDisplay(file);
+
+            infos.push({
+              ...tmp,
+              fileName: file,
+              outputPath: file,
+            });
+          }
+
+          boxenMultiOutputReporter(normalizedOptions, infos);
+        }
+      });
     },
   };
 }

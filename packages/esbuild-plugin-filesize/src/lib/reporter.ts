@@ -23,7 +23,6 @@ export function boxenSingleOutputReporter(
     outputPath,
   }: OutputFileSizeInfo
 ): void {
-  console.log(theme);
   const [primaryColor, secondaryColor, headerColor] =
     theme === 'dark'
       ? ['green', 'yellow', '#4682B4']
