@@ -60,5 +60,6 @@ module.exports = {
     '<rootDir>/packages/esbuild-plugin-clean',
     '<rootDir>/packages/esbuild-plugin-compress',
     '<rootDir>/packages/esbuild-plugin-markdown-import',
+    '<rootDir>/packages/esbuild-plugin-copy',
   ],
 };

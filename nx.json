@@ -156,7 +156,8 @@
     "esbuild-plugin-yaml-import": { "tags": [] },
     "esbuild-plugin-clean": { "tags": [] },
     "esbuild-plugin-compress": { "tags": [] },
-    "esbuild-plugin-markdown-import": { "tags": [] }
+    "esbuild-plugin-markdown-import": { "tags": [] },
+    "esbuild-plugin-copy": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

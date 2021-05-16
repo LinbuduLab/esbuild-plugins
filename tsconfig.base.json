@@ -94,7 +94,8 @@
       ],
       "esbuild-plugin-markdown-import": [
         "packages/esbuild-plugin-markdown-import/src/index.ts"
-      ]
+      ],
+      "esbuild-plugin-copy": ["packages/esbuild-plugin-copy/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
