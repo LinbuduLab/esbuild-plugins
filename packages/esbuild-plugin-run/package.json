@@ -1,4 +1,29 @@
 {
   "name": "esbuild-plugin-run",
-  "version": "0.0.1"
+  "version": "0.0.2-1",
+  "description": "ESBuild plugin to execute output after build.",
+  "keywords": [
+    "esbuild",
+    "ESBuild",
+    "run",
+    "plugin"
+  ],
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-run#readme",
+  "bugs": {
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "execa": "^5.0.0",
+    "fs-extra": "^10.0.0"
+  },
+  "peerDependencies": {
+    "esbuild": "^0.11.19"
+  }
 }

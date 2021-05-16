@@ -108,6 +108,7 @@ specifiers:
   dayjs: ^1.10.4
   debug: ^4.3.1
   deepmerge: ^4.2.2
+  del: ^6.0.0
   dotenv: 9.0.0
   dumi: ^1.1.17
   enquirer: ^2.3.6
@@ -302,6 +303,7 @@ devDependencies:
   dayjs: 1.10.4
   debug: 4.3.1
   deepmerge: 4.2.2
+  del: 6.0.0
   dotenv: 9.0.0
   dumi: 1.1.17_507781d099a67956587e23f5ac79078b
   enquirer: 2.3.6
@@ -21506,7 +21508,7 @@ packages:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     hasBin: true
     dependencies:
-      glob: 7.1.6
+      glob: 7.1.7
     dev: true
 
   /ripemd160/2.0.2:

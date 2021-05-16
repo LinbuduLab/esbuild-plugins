@@ -7,7 +7,7 @@
 // license
 //  "repository": {
 //   "type": "git",
-//   "url": "ssh://git@github.com/PenumbraPro/nx-plugins.git"
+//   "url": "ssh://git@github.com/linbudu599/nx-plugins.git"
 // },
 // description
 // keywords
@@ -38,7 +38,7 @@ export const createMissingFields = (projectName: string) => {
 
   const repository = {
     type: 'git',
-    url: 'git+https://github.com/PenumbraPro/nx-plugins.git',
+    url: 'git+https://github.com/linbudu599/nx-plugins.git',
   };
 
   const author =
@@ -47,10 +47,10 @@ export const createMissingFields = (projectName: string) => {
   // const contributors = [author];
 
   const bugs = {
-    url: 'https://github.com/PenumbraPro/nx-plugins/issues',
+    url: 'https://github.com/linbudu599/nx-plugins/issues',
   };
 
-  const homepage = `https://github.com/PenumbraPro/nx-plugins/tree/master/packages/${projectName}#readme`;
+  const homepage = `https://github.com/linbudu599/nx-plugins/tree/master/packages/${projectName}#readme`;
 
   if (projectName === 'nx-plugin-devkit') {
     return {

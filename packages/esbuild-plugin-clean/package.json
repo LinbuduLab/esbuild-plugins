@@ -1,14 +1,14 @@
 {
-  "name": "esbuild-plugin-filesize",
-  "version": "0.0.1-2",
-  "description": "ESBuild plugin for displaying filesize.",
+  "name": "esbuild-plugin-clean",
+  "version": "0.0.2-1",
+  "description": "ESBuild plugin for cleaning up assets before building.",
   "keywords": [
     "esbuild",
     "ESBuild",
-    "filesize",
+    "clean",
     "plugin"
   ],
-  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-filesize#readme",
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-clean#readme",
   "bugs": {
     "url": "https://github.com/linbudu599/nx-plugins/issues"
   },
@@ -19,14 +19,8 @@
   "license": "MIT",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
   "dependencies": {
-    "boxen": "^5.0.1",
-    "brotli-size": "^4.0.0",
     "chalk": "^4.1.1",
-    "cli-table3": "^0.6.0",
-    "filesize": "^6.3.0",
-    "fs-extra": "^10.0.0",
-    "gzip-size": "^6.0.0",
-    "terser": "^5.7.0"
+    "del": "^6.0.0"
   },
   "peerDependencies": {
     "esbuild": "^0.11.19"

@@ -81,9 +81,9 @@ export function esbuildPluginFileSize(
 
           const files = fs
             .readdirSync(originDirPath)
-            .filter((str) =>
-              normalizedOptions.exclude.every((ex) => !str.match(ex))
-            )
+            // .filter((str) =>
+            //   normalizedOptions.exclude.every((ex) => !str.match(ex))
+            // )
             .map((filePath) => path.resolve(outdir, filePath));
 
           const infos: OutputFileSizeInfo[] = [];

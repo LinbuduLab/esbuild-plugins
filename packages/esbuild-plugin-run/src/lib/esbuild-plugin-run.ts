@@ -3,16 +3,17 @@ import path from 'path';
 import { Plugin } from 'esbuild';
 import fs from 'fs-extra';
 import chalk from 'chalk';
-
-const debug = require('debug')('plugin:run');
+import { ChildProcess } from 'child_process';
 
 export interface RunOptions {
   execaOptions?: Options;
-  customRunner?: (filePath: string) => ExecaChildProcess<string>;
+  customRunner?: (
+    filePath: string
+  ) => ChildProcess | ExecaChildProcess<string> | any;
 }
 
 export default (options: RunOptions = {}): Plugin => {
-  let execaProcess: ExecaChildProcess<string>;
+  let execaProcess: ChildProcess | ExecaChildProcess<string> | any;
 
   return {
     name: 'esbuild:run',
@@ -40,7 +41,7 @@ export default (options: RunOptions = {}): Plugin => {
       const filePath = path.join(process.cwd(), initialOptions.outfile);
 
       const runner = (execFilePath: string) => {
-        if (execaProcess && !execaProcess.killed) {
+        if (execaProcess && !execaProcess?.killed) {
           execaProcess?.kill();
         }
 
@@ -66,8 +67,7 @@ export default (options: RunOptions = {}): Plugin => {
           return;
         }
 
-        debug('resolved');
-        runner(filePath);
+        execaProcess = runner(filePath);
 
         process.stdin.resume();
         process.stdin.setEncoding('utf8');
@@ -75,7 +75,7 @@ export default (options: RunOptions = {}): Plugin => {
         process.stdin.on('data', (data) => {
           const line = data.toString().trim().toLowerCase();
           if (line === 'rs' || line === 'restart') {
-            runner(filePath);
+            execaProcess = runner(filePath);
           } else if (line === 'cls' || line === 'clear') {
             console.clear();
           }
