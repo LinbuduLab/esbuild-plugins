@@ -95,9 +95,9 @@ export async function main() {
 
   step('\nGenerating changelog...');
 
-  if (!dryRun) {
-    changelog(targetProject);
-  }
+  // if (!dryRun) {
+  //   changelog(targetProject);
+  // }
 
   await gitPush(targetProject, releaseTag, dryRun);
 
