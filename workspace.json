@@ -2019,6 +2019,38 @@
           }
         }
       }
+    },
+    "esbuild-plugin-svgr-import": {
+      "root": "packages/esbuild-plugin-svgr-import",
+      "sourceRoot": "packages/esbuild-plugin-svgr-import/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-svgr-import/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-svgr-import"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-svgr-import/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-svgr-import",
+            "tsConfig": "packages/esbuild-plugin-svgr-import/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-svgr-import/package.json",
+            "main": "packages/esbuild-plugin-svgr-import/src/index.ts",
+            "assets": ["packages/esbuild-plugin-svgr-import/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }

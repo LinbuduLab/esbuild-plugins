@@ -157,7 +157,8 @@
     "rollup-plugin-swc-compiler": { "tags": [] },
     "rollup-plugin-esbuild-compiler": { "tags": [] },
     "snowpack-plugin-graphql-import": { "tags": [] },
-    "snowpack-plugin-hash-gen": { "tags": [] }
+    "snowpack-plugin-hash-gen": { "tags": [] },
+    "esbuild-plugin-svgr-import": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

@@ -93,7 +93,12 @@
       ],
       "@penumbra/nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
       "@penumbra/nx-plugin-dumi": ["packages/nx-plugin-dumi/src/index.ts"],
-      "@penumbra/nx-plugin-release": ["packages/nx-plugin-release/src/index.ts"]
+      "@penumbra/nx-plugin-release": [
+        "packages/nx-plugin-release/src/index.ts"
+      ],
+      "esbuild-plugin-svgr-import": [
+        "packages/esbuild-plugin-svgr-import/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
