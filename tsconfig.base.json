@@ -88,7 +88,10 @@
       "esbuild-plugin-yaml-import": [
         "packages/esbuild-plugin-yaml-import/src/index.ts"
       ],
-      "esbuild-plugin-clean": ["packages/esbuild-plugin-clean/src/index.ts"]
+      "esbuild-plugin-clean": ["packages/esbuild-plugin-clean/src/index.ts"],
+      "esbuild-plugin-compress": [
+        "packages/esbuild-plugin-compress/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -58,5 +58,6 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-release-e2e',
     '<rootDir>/packages/esbuild-plugin-yaml-import',
     '<rootDir>/packages/esbuild-plugin-clean',
+    '<rootDir>/packages/esbuild-plugin-compress',
   ],
 };

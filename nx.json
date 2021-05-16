@@ -154,7 +154,8 @@
       "implicitDependencies": ["nx-plugin-release"]
     },
     "esbuild-plugin-yaml-import": { "tags": [] },
-    "esbuild-plugin-clean": { "tags": [] }
+    "esbuild-plugin-clean": { "tags": [] },
+    "esbuild-plugin-compress": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }
