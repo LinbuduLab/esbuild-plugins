@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-filesize",
-  "version": "0.0.1-2",
+  "version": "0.1.0",
   "description": "ESBuild plugin for displaying filesize.",
   "keywords": [
     "esbuild",
