@@ -91,6 +91,9 @@
       "esbuild-plugin-clean": ["packages/esbuild-plugin-clean/src/index.ts"],
       "esbuild-plugin-compress": [
         "packages/esbuild-plugin-compress/src/index.ts"
+      ],
+      "esbuild-plugin-markdown-import": [
+        "packages/esbuild-plugin-markdown-import/src/index.ts"
       ]
     }
   },
