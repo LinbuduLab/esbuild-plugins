@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-run",
-  "version": "0.0.2-1",
+  "version": "0.1.0",
   "description": "ESBuild plugin to execute output after build.",
   "keywords": [
     "esbuild",
