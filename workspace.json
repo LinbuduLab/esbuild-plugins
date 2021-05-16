@@ -887,6 +887,327 @@
         }
       }
     },
+    "nx-plugin-rollup": {
+      "root": "packages/nx-plugin-rollup",
+      "sourceRoot": "packages/nx-plugin-rollup/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/nx-plugin-rollup/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-rollup"],
+          "options": {
+            "jestConfig": "packages/nx-plugin-rollup/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-rollup",
+            "tsConfig": "packages/nx-plugin-rollup/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-rollup/package.json",
+            "main": "packages/nx-plugin-rollup/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-rollup/*.md",
+              {
+                "input": "./packages/nx-plugin-rollup/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-rollup",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-rollup",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-rollup-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-plugin-rollup-e2e",
+      "sourceRoot": "e2e\\nx-plugin-rollup-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-rollup:build",
+            "npmPackageName": "@penumbra/nx-plugin-rollup",
+            "pluginOutputPath": "dist/packages/nx-plugin-rollup",
+            "jestConfig": "e2e/nx-plugin-rollup-e2e/jest.config.js"
+          }
+        }
+      }
+    },
+    "nx-plugin-vuepress": {
+      "root": "packages/nx-plugin-vuepress",
+      "sourceRoot": "packages/nx-plugin-vuepress/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/nx-plugin-vuepress/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-vuepress"],
+          "options": {
+            "jestConfig": "packages/nx-plugin-vuepress/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-vuepress",
+            "tsConfig": "packages/nx-plugin-vuepress/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-vuepress/package.json",
+            "main": "packages/nx-plugin-vuepress/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-vuepress/*.md",
+              {
+                "input": "./packages/nx-plugin-vuepress/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-vuepress",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-vuepress",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-vuepress-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-plugin-vuepress-e2e",
+      "sourceRoot": "e2e\\nx-plugin-vuepress-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-vuepress:build",
+            "npmPackageName": "@penumbra/nx-plugin-vuepress",
+            "pluginOutputPath": "dist/packages/nx-plugin-vuepress",
+            "jestConfig": "e2e/nx-plugin-vuepress-e2e/jest.config.js"
+          }
+        }
+      }
+    },
+    "nx-plugin-ice": {
+      "root": "packages/nx-plugin-ice",
+      "sourceRoot": "packages/nx-plugin-ice/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["packages/nx-plugin-ice/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-ice"],
+          "options": {
+            "jestConfig": "packages/nx-plugin-ice/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-ice",
+            "tsConfig": "packages/nx-plugin-ice/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-ice/package.json",
+            "main": "packages/nx-plugin-ice/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-ice/*.md",
+              {
+                "input": "./packages/nx-plugin-ice/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-ice",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-ice",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-ice-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-plugin-ice-e2e",
+      "sourceRoot": "e2e\\nx-plugin-ice-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-ice:build",
+            "npmPackageName": "@penumbra/nx-plugin-ice",
+            "pluginOutputPath": "dist/packages/nx-plugin-ice",
+            "jestConfig": "e2e/nx-plugin-ice-e2e/jest.config.js"
+          }
+        }
+      }
+    },
+    "nx-plugin-dumi": {
+      "root": "packages/nx-plugin-dumi",
+      "sourceRoot": "packages/nx-plugin-dumi/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["packages/nx-plugin-dumi/**/*.ts"] }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-dumi"],
+          "options": {
+            "jestConfig": "packages/nx-plugin-dumi/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-dumi",
+            "tsConfig": "packages/nx-plugin-dumi/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-dumi/package.json",
+            "main": "packages/nx-plugin-dumi/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-dumi/*.md",
+              {
+                "input": "./packages/nx-plugin-dumi/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-dumi",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-dumi",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-dumi-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-plugin-dumi-e2e",
+      "sourceRoot": "e2e\\nx-plugin-dumi-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-dumi:build",
+            "npmPackageName": "@penumbra/nx-plugin-dumi",
+            "pluginOutputPath": "dist/packages/nx-plugin-dumi",
+            "jestConfig": "e2e/nx-plugin-dumi-e2e/jest.config.js"
+          }
+        }
+      }
+    },
+    "nx-plugin-release": {
+      "root": "packages/nx-plugin-release",
+      "sourceRoot": "packages/nx-plugin-release/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/nx-plugin-release/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-release"],
+          "options": {
+            "jestConfig": "packages/nx-plugin-release/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-release",
+            "tsConfig": "packages/nx-plugin-release/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-release/package.json",
+            "main": "packages/nx-plugin-release/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-release/*.md",
+              {
+                "input": "./packages/nx-plugin-release/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-release",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-release",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-release-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-plugin-release-e2e",
+      "sourceRoot": "e2e\\nx-plugin-release-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-release:build",
+            "npmPackageName": "@penumbra/nx-plugin-release",
+            "pluginOutputPath": "dist/packages/nx-plugin-release",
+            "jestConfig": "e2e/nx-plugin-release-e2e/jest.config.js"
+          }
+        }
+      }
+    },
     "esbuild-plugin-decorator": {
       "root": "packages/esbuild-plugin-decorator",
       "sourceRoot": "packages/esbuild-plugin-decorator/src",
@@ -1179,6 +1500,200 @@
         }
       }
     },
+    "esbuild-plugin-run": {
+      "root": "packages/esbuild-plugin-run",
+      "sourceRoot": "packages/esbuild-plugin-run/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-run/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-run"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-run/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-run",
+            "tsConfig": "packages/esbuild-plugin-run/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-run/package.json",
+            "main": "packages/esbuild-plugin-run/src/index.ts",
+            "assets": ["packages/esbuild-plugin-run/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-yaml-import": {
+      "root": "packages/esbuild-plugin-yaml-import",
+      "sourceRoot": "packages/esbuild-plugin-yaml-import/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-yaml-import/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-yaml-import"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-yaml-import/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-yaml-import",
+            "tsConfig": "packages/esbuild-plugin-yaml-import/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-yaml-import/package.json",
+            "main": "packages/esbuild-plugin-yaml-import/src/index.ts",
+            "assets": ["packages/esbuild-plugin-yaml-import/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-clean": {
+      "root": "packages/esbuild-plugin-clean",
+      "sourceRoot": "packages/esbuild-plugin-clean/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-clean/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-clean"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-clean/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-clean",
+            "tsConfig": "packages/esbuild-plugin-clean/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-clean/package.json",
+            "main": "packages/esbuild-plugin-clean/src/index.ts",
+            "assets": ["packages/esbuild-plugin-clean/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-compress": {
+      "root": "packages/esbuild-plugin-compress",
+      "sourceRoot": "packages/esbuild-plugin-compress/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-compress/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-compress"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-compress/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-compress",
+            "tsConfig": "packages/esbuild-plugin-compress/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-compress/package.json",
+            "main": "packages/esbuild-plugin-compress/src/index.ts",
+            "assets": ["packages/esbuild-plugin-compress/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-markdown-import": {
+      "root": "packages/esbuild-plugin-markdown-import",
+      "sourceRoot": "packages/esbuild-plugin-markdown-import/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/esbuild-plugin-markdown-import/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-markdown-import"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-markdown-import/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-markdown-import",
+            "tsConfig": "packages/esbuild-plugin-markdown-import/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-markdown-import/package.json",
+            "main": "packages/esbuild-plugin-markdown-import/src/index.ts",
+            "assets": ["packages/esbuild-plugin-markdown-import/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-copy": {
+      "root": "packages/esbuild-plugin-copy",
+      "sourceRoot": "packages/esbuild-plugin-copy/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-copy/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-copy"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-copy/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-copy",
+            "tsConfig": "packages/esbuild-plugin-copy/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-copy/package.json",
+            "main": "packages/esbuild-plugin-copy/src/index.ts",
+            "assets": ["packages/esbuild-plugin-copy/*.md"]
+          }
+        }
+      }
+    },
     "vite-plugin-graphql": {
       "root": "packages/vite-plugin-graphql",
       "sourceRoot": "packages/vite-plugin-graphql/src",
@@ -1303,71 +1818,6 @@
             "packageJson": "packages/parcel-plugin-assets/package.json",
             "main": "packages/parcel-plugin-assets/src/index.ts",
             "assets": ["packages/parcel-plugin-assets/*.md"]
-          }
-        }
-      }
-    },
-    "nx-plugin-rollup": {
-      "root": "packages/nx-plugin-rollup",
-      "sourceRoot": "packages/nx-plugin-rollup/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-rollup/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-rollup"],
-          "options": {
-            "jestConfig": "packages/nx-plugin-rollup/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/nx-plugin-rollup",
-            "tsConfig": "packages/nx-plugin-rollup/tsconfig.lib.json",
-            "packageJson": "packages/nx-plugin-rollup/package.json",
-            "main": "packages/nx-plugin-rollup/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-rollup/*.md",
-              {
-                "input": "./packages/nx-plugin-rollup/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-rollup",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./packages/nx-plugin-rollup",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "nx-plugin-rollup-e2e": {
-      "projectType": "application",
-      "root": "e2e\\nx-plugin-rollup-e2e",
-      "sourceRoot": "e2e\\nx-plugin-rollup-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-plugin-rollup:build",
-            "npmPackageName": "@penumbra/nx-plugin-rollup",
-            "pluginOutputPath": "dist/packages/nx-plugin-rollup",
-            "jestConfig": "e2e/nx-plugin-rollup-e2e/jest.config.js"
           }
         }
       }
@@ -1566,456 +2016,6 @@
             "packageJson": "packages/snowpack-plugin-hash-gen/package.json",
             "main": "packages/snowpack-plugin-hash-gen/src/index.ts",
             "assets": ["packages/snowpack-plugin-hash-gen/*.md"]
-          }
-        }
-      }
-    },
-    "nx-plugin-vuepress": {
-      "root": "packages/nx-plugin-vuepress",
-      "sourceRoot": "packages/nx-plugin-vuepress/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-vuepress/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-vuepress"],
-          "options": {
-            "jestConfig": "packages/nx-plugin-vuepress/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/nx-plugin-vuepress",
-            "tsConfig": "packages/nx-plugin-vuepress/tsconfig.lib.json",
-            "packageJson": "packages/nx-plugin-vuepress/package.json",
-            "main": "packages/nx-plugin-vuepress/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-vuepress/*.md",
-              {
-                "input": "./packages/nx-plugin-vuepress/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-vuepress",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./packages/nx-plugin-vuepress",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "nx-plugin-vuepress-e2e": {
-      "projectType": "application",
-      "root": "e2e\\nx-plugin-vuepress-e2e",
-      "sourceRoot": "e2e\\nx-plugin-vuepress-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-plugin-vuepress:build",
-            "npmPackageName": "@penumbra/nx-plugin-vuepress",
-            "pluginOutputPath": "dist/packages/nx-plugin-vuepress",
-            "jestConfig": "e2e/nx-plugin-vuepress-e2e/jest.config.js"
-          }
-        }
-      }
-    },
-    "esbuild-plugin-run": {
-      "root": "packages/esbuild-plugin-run",
-      "sourceRoot": "packages/esbuild-plugin-run/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-run/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-run"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-run/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-run",
-            "tsConfig": "packages/esbuild-plugin-run/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-run/package.json",
-            "main": "packages/esbuild-plugin-run/src/index.ts",
-            "assets": ["packages/esbuild-plugin-run/*.md"]
-          }
-        }
-      }
-    },
-    "nx-plugin-ice": {
-      "root": "packages/nx-plugin-ice",
-      "sourceRoot": "packages/nx-plugin-ice/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": { "lintFilePatterns": ["packages/nx-plugin-ice/**/*.ts"] }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-ice"],
-          "options": {
-            "jestConfig": "packages/nx-plugin-ice/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/nx-plugin-ice",
-            "tsConfig": "packages/nx-plugin-ice/tsconfig.lib.json",
-            "packageJson": "packages/nx-plugin-ice/package.json",
-            "main": "packages/nx-plugin-ice/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-ice/*.md",
-              {
-                "input": "./packages/nx-plugin-ice/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-ice",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./packages/nx-plugin-ice",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "nx-plugin-ice-e2e": {
-      "projectType": "application",
-      "root": "e2e\\nx-plugin-ice-e2e",
-      "sourceRoot": "e2e\\nx-plugin-ice-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-plugin-ice:build",
-            "npmPackageName": "@penumbra/nx-plugin-ice",
-            "pluginOutputPath": "dist/packages/nx-plugin-ice",
-            "jestConfig": "e2e/nx-plugin-ice-e2e/jest.config.js"
-          }
-        }
-      }
-    },
-    "nx-plugin-dumi": {
-      "root": "packages/nx-plugin-dumi",
-      "sourceRoot": "packages/nx-plugin-dumi/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": { "lintFilePatterns": ["packages/nx-plugin-dumi/**/*.ts"] }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-dumi"],
-          "options": {
-            "jestConfig": "packages/nx-plugin-dumi/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/nx-plugin-dumi",
-            "tsConfig": "packages/nx-plugin-dumi/tsconfig.lib.json",
-            "packageJson": "packages/nx-plugin-dumi/package.json",
-            "main": "packages/nx-plugin-dumi/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-dumi/*.md",
-              {
-                "input": "./packages/nx-plugin-dumi/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-dumi",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./packages/nx-plugin-dumi",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "nx-plugin-dumi-e2e": {
-      "projectType": "application",
-      "root": "e2e\\nx-plugin-dumi-e2e",
-      "sourceRoot": "e2e\\nx-plugin-dumi-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-plugin-dumi:build",
-            "npmPackageName": "@penumbra/nx-plugin-dumi",
-            "pluginOutputPath": "dist/packages/nx-plugin-dumi",
-            "jestConfig": "e2e/nx-plugin-dumi-e2e/jest.config.js"
-          }
-        }
-      }
-    },
-    "nx-plugin-release": {
-      "root": "packages/nx-plugin-release",
-      "sourceRoot": "packages/nx-plugin-release/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-release/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-release"],
-          "options": {
-            "jestConfig": "packages/nx-plugin-release/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/nx-plugin-release",
-            "tsConfig": "packages/nx-plugin-release/tsconfig.lib.json",
-            "packageJson": "packages/nx-plugin-release/package.json",
-            "main": "packages/nx-plugin-release/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-release/*.md",
-              {
-                "input": "./packages/nx-plugin-release/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-release",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./packages/nx-plugin-release",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "nx-plugin-release-e2e": {
-      "projectType": "application",
-      "root": "e2e\\nx-plugin-release-e2e",
-      "sourceRoot": "e2e\\nx-plugin-release-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-plugin-release:build",
-            "npmPackageName": "@penumbra/nx-plugin-release",
-            "pluginOutputPath": "dist/packages/nx-plugin-release",
-            "jestConfig": "e2e/nx-plugin-release-e2e/jest.config.js"
-          }
-        }
-      }
-    },
-    "esbuild-plugin-yaml-import": {
-      "root": "packages/esbuild-plugin-yaml-import",
-      "sourceRoot": "packages/esbuild-plugin-yaml-import/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-yaml-import/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-yaml-import"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-yaml-import/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-yaml-import",
-            "tsConfig": "packages/esbuild-plugin-yaml-import/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-yaml-import/package.json",
-            "main": "packages/esbuild-plugin-yaml-import/src/index.ts",
-            "assets": ["packages/esbuild-plugin-yaml-import/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-clean": {
-      "root": "packages/esbuild-plugin-clean",
-      "sourceRoot": "packages/esbuild-plugin-clean/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-clean/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-clean"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-clean/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-clean",
-            "tsConfig": "packages/esbuild-plugin-clean/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-clean/package.json",
-            "main": "packages/esbuild-plugin-clean/src/index.ts",
-            "assets": ["packages/esbuild-plugin-clean/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-compress": {
-      "root": "packages/esbuild-plugin-compress",
-      "sourceRoot": "packages/esbuild-plugin-compress/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-compress/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-compress"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-compress/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-compress",
-            "tsConfig": "packages/esbuild-plugin-compress/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-compress/package.json",
-            "main": "packages/esbuild-plugin-compress/src/index.ts",
-            "assets": ["packages/esbuild-plugin-compress/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-markdown-import": {
-      "root": "packages/esbuild-plugin-markdown-import",
-      "sourceRoot": "packages/esbuild-plugin-markdown-import/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "packages/esbuild-plugin-markdown-import/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-markdown-import"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-markdown-import/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-markdown-import",
-            "tsConfig": "packages/esbuild-plugin-markdown-import/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-markdown-import/package.json",
-            "main": "packages/esbuild-plugin-markdown-import/src/index.ts",
-            "assets": ["packages/esbuild-plugin-markdown-import/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-copy": {
-      "root": "packages/esbuild-plugin-copy",
-      "sourceRoot": "packages/esbuild-plugin-copy/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-copy/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-copy"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-copy/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-copy",
-            "tsConfig": "packages/esbuild-plugin-copy/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-copy/package.json",
-            "main": "packages/esbuild-plugin-copy/src/index.ts",
-            "assets": ["packages/esbuild-plugin-copy/*.md"]
           }
         }
       }
