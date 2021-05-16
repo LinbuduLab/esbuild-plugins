@@ -56,5 +56,6 @@ module.exports = {
     '<rootDir>/e2e\\nx-plugin-dumi-e2e',
     '<rootDir>/packages/nx-plugin-release',
     '<rootDir>/e2e\\nx-plugin-release-e2e',
+    '<rootDir>/packages/esbuild-plugin-yaml-import',
   ],
 };

@@ -82,7 +82,12 @@
       "esbuild-plugin-run": ["packages/esbuild-plugin-run/src/index.ts"],
       "@penumbra/nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
       "@penumbra/nx-plugin-dumi": ["packages/nx-plugin-dumi/src/index.ts"],
-      "@penumbra/nx-plugin-release": ["packages/nx-plugin-release/src/index.ts"]
+      "@penumbra/nx-plugin-release": [
+        "packages/nx-plugin-release/src/index.ts"
+      ],
+      "esbuild-plugin-yaml-import": [
+        "packages/esbuild-plugin-yaml-import/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

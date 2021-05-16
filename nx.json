@@ -152,7 +152,8 @@
     "nx-plugin-release-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-release"]
-    }
+    },
+    "esbuild-plugin-yaml-import": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }
