@@ -2,16 +2,14 @@ import execa, { Options, ExecaChildProcess } from 'execa';
 import path from 'path';
 import { Plugin } from 'esbuild';
 import fs from 'fs-extra';
+import chalk from 'chalk';
 
 const debug = require('debug')('plugin:run');
 
 export interface RunOptions {
   execaOptions?: Options;
+  customRunner?: (filePath: string) => ExecaChildProcess<string>;
 }
-
-// 支持outDir，即多入口
-// 首次构建必定不存在，跳过
-//
 
 export default (options: RunOptions = {}): Plugin => {
   let execaProcess: ExecaChildProcess<string>;
@@ -19,44 +17,51 @@ export default (options: RunOptions = {}): Plugin => {
   return {
     name: 'esbuild:run',
     async setup({ initialOptions }) {
-      debug('start');
-
       if (
         initialOptions.write &&
         typeof initialOptions.write === 'boolean' &&
         (initialOptions.write as boolean) === false
       ) {
-        throw new Error(
-          'You must enable build.write option for script execution'
+        console.warn(
+          chalk.yellow('WARN'),
+          'ESBuild-Plugin-Run skipped because wtite option is set to be false'
         );
+        return;
       }
 
-      const fork = (filePath: string) => {
-        if (execaProcess && !execaProcess.killed) {
-          execaProcess.kill();
-        }
-
-        execaProcess = execa.node(filePath, {
-          stdio: 'inherit',
-          ...(options?.execaOptions ?? {}),
-        });
-
-        return execaProcess;
-      };
-
-      // support single entry only for now
-      if (!initialOptions.outfile) {
-        throw new Error('only single entry is supported!');
+      if (initialOptions.outdir && !initialOptions.outfile) {
+        console.warn(
+          chalk.yellow('WARN'),
+          `ESBuild-Plugin-Run skipped because there are multiple outputs(outdir option is specified, ${initialOptions.outdir})`
+        );
+        return;
       }
 
       const filePath = path.join(process.cwd(), initialOptions.outfile);
 
-      if (!fs.existsSync(filePath)) {
-        // TODO: 提示说明
-        // 需要启用watch选项，并在第一次构建完成后输入rs/restart来启动
-        console.warn(
-          "ESBuild doesn't support buildEnd or writeBundle hooks(just like rollup), so..."
+      const runner = (execFilePath: string) => {
+        if (execaProcess && !execaProcess.killed) {
+          execaProcess?.kill();
+        }
+
+        console.log(
+          chalk.blue('i'),
+          `ESBuild-Plugin-Run is executing file by ${chalk.cyan(
+            options.customRunner ? 'customRunner' : 'execa.node'
+          )}`
         );
+
+        execaProcess = options.customRunner
+          ? options.customRunner(execFilePath)
+          : execa.node(execFilePath, {
+              stdio: 'inherit',
+              ...(options?.execaOptions ?? {}),
+            });
+
+        return execaProcess;
+      };
+
+      if (!fs.existsSync(filePath)) {
         return;
       }
 
@@ -65,9 +70,8 @@ export default (options: RunOptions = {}): Plugin => {
 
       process.stdin.on('data', (data) => {
         const line = data.toString().trim().toLowerCase();
-        console.log(data.toString().charCodeAt(0));
         if (line === 'rs' || line === 'restart') {
-          fork(filePath);
+          runner(filePath);
         } else if (line === 'cls' || line === 'clear') {
           console.clear();
         }
@@ -76,10 +80,10 @@ export default (options: RunOptions = {}): Plugin => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           debug('resolved');
-          fork(filePath).then((cp) => {
+          runner(filePath).then((cp) => {
             resolve();
           });
-        });
+        }, 1000);
       });
     },
   };

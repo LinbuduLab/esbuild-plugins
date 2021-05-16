@@ -15,6 +15,10 @@ module.exports = {
     lastUpdated: 'Last Updated',
     nav: [
       {
+        text: 'Intro',
+        link: '/index',
+      },
+      {
         text: 'Nx Plugins',
         link: '/nx-plugins/index',
       },
@@ -25,10 +29,36 @@ module.exports = {
       {
         text: 'Developing Guide',
         link: '/guide/index',
-        activeMatch: '^/$|^/guide/',
       },
     ],
     sidebar: {
+      '/': [
+        {
+          text: 'Introduction',
+          children: [
+            // TODO: 基于bundler/lib/tools/framework分类
+            { text: 'Summary Introductions', link: '/nx-plugins/index' },
+            { text: 'Nx-Plugin-ESBuild', link: '/nx-plugins/esbuild' },
+            { text: 'Nx-Plugin-Vite', link: '/nx-plugins/vite' },
+            { text: 'Nx-Plugin-Prisma', link: '/nx-plugins/prisma' },
+            { text: 'Nx-Plugin-SWC', link: '/nx-plugins/swc' },
+            { text: 'Nx-Plugin-TypeGraphQL', link: '/nx-plugins/type-graphql' },
+            { text: 'Nx-Plugin-Devkit', link: '/nx-plugins/devkit' },
+            { text: 'Nx-Plugin-Workspace', link: '/nx-plugins/workspace' },
+            { text: 'Nx-Plugin-Midway', link: '/nx-plugins/midway' },
+            { text: 'Nx-Plugin-Parcel', link: '/nx-plugins/parcel' },
+            { text: 'Nx-Plugin-Koa', link: '/nx-plugins/koa' },
+            { text: 'Nx-Plugin-Rollup', link: '/nx-plugins/rollup' },
+            { text: 'Nx-Plugin-Umi', link: '/nx-plugins/umi' },
+            { text: 'Nx-Plugin-VitePress', link: '/nx-plugins/vitepress' },
+            { text: 'Nx-Plugin-VuePress', link: '/nx-plugins/vuepress' },
+            { text: 'Nx-Plugin-Dumi', link: '/nx-plugins/dumi' },
+            { text: 'Nx-Plugin-Ice', link: '/nx-plugins/ice' },
+            { text: 'Nx-Plugin-Release', link: '/nx-plugins/release' },
+            { text: 'Nx-Plugin-Serverless', link: '/nx-plugins/serverless' },
+          ],
+        },
+      ],
       '/nx-plugins/': [
         {
           text: 'Introduction',
@@ -77,19 +107,6 @@ module.exports = {
             { text: 'Bundler', link: '/guide/bundler' },
             { text: 'Framework', link: '/guide/framework' },
             { text: 'NodeJS', link: '/guide/node' },
-          ],
-        },
-      ],
-      '/': [
-        {
-          text: 'Introduction',
-          children: [
-            { text: 'Summary Introductions', link: '/nx-plugins/index' },
-            { text: 'Nx-Plugin-ESBuild', link: '/nx-plugins/esbuild' },
-            { text: 'Nx-Plugin-Vite', link: '/nx-plugins/vite' },
-            { text: 'Nx-Plugin-Prisma', link: '/nx-plugins/prisma' },
-            { text: 'Nx-Plugin-SWC', link: '/nx-plugins/swc' },
-            { text: 'Nx-Plugin-TypeGraphQL', link: '/nx-plugins/type-graphql' },
           ],
         },
       ],
