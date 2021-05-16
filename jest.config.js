@@ -66,5 +66,12 @@ module.exports = {
     '<rootDir>/packages/parcel-plugin-compress',
     '<rootDir>/packages/parcel-plugin-cleanup',
     '<rootDir>/packages/parcel-plugin-esbuild-compiler',
+    '<rootDir>/packages/snowpack-plugin-svgr-import',
+    '<rootDir>/packages/snowpack-plugin-rollup',
+    '<rootDir>/packages/snowpack-plugin-compress',
+    '<rootDir>/packages/snowpack-plugin-assets',
+    '<rootDir>/packages/snowpack-plugin-markdown-import',
+    '<rootDir>/packages/snowpack-plugin-tsconfig-paths',
+    '<rootDir>/packages/snowpack-plugin-swc-compiler',
   ],
 };

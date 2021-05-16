@@ -162,7 +162,14 @@
     "parcel-plugin-markdown-import": { "tags": [] },
     "parcel-plugin-compress": { "tags": [] },
     "parcel-plugin-cleanup": { "tags": [] },
-    "parcel-plugin-esbuild-compiler": { "tags": [] }
+    "parcel-plugin-esbuild-compiler": { "tags": [] },
+    "snowpack-plugin-svgr-import": { "tags": [] },
+    "snowpack-plugin-rollup": { "tags": [] },
+    "snowpack-plugin-compress": { "tags": [] },
+    "snowpack-plugin-assets": { "tags": [] },
+    "snowpack-plugin-markdown-import": { "tags": [] },
+    "snowpack-plugin-tsconfig-paths": { "tags": [] },
+    "snowpack-plugin-swc-compiler": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

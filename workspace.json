@@ -2183,6 +2183,236 @@
           }
         }
       }
+    },
+    "snowpack-plugin-svgr-import": {
+      "root": "packages/snowpack-plugin-svgr-import",
+      "sourceRoot": "packages/snowpack-plugin-svgr-import/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/snowpack-plugin-svgr-import/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-svgr-import"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-svgr-import/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-svgr-import",
+            "tsConfig": "packages/snowpack-plugin-svgr-import/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-svgr-import/package.json",
+            "main": "packages/snowpack-plugin-svgr-import/src/index.ts",
+            "assets": ["packages/snowpack-plugin-svgr-import/*.md"]
+          }
+        }
+      }
+    },
+    "snowpack-plugin-rollup": {
+      "root": "packages/snowpack-plugin-rollup",
+      "sourceRoot": "packages/snowpack-plugin-rollup/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/snowpack-plugin-rollup/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-rollup"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-rollup/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-rollup",
+            "tsConfig": "packages/snowpack-plugin-rollup/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-rollup/package.json",
+            "main": "packages/snowpack-plugin-rollup/src/index.ts",
+            "assets": ["packages/snowpack-plugin-rollup/*.md"]
+          }
+        }
+      }
+    },
+    "snowpack-plugin-compress": {
+      "root": "packages/snowpack-plugin-compress",
+      "sourceRoot": "packages/snowpack-plugin-compress/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/snowpack-plugin-compress/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-compress"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-compress/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-compress",
+            "tsConfig": "packages/snowpack-plugin-compress/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-compress/package.json",
+            "main": "packages/snowpack-plugin-compress/src/index.ts",
+            "assets": ["packages/snowpack-plugin-compress/*.md"]
+          }
+        }
+      }
+    },
+    "snowpack-plugin-assets": {
+      "root": "packages/snowpack-plugin-assets",
+      "sourceRoot": "packages/snowpack-plugin-assets/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/snowpack-plugin-assets/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-assets"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-assets/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-assets",
+            "tsConfig": "packages/snowpack-plugin-assets/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-assets/package.json",
+            "main": "packages/snowpack-plugin-assets/src/index.ts",
+            "assets": ["packages/snowpack-plugin-assets/*.md"]
+          }
+        }
+      }
+    },
+    "snowpack-plugin-markdown-import": {
+      "root": "packages/snowpack-plugin-markdown-import",
+      "sourceRoot": "packages/snowpack-plugin-markdown-import/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/snowpack-plugin-markdown-import/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-markdown-import"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-markdown-import/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-markdown-import",
+            "tsConfig": "packages/snowpack-plugin-markdown-import/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-markdown-import/package.json",
+            "main": "packages/snowpack-plugin-markdown-import/src/index.ts",
+            "assets": ["packages/snowpack-plugin-markdown-import/*.md"]
+          }
+        }
+      }
+    },
+    "snowpack-plugin-tsconfig-paths": {
+      "root": "packages/snowpack-plugin-tsconfig-paths",
+      "sourceRoot": "packages/snowpack-plugin-tsconfig-paths/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/snowpack-plugin-tsconfig-paths/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-tsconfig-paths"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-tsconfig-paths/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-tsconfig-paths",
+            "tsConfig": "packages/snowpack-plugin-tsconfig-paths/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-tsconfig-paths/package.json",
+            "main": "packages/snowpack-plugin-tsconfig-paths/src/index.ts",
+            "assets": ["packages/snowpack-plugin-tsconfig-paths/*.md"]
+          }
+        }
+      }
+    },
+    "snowpack-plugin-swc-compiler": {
+      "root": "packages/snowpack-plugin-swc-compiler",
+      "sourceRoot": "packages/snowpack-plugin-swc-compiler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/snowpack-plugin-swc-compiler/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-swc-compiler"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-swc-compiler/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-swc-compiler",
+            "tsConfig": "packages/snowpack-plugin-swc-compiler/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-swc-compiler/package.json",
+            "main": "packages/snowpack-plugin-swc-compiler/src/index.ts",
+            "assets": ["packages/snowpack-plugin-swc-compiler/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }

@@ -111,6 +111,27 @@
       ],
       "parcel-plugin-esbuild-compiler": [
         "packages/parcel-plugin-esbuild-compiler/src/index.ts"
+      ],
+      "snowpack-plugin-svgr-import": [
+        "packages/snowpack-plugin-svgr-import/src/index.ts"
+      ],
+      "snowpack-plugin-rollup": [
+        "packages/snowpack-plugin-rollup/src/index.ts"
+      ],
+      "snowpack-plugin-compress": [
+        "packages/snowpack-plugin-compress/src/index.ts"
+      ],
+      "snowpack-plugin-assets": [
+        "packages/snowpack-plugin-assets/src/index.ts"
+      ],
+      "snowpack-plugin-markdown-import": [
+        "packages/snowpack-plugin-markdown-import/src/index.ts"
+      ],
+      "snowpack-plugin-tsconfig-paths": [
+        "packages/snowpack-plugin-tsconfig-paths/src/index.ts"
+      ],
+      "snowpack-plugin-swc-compiler": [
+        "packages/snowpack-plugin-swc-compiler/src/index.ts"
       ]
     }
   },
