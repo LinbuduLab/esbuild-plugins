@@ -6,7 +6,7 @@ import { normalizeOption } from './normalize-options';
 import { nodeModuleNameResolver, sys } from 'typescript';
 import { escapeNamespace } from './escape-namespace';
 
-const debug = require('debug')('esbuild:alias-path');
+// const debug = require('debug')('esbuild:alias-path');
 
 const pluginName = 'esbuild:alias-path';
 

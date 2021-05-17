@@ -24,7 +24,6 @@ yarn add esbuild-plugin-decorator -D
 import { build } from 'esbuild';
 import { esbuildPluginDecorator } from 'esbuild-plugin-decorator';
 
-
 (async () => {
   const res1 = await build({
     entryPoints: ['./demo.ts'],
@@ -55,7 +54,7 @@ export interface ESBuildPluginDecoratorOptions {
   // if set to false, plugin will be skipped when no decorators are found
   force?: boolean;
 
-  // default: process.cwd() 
+  // default: process.cwd()
   cwd?: string;
 
   // use typescript or @swc/core for decorator compilation

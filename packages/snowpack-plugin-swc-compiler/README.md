@@ -1,6 +1,6 @@
 # snowpack-plugin-swc-compiler
 
-__UNDER_DEVELOPING__
+**UNDER_DEVELOPING**
 
 This library was generated with [Nx](https://nx.dev).
 

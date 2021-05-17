@@ -1,26 +1,31 @@
 {
   "name": "esbuild-plugin-alias-path",
-  "version": "0.0.1-1",
-  "description": "ESBuild plugin integration with alias-path.",
+  "version": "0.1.0",
+  "description": "ESBuild plugin for alias / tsconfig-paths.",
   "keywords": [
     "esbuild",
     "ESBuild",
-    "alias-path",
-    "plugin",
-    "monorepo"
+    "alias",
+    "tsconfig-paths",
+    "plugin"
   ],
-  "homepage": "https://github.com/PenumbraPro/nx-plugins/tree/master/packages/esbuild-plugin-alias-path#readme",
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-alias-path#readme",
   "bugs": {
-    "url": "https://github.com/PenumbraPro/nx-plugins/issues"
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PenumbraPro/nx-plugins.git"
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
   },
   "license": "MIT",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
-  "dependencies": {},
+  "dependencies": {
+    "find-up": "^5.0.0",
+    "fs-extra": "^10.0.0",
+    "jsonfile": "^6.1.0"
+  },
   "peerDependencies": {
-    "esbuild": "^0.11.11"
+    "esbuild": "^0.11.19",
+    "typescript": "~4.2.4"
   }
 }

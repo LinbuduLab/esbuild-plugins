@@ -13,13 +13,8 @@ export interface Options {
   skip?: boolean;
 }
 
-export interface NormalizedOptions {
-  alias: Record<string, string>;
-
-  tsconfigPath: string | undefined;
+export interface NormalizedOptions extends Options {
   compilerOptions: CompilerOptions | null;
-
-  skip: boolean;
 }
 
 export function normalizeOption(options: Options = {}): NormalizedOptions {
@@ -31,20 +26,21 @@ export function normalizeOption(options: Options = {}): NormalizedOptions {
 
   if (tsconfigPathInexist) {
     throw new Error(
-      `[esbuild-plugin-alis-path] tsconfig ${tsconfigPath} does not exist.`
+      `[esbuild-plugin-alias-path] tsconfig ${tsconfigPath} does not exist.`
     );
   }
 
   const compilerOptions = loadCompilerOptions(tsconfigPath) || {};
 
-  // FIXME:
   const shouldSkipThisPlugin =
     options.skip ??
     (tsconfigPathInexist &&
       !Object.keys(alias).length &&
       !compilerOptions.paths);
 
-  // path which is not absolute and not start with ./ or ../ will be regarded as module, and use require.resolve(module) to resolve paths
+  // TODO:
+  // path which is not absolute and not start with ./ or ../ will be regarded as module,
+  // and use require.resolve(module) to resolve paths
   // this feature is to support nx json configuration
   // const resolveModule = options?.resolveModule ?? true;
 
