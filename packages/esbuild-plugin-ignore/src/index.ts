@@ -1,1 +1,1 @@
-export { esbuildPluginIgnore } from './lib/esbuild-plugin-ignore';
+export * from './lib/esbuild-plugin-ignore';
