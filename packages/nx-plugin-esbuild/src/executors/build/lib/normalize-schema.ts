@@ -5,6 +5,8 @@ import type {
   NormalizedESBuildExecutorSchema,
 } from '../schema';
 
+import { normalizeESBuildExtendConfig } from './extend-config-file';
+
 import {
   normalizeAssets,
   normalizeFileReplacements,
@@ -41,6 +43,14 @@ export function normalizeBuildExecutorOptions(
     options.tsConfig,
     projectName
   );
+
+  // TODO: support js(+type comment)/ts
+  // config file generator
+  const pluginConfigPath = path.resolve(
+    options.pluginConfig ?? 'nx-esbuild.ts'
+  );
+
+  normalizeESBuildExtendConfig(pluginConfigPath);
 
   if (options.platform === 'browser' && !options.format) {
     options.format = 'iife';

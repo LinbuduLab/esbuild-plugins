@@ -26,7 +26,8 @@
     "link:externals": "pnpm link ../esbuild-plugin-node-externals",
     "link:filesize": "pnpm link ../esbuild-plugin-filesize",
     "link:alias-path": "pnpm link ../esbuild-plugin-alias-path",
-    "link:devkit": " pnpm link ../nx-plugin-devkit"
+    "link:devkit": " pnpm link ../nx-plugin-devkit",
+    "link:workspace": " pnpm link ../nx-plugin-workspace"
   },
   "dependencies": {
     "chalk": "^4.1.0",
@@ -41,8 +42,6 @@
     "tree-kill": "^1.2.2"
   },
   "peerDependencies": {
-    "@nrwl/devkit": "12.0.8",
-    "@nrwl/workspace": "12.0.8",
     "esbuild": "^0.11.11"
   },
   "executors": "./executors.json",

@@ -38,6 +38,7 @@ export interface ESBuildExecutorSchema {
   // required options
   main: string;
   tsConfig: string;
+  pluginConfig?: string;
   outputPath: string;
 
   assets: string[] | AssetsItem[];
@@ -103,4 +104,5 @@ export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
   inserts: FormattedInsert;
   alias: Record<string, string>;
   inject: string[];
+  // extendBuildOptions:
 }
