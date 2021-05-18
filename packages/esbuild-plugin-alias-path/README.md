@@ -6,11 +6,7 @@ ESBuild plugin for alias / tsconfig-paths.
 
 **Node: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks**
 
-
-
 **GitHub Repository/Homepage is private for now, if you got any troubles, just open issue in this [repo](https://github.com/linbudu599/Blog).**
-
-
 
 ```bash
 npm i esbuild-plugin-alias-path -D
@@ -19,8 +15,6 @@ pnpm i esbuild-plugin-alias-path -D
 
 yarn add esbuild-plugin-alias-path -D
 ```
-
-
 
 ```typescript
 import { esbuildPluginAliasPath } from 'esbuild-plugin-alias-path';
@@ -46,10 +40,6 @@ import { esbuildPluginAliasPath } from 'esbuild-plugin-alias-path';
 })();
 ```
 
-
-
-
-
 ## Configuration
 
 ```typescript
@@ -64,4 +54,3 @@ export interface Options {
   skip?: boolean;
 }
 ```
-

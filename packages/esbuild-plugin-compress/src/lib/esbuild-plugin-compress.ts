@@ -46,6 +46,8 @@ export default (options: CompressOptions = {}): Plugin => {
   const gzipOpts = options.gzipOptions ?? {};
   const brotliOpts = options.brotliOptions ?? {};
 
+  const noCompressSpecified = !gzip && !brotli;
+
   let outputDir = options.outputDir ?? null;
 
   return {
@@ -62,7 +64,7 @@ export default (options: CompressOptions = {}): Plugin => {
       if (outputDir && !outdir && !outfile) {
         console.log(
           chalk.yellow('WARN'),
-          ' when using outputDir option, outdir or outfile must be specified.'
+          ' When using outputDir option, outdir or outfile must be specified.'
         );
       } else if (outputDir && outfile) {
         outputDir = path.resolve(path.dirname(outfile), outputDir);
@@ -80,14 +82,21 @@ export default (options: CompressOptions = {}): Plugin => {
             return;
           }
 
-          fs.ensureDirSync(path.dirname(writrPath));
+          if (noCompressSpecified) {
+            console.log(
+              chalk.yellow('WARN'),
+              ' Set at least one compression as true to use compress plugin.'
+            );
+          } else {
+            fs.ensureDirSync(path.dirname(writrPath));
+          }
 
           gzip ? writeGzipCompress(writrPath, contents, gzipOpts) : void 0;
           brotli
             ? writeBrotliCompress(writrPath, contents, brotliOpts)
             : void 0;
 
-          if (!removeOrigin) {
+          if (!removeOrigin || noCompressSpecified) {
             writeOriginFiles(originOutputPath, contents);
           }
         }

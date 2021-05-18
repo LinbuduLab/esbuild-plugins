@@ -21,9 +21,11 @@ export default (options: CleanOptions = {}): Plugin => {
 
   const logCleanFiles = (cleanFiles: string[]) => {
     if (dryRun) {
-      console.log(chalk.blue('i'), `Clean plugin invoked in dryRun mode \n`);
+      console.log(chalk.blue('i'), `Clean plugin invoked in dryRun mode`);
     }
-    console.log(chalk.blue('i'), `File Cleaned:\n${cleanFiles.join('\n')}`);
+    if (cleanFiles.length) {
+      console.log(chalk.blue('i'), `File Cleaned:\n${cleanFiles.join('\n')}`);
+    }
   };
 
   const handler = sync
@@ -45,7 +47,11 @@ export default (options: CleanOptions = {}): Plugin => {
 
   return {
     name: 'esbuild:clean',
-    setup({ onStart: registerOnStartCallback, onEnd: registerOnEndCallback }) {
+    setup({
+      initialOptions,
+      onStart: registerOnStartCallback,
+      onEnd: registerOnEndCallback,
+    }) {
       if (!patterns.length) {
         return;
       }
