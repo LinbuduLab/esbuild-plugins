@@ -1,4 +1,28 @@
 {
   "name": "esbuild-plugin-ignore-module",
-  "version": "0.0.1-1"
+  "version": "0.0.1-1",
+  "description": "ESBuild plugin for require/import ignore.",
+  "keywords": [
+    "esbuild",
+    "ESBuild",
+    "ignore",
+    "plugin",
+    "IgnorePlugin"
+  ],
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-ignore#readme",
+  "bugs": {
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "dependencies": {
+    "chalk": "^4.1.1"
+  },
+  "peerDependencies": {
+    "esbuild": "^0.11.19"
+  }
 }

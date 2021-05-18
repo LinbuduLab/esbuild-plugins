@@ -1,6 +1,5 @@
 # esbuild-plugin-compress
 
-
 ESBuild plugin for output compression (gzip/brotli).
 
 ## Usage
@@ -26,9 +25,9 @@ import compress from 'esbuild-plugin-compress';
     outfile: './dist/main.js',
     plugins: [
       compress({
-          outputDir: 'compressed-dist',
-          brotli: false,
-        }),
+        outputDir: 'compressed-dist',
+        brotli: false,
+      }),
     ],
   });
 })();
