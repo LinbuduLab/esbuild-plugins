@@ -1,2 +1,1 @@
-import clean from './lib/esbuild-plugin-clean';
-export default clean;
+export { default } from './lib/esbuild-plugin-clean';
