@@ -1,1 +1,2 @@
-export * from './lib/esbuild-plugin-run';
+import run from './lib/esbuild-plugin-run';
+export default run;
