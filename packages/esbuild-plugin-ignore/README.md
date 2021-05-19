@@ -8,7 +8,6 @@ For more information, see [Webpack IgnorePlugin](https://webpack.js.org/plugins/
 
 **GitHub Repository/Homepage is private for now, if you got any troubles, just open issue in this [repo](https://github.com/linbudu599/Blog).**
 
-
 ```bash
 npm i esbuild-plugin-ignore-module -D
 pnpm i esbuild-plugin-ignore-module -D
@@ -37,8 +36,8 @@ import ignore from 'esbuild-plugin-ignore-module';
           {
             resourceRegExp: /readline$/,
           },
-          ],
-        }),
+        ],
+      }),
     ],
   });
 })();
@@ -52,14 +51,14 @@ console.log(SHARED);
 import chalk from 'chalk';
 import ora from 'ora';
 
-ora().start()
+ora().start();
 export const SHARED = 'SHARED';
 ```
 
 **NOTE:**
 
 - When there're pairs with same `resourceRegExp`, like:
-  
+
   ```typescript
   ignore: [
     {
