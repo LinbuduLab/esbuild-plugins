@@ -50,7 +50,10 @@ export function normalizeBuildExecutorOptions(
     options.pluginConfig ?? 'nx-esbuild.ts'
   );
 
-  normalizeESBuildExtendConfig(pluginConfigPath);
+  const userConfigBuildOptions = normalizeESBuildExtendConfig(
+    path.resolve(workspaceRoot, projectRoot),
+    pluginConfigPath
+  );
 
   if (options.platform === 'browser' && !options.format) {
     options.format = 'iife';
@@ -108,5 +111,6 @@ export function normalizeBuildExecutorOptions(
     inserts: formattedInserts,
     alias: options.alias,
     inject: normalizedInject,
+    extendBuildOptions: userConfigBuildOptions,
   };
 }

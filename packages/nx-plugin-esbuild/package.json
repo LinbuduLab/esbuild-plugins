@@ -24,7 +24,6 @@
     "link": "pnpm link && npm-run-all --print-label --print-name  link:**",
     "link:decorator": "pnpm link ../esbuild-plugin-decorator",
     "link:externals": "pnpm link ../esbuild-plugin-node-externals",
-    "link:filesize": "pnpm link ../esbuild-plugin-filesize",
     "link:alias-path": "pnpm link ../esbuild-plugin-alias-path",
     "link:devkit": " pnpm link ../nx-plugin-devkit",
     "link:workspace": " pnpm link ../nx-plugin-workspace"

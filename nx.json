@@ -50,13 +50,8 @@
     "nx-plugin-esbuild": {
       "tags": ["scope:nx"],
       "implicitDependencies": [
-        "nx-plugin-devkit",
-        "nx-plugin-workspace",
         "esbuild-plugin-decorator",
         "esbuild-plugin-node-externals",
-        "esbuild-plugin-filesize",
-        "esbuild-plugin-ignore",
-        "esbuild-plugin-html",
         "esbuild-plugin-alias-path"
       ]
     },

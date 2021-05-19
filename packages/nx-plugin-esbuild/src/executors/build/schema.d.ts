@@ -4,6 +4,7 @@ import type {
   FileReplacement,
   Alias,
 } from 'nx-plugin-devkit';
+import type { BuildOptions } from 'esbuild';
 import type { Insert, FormattedInsert } from './lib/types';
 
 // TODO: options to support
@@ -104,5 +105,5 @@ export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
   inserts: FormattedInsert;
   alias: Record<string, string>;
   inject: string[];
-  // extendBuildOptions:
+  extendBuildOptions: BuildOptions;
 }

@@ -10,6 +10,7 @@ import {
   ESBuildExecutorSchema,
   NormalizedESBuildExecutorSchema,
 } from './schema';
+import clean from 'esbuild-plugin-clean';
 
 import { esbuildPluginDecorator } from 'esbuild-plugin-decorator';
 import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
@@ -79,6 +80,11 @@ export default function buildExecutor(
     ? options.externalDependencies
     : [];
 
+  // 插件去重？
+  const userConfigPlugins = options?.extendBuildOptions?.plugins ?? [];
+
+  delete options.extendBuildOptions?.plugins;
+
   const esbuildRunnerOptions: BuildOptions = {
     logLevel: options.logLevel,
     logLimit: options.logLimit,
@@ -91,7 +97,7 @@ export default function buildExecutor(
     conditions: options.watch ? ['development'] : ['production'],
     watch: options.watch,
     absWorkingDir: options.workspaceRoot,
-    plugins,
+    plugins: [...plugins, ...userConfigPlugins],
     tsconfig: options.tsConfig,
     entryPoints: [options.main],
     outdir: options.outputPath,
@@ -106,6 +112,7 @@ export default function buildExecutor(
     minifySyntax: options.minify,
     inject: options.inject,
     define: options.define,
+    ...options.extendBuildOptions,
   };
 
   let buildCounter = 1;

@@ -1,11 +1,13 @@
 import { build, buildSync } from 'esbuild';
 import type { BuildOptions } from 'esbuild';
+import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
 
 /**
  * Create esbuild `BuildOptions` for `buildToCode`
  */
 export const createBuildToCodeOptions = (
-  filePath: string
+  filePath: string,
+  extraExternals: string[] = []
 ): BuildOptions & { write: false } => ({
   entryPoints: [filePath],
   format: 'cjs',
@@ -20,6 +22,8 @@ export const createBuildToCodeOptions = (
     'vite',
     'rollup',
     'react-refresh',
+    'terser',
+    ...extraExternals,
   ],
 });
 
@@ -34,15 +38,20 @@ export const buildToCode = async (filePath: string): Promise<string> => {
 /**
  * Sync version fo `buildToCode`
  */
-export const buildToCodeSync = (filePath: string): string => {
-  const buildResult = buildSync(createBuildToCodeOptions(filePath));
+export const buildToCodeSync = (
+  filePath: string,
+  extraExternals: string[] = []
+): string => {
+  const buildResult = buildSync(
+    createBuildToCodeOptions(filePath, extraExternals)
+  );
   return buildResult.outputFiles[0].text;
 };
 
-export const allowTs = (): void => {
+export const allowTs = (extraExternals: string[] = []): void => {
   // eslint-disable-next-line node/no-deprecated-api
   require.extensions['.ts'] = (m: any, filename) => {
-    const code = buildToCodeSync(filename);
+    const code = buildToCodeSync(filename, extraExternals);
     m._compile(code, filename);
   };
 };

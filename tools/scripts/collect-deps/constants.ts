@@ -49,6 +49,7 @@ export const PRESERVED_PACKAGE_PEER_DEPS = [
   'react',
   'react-dom',
   'marked',
+  '@svrg/core',
 ];
 
 export const PRESERVED_NX_PEER_DEPS = [

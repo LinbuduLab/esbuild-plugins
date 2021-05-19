@@ -44,12 +44,6 @@
     "dev:rollup": "nx run nx-plugin-rollup:build && cd .\\dist\\packages\\nx-plugin-rollup\\ && pnpm link",
     "dev:devkit": "nx run nx-plugin-devkit:build && cd .\\dist\\packages\\nx-plugin-devkit\\ && pnpm link",
     "dev:workspace": "nx run nx-plugin-workspace:build --with-deps && cd .\\dist\\packages\\nx-plugin-workspace\\ && npm run link",
-    "dev:esbuild:decorator": "nx run esbuild-plugin-decorator:build && cd .\\dist\\packages\\esbuild-plugin-decorator\\ && pnpm link",
-    "dev:esbuild:externals": "nx run esbuild-plugin-node-externals:build && cd .\\dist\\packages\\esbuild-plugin-node-externals\\ && pnpm link",
-    "dev:esbuild:filesize": "nx run esbuild-plugin-filesize:build && cd .\\dist\\packages\\esbuild-plugin-filesize\\ && pnpm link",
-    "dev:esbuild:html": "nx run esbuild-plugin-html:build && cd .\\dist\\packages\\esbuild-plugin-html\\ && pnpm link",
-    "dev:esbuild:alias": "nx run esbuild-plugin-alias-path:build && cd .\\dist\\packages\\esbuild-plugin-alias-path\\ && pnpm link",
-    "dev:esbuild:node-polyfill": "nx run esbuild-plugin-node-polyfill:build && cd .\\dist\\packages\\esbuild-plugin-node-polyfill\\ && pnpm link",
     "commit": "git add -A && git-cz",
     "collect-deps": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\collect-deps\\collect-deps.ts && npm run format",
     "convert-type": "ts-node -P .\\tools\\scripts\\tsconfig.json  .\\tools\\scripts\\convert-import-type.ts",
@@ -76,10 +70,12 @@
     }
   },
   "dependencies": {
+    "ts-require": "^1.0.11",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
     "@2fd/graphdoc": "^2.4.0",
+    "@adonisjs/require-ts": "^2.0.4",
     "@anatine/esbuild-decorators": "^0.2.8",
     "@babel/core": "^7.14.0",
     "@commitlint/cli": "^12.1.1",
