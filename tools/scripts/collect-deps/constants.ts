@@ -48,6 +48,7 @@ export const PRESERVED_PACKAGE_PEER_DEPS = [
   'tslib',
   'react',
   'react-dom',
+  'marked',
 ];
 
 export const PRESERVED_NX_PEER_DEPS = [
