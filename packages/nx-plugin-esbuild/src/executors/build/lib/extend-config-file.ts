@@ -1,41 +1,16 @@
-import fs from 'fs-extra';
-import { readJsonFile } from '@nrwl/workspace';
 import type { BuildOptions } from 'esbuild';
-import { allowTs } from 'nx-plugin-devkit';
-import { NXESBuildConfigExport } from './types';
 import { register } from '@adonisjs/require-ts';
 
-// TODO: enable extends configurations from apps/app1/nx-esbuild.js|ts file
+// TODO: normalize user config
 export function normalizeESBuildExtendConfig(
-  root: string,
-  configPath: string,
-  allowExtend = true
+  absoluteAppRoot: string,
+  configPath: string
 ) {
-  console.log('root: ', root);
-
-  register(root, {
+  register(absoluteAppRoot, {
     cache: false,
   });
 
-  const x = require(configPath);
-  console.log(x);
+  const resolvedModule = require(configPath);
 
-  return x.default as BuildOptions;
-  // allowTs(['terser']);
-
-  // if (fs.existsSync(configPath)) {
-  //   // delete require.cache[configPath];
-
-  //   console.log(require(configPath).default);
-  //   // console.log(import(configPath));
-  //   // console.log(await import(configPath));
-  // }
-
-  // const esBuildExtendConfigFileExists = fs.pathExistsSync(configPath);
-
-  // return allowExtend
-  //   ? esBuildExtendConfigFileExists
-  //     ? readJsonFile<Partial<BuildOptions>>(configPath)
-  //     : {}
-  //   : {};
+  return resolvedModule.default as BuildOptions;
 }

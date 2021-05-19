@@ -40,6 +40,7 @@ export interface ESBuildExecutorSchema {
   main: string;
   tsConfig: string;
   pluginConfig?: string;
+  allowExtend: boolean;
   outputPath: string;
 
   assets: string[] | AssetsItem[];

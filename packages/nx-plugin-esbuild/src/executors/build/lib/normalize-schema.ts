@@ -7,11 +7,7 @@ import type {
 
 import { normalizeESBuildExtendConfig } from './extend-config-file';
 
-import {
-  normalizeAssets,
-  normalizeFileReplacements,
-  fileReplacements2Alias,
-} from 'nx-plugin-devkit';
+import { normalizeAssets, normalizeFileReplacements } from 'nx-plugin-devkit';
 import { normalizeInserts } from './insert';
 
 // FIXME: executor cannot get workspace layout, so 'apps' will be used.
@@ -44,16 +40,18 @@ export function normalizeBuildExecutorOptions(
     projectName
   );
 
-  // TODO: support js(+type comment)/ts
-  // config file generator
+  // TODO: config file generator
   const pluginConfigPath = path.resolve(
+    workspaceRoot,
     options.pluginConfig ?? 'nx-esbuild.ts'
   );
 
-  const userConfigBuildOptions = normalizeESBuildExtendConfig(
-    path.resolve(workspaceRoot, projectRoot),
-    pluginConfigPath
-  );
+  const userConfigBuildOptions = options.allowExtend
+    ? normalizeESBuildExtendConfig(
+        path.resolve(workspaceRoot, projectRoot),
+        pluginConfigPath
+      )
+    : {};
 
   if (options.platform === 'browser' && !options.format) {
     options.format = 'iife';
@@ -78,12 +76,6 @@ export function normalizeBuildExecutorOptions(
     workspaceRoot,
     options.fileReplacements
   );
-
-  // const aliases = fileReplacements2Alias(
-  //   options.fileReplacements,
-  //   projectSourceRoot,
-  //   workspaceRoot
-  // );
 
   // TODO: support platform input like: node15.1.0
   // const platform = options.platform ?? process.version.slice(1);

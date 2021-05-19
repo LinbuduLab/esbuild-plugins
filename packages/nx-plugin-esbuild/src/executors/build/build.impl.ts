@@ -10,7 +10,6 @@ import {
   ESBuildExecutorSchema,
   NormalizedESBuildExecutorSchema,
 } from './schema';
-import clean from 'esbuild-plugin-clean';
 
 import { esbuildPluginDecorator } from 'esbuild-plugin-decorator';
 import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
@@ -36,6 +35,8 @@ import {
   collectTSCRunnerMessages,
 } from './lib/message-fragments';
 import { normalizeBuildExecutorOptions } from './lib/normalize-schema';
+
+import uniqBy from 'lodash/uniqBy';
 
 export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
@@ -74,7 +75,7 @@ export default function buildExecutor(
       tsconfigPath: options.tsConfig,
     }),
     // esbuildFileSizePlugin(),
-  ];
+  ].filter(Boolean);
 
   const external = Array.isArray(options.externalDependencies)
     ? options.externalDependencies
@@ -82,6 +83,11 @@ export default function buildExecutor(
 
   // 插件去重？
   const userConfigPlugins = options?.extendBuildOptions?.plugins ?? [];
+
+  const decupedPlugins = uniqBy(
+    [...plugins, ...userConfigPlugins],
+    (plugin) => plugin.name
+  );
 
   delete options.extendBuildOptions?.plugins;
 
@@ -97,7 +103,7 @@ export default function buildExecutor(
     conditions: options.watch ? ['development'] : ['production'],
     watch: options.watch,
     absWorkingDir: options.workspaceRoot,
-    plugins: [...plugins, ...userConfigPlugins],
+    plugins: decupedPlugins,
     tsconfig: options.tsConfig,
     entryPoints: [options.main],
     outdir: options.outputPath,
