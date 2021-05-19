@@ -4,7 +4,7 @@ import type {
   FileReplacement,
   Alias,
 } from 'nx-plugin-devkit';
-import type { BuildOptions } from 'esbuild';
+import type { BuildOptions, Loader } from 'esbuild';
 import type { Insert, FormattedInsert } from './lib/types';
 
 // TODO: options to support
@@ -14,19 +14,20 @@ import type { Insert, FormattedInsert } from './lib/types';
 // focusing on node currently
 // Define √
 // Format √
-// Inject√
-// Loader
-// Outdir & Outfile √
+// Inject √
+// Loader √
+// Outdir √
+// OutFile
 // Platform √
-// Splitting
-// Target
-// Write ×
+// Splitting √
+// Target √
+// Write √
 // Asset Names
 // Charset ×
 // Chunk names
 // Global name
 // Log level & limit √
-// Out extensions
+// Out extensions √
 // Outbase
 // Public path
 // Resolve Extensions
@@ -39,9 +40,11 @@ export interface ESBuildExecutorSchema {
   // required options
   main: string;
   tsConfig: string;
+  outputPath: string;
+
+  // extend ESBuild BuildOptions
   pluginConfig?: string;
   allowExtend: boolean;
-  outputPath: string;
 
   assets: string[] | AssetsItem[];
   inserts: string[] | Insert[];
@@ -50,12 +53,17 @@ export interface ESBuildExecutorSchema {
 
   // optional options with default values
   watch: boolean;
+  write: boolean;
+  outExtension: Record<string, string>;
+  splitting: boolean;
   skipTypeCheck: boolean;
   format: 'iife' | 'cjs' | 'esm';
   platform: 'browser' | 'node' | 'neutral';
   sourceMap: boolean | 'external' | 'inline' | 'both';
   logLevel: 'info' | 'warning' | 'error' | 'silent';
   logLimit: number;
+  loader: Record<string, Loader>;
+  target: string[];
   metaFile: boolean;
   bundle: boolean;
   // default as "all", and will use esbuild-plugin-node-externals as handler

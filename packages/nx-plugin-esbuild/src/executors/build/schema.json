@@ -47,6 +47,16 @@
       "enum": ["iife", "cjs", "esm"],
       "default": "cjs"
     },
+    "write": {
+      "type": "boolean",
+      "description": "Will output be written to disk.",
+      "default": true
+    },
+    "spliting": {
+      "type": "boolean",
+      "description": "Apply experimental ESBuild Code-Splitting",
+      "default": false
+    },
     "platform": {
       "type": "string",
       "description": "Platform for generated code.",
@@ -86,6 +96,20 @@
         "$ref": "#/definitions/assetPattern"
       }
     },
+    "target": {
+      "type": "array",
+      "description": "Target environments",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "outExtension": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true,
+      "default": {}
+    },
     "inserts": {
       "type": "array",
       "description": "List of content to insert into the output file.",
@@ -117,6 +141,12 @@
       },
       "description": "Files to inject as globals variables, should provide with suffix (.js/.ts)",
       "default": []
+    },
+    "loader": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true,
+      "default": {}
     },
     "define": {
       "type": "object",

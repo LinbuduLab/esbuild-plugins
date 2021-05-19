@@ -55,12 +55,15 @@ export default function buildExecutor(
     throw new Error(`${context.projectName} does not have a root.`);
   }
 
+  const appsLayout = projectRoot.split('/')[0] ?? 'apps';
+
   const options = normalizeBuildExecutorOptions(
     rawOptions,
     context.root,
     context.projectName,
     projectSourceRoot,
-    projectRoot
+    projectRoot,
+    appsLayout
   );
 
   const plugins = [
@@ -113,6 +116,10 @@ export default function buildExecutor(
     footer: options.inserts.footer,
     metafile: options.metaFile,
     minify: options.minify,
+    loader: options.loader,
+    target: options.target,
+    splitting: options.splitting,
+    outExtension: options.outExtension,
     minifyIdentifiers: options.minify,
     minifyWhitespace: options.minify,
     minifySyntax: options.minify,

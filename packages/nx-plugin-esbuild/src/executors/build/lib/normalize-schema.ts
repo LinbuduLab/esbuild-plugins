@@ -9,6 +9,7 @@ import { normalizeESBuildExtendConfig } from './extend-config-file';
 
 import { normalizeAssets, normalizeFileReplacements } from 'nx-plugin-devkit';
 import { normalizeInserts } from './insert';
+import terminalLink from 'terminal-link';
 
 // FIXME: executor cannot get workspace layout, so 'apps' will be used.
 // Choose a random project to get its starts?
@@ -16,12 +17,13 @@ export function normalizeMetaConfig(
   main: string,
   outputPath: string,
   tsConfig: string,
-  projectName: string
+  projectName: string,
+  appsLayout: string
 ) {
   return {
-    main: main ?? `apps/${projectName}/src/main.ts`,
-    outputPath: outputPath ?? `dist/apps/${projectName}`,
-    tsConfig: tsConfig ?? `apps/${projectName}/tsconfig.app.json`,
+    main: main ?? `${appsLayout}/${projectName}/src/main.ts`,
+    outputPath: outputPath ?? `dist/${appsLayout}/${projectName}`,
+    tsConfig: tsConfig ?? `${appsLayout}/${projectName}/tsconfig.app.json`,
   };
 }
 
@@ -30,14 +32,17 @@ export function normalizeBuildExecutorOptions(
   workspaceRoot: string,
   projectName: string,
   projectSourceRoot: string,
-  projectRoot: string
+  projectRoot: string,
+  appsLayout = 'apps'
 ): NormalizedESBuildExecutorSchema {
   const formattedInserts = normalizeInserts(options.inserts ?? []);
+
   const { main, outputPath, tsConfig } = normalizeMetaConfig(
     options.main,
     options.outputPath,
     options.tsConfig,
-    projectName
+    projectName,
+    appsLayout
   );
 
   // TODO: config file generator
@@ -55,6 +60,17 @@ export function normalizeBuildExecutorOptions(
 
   if (options.platform === 'browser' && !options.format) {
     options.format = 'iife';
+  }
+
+  if (options.splitting && options.format !== 'esm') {
+    const link = terminalLink(
+      'splitting',
+      'https://esbuild.github.io/api/#splitting'
+    );
+
+    console.warn(
+      `code-splitting is only available with esm format, check${link} for more details`
+    );
   }
 
   if (!Array.isArray(options.inject)) {
