@@ -130,6 +130,7 @@
     "@snowpack/plugin-sass": "^1.4.0",
     "@snowpack/plugin-typescript": "^1.2.1",
     "@snowpack/plugin-webpack": "^2.3.1",
+    "@svgr/core": "^5.5.0",
     "@swc/core": "^1.2.54",
     "@types/co": "^4.6.2",
     "@types/conventional-changelog": "^3.1.0",
