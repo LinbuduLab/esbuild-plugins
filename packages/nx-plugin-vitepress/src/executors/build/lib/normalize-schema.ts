@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import { ExecutorContext } from '@nrwl/devkit';
-import { BuildOptions, UserConfig, ServerOptions } from 'vite';
+import { BuildOptions, UserConfig } from 'vite';
 import {
   VitepressBuildSchema,
   NormalizedVitepressBuildSchema,
@@ -15,7 +15,6 @@ export const normalizeSchema = (
 ): NormalizedVitepressBuildSchema => {
   allowTs();
 
-  // TODO:
   let buildOptions: BuildOptions = {
     outDir: schema.outDir,
     assetsDir: schema.assetsDir,
@@ -34,12 +33,11 @@ export const normalizeSchema = (
 
   if (
     schema.viteConfigPath &&
-    fs.existsSync(path.resolve(schema.root, schema.viteConfigPath))
+    fs.existsSync(path.resolve(schema.viteConfigPath))
   ) {
-    const viteConfig: UserConfig = require(path.resolve(
-      schema.root,
-      schema.viteConfigPath
-    )).default;
+    const viteConfig = require(path.resolve(schema.viteConfigPath))
+      .default as UserConfig;
+
     buildOptions = merge(buildOptions, viteConfig.build);
   }
 

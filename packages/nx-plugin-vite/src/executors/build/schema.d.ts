@@ -1,8 +1,11 @@
 export interface ViteBuildSchema {
   root: string;
   configFile: string;
-}
 
-export interface Res {
-  success: boolean;
+  // dist -> apps/vite-app/dist
+  outDir: string;
+  // dist -> WORKSPACE_ROOT/dist/vite-app
+  emitAtRootLevel: boolean;
+  watch: boolean;
+  write: boolean;
 }

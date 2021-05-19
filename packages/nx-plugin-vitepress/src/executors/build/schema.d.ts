@@ -30,7 +30,6 @@ export interface VitepressBuildSchema {
   // true
   brotliSize: boolean;
   // true
-  // if want more
   watch: boolean;
 }
 

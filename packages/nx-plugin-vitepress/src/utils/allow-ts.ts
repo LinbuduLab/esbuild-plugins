@@ -4,6 +4,11 @@ import type { BuildOptions } from 'esbuild';
 /**
  * Create esbuild `BuildOptions` for `buildToCode`
  */
+// allowTs for VuePress/VitePress
+// should not be used with modules which may contains unclear externals
+// Cannot use plugins to exclude external automatically in ESBuild buildSync
+// use require-ts to handle ts file require
+// https://github.com/adonisjs/require-ts#readme
 export const createBuildToCodeOptions = (
   filePath: string
 ): BuildOptions & { write: false } => ({
