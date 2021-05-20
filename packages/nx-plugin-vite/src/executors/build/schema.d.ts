@@ -4,7 +4,7 @@ export interface ViteBuildSchema {
 
   // dist -> apps/vite-app/dist
   outDir: string;
-  // dist -> WORKSPACE_ROOT/dist/vite-app
+  // dist/vite-app -> WORKSPACE_ROOT/dist/vite-app
   emitAtRootLevel: boolean;
   watch: boolean;
   write: boolean;
