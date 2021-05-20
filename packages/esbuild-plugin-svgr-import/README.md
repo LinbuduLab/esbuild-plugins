@@ -30,7 +30,6 @@ import svrg from 'esbuild-plugin-svgr-import';
 
 See [svgr documents](https://react-svgr.com/) for details.
 
-
 ```typescript
 export interface Options {
   svgrConfig?: {

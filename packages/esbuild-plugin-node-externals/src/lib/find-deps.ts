@@ -1,5 +1,4 @@
 import { NormalizedESBuildPluginNodeExternalsOptions } from './normalize-options';
-// TODO: use readJsonFile from @nrwl/workspace
 import jsonfile from 'jsonfile';
 
 export const collectDepsToExclude = (
