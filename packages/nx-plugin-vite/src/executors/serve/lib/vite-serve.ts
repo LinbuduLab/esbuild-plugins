@@ -9,13 +9,20 @@ export const startViteServer = (schema: ViteServeSchema): Observable<Res> => {
       configFile: schema.configFile,
       root: schema.root,
     }).then((server) => {
-      from(server.listen()).pipe(
-        tap(() => {
+      // TODO:
+      // 预置gundam插件
+      // 暴露事件监听、插件容器、修改模块图等能力
+      server.listen().then((viteDevServer) => {
+        subscriber.next({
+          success: true,
+        });
+
+        viteDevServer.watcher.addListener('error', () => {
           subscriber.next({
-            success: true,
+            success: false,
           });
-        })
-      );
+        });
+      });
     });
   });
 };

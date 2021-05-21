@@ -7,6 +7,7 @@ export * from './lib/generator-utils/node-app-setup';
 export * from './lib/generator-utils/normalize-schema';
 export * from './lib/executor-utils/info';
 export * from './lib/executor-utils/allow-ts';
+export * from './lib/executor-utils/ensure-project-config';
 export * from './lib/workspace';
 export * from './lib/shared-schema';
 export * from './lib/tool-type';

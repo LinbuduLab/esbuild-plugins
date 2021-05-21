@@ -1,6 +1,5 @@
 import { build, buildSync } from 'esbuild';
 import type { BuildOptions } from 'esbuild';
-import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
 
 /**
  * Create esbuild `BuildOptions` for `buildToCode`

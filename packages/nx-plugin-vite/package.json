@@ -9,13 +9,16 @@
     "plugin",
     "monorepo"
   ],
-  "homepage": "https://github.com/PenumbraPro/nx-plugins/tree/master/packages/nx-plugin-vite#readme",
+  "scripts": {
+    "link": "pnpm link && pnpm link ../nx-plugin-devkit"
+  },
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/nx-plugin-vite#readme",
   "bugs": {
-    "url": "https://github.com/PenumbraPro/nx-plugins/issues"
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PenumbraPro/nx-plugins.git"
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
   },
   "license": "MIT",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
