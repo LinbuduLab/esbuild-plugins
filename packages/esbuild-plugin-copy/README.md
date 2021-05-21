@@ -1,9 +1,60 @@
 # esbuild-plugin-copy
 
-**UNDER_DEVELOPING**
+ESBuild plugin for assets copy.
+## Usage
 
-This library was generated with [Nx](https://nx.dev).
+**Node: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks**
 
-## Running unit tests
+**GitHub Repository/Homepage is private for now, if you got any troubles, just open issue in this [repo](https://github.com/linbudu599/Blog).**
 
-Run `nx test esbuild-plugin-copy` to execute the unit tests via [Jest](https://jestjs.io).
+```bash
+npm i esbuild-plugin-copy -D
+pnpm i esbuild-plugin-copy -D
+yarn add esbuild-plugin-copy -D
+```
+
+```typescript
+import { build } from 'esbuild';
+import copy from 'esbuild-plugin-copy';
+
+(async () => {
+  const res1 = await build({
+    entryPoints: ['./demo.ts'],
+    bundle: true,
+    outfile: './dist/main.js',
+    plugins: [
+      copy({
+        assets: {
+          from: ['./assets/*'],
+          to: ['./assets', './tmp-assets'],
+        },
+      }),
+    ],
+  });
+})();
+```
+
+## Configuration
+
+```typescript
+type MaybeArray<T> = T | T[];
+
+// file/folder/globs
+export interface AssetPair {
+  from: MaybeArray<string>;
+  to: MaybeArray<string>;
+}
+
+export interface Options {
+  // assets pair to copy
+  assets: MaybeArray<AssetPair>;
+  // start copy on onStart/onEnd hooks
+  // default: false
+  copyOnStart: boolean;
+  // verbose logging
+  // default: true
+  verbose: boolean;
+  // extra globby options to match paths to copy from
+  globbyOptions: GlobbyOptions;
+}
+```
