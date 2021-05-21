@@ -1,1 +1,1 @@
-export * from './lib/esbuild-plugin-copy';
+export { default, Options, AssetPair } from './lib/esbuild-plugin-copy';

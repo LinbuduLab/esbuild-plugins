@@ -21,10 +21,12 @@ import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
     entryPoints: ['apps/nest-app/index.ts'],
     bundle: true,
     outfile: './dist/main.js',
-    plugins: [esbuildPluginNodeExternals({
-      packagePaths:"apps/nest-app/package.json",
-      include:["SOME_PKG_YOU_WANT_TO_INCLUDE_AT_BUNDLE"]
-    })],
+    plugins: [
+      esbuildPluginNodeExternals({
+        packagePaths: 'apps/nest-app/package.json',
+        include: ['SOME_PKG_YOU_WANT_TO_INCLUDE_AT_BUNDLE'],
+      }),
+    ],
   });
 })();
 ```
