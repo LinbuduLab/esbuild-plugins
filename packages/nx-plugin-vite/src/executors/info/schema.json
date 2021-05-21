@@ -4,6 +4,13 @@
   "title": "Info executor",
   "description": "",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "serveTarget": {
+      "type": "string"
+    },
+    "buildTarget": {
+      "type": "string"
+    }
+  },
   "required": []
 }

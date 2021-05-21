@@ -1,1 +1,6 @@
-export interface InfoExecutorSchema {} // eslint-disable-line
+export interface ViteInfoSchema {
+  serveTarget?: string;
+  buildTarget?: string;
+}
+
+export interface NormalizedViteSchema extends Required<ViteInfoSchema> {}
