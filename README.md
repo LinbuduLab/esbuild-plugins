@@ -8,24 +8,6 @@ Once it got accomplished, you can run commands below to enjoy enhanced monorepo 
 
 ([pnpm](https://github.com/pnpm/pnpm) is recommended as package manager in nx project.)
 
-```bash
-npm i nx-plugin-prisma -D
-npm i nx-plugin-esbuild -D
-npm i nx-plugin-vite -D
-
-nx g nx-plugin-prisma:init prisma-app --datasourceProvider=sqlite
-
-nx prisma-generate prisma-app
-
-nx g nx-plugin-esbuild:init esbuild-app
-
-nx esbuild esbuild-app
-
-nx g nx-plugin-vite:app vite-app --template react-tsx
-
-nx serve vite-app
-```
-
 ## Packages
 
 > Nx plugin with libraries.
@@ -37,13 +19,13 @@ nx serve vite-app
 > Nx plugin with NodeJS frameworks.
 
 - `nx-plugin-midway`: Nx integration with MidwayJS（Midway-Hooks、Midway-Serverless）
-
 - `nx-plugin-koa`: Nx integration with Koa
 
 > Nx plugin with SSG frameworks.
 
 - `nx-plugin-viteress`: Nx integration with VitePress
 - `nx-plugin-vueress`: Nx integration with Vuepress
+- `nx-plugin-dumi`: Nx integration with Dumi
 
 > Nx plugin with compiler/bundler.
 
@@ -57,6 +39,7 @@ nx serve vite-app
 > Nx plugin with React based framework. (like @nrwl/next)
 
 - `nx-plugin-umi`: Nx integration with UmiJS
+- `nx-plugin-ice`: Nx integration with IceJS
 
 > Useful utilities in Nx plugin development.
 
@@ -65,11 +48,14 @@ nx serve vite-app
 > Tools collections(node-serve/node-build/light-node-serve/...)
 
 - `nx-plugin-workspace`
+- `nx-plugin-release`
 
 > Future development plan.
 
 - `nx-plugin-blitz`: Nx integration with BlitzJS
-- `nx-plugin-dumi`: Nx integration with DUmi
+- `nx-plugin-wmr`: Nx integration with WMR.
+- `nx-plugin-lit-element`: Nx integration with lit-element.
+- `nx-plugin-stencil`: Nx integration with stencil.
 
 ## Global Progress
 
