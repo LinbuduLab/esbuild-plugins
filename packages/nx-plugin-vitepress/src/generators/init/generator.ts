@@ -17,7 +17,6 @@ import { createProjectConfiguration } from './lib/create-project';
 import { createAppFiles } from './lib/create-files';
 import { updateWorkspace } from './lib/workspace';
 
-// update git ignore >> /**/node_modules/.vite
 // 未来发展规划，包括生成组件等
 
 export default async function (host: Tree, rawSchema: InitSchema) {

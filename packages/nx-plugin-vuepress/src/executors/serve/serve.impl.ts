@@ -1,4 +1,4 @@
-import { VuePressServeSchema, Res } from './schema';
+import { VuePressServeSchema } from './schema';
 import { eachValueFrom } from 'rxjs-for-await';
 import { map } from 'rxjs/operators';
 import { startVuePressServe } from './lib/vuepress-serve';

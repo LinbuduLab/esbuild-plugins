@@ -1,8 +1,18 @@
 export interface VuePressServeSchema {
   root: string;
-  configPath: string;
-}
+  docsDir: string;
 
-export interface Res {
-  success: boolean;
+  configPath: string;
+  host: string;
+  port: number;
+  temp?: string;
+  cache?: string;
+  cleanTemp: boolean;
+  cleanCache: boolean;
+  open: boolean;
+  debug: boolean;
+  noWatch: boolean;
+
+  // display full command executed
+  verbose: boolean;
 }

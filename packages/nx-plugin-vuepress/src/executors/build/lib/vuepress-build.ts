@@ -7,6 +7,7 @@ export const startVuePressBuild = (
   schema: VuePressBuildSchema
 ): Observable<Res> => {
   return new Observable((subscriber) => {
+    // allow .vuepress/config.ts
     allowTs();
 
     from(
