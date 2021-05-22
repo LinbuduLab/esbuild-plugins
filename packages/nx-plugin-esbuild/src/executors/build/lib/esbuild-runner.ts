@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { build } from 'esbuild';
 import chokidar from 'chokidar';
 import { copyAssetFiles } from 'nx-plugin-devkit';
-import { info, success } from './log';
+import { error, info, success } from './log';
 
 export function runESBuild(
   options: ESBuildRunnerOptions,
@@ -45,7 +45,6 @@ export function runESBuild(
         }: ESBuildRunnerResponse) => {
           subscriber.next({ buildFailure, buildResult });
 
-          // TODO: enable option functionFileOnReBuild, and use default export as rebuild callback
           if (typeof buildWatch === 'object' && buildWatch.onRebuild) {
             buildWatch.onRebuild(buildFailure, buildResult);
           }
@@ -80,10 +79,9 @@ export function runESBuild(
       })
       .catch((buildFailure: BuildFailure) => {
         subscriber.next({ buildResult: null, buildFailure });
+        // TODO: control by failFast option
         subscriber.complete();
       })
-      .finally(() => {
-        console.log(success('ESBuild Compilation Done.'));
-      });
+      .finally(() => {});
   });
 }
