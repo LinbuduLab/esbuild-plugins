@@ -4,6 +4,44 @@
   "title": "Serve executor",
   "description": "",
   "type": "object",
-  "properties": {},
-  "required": []
+  "properties": {
+    "root": {
+      "type": "string"
+    },
+    "docsDir": {
+      "type": "string",
+      "default": "docs"
+    },
+    "configPath": {
+      "type": "string",
+      "default": "docs/.vuepress/config.ts"
+    },
+    "dest": {
+      "type": "string",
+      "default": ".vuepress/dist"
+    },
+    "temp": {
+      "type": "string"
+    },
+    "cache": {
+      "type": "string"
+    },
+    "cleanTemp": {
+      "type": "boolean",
+      "default": false
+    },
+    "cleanCache": {
+      "type": "boolean",
+      "default": false
+    },
+    "debug": {
+      "type": "boolean",
+      "default": false
+    },
+    "verbose": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": ["root"]
 }

@@ -1,8 +1,14 @@
 export interface VuePressBuildSchema {
   root: string;
-  configPath: string;
-}
+  docsDir: string;
 
-export interface Res {
-  success: boolean;
+  configPath: string;
+
+  dest: string;
+  temp: string;
+  cache: string;
+
+  cleanTemp: boolean;
+  cleanCache: boolean;
+  debug: boolean;
 }

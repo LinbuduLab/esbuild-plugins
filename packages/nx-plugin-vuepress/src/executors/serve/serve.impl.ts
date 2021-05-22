@@ -4,13 +4,5 @@ import { map } from 'rxjs/operators';
 import { startVuePressServe } from './lib/vuepress-serve';
 
 export default function runExecutor(schema: VuePressServeSchema) {
-  return eachValueFrom(
-    startVuePressServe(schema).pipe(
-      map(() => {
-        return {
-          success: true,
-        };
-      })
-    )
-  );
+  return eachValueFrom(startVuePressServe(schema).pipe(map((res) => res)));
 }
