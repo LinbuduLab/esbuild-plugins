@@ -78,6 +78,7 @@
     "@adonisjs/require-ts": "^2.0.4",
     "@anatine/esbuild-decorators": "^0.2.8",
     "@babel/core": "^7.14.0",
+    "@changesets/cli": "^2.16.0",
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
     "@genql/cli": "^2.6.0",
