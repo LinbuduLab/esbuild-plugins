@@ -5,6 +5,7 @@ import type {
 
 export interface VitePressInitGeneratorExtraSchema {
   generateViteConfig: boolean;
+  generateConfig: boolean;
   overrideTargets: boolean;
 }
 

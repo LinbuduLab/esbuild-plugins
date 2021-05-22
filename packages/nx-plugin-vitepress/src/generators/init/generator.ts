@@ -13,22 +13,16 @@ import {
   ProjectConfiguration,
   NxJsonProjectConfiguration,
   normalizePath,
+  readWorkspaceConfiguration,
+  updateWorkspaceConfiguration,
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { Linter, lintProjectGenerator } from '@nrwl/linter';
 
 import path from 'path';
-import {
-  normalizeNodeAppSchema,
-  createNodeInitTask,
-  createNodeJestTask,
-  createNodeLintTask,
-  setDefaultProject,
-  getAvailableAppsOrLibs,
-} from 'nx-plugin-devkit';
+import { createNodeInitTask, getAvailableAppsOrLibs } from 'nx-plugin-devkit';
 
 import { NormalizedVitePressInitGeneratorExtraSchema } from './schema';
-
-// vitepress init命令中，不需要设定entry、tsconfigPath
 
 export default async function (
   host: Tree,
@@ -58,15 +52,12 @@ export default async function (
     ? schema.tags.split(',').map((s) => s.trim())
     : [];
 
-  // ?
+  // will not be used but required in some checks
   const projectSourceRoot = joinPathFragments(projectRoot, 'src');
 
-  const { overrideTargets } = schema;
+  const { overrideTargets, generateViteConfig, generateConfig } = schema;
 
   const tasks: GeneratorCallback[] = [];
-  const initTask = await createNodeInitTask(host);
-
-  tasks.push(initTask);
 
   const buildTargetName = overrideTargets ? 'build' : 'vite-build';
   const serveTargetName = overrideTargets ? 'serve' : 'vite-serve';
@@ -127,29 +118,24 @@ export default async function (
     tags: parsedTags,
   };
 
-  // generate vp config ?
   generateFiles(host, path.join(__dirname, './files/base'), projectRoot, {
     tmpl: '',
     offset: offsetFromRoot(projectRoot),
     projectName,
   });
 
-  generateFiles(host, path.join(__dirname, './files/base'), projectRoot, {
-    tmpl: '',
-    offset: offsetFromRoot(projectRoot),
-    projectName,
-  });
+  if (generateConfig) {
+    generateFiles(
+      host,
+      path.join(__dirname, './files/extra/vitepress'),
+      joinPathFragments(vitepressDocRoot, '.vitepress'),
+      {
+        tmpl: '',
+      }
+    );
+  }
 
-  generateFiles(
-    host,
-    path.join(__dirname, './files/extra/vitepress'),
-    joinPathFragments(vitepressDocRoot, '.vitepress'),
-    {
-      tmpl: '',
-    }
-  );
-
-  if (schema.generateViteConfig) {
+  if (generateViteConfig) {
     generateFiles(
       host,
       path.join(__dirname, './files/extra/vite'),
@@ -163,8 +149,31 @@ export default async function (
   }
 
   // update git ignore >> /**/node_modules/.vite
+  // 未来发展规划，包括生成组件等
 
   addProjectConfiguration(host, projectName, project);
+
+  const lintTask = await lintProjectGenerator(host, {
+    linter: Linter.EsLint,
+    project: projectName,
+    tsConfigPaths: [joinPathFragments(projectRoot, 'tsconfig.app.json')],
+    eslintFilePatterns: [`${projectRoot}/**/*.ts`],
+    skipFormat: true,
+  });
+
+  tasks.push(lintTask);
+
+  const workspace = readWorkspaceConfiguration(host);
+
+  if (!workspace.defaultProject) {
+    workspace.defaultProject = projectName;
+  }
+
+  workspace.generators = workspace.generators || {};
+  workspace.generators['nx-plugin-vitepress:init'] = {};
+  workspace.generators['nx-plugin-vitepress:setup'] = {};
+
+  updateWorkspaceConfiguration(host, workspace);
 
   await formatFiles(host);
 

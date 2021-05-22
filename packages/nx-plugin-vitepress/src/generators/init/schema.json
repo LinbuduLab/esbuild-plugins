@@ -30,10 +30,17 @@
     },
     "overrideTargets": {
       "type": "boolean",
+      "description": "Use vite-build or build as target name?",
       "default": true
     },
     "generateViteConfig": {
       "type": "boolean",
+      "description": "Generate vite.config.ts?",
+      "default": true
+    },
+    "generateConfig": {
+      "type": "boolean",
+      "description": "Generate .vitepress/config.js?",
       "default": true
     }
   },
