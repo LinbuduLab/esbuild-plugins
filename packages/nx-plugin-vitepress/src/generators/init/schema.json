@@ -42,6 +42,11 @@
       "type": "boolean",
       "description": "Generate .vitepress/config.js?",
       "default": true
+    },
+    "setupLint": {
+      "type": "boolean",
+      "description": "Setup ESLint?",
+      "default": true
     }
   },
   "required": ["app"]

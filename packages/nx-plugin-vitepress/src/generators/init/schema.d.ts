@@ -1,14 +1,22 @@
-import type {
-  BasicNodeAppGenSchema,
-  BasicNormalizedAppGenSchema,
-} from 'nx-plugin-devkit';
+export interface BaseSchema {
+  app: string;
+  directory?: string;
+  tags?: string;
+}
 
-export interface VitePressInitGeneratorExtraSchema {
+export interface InitSchema extends BaseSchema {
   generateViteConfig: boolean;
   generateConfig: boolean;
   overrideTargets: boolean;
+  setupLint: boolean;
 }
 
-export interface NormalizedVitePressInitGeneratorExtraSchema
-  extends BasicNodeAppGenSchema,
-    VitePressInitGeneratorExtraSchema {}
+export interface NormalizedInitSchema extends InitSchema {
+  projectName: string;
+  projectRoot: string;
+  projectSourceRoot: string;
+  projectDirectory: string;
+
+  parsedTags: string[];
+  offsetFromRoot: string;
+}
