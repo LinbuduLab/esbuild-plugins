@@ -21,8 +21,20 @@
     },
     "directory": {
       "type": "string",
-      "description": "A directory where the project is placed",
-      "alias": "d"
+      "alias": "d",
+      "description": "Which directory would you like to use?",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      }
+    },
+    "overrideTargets": {
+      "type": "boolean",
+      "default": true
+    },
+    "generateViteConfig": {
+      "type": "boolean",
+      "default": true
     }
   },
   "required": ["app"]

@@ -73,6 +73,15 @@ export default async function (
   const devTargetName = overrideTargets ? 'dev' : 'vite-dev';
   const infoTargetName = overrideTargets ? 'info' : 'vite-info';
 
+  const vitepressDocRoot = joinPathFragments(projectRoot, 'docs');
+  const vitepressOutput = joinPathFragments(
+    vitepressDocRoot,
+    '.vitepress',
+    'dist'
+  );
+
+  const viteConfigPath = joinPathFragments(projectRoot, 'vite.config.ts');
+
   const project: ProjectConfiguration & NxJsonProjectConfiguration = {
     root: projectRoot,
     sourceRoot: projectSourceRoot,
@@ -80,27 +89,82 @@ export default async function (
     targets: {
       [buildTargetName]: {
         executor: 'nx-plugin-vitepress:build',
+        outputs: [vitepressOutput],
+        options: {
+          root: vitepressDocRoot,
+          outDir: 'dist',
+          assetsDir: 'assets',
+          write: true,
+          manifest: false,
+          brotliSize: true,
+          watch: false,
+        },
       },
       [serveTargetName]: {
         executor: 'nx-plugin-vitepress:serve',
+        options: {
+          root: vitepressDocRoot,
+          port: 6789,
+        },
       },
       [devTargetName]: {
         executor: 'nx-plugin-vitepress:dev',
+        options: {
+          root: vitepressDocRoot,
+          port: 6789,
+        },
       },
       [infoTargetName]: {
         executor: 'nx-plugin-vitepress:info',
+        options: {
+          root: projectRoot,
+          buildTarget: buildTargetName,
+          serveTarget: serveTargetName,
+          devTarget: devTargetName,
+        },
       },
     },
     tags: parsedTags,
   };
 
-  addProjectConfiguration(host, projectName, project);
-
-  generateFiles(host, path.join(__dirname, './files'), projectRoot, {
+  // generate vp config ?
+  generateFiles(host, path.join(__dirname, './files/base'), projectRoot, {
     tmpl: '',
     offset: offsetFromRoot(projectRoot),
     projectName,
   });
+
+  generateFiles(host, path.join(__dirname, './files/base'), projectRoot, {
+    tmpl: '',
+    offset: offsetFromRoot(projectRoot),
+    projectName,
+  });
+
+  generateFiles(
+    host,
+    path.join(__dirname, './files/extra/vitepress'),
+    joinPathFragments(vitepressDocRoot, '.vitepress'),
+    {
+      tmpl: '',
+    }
+  );
+
+  if (schema.generateViteConfig) {
+    generateFiles(
+      host,
+      path.join(__dirname, './files/extra/vite'),
+      projectRoot,
+      {
+        tmpl: '',
+      }
+    );
+    project.targets[buildTargetName].options['viteConfigPath'] = viteConfigPath;
+    project.targets[devTargetName].options['viteConfigPath'] = viteConfigPath;
+  }
+
+  // update git ignore >> /**/node_modules/.vite
+
+  addProjectConfiguration(host, projectName, project);
 
   await formatFiles(host);
 

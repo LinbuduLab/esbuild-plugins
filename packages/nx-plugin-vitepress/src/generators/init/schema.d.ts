@@ -4,9 +4,8 @@ import type {
 } from 'nx-plugin-devkit';
 
 export interface VitePressInitGeneratorExtraSchema {
-  generateFiles: boolean;
+  generateViteConfig: boolean;
   overrideTargets: boolean;
-  initAsApp: boolean;
 }
 
 export interface NormalizedVitePressInitGeneratorExtraSchema
