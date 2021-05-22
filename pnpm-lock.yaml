@@ -177,7 +177,6 @@ importers:
       sort-package-json: ^1.50.0
       speed-measure-webpack-plugin: ^1.5.0
       strip-comments: ^2.0.1
-      terminal-link: ^3.0.0
       terser: ^5.7.0
       tree-kill: ^1.2.2
       ts-jest: 26.5.6
@@ -379,7 +378,6 @@ importers:
       sort-package-json: 1.50.0
       speed-measure-webpack-plugin: 1.5.0_webpack@4.42.0
       strip-comments: 2.0.1
-      terminal-link: 3.0.0
       terser: 5.7.0
       tree-kill: 1.2.2
       ts-jest: 26.5.6_jest@26.6.3+typescript@4.2.4
@@ -8935,13 +8933,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       type-fest: 0.21.3
-
-  /ansi-escapes/5.0.0:
-    resolution: {integrity: sha512-5GFMVX8HqE/TB+FuBJGuO5XG0WrsA6ptUqoODaT/n9mmUaZFkqnBueB4leqGBCmrUHnCnC4PCZTCd0E7QQ83bA==}
-    engines: {node: '>=12'}
-    dependencies:
-      type-fest: 1.1.3
-    dev: true
 
   /ansi-html/0.0.7:
     resolution: {integrity: sha1-gTWEAhliqenm/QOflA0S9WynhZ4=}
@@ -23808,14 +23799,6 @@ packages:
     dependencies:
       has-flag: 4.0.0
 
-  /supports-hyperlinks/2.1.0:
-    resolution: {integrity: sha512-zoE5/e+dnEijk6ASB6/qrK+oYdm2do1hjoLWrqUC/8WEIW1gbxFcKuBof7sW8ArN6e+AYvsE8HBGiVRWL/F5CA==}
-    engines: {node: '>=8'}
-    dependencies:
-      has-flag: 4.0.0
-      supports-color: 7.2.0
-    dev: true
-
   /supports-hyperlinks/2.2.0:
     resolution: {integrity: sha512-6sXEzV5+I5j8Bmq9/vUphGRM/RJNT9SCURJLjwfOg51heRtguGWDzcaBlgAzKhQa0EVNpPEKzQuBwZ8S8WaCeQ==}
     engines: {node: '>=8'}
@@ -23954,14 +23937,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       ansi-escapes: 4.3.2
-      supports-hyperlinks: 2.1.0
-    dev: true
-
-  /terminal-link/3.0.0:
-    resolution: {integrity: sha512-flFL3m4wuixmf6IfhFJd1YPiLiMuxEc8uHRM1buzIeZPm22Au2pDqBJQgdo7n1WfPU1ONFGv7YDwpFBmHGF6lg==}
-    engines: {node: '>=12'}
-    dependencies:
-      ansi-escapes: 5.0.0
       supports-hyperlinks: 2.2.0
     dev: true
 
@@ -24582,11 +24557,6 @@ packages:
 
   /type-fest/1.1.1:
     resolution: {integrity: sha512-RPDKc5KrIyKTP7Fk75LruUagqG6b+OTgXlCR2Z0aQDJFeIvL4/mhahSEtHmmVzXu4gmA0srkF/8FCH3WOWxTWA==}
-    engines: {node: '>=10'}
-    dev: true
-
-  /type-fest/1.1.3:
-    resolution: {integrity: sha512-CsiQeFMR1jZEq8R+H59qe+bBevnjoV5N2WZTTdlyqxeoODQOOepN2+msQOywcieDq5sBjabKzTn3U+sfHZlMdw==}
     engines: {node: '>=10'}
     dev: true
 

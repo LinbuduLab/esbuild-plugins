@@ -52,6 +52,7 @@ export interface FormattedInsert {
 
 export interface ESBuildRunnerOptions extends BuildOptions {
   assets: AssetFileInputOutput[];
+  failFast: boolean;
 }
 
 export interface ESBuildRunnerResponse {

@@ -143,6 +143,7 @@ export default function buildExecutor(
     {
       ...esbuildRunnerOptions,
       assets: options.assets,
+      failFast: options.failFast,
     },
     watchDir
   ).pipe(

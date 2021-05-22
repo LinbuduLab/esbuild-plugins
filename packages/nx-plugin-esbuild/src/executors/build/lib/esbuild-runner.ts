@@ -32,6 +32,7 @@ export function runESBuild(
     const {
       watch: buildWatch,
       assets: _uselessAssetsOption,
+      failFast,
       ...esbuildBuildOptions
     } = options;
 
@@ -79,8 +80,9 @@ export function runESBuild(
       })
       .catch((buildFailure: BuildFailure) => {
         subscriber.next({ buildResult: null, buildFailure });
-        // TODO: control by failFast option
-        subscriber.complete();
+        if (failFast) {
+          subscriber.complete();
+        }
       })
       .finally(() => {});
   });

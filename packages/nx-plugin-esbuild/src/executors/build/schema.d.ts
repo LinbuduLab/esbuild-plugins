@@ -41,6 +41,7 @@ export interface ESBuildExecutorSchema {
   main: string;
   tsConfig: string;
   outputPath: string;
+  failFast: boolean;
 
   // extend ESBuild BuildOptions
   pluginConfig?: string;

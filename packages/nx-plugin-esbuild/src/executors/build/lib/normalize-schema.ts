@@ -9,7 +9,6 @@ import { normalizeESBuildExtendConfig } from './extend-config-file';
 
 import { normalizeAssets, normalizeFileReplacements } from 'nx-plugin-devkit';
 import { normalizeInserts } from './insert';
-// import terminalLink from 'terminal-link';
 
 // FIXME: executor cannot get workspace layout, so 'apps' will be used.
 // Choose a random project to get its starts?
@@ -60,16 +59,6 @@ export function normalizeBuildExecutorOptions(
 
   if (options.platform === 'browser' && !options.format) {
     options.format = 'iife';
-  }
-
-  if (options.splitting && options.format !== 'esm') {
-    // const link = terminalLink(
-    //   'splitting',
-    //   'https://esbuild.github.io/api/#splitting'
-    // );
-    // console.warn(
-    //   `code-splitting is only available with esm format, check${link} for more details`
-    // );
   }
 
   if (!Array.isArray(options.inject)) {
