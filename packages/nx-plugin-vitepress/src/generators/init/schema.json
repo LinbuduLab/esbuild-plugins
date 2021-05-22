@@ -5,7 +5,7 @@
   "title": "",
   "type": "object",
   "properties": {
-    "name": {
+    "app": {
       "type": "string",
       "description": "",
       "$default": {
@@ -25,5 +25,5 @@
       "alias": "d"
     }
   },
-  "required": ["name"]
+  "required": ["app"]
 }

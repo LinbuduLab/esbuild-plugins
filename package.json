@@ -35,7 +35,7 @@
     "dev:esbuild": "nx run nx-plugin-esbuild:build --with-deps && cd .\\dist\\packages\\nx-plugin-esbuild\\ && npm run link",
     "dev:swc": "nx run nx-plugin-swc:build && cd .\\dist\\packages\\nx-plugin-swc\\ && pnpm link",
     "dev:vite": "nx run nx-plugin-vite:build --with-deps && cd .\\dist\\packages\\nx-plugin-vite\\ && npm run link",
-    "dev:vitepress": "nx run nx-plugin-vitepress:build && cd .\\dist\\packages\\nx-plugin-vitepress\\ && pnpm link",
+    "dev:vitepress": "nx run nx-plugin-vitepress:build && cd .\\dist\\packages\\nx-plugin-vitepress\\ && npm run link",
     "dev:vuepress": "nx run nx-plugin-vuepress:build && cd .\\dist\\packages\\nx-plugin-vuepress\\ && pnpm link",
     "dev:umi": "nx run nx-plugin-umi:build && cd .\\dist\\packages\\nx-plugin-umi\\ && pnpm link",
     "dev:dumi": "nx run nx-plugin-dumi:build && cd .\\dist\\packages\\nx-plugin-dumi\\ && pnpm link",

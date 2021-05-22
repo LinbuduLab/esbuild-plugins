@@ -2,72 +2,118 @@ import {
   addProjectConfiguration,
   formatFiles,
   generateFiles,
-  getWorkspaceLayout,
   names,
   offsetFromRoot,
+  joinPathFragments,
+  getWorkspaceLayout,
   Tree,
+  installPackagesTask,
+  GeneratorCallback,
+  addDependenciesToPackageJson,
+  ProjectConfiguration,
+  NxJsonProjectConfiguration,
+  normalizePath,
 } from '@nrwl/devkit';
-import * as path from 'path';
-import { InitGeneratorSchema } from './schema';
+import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
-interface NormalizedSchema extends InitGeneratorSchema {
-  projectName: string;
-  projectRoot: string;
-  projectDirectory: string;
-  parsedTags: string[];
-}
+import path from 'path';
+import {
+  normalizeNodeAppSchema,
+  createNodeInitTask,
+  createNodeJestTask,
+  createNodeLintTask,
+  setDefaultProject,
+  getAvailableAppsOrLibs,
+} from 'nx-plugin-devkit';
 
-function normalizeOptions(
+import { NormalizedVitePressInitGeneratorExtraSchema } from './schema';
+
+// vitepress init命令中，不需要设定entry、tsconfigPath
+
+export default async function (
   host: Tree,
-  options: InitGeneratorSchema
-): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
+  schema: NormalizedVitePressInitGeneratorExtraSchema
+) {
+  const { apps } = getAvailableAppsOrLibs(host);
+
+  const appNames = apps.map((app) => app.appName);
+
+  if (appNames.includes(schema.app)) {
+    throw new Error(`App ${schema.app} already exist!`);
+  }
+
+  const name = names(schema.app).fileName;
+
+  const projectDirectory = schema.directory
+    ? `${names(schema.directory).fileName}/${name}`
     : name;
+
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-  const projectRoot = `${getWorkspaceLayout(host).libsDir}/${projectDirectory}`;
-  const parsedTags = options.tags
-    ? options.tags.split(',').map((s) => s.trim())
+
+  const projectRoot = normalizePath(
+    `${getWorkspaceLayout(host).appsDir}/${projectDirectory}`
+  );
+
+  const parsedTags = schema.tags
+    ? schema.tags.split(',').map((s) => s.trim())
     : [];
 
-  return {
-    ...options,
-    projectName,
-    projectRoot,
-    projectDirectory,
-    parsedTags,
-  };
-}
+  // ?
+  const projectSourceRoot = joinPathFragments(projectRoot, 'src');
 
-function addFiles(host: Tree, options: NormalizedSchema) {
-  const templateOptions = {
-    ...options,
-    ...names(options.name),
-    offsetFromRoot: offsetFromRoot(options.projectRoot),
-    template: '',
-  };
-  generateFiles(
-    host,
-    path.join(__dirname, 'files'),
-    options.projectRoot,
-    templateOptions
-  );
-}
+  const { overrideTargets } = schema;
 
-export default async function (host: Tree, options: InitGeneratorSchema) {
-  const normalizedOptions = normalizeOptions(host, options);
-  addProjectConfiguration(host, normalizedOptions.projectName, {
-    root: normalizedOptions.projectRoot,
-    projectType: 'library',
-    sourceRoot: `${normalizedOptions.projectRoot}/src`,
+  const tasks: GeneratorCallback[] = [];
+  const initTask = await createNodeInitTask(host);
+
+  tasks.push(initTask);
+
+  const buildTargetName = overrideTargets ? 'build' : 'vite-build';
+  const serveTargetName = overrideTargets ? 'serve' : 'vite-serve';
+  const devTargetName = overrideTargets ? 'dev' : 'vite-dev';
+  const infoTargetName = overrideTargets ? 'info' : 'vite-info';
+
+  const project: ProjectConfiguration & NxJsonProjectConfiguration = {
+    root: projectRoot,
+    sourceRoot: projectSourceRoot,
+    projectType: 'application',
     targets: {
-      build: {
-        executor: '@penumbra/nx-plugin-vitepress:build',
+      [buildTargetName]: {
+        executor: 'nx-plugin-vitepress:build',
+      },
+      [serveTargetName]: {
+        executor: 'nx-plugin-vitepress:serve',
+      },
+      [devTargetName]: {
+        executor: 'nx-plugin-vitepress:dev',
+      },
+      [infoTargetName]: {
+        executor: 'nx-plugin-vitepress:info',
       },
     },
-    tags: normalizedOptions.parsedTags,
+    tags: parsedTags,
+  };
+
+  addProjectConfiguration(host, projectName, project);
+
+  generateFiles(host, path.join(__dirname, './files'), projectRoot, {
+    tmpl: '',
+    offset: offsetFromRoot(projectRoot),
+    projectName,
   });
-  addFiles(host, normalizedOptions);
+
   await formatFiles(host);
+
+  addDependenciesToPackageJson(
+    host,
+    {
+      vitepress: '^0.13.2',
+    },
+    {}
+  );
+
+  return () => {
+    installPackagesTask(host);
+    runTasksInSerial(...tasks);
+  };
 }
