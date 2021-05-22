@@ -6,25 +6,12 @@ import type {
 } from '../schema';
 
 import { normalizeESBuildExtendConfig } from './extend-config-file';
-
-import { normalizeAssets, normalizeFileReplacements } from 'nx-plugin-devkit';
-import { normalizeInserts } from './insert';
-
-// FIXME: executor cannot get workspace layout, so 'apps' will be used.
-// Choose a random project to get its starts?
-export function normalizeMetaConfig(
-  main: string,
-  outputPath: string,
-  tsConfig: string,
-  projectName: string,
-  appsLayout: string
-) {
-  return {
-    main: main ?? `${appsLayout}/${projectName}/src/main.ts`,
-    outputPath: outputPath ?? `dist/${appsLayout}/${projectName}`,
-    tsConfig: tsConfig ?? `${appsLayout}/${projectName}/tsconfig.app.json`,
-  };
-}
+import { normalizeAssets } from 'nx-plugin-devkit';
+import {
+  normalizeInject,
+  normalizeInserts,
+  normalizeFileReplacements,
+} from './normaliz-helper';
 
 export function normalizeBuildExecutorOptions(
   options: ESBuildExecutorSchema,
@@ -32,22 +19,19 @@ export function normalizeBuildExecutorOptions(
   projectName: string,
   projectSourceRoot: string,
   projectRoot: string,
-  appsLayout = 'apps'
+  appsLayout: string
 ): NormalizedESBuildExecutorSchema {
+  const { main, tsconfigPath } = options;
+
+  const outputPath = options.outputPath ?? `dist/${appsLayout}/${projectName}`;
+
   const formattedInserts = normalizeInserts(options.inserts ?? []);
 
-  const { main, outputPath, tsConfig } = normalizeMetaConfig(
-    options.main,
-    options.outputPath,
-    options.tsConfig,
-    projectName,
-    appsLayout
-  );
-
   // TODO: config file generator
+  // TODO: if .ts is not found, use .js file
   const pluginConfigPath = path.resolve(
     workspaceRoot,
-    options.pluginConfig ?? 'nx-esbuild.ts'
+    options.pluginConfigPath ?? 'nx-esbuild.ts'
   );
 
   const userConfigBuildOptions = options.allowExtend
@@ -57,32 +41,16 @@ export function normalizeBuildExecutorOptions(
       )
     : {};
 
-  if (options.platform === 'browser' && !options.format) {
-    options.format = 'iife';
-  }
-
   if (!Array.isArray(options.inject)) {
     options.inject = [options.inject];
   }
 
-  const normalizedInject = options.inject.map((injectPath) => {
-    if (!injectPath.endsWith('.js') && !injectPath.endsWith('.ts')) {
-      throw new Error(
-        `${injectPath} should be specified with suffix (.js/.ts)`
-      );
-    }
-    const normalizedInjectPath = path.join(projectSourceRoot, injectPath);
-
-    return normalizedInjectPath;
-  });
+  const normalizedInject = normalizeInject(options.inject, projectSourceRoot);
 
   const fileReplacements = normalizeFileReplacements(
     workspaceRoot,
     options.fileReplacements
   );
-
-  // TODO: support platform input like: node15.1.0
-  // const platform = options.platform ?? process.version.slice(1);
 
   return {
     ...options,
@@ -98,8 +66,8 @@ export function normalizeBuildExecutorOptions(
     main: path.resolve(workspaceRoot, main),
     // D:/PROJECT/dist/app1
     outputPath: path.resolve(workspaceRoot, outputPath),
-    // D:/PROJECT/apps/app1/tsconfig.app.json
-    tsConfig: path.resolve(workspaceRoot, tsConfig),
+    // D:/PROJECT/apps/app1/tsconfigPath.app.json
+    tsconfigPath: path.resolve(workspaceRoot, tsconfigPath),
     // [{replace:"", with: ""}]
     fileReplacements,
     skipTypeCheck: options.skipTypeCheck,

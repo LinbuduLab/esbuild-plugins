@@ -9,27 +9,27 @@
       "type": "string",
       "description": "The name of the main entry-point file."
     },
-    "tsConfig": {
+    "tsconfigPath": {
       "type": "string",
       "description": "The name of the Typescript configuration file."
+    },
+    "outputPath": {
+      "type": "string",
+      "description": "The output path of the generated files."
+    },
+    "pluginConfigPath": {
+      "type": "string",
+      "description": "The path of nx-esbuild config file"
     },
     "failFast": {
       "type": "boolean",
       "description": "Exit process when error occured.",
       "default": false
     },
-    "pluginConfig": {
-      "type": "string",
-      "description": "The path of nx-esbuild config file"
-    },
     "allowExtend": {
       "type": "boolean",
       "description": "Should extend nx-esbuild config file",
       "default": true
-    },
-    "outputPath": {
-      "type": "string",
-      "description": "The output path of the generated files."
     },
     "watch": {
       "type": "boolean",

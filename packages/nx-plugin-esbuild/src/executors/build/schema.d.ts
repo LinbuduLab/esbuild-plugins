@@ -39,12 +39,12 @@ import type { Insert, FormattedInsert } from './lib/types';
 export interface ESBuildExecutorSchema {
   // required options
   main: string;
-  tsConfig: string;
-  outputPath: string;
+  tsconfigPath: string;
+  outputPath?: string;
   failFast: boolean;
 
   // extend ESBuild BuildOptions
-  pluginConfig?: string;
+  pluginConfigPath?: string;
   allowExtend: boolean;
 
   assets: string[] | AssetsItem[];

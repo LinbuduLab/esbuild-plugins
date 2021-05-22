@@ -6,20 +6,9 @@ import {
   RunnerSubcriber,
   ESBuildBuildEvent,
 } from './lib/types';
-import {
-  ESBuildExecutorSchema,
-  NormalizedESBuildExecutorSchema,
-} from './schema';
+import { ESBuildExecutorSchema } from './schema';
 
-import { esbuildPluginDecorator } from 'esbuild-plugin-decorator';
-import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
-import { esbuildPluginAliasPath } from 'esbuild-plugin-alias-path';
-// import { esbuildPluginFileSize } from 'esbuild-plugin-filesize';
-// import { esbuildPluginIgnore } from 'esbuild-plugin-ignore-module';
-// import { esbuildPluginNodePolyfill } from 'esbuild-plugin-node-polyfill';
-// import { esbuildPluginNotifier } from 'esbuild-plugin-notifier';
-
-import { bufferUntil } from 'nx-plugin-devkit';
+import { bufferUntil, ensureProjectConfig } from 'nx-plugin-devkit';
 
 import { zip } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -35,25 +24,18 @@ import {
   collectTSCRunnerMessages,
 } from './lib/message-fragments';
 import { normalizeBuildExecutorOptions } from './lib/normalize-schema';
-
-import uniqBy from 'lodash/uniqBy';
+import { resolveESBuildOption } from './lib/resolve-esbuild-option';
 
 export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
   context: ExecutorContext
 ): AsyncIterableIterator<ESBuildBuildEvent> {
+  ensureProjectConfig(context);
+
   const {
     sourceRoot: projectSourceRoot,
     root: projectRoot,
   } = context.workspace.projects[context.projectName];
-
-  if (!projectSourceRoot) {
-    throw new Error(`${context.projectName} does not have a sourceRoot.`);
-  }
-
-  if (!projectRoot) {
-    throw new Error(`${context.projectName} does not have a root.`);
-  }
 
   const appsLayout = projectRoot.split('/')[0] ?? 'apps';
 
@@ -66,67 +48,7 @@ export default function buildExecutor(
     appsLayout
   );
 
-  const plugins = [
-    esbuildPluginDecorator({
-      tsconfigPath: options.tsConfig,
-      compiler: options.decoratorHandler,
-      isNxProject: true,
-    }),
-    options.externalDependencies === 'all' && esbuildPluginNodeExternals(),
-    esbuildPluginAliasPath({
-      alias: options.alias,
-      tsconfigPath: options.tsConfig,
-    }),
-    // esbuildFileSizePlugin(),
-  ].filter(Boolean);
-
-  const external = Array.isArray(options.externalDependencies)
-    ? options.externalDependencies
-    : [];
-
-  // 插件去重？
-  const userConfigPlugins = options?.extendBuildOptions?.plugins ?? [];
-
-  const decupedPlugins = uniqBy(
-    [...plugins, ...userConfigPlugins],
-    (plugin) => plugin.name
-  );
-
-  delete options.extendBuildOptions?.plugins;
-
-  const esbuildRunnerOptions: BuildOptions = {
-    logLevel: options.logLevel,
-    logLimit: options.logLimit,
-    platform: options.platform,
-    format: options.format,
-    bundle: options.bundle,
-    sourcemap: options.sourceMap,
-    charset: 'utf8',
-    color: true,
-    conditions: options.watch ? ['development'] : ['production'],
-    watch: options.watch,
-    absWorkingDir: options.workspaceRoot,
-    plugins: decupedPlugins,
-    tsconfig: options.tsConfig,
-    entryPoints: [options.main],
-    outdir: options.outputPath,
-    external,
-    incremental: options.watch,
-    banner: options.inserts.banner,
-    footer: options.inserts.footer,
-    metafile: options.metaFile,
-    minify: options.minify,
-    loader: options.loader,
-    target: options.target,
-    splitting: options.splitting,
-    outExtension: options.outExtension,
-    minifyIdentifiers: options.minify,
-    minifyWhitespace: options.minify,
-    minifySyntax: options.minify,
-    inject: options.inject,
-    define: options.define,
-    ...options.extendBuildOptions,
-  };
+  const esBuildOptions = resolveESBuildOption(options);
 
   let buildCounter = 1;
 
@@ -141,7 +63,7 @@ export default function buildExecutor(
 
   const esBuildSubscriber: Observable<RunnerSubcriber> = runESBuild(
     {
-      ...esbuildRunnerOptions,
+      ...esBuildOptions,
       assets: options.assets,
       failFast: options.failFast,
     },
@@ -191,7 +113,7 @@ export default function buildExecutor(
     )} ${timeStamp(dayjs().format('H:mm:ss A'))}`;
 
   const tscRunnerOptions: TscRunnerOptions = {
-    tsconfigPath: options.tsConfig,
+    tsconfigPath: options.tsconfigPath,
     watch: options.watch,
     root: options.workspaceRoot,
   };
