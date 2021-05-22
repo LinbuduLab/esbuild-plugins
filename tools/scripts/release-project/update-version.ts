@@ -2,6 +2,7 @@ import path from 'path';
 import jsonfile from 'jsonfile';
 import fs from 'fs-extra';
 import chalk from 'chalk';
+import execa from 'execa';
 
 export const updateVersion = (
   project: string,

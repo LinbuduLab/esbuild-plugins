@@ -10,6 +10,7 @@ import { gitPush } from './git-push';
 import { readPackagesWithVersion } from '../utils/read-packages';
 import { changelog } from './changelog';
 import { selectSingleProject, selectScope } from '../utils/select-project';
+import execa from 'execa';
 
 const args = minimist(process.argv.slice(2), {
   alias: {
@@ -81,7 +82,16 @@ export async function main() {
   }
 
   step('\nUpdating package version...');
-  updateVersion(targetProject, targetVersion, dryRun);
+  // updateVersion(targetProject, targetVersion, dryRun);
+  await execa('pnpx changeset', {
+    stdio: 'inherit',
+  });
+
+  step('\n pnpx changeset version');
+
+  await execa('pnpx changeset version', {
+    stdio: 'inherit',
+  });
 
   step('\nBuilding package...');
   const nxBuildFlags = ['build', targetProject];
@@ -94,10 +104,6 @@ export async function main() {
   await runIfNotDry(dryRun, 'nx', nxBuildFlags);
 
   step('\nGenerating changelog...');
-
-  // if (!dryRun) {
-  //   changelog(targetProject);
-  // }
 
   await gitPush(targetProject, releaseTag, dryRun);
 

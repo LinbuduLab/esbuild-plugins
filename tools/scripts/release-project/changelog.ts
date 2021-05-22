@@ -11,12 +11,13 @@ export const changelog = (project: string) => {
     pkg: {
       path: path.join(projectPath, 'package.json'),
     },
+    releaseCount: 10,
   }).pipe(fs.createWriteStream(changelogPath));
 
-  fs.writeFileSync(
-    changelogPath,
-    prettier.format(fs.readFileSync(changelogPath, 'utf8'), {
-      parser: 'markdown',
-    })
-  );
+  // fs.writeFileSync(
+  //   changelogPath,
+  //   prettier.format(fs.readFileSync(changelogPath, 'utf8'), {
+  //     parser: 'markdown',
+  //   })
+  // );
 };
