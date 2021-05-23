@@ -34,9 +34,8 @@ export function normalizeOption(options: Options = {}): NormalizedOptions {
 
   const shouldSkipThisPlugin =
     options.skip ??
-    (tsconfigPathInexist &&
-      !Object.keys(alias).length &&
-      !compilerOptions.paths);
+    (!Object.keys(alias).length &&
+      !Object.keys(compilerOptions.paths ?? {}).length);
 
   // TODO:
   // path which is not absolute and not start with ./ or ../ will be regarded as module,
