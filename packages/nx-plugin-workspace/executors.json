@@ -32,7 +32,7 @@
       "description": "react-scripts executor"
     },
     "node-package": {
-      "implementation": "./src/executors/node-package/executor",
+      "implementation": "./src/executors/node-package/package.impl",
       "schema": "./src/executors/node-package/schema.json",
       "description": "node-package executor"
     }

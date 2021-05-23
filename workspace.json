@@ -281,7 +281,7 @@
           }
         },
         "build": {
-          "executor": "@nrwl/node:package",
+          "executor": "nx-plugin-workspace:node-package",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/packages/nx-plugin-esbuild",
@@ -850,6 +850,7 @@
             "tsConfig": "packages/nx-plugin-workspace/tsconfig.lib.json",
             "packageJson": "packages/nx-plugin-workspace/package.json",
             "main": "packages/nx-plugin-workspace/src/index.ts",
+            "deleteOutputPath": false,
             "assets": [
               "packages/nx-plugin-workspace/*.md",
               {

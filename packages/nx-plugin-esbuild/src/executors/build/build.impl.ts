@@ -56,9 +56,6 @@ export default function buildExecutor(
       `[${buildCounter}]`
     )} ${timeStamp(dayjs().format('H:mm:ss A'))}`;
 
-  // TODO: enable specify watch dir
-  // apps/app1/src
-
   const esBuildSubscriber: Observable<RunnerSubcriber> = runESBuild({
     ...esBuildOptions,
     assets: options.assets,
