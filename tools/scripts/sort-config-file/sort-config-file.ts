@@ -4,16 +4,6 @@ import prettier from 'prettier';
 import path from 'path';
 import { ProjectConfiguration } from '@nrwl/devkit';
 
-const pluginOrders = [
-  'nx',
-  'esbuild',
-  'vite',
-  'snowpack',
-  'vitepress',
-  'umi',
-  'parcel',
-];
-
 const nxJsonPath = path.join(process.cwd(), 'nx.json');
 const tsconfigJsonPath = path.join(process.cwd(), 'tsconfig.base.json');
 const workspaceJsonPath = path.join(process.cwd(), 'workspace.json');

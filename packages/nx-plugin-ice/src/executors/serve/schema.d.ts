@@ -1,1 +1,4 @@
-export interface ServeExecutorSchema {} // eslint-disable-line
+export interface ServeExecutorSchema {
+  packageJsonPath: string;
+  root: string;
+}
