@@ -288,6 +288,7 @@
             "tsConfig": "packages/nx-plugin-esbuild/tsconfig.lib.json",
             "packageJson": "packages/nx-plugin-esbuild/package.json",
             "main": "packages/nx-plugin-esbuild/src/index.ts",
+            "deleteOutputPath": false,
             "assets": [
               "packages/nx-plugin-esbuild/*.md",
               {

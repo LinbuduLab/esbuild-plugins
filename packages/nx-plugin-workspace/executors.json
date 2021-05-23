@@ -30,6 +30,11 @@
       "implementation": "./src/executors/react-scripts/executor",
       "schema": "./src/executors/react-scripts/schema.json",
       "description": "react-scripts executor"
+    },
+    "node-package": {
+      "implementation": "./src/executors/node-package/executor",
+      "schema": "./src/executors/node-package/schema.json",
+      "description": "node-package executor"
     }
   }
 }

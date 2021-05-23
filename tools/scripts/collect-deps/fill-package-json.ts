@@ -32,7 +32,7 @@ export const createMissingFields = (projectName: string) => {
   const subject =
     main === 'nx' ? '@nrwl/nx' : main === 'esbuild' ? 'ESBuild' : main;
 
-  const description = `${subject} plugin integration with ${integration}.`;
+  const description = `${subject} plugin integration for ${integration}.`;
 
   const keywords = [main, subject, integration, 'plugin', 'monorepo'];
 

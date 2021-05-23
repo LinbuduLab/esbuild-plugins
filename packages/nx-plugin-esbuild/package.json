@@ -9,13 +9,13 @@
     "plugin",
     "monorepo"
   ],
-  "homepage": "https://github.com/PenumbraPro/nx-plugins/tree/master/packages/nx-plugin-esbuild#readme",
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/nx-plugin-esbuild#readme",
   "bugs": {
-    "url": "https://github.com/PenumbraPro/nx-plugins/issues"
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PenumbraPro/nx-plugins.git"
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
   },
   "license": "MIT",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
@@ -38,7 +38,12 @@
     "jsonfile": "^6.1.0",
     "rxjs": "^6.6.7",
     "rxjs-for-await": "^0.0.2",
-    "tree-kill": "^1.2.2"
+    "tree-kill": "^1.2.2",
+    "nx-plugin-devkit": "workspace:*",
+    "esbuild-plugin-decorator": "workspace:*",
+    "esbuild-plugin-node-externals": "workspace:*",
+    "esbuild-plugin-alias-path": "workspace:*",
+    "nx-plugin-workspace": "workspace:*"
   },
   "peerDependencies": {
     "esbuild": "^0.11.11"

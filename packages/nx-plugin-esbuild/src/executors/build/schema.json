@@ -234,7 +234,7 @@
       "default": "tsc"
     }
   },
-  "required": ["tsConfig", "main"],
+  "required": ["main", "tsconfigPath"],
 
   "definitions": {
     "assetPattern": {

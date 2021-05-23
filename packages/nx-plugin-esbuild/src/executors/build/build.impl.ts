@@ -1,16 +1,16 @@
 import { ExecutorContext } from '@nrwl/devkit';
 import { BuildOptions } from 'esbuild';
-import { Observable } from 'rxjs';
 import {
   TscRunnerOptions,
   RunnerSubcriber,
   ESBuildBuildEvent,
+  TscRunnerResponse,
 } from './lib/types';
 import { ESBuildExecutorSchema } from './schema';
 
 import { bufferUntil, ensureProjectConfig } from 'nx-plugin-devkit';
 
-import { zip } from 'rxjs';
+import { zip, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
 import dayjs from 'dayjs';
@@ -31,6 +31,8 @@ export default function buildExecutor(
   context: ExecutorContext
 ): AsyncIterableIterator<ESBuildBuildEvent> {
   ensureProjectConfig(context);
+
+  console.log('build!!!!!!!!!!!!!!!!!!!!!!!!');
 
   const {
     sourceRoot: projectSourceRoot,

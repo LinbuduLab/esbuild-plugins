@@ -1,4 +1,0 @@
-packages:
-  - 'packages/**'
-  - '!e2e/**'
-prefer-workspace-packages: true

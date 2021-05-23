@@ -37,6 +37,7 @@ export function normalizeBuildExecutorOptions(
   const userConfigBuildOptions = options.allowExtend
     ? normalizeESBuildExtendConfig(
         path.resolve(workspaceRoot, projectRoot),
+
         pluginConfigPath
       )
     : {};
