@@ -1889,170 +1889,6 @@
         }
       }
     },
-    "parcel-plugin-assets": {
-      "root": "packages/parcel-plugin-assets",
-      "sourceRoot": "packages/parcel-plugin-assets/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/parcel-plugin-assets/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/parcel-plugin-assets"],
-          "options": {
-            "jestConfig": "packages/parcel-plugin-assets/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/parcel-plugin-assets",
-            "tsConfig": "packages/parcel-plugin-assets/tsconfig.lib.json",
-            "packageJson": "packages/parcel-plugin-assets/package.json",
-            "main": "packages/parcel-plugin-assets/src/index.ts",
-            "assets": ["packages/parcel-plugin-assets/*.md"]
-          }
-        }
-      }
-    },
-    "rollup-plugin-static-serve": {
-      "root": "packages/rollup-plugin-static-serve",
-      "sourceRoot": "packages/rollup-plugin-static-serve/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/rollup-plugin-static-serve/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/rollup-plugin-static-serve"],
-          "options": {
-            "jestConfig": "packages/rollup-plugin-static-serve/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/rollup-plugin-static-serve",
-            "tsConfig": "packages/rollup-plugin-static-serve/tsconfig.lib.json",
-            "packageJson": "packages/rollup-plugin-static-serve/package.json",
-            "main": "packages/rollup-plugin-static-serve/src/index.ts",
-            "assets": ["packages/rollup-plugin-static-serve/*.md"]
-          }
-        }
-      }
-    },
-    "rollup-plugin-graphql-loader": {
-      "root": "packages/rollup-plugin-graphql-loader",
-      "sourceRoot": "packages/rollup-plugin-graphql-loader/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "packages/rollup-plugin-graphql-loader/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/rollup-plugin-graphql-loader"],
-          "options": {
-            "jestConfig": "packages/rollup-plugin-graphql-loader/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/rollup-plugin-graphql-loader",
-            "tsConfig": "packages/rollup-plugin-graphql-loader/tsconfig.lib.json",
-            "packageJson": "packages/rollup-plugin-graphql-loader/package.json",
-            "main": "packages/rollup-plugin-graphql-loader/src/index.ts",
-            "assets": ["packages/rollup-plugin-graphql-loader/*.md"]
-          }
-        }
-      }
-    },
-    "rollup-plugin-swc-compiler": {
-      "root": "packages/rollup-plugin-swc-compiler",
-      "sourceRoot": "packages/rollup-plugin-swc-compiler/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/rollup-plugin-swc-compiler/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/rollup-plugin-swc-compiler"],
-          "options": {
-            "jestConfig": "packages/rollup-plugin-swc-compiler/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/rollup-plugin-swc-compiler",
-            "tsConfig": "packages/rollup-plugin-swc-compiler/tsconfig.lib.json",
-            "packageJson": "packages/rollup-plugin-swc-compiler/package.json",
-            "main": "packages/rollup-plugin-swc-compiler/src/index.ts",
-            "assets": ["packages/rollup-plugin-swc-compiler/*.md"]
-          }
-        }
-      }
-    },
-    "rollup-plugin-esbuild-compiler": {
-      "root": "packages/rollup-plugin-esbuild-compiler",
-      "sourceRoot": "packages/rollup-plugin-esbuild-compiler/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "packages/rollup-plugin-esbuild-compiler/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/rollup-plugin-esbuild-compiler"],
-          "options": {
-            "jestConfig": "packages/rollup-plugin-esbuild-compiler/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/rollup-plugin-esbuild-compiler",
-            "tsConfig": "packages/rollup-plugin-esbuild-compiler/tsconfig.lib.json",
-            "packageJson": "packages/rollup-plugin-esbuild-compiler/package.json",
-            "main": "packages/rollup-plugin-esbuild-compiler/src/index.ts",
-            "assets": ["packages/rollup-plugin-esbuild-compiler/*.md"]
-          }
-        }
-      }
-    },
     "snowpack-plugin-graphql-import": {
       "root": "packages/snowpack-plugin-graphql-import",
       "sourceRoot": "packages/snowpack-plugin-graphql-import/src",
@@ -2115,138 +1951,6 @@
             "packageJson": "packages/snowpack-plugin-hash-gen/package.json",
             "main": "packages/snowpack-plugin-hash-gen/src/index.ts",
             "assets": ["packages/snowpack-plugin-hash-gen/*.md"]
-          }
-        }
-      }
-    },
-    "parcel-plugin-markdown-import": {
-      "root": "packages/parcel-plugin-markdown-import",
-      "sourceRoot": "packages/parcel-plugin-markdown-import/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "packages/parcel-plugin-markdown-import/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/parcel-plugin-markdown-import"],
-          "options": {
-            "jestConfig": "packages/parcel-plugin-markdown-import/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/parcel-plugin-markdown-import",
-            "tsConfig": "packages/parcel-plugin-markdown-import/tsconfig.lib.json",
-            "packageJson": "packages/parcel-plugin-markdown-import/package.json",
-            "main": "packages/parcel-plugin-markdown-import/src/index.ts",
-            "assets": ["packages/parcel-plugin-markdown-import/*.md"]
-          }
-        }
-      }
-    },
-    "parcel-plugin-compress": {
-      "root": "packages/parcel-plugin-compress",
-      "sourceRoot": "packages/parcel-plugin-compress/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/parcel-plugin-compress/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/parcel-plugin-compress"],
-          "options": {
-            "jestConfig": "packages/parcel-plugin-compress/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/parcel-plugin-compress",
-            "tsConfig": "packages/parcel-plugin-compress/tsconfig.lib.json",
-            "packageJson": "packages/parcel-plugin-compress/package.json",
-            "main": "packages/parcel-plugin-compress/src/index.ts",
-            "assets": ["packages/parcel-plugin-compress/*.md"]
-          }
-        }
-      }
-    },
-    "parcel-plugin-cleanup": {
-      "root": "packages/parcel-plugin-cleanup",
-      "sourceRoot": "packages/parcel-plugin-cleanup/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/parcel-plugin-cleanup/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/parcel-plugin-cleanup"],
-          "options": {
-            "jestConfig": "packages/parcel-plugin-cleanup/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/parcel-plugin-cleanup",
-            "tsConfig": "packages/parcel-plugin-cleanup/tsconfig.lib.json",
-            "packageJson": "packages/parcel-plugin-cleanup/package.json",
-            "main": "packages/parcel-plugin-cleanup/src/index.ts",
-            "assets": ["packages/parcel-plugin-cleanup/*.md"]
-          }
-        }
-      }
-    },
-    "parcel-plugin-esbuild-compiler": {
-      "root": "packages/parcel-plugin-esbuild-compiler",
-      "sourceRoot": "packages/parcel-plugin-esbuild-compiler/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "packages/parcel-plugin-esbuild-compiler/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/parcel-plugin-esbuild-compiler"],
-          "options": {
-            "jestConfig": "packages/parcel-plugin-esbuild-compiler/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/parcel-plugin-esbuild-compiler",
-            "tsConfig": "packages/parcel-plugin-esbuild-compiler/tsconfig.lib.json",
-            "packageJson": "packages/parcel-plugin-esbuild-compiler/package.json",
-            "main": "packages/parcel-plugin-esbuild-compiler/src/index.ts",
-            "assets": ["packages/parcel-plugin-esbuild-compiler/*.md"]
           }
         }
       }
@@ -2477,6 +2181,302 @@
             "packageJson": "packages/snowpack-plugin-swc-compiler/package.json",
             "main": "packages/snowpack-plugin-swc-compiler/src/index.ts",
             "assets": ["packages/snowpack-plugin-swc-compiler/*.md"]
+          }
+        }
+      }
+    },
+    "rollup-plugin-static-serve": {
+      "root": "packages/rollup-plugin-static-serve",
+      "sourceRoot": "packages/rollup-plugin-static-serve/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/rollup-plugin-static-serve/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/rollup-plugin-static-serve"],
+          "options": {
+            "jestConfig": "packages/rollup-plugin-static-serve/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/rollup-plugin-static-serve",
+            "tsConfig": "packages/rollup-plugin-static-serve/tsconfig.lib.json",
+            "packageJson": "packages/rollup-plugin-static-serve/package.json",
+            "main": "packages/rollup-plugin-static-serve/src/index.ts",
+            "assets": ["packages/rollup-plugin-static-serve/*.md"]
+          }
+        }
+      }
+    },
+    "rollup-plugin-graphql-loader": {
+      "root": "packages/rollup-plugin-graphql-loader",
+      "sourceRoot": "packages/rollup-plugin-graphql-loader/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/rollup-plugin-graphql-loader/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/rollup-plugin-graphql-loader"],
+          "options": {
+            "jestConfig": "packages/rollup-plugin-graphql-loader/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/rollup-plugin-graphql-loader",
+            "tsConfig": "packages/rollup-plugin-graphql-loader/tsconfig.lib.json",
+            "packageJson": "packages/rollup-plugin-graphql-loader/package.json",
+            "main": "packages/rollup-plugin-graphql-loader/src/index.ts",
+            "assets": ["packages/rollup-plugin-graphql-loader/*.md"]
+          }
+        }
+      }
+    },
+    "rollup-plugin-swc-compiler": {
+      "root": "packages/rollup-plugin-swc-compiler",
+      "sourceRoot": "packages/rollup-plugin-swc-compiler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/rollup-plugin-swc-compiler/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/rollup-plugin-swc-compiler"],
+          "options": {
+            "jestConfig": "packages/rollup-plugin-swc-compiler/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/rollup-plugin-swc-compiler",
+            "tsConfig": "packages/rollup-plugin-swc-compiler/tsconfig.lib.json",
+            "packageJson": "packages/rollup-plugin-swc-compiler/package.json",
+            "main": "packages/rollup-plugin-swc-compiler/src/index.ts",
+            "assets": ["packages/rollup-plugin-swc-compiler/*.md"]
+          }
+        }
+      }
+    },
+    "rollup-plugin-esbuild-compiler": {
+      "root": "packages/rollup-plugin-esbuild-compiler",
+      "sourceRoot": "packages/rollup-plugin-esbuild-compiler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/rollup-plugin-esbuild-compiler/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/rollup-plugin-esbuild-compiler"],
+          "options": {
+            "jestConfig": "packages/rollup-plugin-esbuild-compiler/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/rollup-plugin-esbuild-compiler",
+            "tsConfig": "packages/rollup-plugin-esbuild-compiler/tsconfig.lib.json",
+            "packageJson": "packages/rollup-plugin-esbuild-compiler/package.json",
+            "main": "packages/rollup-plugin-esbuild-compiler/src/index.ts",
+            "assets": ["packages/rollup-plugin-esbuild-compiler/*.md"]
+          }
+        }
+      }
+    },
+    "parcel-plugin-assets": {
+      "root": "packages/parcel-plugin-assets",
+      "sourceRoot": "packages/parcel-plugin-assets/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/parcel-plugin-assets/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/parcel-plugin-assets"],
+          "options": {
+            "jestConfig": "packages/parcel-plugin-assets/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/parcel-plugin-assets",
+            "tsConfig": "packages/parcel-plugin-assets/tsconfig.lib.json",
+            "packageJson": "packages/parcel-plugin-assets/package.json",
+            "main": "packages/parcel-plugin-assets/src/index.ts",
+            "assets": ["packages/parcel-plugin-assets/*.md"]
+          }
+        }
+      }
+    },
+    "parcel-plugin-markdown-import": {
+      "root": "packages/parcel-plugin-markdown-import",
+      "sourceRoot": "packages/parcel-plugin-markdown-import/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/parcel-plugin-markdown-import/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/parcel-plugin-markdown-import"],
+          "options": {
+            "jestConfig": "packages/parcel-plugin-markdown-import/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/parcel-plugin-markdown-import",
+            "tsConfig": "packages/parcel-plugin-markdown-import/tsconfig.lib.json",
+            "packageJson": "packages/parcel-plugin-markdown-import/package.json",
+            "main": "packages/parcel-plugin-markdown-import/src/index.ts",
+            "assets": ["packages/parcel-plugin-markdown-import/*.md"]
+          }
+        }
+      }
+    },
+    "parcel-plugin-compress": {
+      "root": "packages/parcel-plugin-compress",
+      "sourceRoot": "packages/parcel-plugin-compress/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/parcel-plugin-compress/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/parcel-plugin-compress"],
+          "options": {
+            "jestConfig": "packages/parcel-plugin-compress/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/parcel-plugin-compress",
+            "tsConfig": "packages/parcel-plugin-compress/tsconfig.lib.json",
+            "packageJson": "packages/parcel-plugin-compress/package.json",
+            "main": "packages/parcel-plugin-compress/src/index.ts",
+            "assets": ["packages/parcel-plugin-compress/*.md"]
+          }
+        }
+      }
+    },
+    "parcel-plugin-cleanup": {
+      "root": "packages/parcel-plugin-cleanup",
+      "sourceRoot": "packages/parcel-plugin-cleanup/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/parcel-plugin-cleanup/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/parcel-plugin-cleanup"],
+          "options": {
+            "jestConfig": "packages/parcel-plugin-cleanup/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/parcel-plugin-cleanup",
+            "tsConfig": "packages/parcel-plugin-cleanup/tsconfig.lib.json",
+            "packageJson": "packages/parcel-plugin-cleanup/package.json",
+            "main": "packages/parcel-plugin-cleanup/src/index.ts",
+            "assets": ["packages/parcel-plugin-cleanup/*.md"]
+          }
+        }
+      }
+    },
+    "parcel-plugin-esbuild-compiler": {
+      "root": "packages/parcel-plugin-esbuild-compiler",
+      "sourceRoot": "packages/parcel-plugin-esbuild-compiler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/parcel-plugin-esbuild-compiler/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/parcel-plugin-esbuild-compiler"],
+          "options": {
+            "jestConfig": "packages/parcel-plugin-esbuild-compiler/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/parcel-plugin-esbuild-compiler",
+            "tsConfig": "packages/parcel-plugin-esbuild-compiler/tsconfig.lib.json",
+            "packageJson": "packages/parcel-plugin-esbuild-compiler/package.json",
+            "main": "packages/parcel-plugin-esbuild-compiler/src/index.ts",
+            "assets": ["packages/parcel-plugin-esbuild-compiler/*.md"]
           }
         }
       }

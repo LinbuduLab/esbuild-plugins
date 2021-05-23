@@ -79,37 +79,11 @@
       "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"],
       "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"],
       "vite-plugin-gundam": ["packages/vite-plugin-gundam/src/index.ts"],
-      "parcel-plugin-assets": ["packages/parcel-plugin-assets/src/index.ts"],
-      "rollup-plugin-static-serve": [
-        "packages/rollup-plugin-static-serve/src/index.ts"
-      ],
-      "rollup-plugin-graphql-loader": [
-        "packages/rollup-plugin-graphql-loader/src/index.ts"
-      ],
-      "rollup-plugin-swc-compiler": [
-        "packages/rollup-plugin-swc-compiler/src/index.ts"
-      ],
-      "rollup-plugin-esbuild-compiler": [
-        "packages/rollup-plugin-esbuild-compiler/src/index.ts"
-      ],
       "snowpack-plugin-graphql-import": [
         "packages/snowpack-plugin-graphql-import/src/index.ts"
       ],
       "snowpack-plugin-hash-gen": [
         "packages/snowpack-plugin-hash-gen/src/index.ts"
-      ],
-      "parcel-plugin-markdown-import": [
-        "packages/parcel-plugin-markdown-import/src/index.ts"
-      ],
-      "parcel-plugin-compress": [
-        "packages/parcel-plugin-compress/src/index.ts"
-      ],
-      "parcel-plugin-cleanup": ["packages/parcel-plugin-cleanup/src/index.ts"],
-      "parcel-plugin-copy-assets": [
-        "packages/parcel-plugin-copy-assets/src/index.ts"
-      ],
-      "parcel-plugin-esbuild-compiler": [
-        "packages/parcel-plugin-esbuild-compiler/src/index.ts"
       ],
       "snowpack-plugin-svgr-import": [
         "packages/snowpack-plugin-svgr-import/src/index.ts"
@@ -131,6 +105,32 @@
       ],
       "snowpack-plugin-swc-compiler": [
         "packages/snowpack-plugin-swc-compiler/src/index.ts"
+      ],
+      "rollup-plugin-static-serve": [
+        "packages/rollup-plugin-static-serve/src/index.ts"
+      ],
+      "rollup-plugin-graphql-loader": [
+        "packages/rollup-plugin-graphql-loader/src/index.ts"
+      ],
+      "rollup-plugin-swc-compiler": [
+        "packages/rollup-plugin-swc-compiler/src/index.ts"
+      ],
+      "rollup-plugin-esbuild-compiler": [
+        "packages/rollup-plugin-esbuild-compiler/src/index.ts"
+      ],
+      "parcel-plugin-assets": ["packages/parcel-plugin-assets/src/index.ts"],
+      "parcel-plugin-markdown-import": [
+        "packages/parcel-plugin-markdown-import/src/index.ts"
+      ],
+      "parcel-plugin-compress": [
+        "packages/parcel-plugin-compress/src/index.ts"
+      ],
+      "parcel-plugin-cleanup": ["packages/parcel-plugin-cleanup/src/index.ts"],
+      "parcel-plugin-copy-assets": [
+        "packages/parcel-plugin-copy-assets/src/index.ts"
+      ],
+      "parcel-plugin-esbuild-compiler": [
+        "packages/parcel-plugin-esbuild-compiler/src/index.ts"
       ]
     }
   },
