@@ -32,8 +32,6 @@ export default function buildExecutor(
 ): AsyncIterableIterator<ESBuildBuildEvent> {
   ensureProjectConfig(context);
 
-  console.log('build!!!!!!!!!!!!!!!!!!!!!!!!');
-
   const {
     sourceRoot: projectSourceRoot,
     root: projectRoot,
@@ -49,6 +47,8 @@ export default function buildExecutor(
     projectRoot,
     appsLayout
   );
+
+  console.log('options: ', options);
 
   const esBuildOptions = resolveESBuildOption(options);
 

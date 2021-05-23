@@ -55,8 +55,8 @@ export function normalizeBuildExecutorOptions(
 
   return {
     ...options,
+    // PROJECT-NAME
     projectName,
-    // platform,
     // D:/PROJECT
     workspaceRoot,
     // apps/app1/src
@@ -71,10 +71,8 @@ export function normalizeBuildExecutorOptions(
     tsconfigPath: path.resolve(workspaceRoot, tsconfigPath),
     // [{replace:"", with: ""}]
     fileReplacements,
-    skipTypeCheck: options.skipTypeCheck,
     assets: normalizeAssets(options.assets, workspaceRoot, options.outputPath),
     inserts: formattedInserts,
-    alias: options.alias,
     inject: normalizedInject,
     extendBuildOptions: userConfigBuildOptions,
   };

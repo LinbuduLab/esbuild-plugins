@@ -82,16 +82,16 @@ export async function main() {
   }
 
   step('\nUpdating package version...');
-  // updateVersion(targetProject, targetVersion, dryRun);
-  await execa('pnpx changeset', {
-    stdio: 'inherit',
-  });
+  updateVersion(targetProject, targetVersion, dryRun);
+  // await execa('pnpx changeset', {
+  //   stdio: 'inherit',
+  // });
 
-  step('\n pnpx changeset version');
+  // step('\n pnpx changeset version');
 
-  await execa('pnpx changeset version', {
-    stdio: 'inherit',
-  });
+  // await execa('pnpx changeset version', {
+  //   stdio: 'inherit',
+  // });
 
   step('\nBuilding package...');
   const nxBuildFlags = ['build', targetProject];

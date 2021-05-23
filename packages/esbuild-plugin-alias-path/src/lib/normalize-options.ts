@@ -60,7 +60,7 @@ export function normalizeOption(options: Options = {}): NormalizedOptions {
   // }
 
   return {
-    alias: normalizedAlias,
+    alias: alias,
     tsconfigPath,
     compilerOptions,
     skip: shouldSkipThisPlugin,
