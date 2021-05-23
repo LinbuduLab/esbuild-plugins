@@ -73,5 +73,7 @@ module.exports = {
     '<rootDir>/packages/snowpack-plugin-markdown-import',
     '<rootDir>/packages/snowpack-plugin-tsconfig-paths',
     '<rootDir>/packages/snowpack-plugin-swc-compiler',
+    '<rootDir>/packages/nx-plugin-folio',
+    '<rootDir>/e2e\\nx-plugin-folio-e2e',
   ],
 };

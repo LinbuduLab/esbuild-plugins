@@ -32,6 +32,10 @@
       "nx-plugin-workspace": ["packages/nx-plugin-workspace/src/index.ts"],
       "nx-plugin-rollup": ["packages/nx-plugin-rollup/src/index.ts"],
       "nx-plugin-vuepress": ["packages/nx-plugin-vuepress/src/index.ts"],
+      "nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
+      "nx-plugin-dumi": ["packages/nx-plugin-dumi/src/index.ts"],
+      "nx-plugin-release": ["packages/nx-plugin-release/src/index.ts"],
+      "nx-plugin-folio": ["packages/nx-plugin-folio/src/index.ts"],
       "esbuild-plugin-html": ["packages/esbuild-plugin-html/src/index.ts"],
       "esbuild-plugin-decorator": [
         "packages/esbuild-plugin-decorator/src/index.ts"
@@ -93,11 +97,6 @@
       ],
       "snowpack-plugin-hash-gen": [
         "packages/snowpack-plugin-hash-gen/src/index.ts"
-      ],
-      "@penumbra/nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
-      "@penumbra/nx-plugin-dumi": ["packages/nx-plugin-dumi/src/index.ts"],
-      "@penumbra/nx-plugin-release": [
-        "packages/nx-plugin-release/src/index.ts"
       ],
       "parcel-plugin-markdown-import": [
         "packages/parcel-plugin-markdown-import/src/index.ts"
