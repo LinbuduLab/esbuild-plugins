@@ -16,6 +16,8 @@ export interface NodePackageBuilderOptions {
   srcRootForCompilationRoot?: string;
   deleteOutputPath: boolean;
   cli?: boolean;
+
+  // enhancement
 }
 
 export interface NormalizedBuilderOptions extends NodePackageBuilderOptions {
