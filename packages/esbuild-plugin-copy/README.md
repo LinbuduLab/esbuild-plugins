@@ -1,6 +1,7 @@
 # esbuild-plugin-copy
 
 ESBuild plugin for assets copy.
+
 ## Usage
 
 **Node: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks**

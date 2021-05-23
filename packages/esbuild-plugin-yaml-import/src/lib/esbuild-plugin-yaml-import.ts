@@ -4,10 +4,11 @@ import fs from 'fs-extra';
 import JSYaml, { LoadOptions as JSYamlOptions } from 'js-yaml';
 import { TextDecoder } from 'util';
 
-// const debug = require('debug')('plugin:yaml');
-
 export interface Options {
   jsyamlLoadOptions?: JSYamlOptions;
+
+  transformContent?: (content: string) => string;
+
   transformParsed?: (
     data: string | number | object,
     filePath: string
@@ -15,6 +16,11 @@ export interface Options {
 }
 
 export default (options: Options = {}): Plugin => {
+  const loadOptions = options.jsyamlLoadOptions ?? {};
+  const transformContent = options.transformContent
+    ? options.transformContent
+    : (content: string) => content;
+
   return {
     name: 'esbuild:yaml',
     setup({ onResolve, onLoad }) {
@@ -33,8 +39,8 @@ export default (options: Options = {}): Plugin => {
         const yamlContent = fs.readFileSync(args.path);
 
         let parsed = JSYaml.load(
-          new TextDecoder().decode(yamlContent),
-          options?.jsyamlLoadOptions ?? {}
+          transformContent(new TextDecoder().decode(yamlContent)),
+          loadOptions
         );
 
         if (options?.transformParsed)
