@@ -3,8 +3,7 @@ import { BuildOptions } from 'esbuild';
 import {
   TscRunnerOptions,
   RunnerSubcriber,
-  ESBuildBuildEvent,
-  TscRunnerResponse,
+  ExecutorResponse,
 } from './lib/types';
 import { ESBuildExecutorSchema } from './schema';
 
@@ -29,7 +28,7 @@ import { resolveESBuildOption } from './lib/resolve-esbuild-option';
 export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
   context: ExecutorContext
-): AsyncIterableIterator<ESBuildBuildEvent> {
+): AsyncIterableIterator<ExecutorResponse> {
   ensureProjectConfig(context);
 
   const {
@@ -48,8 +47,6 @@ export default function buildExecutor(
     appsLayout
   );
 
-  console.log('options: ', options);
-
   const esBuildOptions = resolveESBuildOption(options);
 
   let buildCounter = 1;
@@ -61,40 +58,37 @@ export default function buildExecutor(
 
   // TODO: enable specify watch dir
   // apps/app1/src
-  const watchDir = `${options.workspaceRoot}/${options.projectSourceRoot}`;
 
-  const esBuildSubscriber: Observable<RunnerSubcriber> = runESBuild(
-    {
-      ...esBuildOptions,
-      assets: options.assets,
-      failFast: options.failFast,
-    },
-    watchDir
-  ).pipe(
+  const esBuildSubscriber: Observable<RunnerSubcriber> = runESBuild({
+    ...esBuildOptions,
+    assets: options.assets,
+    failFast: options.failFast,
+    watchDir: options.watchDir,
+  }).pipe(
     tap(() => {
       buildCounter++;
     }),
 
-    // ESBuildRunnerResponse >>> RunnerSubcriber
-    // FIXME:!
-    map(({ buildResult, buildFailure }) => {
-      const messageFragments: string[] = [];
+    map(
+      ({ buildResult, buildFailure }): RunnerSubcriber => {
+        const messageFragments: string[] = [];
 
-      collectESBuildRunnerMessages(
-        { buildResult, buildFailure },
-        messageFragments,
-        prefixESBuild()
-      );
+        collectESBuildRunnerMessages(
+          { buildResult, buildFailure },
+          messageFragments,
+          prefixESBuild()
+        );
 
-      return {
-        success: !buildFailure,
-        messageFragments,
-      };
-    })
+        return {
+          success: !buildFailure,
+          messageFragments,
+        };
+      }
+    )
   );
 
   if (options.skipTypeCheck) {
-    return eachValueFrom(
+    return eachValueFrom<ExecutorResponse>(
       esBuildSubscriber.pipe(
         map((buildResults) => {
           console.log(buildResults.messageFragments.join('\n'));

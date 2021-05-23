@@ -1,3 +1,4 @@
+import { joinPathFragments } from '@nrwl/devkit';
 import path from 'path';
 
 import type {
@@ -48,6 +49,12 @@ export function normalizeBuildExecutorOptions(
 
   const normalizedInject = normalizeInject(options.inject, projectSourceRoot);
 
+  const watchDir = options.watchDir
+    ? path.isAbsolute(options.watchDir)
+      ? options.watchDir
+      : path.join(workspaceRoot, options.watchDir)
+    : path.join(workspaceRoot, projectSourceRoot);
+
   const fileReplacements = normalizeFileReplacements(
     workspaceRoot,
     options.fileReplacements
@@ -75,5 +82,6 @@ export function normalizeBuildExecutorOptions(
     inserts: formattedInserts,
     inject: normalizedInject,
     extendBuildOptions: userConfigBuildOptions,
+    watchDir,
   };
 }

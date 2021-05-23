@@ -46,6 +46,10 @@
       "description": "Should skip type checking.",
       "default": false
     },
+    "watchDir": {
+      "type": "string",
+      "description": "Dirs to watch, default as project source root"
+    },
     "format": {
       "type": "string",
       "description": "Output format for the generated JS files.",

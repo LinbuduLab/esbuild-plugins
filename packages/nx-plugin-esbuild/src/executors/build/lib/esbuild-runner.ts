@@ -5,19 +5,29 @@ import { Observable } from 'rxjs';
 import { build } from 'esbuild';
 import chokidar from 'chokidar';
 import { copyAssetFiles } from 'nx-plugin-devkit';
+import chalk from 'chalk';
 import { error, info, success } from './log';
 
 export function runESBuild(
-  options: ESBuildRunnerOptions,
-  watchDir: string
+  options: ESBuildRunnerOptions
 ): Observable<ESBuildRunnerResponse> {
   return new Observable<ESBuildRunnerResponse>((subscriber) => {
-    const assetsDirs = options.assets;
+    // donot send extra params then ESBuild build API need.
+    const {
+      watch: buildWatch,
+      assets: assetsDirs,
+      failFast,
+      watchDir,
+      ...esbuildBuildOptions
+    } = options;
 
-    // FIXME: only UPDATE assets will trigger correct re-build
-    // support all types or support neither
+    console.log(
+      `${chalk.blue('i')} Watching ${info(`${watchDir} for changes ...`)}\n`
+    );
+
     const watcher = chokidar.watch(
-      [watchDir, ...assetsDirs.map((dir) => dir.input)],
+      // ...assetsDirs.map((dir) => dir.input)
+      [watchDir],
       {
         ignored: ['node_modules', '.git'],
         cwd: watchDir,
@@ -26,37 +36,29 @@ export function runESBuild(
       }
     );
 
-    copyAssetFiles(assetsDirs);
+    const watchNext = ({
+      buildFailure,
+      buildResult,
+    }: ESBuildRunnerResponse) => {
+      subscriber.next({ buildFailure, buildResult });
 
-    // donot send extra params then ESBuild build API need.
-    const {
-      watch: buildWatch,
-      assets: _uselessAssetsOption,
-      failFast,
-      ...esbuildBuildOptions
-    } = options;
+      if (typeof buildWatch === 'object' && buildWatch.onRebuild) {
+        buildWatch.onRebuild(buildFailure, buildResult);
+      }
+    };
+
+    copyAssetFiles(assetsDirs);
 
     build(esbuildBuildOptions)
       .then((buildResult) => {
         subscriber.next({ buildResult, buildFailure: null });
 
-        const watchNext = ({
-          buildFailure,
-          buildResult,
-        }: ESBuildRunnerResponse) => {
-          subscriber.next({ buildFailure, buildResult });
-
-          if (typeof buildWatch === 'object' && buildWatch.onRebuild) {
-            buildWatch.onRebuild(buildFailure, buildResult);
-          }
-        };
-
         buildWatch
           ? watcher.on('all', (eventName, path) => {
               console.log(
-                `${success('Change Detected:')} ${info(
+                `${'\nChanges Detected:'} ${info(
                   eventName.toLocaleUpperCase()
-                )} ${info(path)}`
+                )} ${info(path)}\n`
               );
 
               buildResult

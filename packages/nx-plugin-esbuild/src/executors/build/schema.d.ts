@@ -47,6 +47,8 @@ export interface ESBuildExecutorSchema {
   pluginConfigPath?: string;
   allowExtend: boolean;
 
+  watchDir: string;
+
   assets: string[] | AssetsItem[];
   inserts: string[] | Insert[];
   fileReplacements: FileReplacement[];

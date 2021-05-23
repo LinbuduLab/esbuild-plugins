@@ -1,6 +1,5 @@
 import type { BuildOptions, BuildResult, BuildFailure } from 'esbuild';
 import type { AssetFileInputOutput } from 'nx-plugin-devkit';
-import { BuildExecutorEvent } from 'nx-plugin-workspace';
 
 export type Insert = {
   banner: boolean;
@@ -22,6 +21,7 @@ export interface FormattedInsert {
 export interface ESBuildRunnerOptions extends BuildOptions {
   assets: AssetFileInputOutput[];
   failFast: boolean;
+  watchDir: string;
 }
 
 export interface ESBuildRunnerResponse {
@@ -29,11 +29,14 @@ export interface ESBuildRunnerResponse {
   buildFailure: BuildFailure | null;
 }
 
-export interface ESBuildBuildEvent extends BuildExecutorEvent {}
-
 export interface RunnerSubcriber {
   success: boolean;
   messageFragments: string[];
+}
+
+export interface ExecutorResponse {
+  success: boolean;
+  outfile?: string;
 }
 
 export interface TscRunnerOptions {
