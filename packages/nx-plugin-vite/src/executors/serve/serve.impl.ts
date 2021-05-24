@@ -1,16 +1,23 @@
 import { ViteServeSchema, Res } from './schema';
 import { eachValueFrom } from 'rxjs-for-await';
-import { map } from 'rxjs/operators';
-import { startViteServer } from './lib/vite-serve';
+import { of, Observable } from 'rxjs';
+import { map, mapTo, tap, catchError } from 'rxjs/operators';
 
-export default function runExecutor(schema: ViteServeSchema) {
+import { startViteServer, ServeRes } from './lib/vite-serve';
+
+export default function runExecutor(
+  schema: ViteServeSchema
+): AsyncIterableIterator<Res> {
   return eachValueFrom(
     startViteServer(schema).pipe(
-      map(() => {
-        return {
-          success: true,
-        };
-      })
+      tap((x) => {}),
+
+      catchError<ServeRes, Observable<Res>>((err) =>
+        of({
+          success: false,
+        })
+      ),
+      map((res) => res)
     )
   );
 }

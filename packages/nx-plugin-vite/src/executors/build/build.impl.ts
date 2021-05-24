@@ -1,6 +1,6 @@
 import { ExecutorContext } from '@nrwl/devkit';
 import { eachValueFrom } from 'rxjs-for-await';
-import { map } from 'rxjs/operators';
+import { map, mapTo, tap, catchError } from 'rxjs/operators';
 import { ensureProjectConfig } from 'nx-plugin-devkit';
 import path from 'path';
 import fs from 'fs-extra';
@@ -21,13 +21,5 @@ export default function runExecutor(
     ? path.resolve(context.root, schema.outDir)
     : schema.outDir;
 
-  return eachValueFrom(
-    startViteBuild(schema).pipe(
-      map(() => {
-        return {
-          success: true,
-        };
-      })
-    )
-  );
+  return eachValueFrom(startViteBuild(schema).pipe(mapTo({ success: true })));
 }
