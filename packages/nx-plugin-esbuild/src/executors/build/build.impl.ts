@@ -94,7 +94,9 @@ export default function buildExecutor(
 
     startWith({
       success: true,
-      messageFragments: [`${chalk.blue('i')} ESBuild Compiler Starting...`],
+      messageFragments: options.skipTypeCheck
+        ? [`${chalk.blue('i')} ESBuild Compiler Starting...`]
+        : [],
     })
   );
 
@@ -137,6 +139,7 @@ export default function buildExecutor(
     tsconfigPath: options.tsconfigPath,
     watch: options.watch,
     root: options.workspaceRoot,
+    failFast: options.failFast,
   };
 
   const tscSubscriber: Observable<RunnerSubcriber> = runTSC(
@@ -186,16 +189,24 @@ export default function buildExecutor(
         success: false,
         messageFragments: [],
       });
-    }),
-
-    startWith({
-      success: true,
-      messageFragments: [`${chalk.blue('i')} TypeScript Compiler Starting...`],
     })
   );
 
   return eachValueFrom(
     zip(esBuildSubscriber, tscSubscriber).pipe(
+      startWith([
+        {
+          success: true,
+          messageFragments: [`${chalk.blue('i')} ESBuild Compiler Starting...`],
+        },
+        {
+          success: true,
+          messageFragments: [
+            `${chalk.blue('i')} TypeScript Compiler Starting...`,
+          ],
+        },
+      ]),
+
       tap(([buildResults, tscResults]) => {
         console.log(tscResults.messageFragments.join('\n'));
         console.log(buildResults.messageFragments.join('\n'));

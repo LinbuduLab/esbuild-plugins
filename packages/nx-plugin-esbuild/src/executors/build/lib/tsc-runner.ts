@@ -8,7 +8,12 @@ import execa from 'execa';
 
 import type { TscRunnerOptions, TscRunnerResponse } from './types';
 
-export function runTSC({ tsconfigPath, watch, root }: TscRunnerOptions) {
+export function runTSC({
+  tsconfigPath,
+  watch,
+  root,
+  failFast,
+}: TscRunnerOptions) {
   return new Observable<TscRunnerResponse>((subscriber) => {
     const tscBinPath = path.join(root, 'node_modules', '.bin', 'tsc');
 
@@ -41,10 +46,7 @@ export function runTSC({ tsconfigPath, watch, root }: TscRunnerOptions) {
       stdio: 'pipe',
     });
 
-    // 如果直接使用tsc的stdout，那么在非watch
-
     childProcess.stdout.on('data', (data: Buffer) => {
-      // console.log('Data emit from stdout');
       const decoded = data.toString();
 
       // skip empty emit

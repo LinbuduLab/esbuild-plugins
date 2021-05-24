@@ -43,6 +43,7 @@ export interface TscRunnerOptions {
   tsconfigPath: string;
   watch: boolean;
   root: string;
+  failFast: boolean;
 }
 
 export interface TscRunnerResponse {
