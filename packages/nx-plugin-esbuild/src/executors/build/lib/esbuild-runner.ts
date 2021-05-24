@@ -21,20 +21,23 @@ export function runESBuild(
       ...esbuildBuildOptions
     } = options;
 
-    console.log(
-      `${chalk.blue('i')} Watching ${info(`${watchDir} for changes ...`)}\n`
-    );
+    buildWatch &&
+      console.log(
+        `${chalk.blue('i')} Watching ${info(`${watchDir} for changes ...`)}\n`
+      );
 
-    const watcher = chokidar.watch(
-      // ...assetsDirs.map((dir) => dir.input)
-      [watchDir],
-      {
-        ignored: ['node_modules', '.git'],
-        cwd: watchDir,
-        ignorePermissionErrors: false,
-        depth: 99,
-      }
-    );
+    const watcher = buildWatch
+      ? chokidar.watch(
+          // ...assetsDirs.map((dir) => dir.input)
+          [watchDir],
+          {
+            ignored: ['node_modules', '.git'],
+            cwd: watchDir,
+            ignorePermissionErrors: false,
+            depth: 99,
+          }
+        )
+      : null;
 
     const watchNext = ({
       buildFailure,

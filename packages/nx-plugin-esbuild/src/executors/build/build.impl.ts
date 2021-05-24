@@ -9,8 +9,13 @@ import { ESBuildExecutorSchema } from './schema';
 
 import { bufferUntil, ensureProjectConfig } from 'nx-plugin-devkit';
 
-import { zip, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import {
+  zip,
+  Observable,
+  MonoTypeOperatorFunction,
+  OperatorFunction,
+} from 'rxjs';
+import { map, tap, mapTo, switchMap, switchMapTo } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
 import dayjs from 'dayjs';
 import path from 'path';
@@ -28,7 +33,7 @@ import { resolveESBuildOption } from './lib/resolve-esbuild-option';
 export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
   context: ExecutorContext
-): AsyncIterableIterator<ExecutorResponse> {
+): AsyncIterableIterator<ExecutorResponse> | Promise<ExecutorResponse> {
   ensureProjectConfig(context);
 
   const {
@@ -84,18 +89,26 @@ export default function buildExecutor(
     )
   );
 
-  if (options.skipTypeCheck) {
-    return eachValueFrom<ExecutorResponse>(
-      esBuildSubscriber.pipe(
-        map((buildResults) => {
-          console.log(buildResults.messageFragments.join('\n'));
-          return {
-            success: buildResults?.success,
-            outfile: path.join(options.outputPath, 'main.js'),
-          };
-        })
-      )
-    );
+  const baseESBuildSubscriber = esBuildSubscriber.pipe(
+    tap((buildResults: RunnerSubcriber) => {
+      console.log(buildResults.messageFragments.join('\n'));
+    }),
+    map(
+      (buildResults: RunnerSubcriber): ExecutorResponse => {
+        return {
+          success: buildResults?.success,
+          outfile: path.join(options.outputPath, 'main.js'),
+        };
+      }
+    )
+  );
+
+  if (!options.watch && options.skipTypeCheck) {
+    return baseESBuildSubscriber.toPromise();
+  }
+
+  if (options.watch && options.skipTypeCheck) {
+    return eachValueFrom<ExecutorResponse>(baseESBuildSubscriber);
   }
 
   let typeCounter = 1;
@@ -159,9 +172,12 @@ export default function buildExecutor(
 
   return eachValueFrom(
     zip(esBuildSubscriber, tscSubscriber).pipe(
-      map(([buildResults, tscResults]) => {
+      tap(([buildResults, tscResults]) => {
         console.log(tscResults.messageFragments.join('\n'));
         console.log(buildResults.messageFragments.join('\n'));
+      }),
+
+      map(([buildResults, tscResults]) => {
         return {
           success: buildResults?.success && tscResults?.success,
           outfile: path.join(options.outputPath, 'main.js'),
