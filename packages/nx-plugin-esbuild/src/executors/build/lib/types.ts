@@ -1,5 +1,11 @@
 import type { BuildOptions, BuildResult, BuildFailure } from 'esbuild';
 import type { AssetFileInputOutput } from 'nx-plugin-devkit';
+import type { WatchOptions } from 'chokidar';
+
+export interface NXESBuildConfigExport {
+  esbuildOptions?: BuildOptions;
+  watchOptions?: WatchOptions;
+}
 
 export type Insert = {
   banner: boolean;

@@ -33,6 +33,8 @@ import {
 import { normalizeBuildExecutorOptions } from './lib/normalize-schema';
 import { resolveESBuildOption } from './lib/resolve-esbuild-option';
 import chalk from 'chalk';
+import fs from 'fs-extra';
+import rimraf from 'rimraf';
 
 export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
@@ -99,6 +101,17 @@ export default function buildExecutor(
         : [],
     })
   );
+
+  if (options.clearOutputPath) {
+    const { outputPath } = options;
+    if (fs.existsSync(outputPath)) {
+      rimraf.sync(options.outputPath);
+      console.log(
+        chalk.blue('i'),
+        `Output Path ${options.outputPath} Cleaned.`
+      );
+    }
+  }
 
   const baseESBuildSubscriber = esBuildSubscriber.pipe(
     tap((buildResults: RunnerSubcriber) => {

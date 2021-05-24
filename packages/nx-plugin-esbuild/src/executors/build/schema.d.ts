@@ -48,6 +48,8 @@ export interface ESBuildExecutorSchema {
   allowExtend: boolean;
 
   watchDir: string;
+  clearOutputPath: boolean;
+  runAfterBuilt: boolean;
 
   assets: string[] | AssetsItem[];
   inserts: string[] | Insert[];
@@ -97,15 +99,6 @@ export interface ESBuildExecutorSchema {
   decoratorHandler: 'tsc' | 'swc';
   // control by externalDependencies
   // externalPlugin: boolean;
-
-  // TODO: add plugins below to schema when buildEnd hook released.
-  // TODO: support plugin options
-  // fileSize: boolean;
-
-  htmlPlugin: boolean;
-  ignorePlugin: boolean;
-  notifierPlugin: boolean;
-  circularDepsPlugin: boolean;
 }
 
 export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
