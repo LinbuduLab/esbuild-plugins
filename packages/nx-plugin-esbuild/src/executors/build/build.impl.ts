@@ -9,13 +9,16 @@ import { ESBuildExecutorSchema } from './schema';
 
 import { bufferUntil, ensureProjectConfig } from 'nx-plugin-devkit';
 
+import { zip, Observable, from, of } from 'rxjs';
 import {
-  zip,
-  Observable,
-  MonoTypeOperatorFunction,
-  OperatorFunction,
-} from 'rxjs';
-import { map, tap, mapTo, switchMap, switchMapTo } from 'rxjs/operators';
+  map,
+  tap,
+  mapTo,
+  switchMap,
+  switchMapTo,
+  startWith,
+  catchError,
+} from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
 import dayjs from 'dayjs';
 import path from 'path';
@@ -29,6 +32,7 @@ import {
 } from './lib/message-fragments';
 import { normalizeBuildExecutorOptions } from './lib/normalize-schema';
 import { resolveESBuildOption } from './lib/resolve-esbuild-option';
+import chalk from 'chalk';
 
 export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
@@ -86,7 +90,12 @@ export default function buildExecutor(
           messageFragments,
         };
       }
-    )
+    ),
+
+    startWith({
+      success: true,
+      messageFragments: [`${chalk.blue('i')} ESBuild Compiler Starting...`],
+    })
   );
 
   const baseESBuildSubscriber = esBuildSubscriber.pipe(
@@ -100,7 +109,13 @@ export default function buildExecutor(
           outfile: path.join(options.outputPath, 'main.js'),
         };
       }
-    )
+    ),
+    catchError(() => {
+      return of<ExecutorResponse>({
+        success: false,
+        outfile: undefined,
+      });
+    })
   );
 
   if (!options.watch && options.skipTypeCheck) {
@@ -146,14 +161,11 @@ export default function buildExecutor(
       return { info, error, end, hasErrors, messageFragments };
     }),
 
-    bufferUntil(({ info, error }) =>
-      // info中获得Found 1 errors这样的字样，说明tsc走完了一次编译
-      {
-        return (
-          !!info?.match(/Found\s\d*\serror/) ||
-          !!error?.match(/Found\s\d*\serror/)
-        );
-      }
+    bufferUntil(
+      ({ info, error }) =>
+        // info中获得Found 1 errors这样的字样，说明tsc走完了一次编译
+        !!info?.match(/Found\s\d*\serror/) ||
+        !!error?.match(/Found\s\d*\serror/)
     ),
 
     tap(() => {
@@ -167,6 +179,18 @@ export default function buildExecutor(
         success: !values.find((value) => value.hasErrors),
         messageFragments: message,
       };
+    }),
+
+    catchError(() => {
+      return of<RunnerSubcriber>({
+        success: false,
+        messageFragments: [],
+      });
+    }),
+
+    startWith({
+      success: true,
+      messageFragments: [`${chalk.blue('i')} TypeScript Compiler Starting...`],
     })
   );
 
@@ -177,12 +201,23 @@ export default function buildExecutor(
         console.log(buildResults.messageFragments.join('\n'));
       }),
 
-      map(([buildResults, tscResults]) => {
-        return {
-          success: buildResults?.success && tscResults?.success,
-          outfile: path.join(options.outputPath, 'main.js'),
-        };
-      })
+      map(
+        ([buildResults, tscResults]): ExecutorResponse => {
+          return {
+            success: buildResults?.success && tscResults?.success,
+            outfile: path.join(options.outputPath, 'main.js'),
+          };
+        }
+      )
+
+      // map(([buildResults, tscResults]) =>
+      //   of<ExecutorResponse>({
+      //     success: buildResults?.success && tscResults?.success,
+      //     outfile: path.join(options.outputPath, 'main.js'),
+      //   })
+      // ),
+
+      // switchMap((res) => res)
     )
   );
 }
