@@ -30,7 +30,7 @@ export function normalizeInject(
 ): string[] {
   return injects.map((injectPath) => {
     if (!injectPath.endsWith('.js') && !injectPath.endsWith('.ts')) {
-      throw new Error(`${injectPath} should ends .js/.ts`);
+      throw new Error(`${injectPath} should ends with .js/.ts!`);
     }
 
     const normalizedInjectPath = path.join(sourceRoot, injectPath);

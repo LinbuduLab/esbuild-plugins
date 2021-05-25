@@ -3,7 +3,9 @@ import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
 
-import { startServe } from '../utils/start-serve';
+import { startServe } from './lib/start-serve';
+import { startProgrammaticServe } from './lib/start-programmatic-server';
+import { ParcelServeSchema } from './schema';
 
 import path from 'path';
 // import Parcel from '@parcel/core';
@@ -13,9 +15,9 @@ import path from 'path';
 // 所以就先使用命令行的方式吧
 // 和Vite插件一样 需要重点处理的是publicURL
 
-export default function runExecutor(options: Record<string, string>) {
+export default function runExecutor(options: ParcelServeSchema) {
   return eachValueFrom(
-    startServe(options.cwd).pipe(
+    startProgrammaticServe(options.entries, options.cwd).pipe(
       tap((x) => {
         console.log(x);
       }),
@@ -26,4 +28,6 @@ export default function runExecutor(options: Record<string, string>) {
       })
     )
   );
+
+  // return startProgrammaticServe(options.entries, options.cwd);
 }

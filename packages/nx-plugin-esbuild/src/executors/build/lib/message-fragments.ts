@@ -28,6 +28,8 @@ export function collectESBuildRunnerMessages(
   }
 
   if (buildFailure) {
+    messageFragments.push(error('\nESBuild Compilation Failed.\n'));
+
     messageFragments.push(errorTxt(prefix));
 
     messageFragments.push(errorTxt(buildFailure.message));
@@ -36,7 +38,7 @@ export function collectESBuildRunnerMessages(
     // buildFailure.errors?.forEach((error) => {
     //   messageFragments.push(errorTxt(error.text));
     // });
-    console.log(error('\nESBuild Compilation Failed.\n'));
+    // console.log(error('\nESBuild Compilation Failed.\n'));
   } else if (buildResult?.warnings?.length > 0) {
     messageFragments.push(
       success(

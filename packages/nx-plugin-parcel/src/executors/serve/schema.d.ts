@@ -9,6 +9,8 @@ export interface ParcelServeSchema
     ParcelServeWatchParams,
     ParcelServeParams {
   cwd: string;
+  entries: string;
+  root: string;
 }
 
 export interface NormalizedParcelServeSchema

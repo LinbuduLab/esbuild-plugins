@@ -98,6 +98,14 @@ export default function buildExecutor(
           prefixESBuild()
         );
 
+        if (options.skipTypeCheck) {
+          messageFragments.unshift(
+            `${chalk.blue('i')} ESBuild Compiler Starting ${chalk.yellow(
+              '(Type Check Skipped)'
+            )}...`
+          );
+        }
+
         return {
           success: !buildFailure,
           messageFragments,
@@ -108,7 +116,11 @@ export default function buildExecutor(
     // startWith({
     //   success: true,
     //   messageFragments: options.skipTypeCheck
-    //     ? [`${chalk.blue('i')} ESBuild Compiler Starting...`]
+    //     ? [
+    //         `${chalk.blue('i')} ESBuild Compiler Starting ${chalk.yellow(
+    //           '(Type Check Skipped)'
+    //         )}...`,
+    //       ]
     //     : [],
     // })
   );
