@@ -207,43 +207,47 @@ export default function buildExecutor(
     })
   );
 
-  return eachValueFrom(
-    zip(esBuildSubscriber, tscSubscriber).pipe(
-      startWith([
-        {
-          success: true,
-          messageFragments: [`${chalk.blue('i')} ESBuild Compiler Starting...`],
-        },
-        {
-          success: true,
-          messageFragments: [
-            `${chalk.blue('i')} TypeScript Compiler Starting...`,
-          ],
-        },
-      ]),
+  const baseSubscriber = zip(esBuildSubscriber, tscSubscriber).pipe(
+    startWith([
+      {
+        success: true,
+        messageFragments: [`${chalk.blue('i')} ESBuild Compiler Starting...`],
+      },
+      {
+        success: true,
+        messageFragments: [
+          `${chalk.blue('i')} TypeScript Compiler Starting...`,
+        ],
+      },
+    ]),
 
-      tap(([buildResults, tscResults]) => {
-        console.log(tscResults.messageFragments.join('\n'));
-        console.log(buildResults.messageFragments.join('\n'));
-      }),
+    tap(([buildResults, tscResults]) => {
+      console.log(tscResults.messageFragments.join('\n'));
+      console.log(buildResults.messageFragments.join('\n'));
+    }),
 
-      map(
-        ([buildResults, tscResults]): ExecutorResponse => {
-          return {
-            success: buildResults?.success && tscResults?.success,
-            outfile: path.join(options.outputPath, 'main.js'),
-          };
-        }
-      )
-
-      // map(([buildResults, tscResults]) =>
-      //   of<ExecutorResponse>({
-      //     success: buildResults?.success && tscResults?.success,
-      //     outfile: path.join(options.outputPath, 'main.js'),
-      //   })
-      // ),
-
-      // switchMap((res) => res)
+    map(
+      ([buildResults, tscResults]): ExecutorResponse => {
+        return {
+          success: buildResults?.success && tscResults?.success,
+          outfile: path.join(options.outputPath, 'main.js'),
+        };
+      }
     )
   );
+
+  if (!options.watch) {
+    return baseSubscriber.toPromise();
+  }
+
+  return eachValueFrom(baseSubscriber);
 }
+
+// map(([buildResults, tscResults]) =>
+//   of<ExecutorResponse>({
+//     success: buildResults?.success && tscResults?.success,
+//     outfile: path.join(options.outputPath, 'main.js'),
+//   })
+// ),
+
+// switchMap((res) => res)

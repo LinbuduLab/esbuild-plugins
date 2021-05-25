@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs';
-import { spawn } from 'child_process';
 import chalk from 'chalk';
 import path from 'path';
 import fs from 'fs-extra';
@@ -22,7 +21,7 @@ export function runTSC({
       console.log(
         `${error(`tsc is not found in ${tscBinPath}, run`)} ${info(
           'npm intsall typescript'
-        )} ${error('to retry')}`
+        )} ${error('first to retry')}`
       );
     }
 
@@ -73,7 +72,7 @@ export function runTSC({
     // only triggered when options.watch false
     childProcess.stdout.on('end', () => {
       subscriber.next({
-        info: `Type check complete. Found ${errorCount} errors`,
+        info: `Type check complete. Found ${errorCount} errors.`,
       });
     });
   });

@@ -36,6 +36,8 @@ export function runESBuild(
         `${chalk.blue('i')} Watching ${info(`${watchDir}`)} for changes ...\n`
       );
 
+    const { ignored = [], ...restWatchOptions } = watchOptions;
+
     const watcher = buildWatch
       ? chokidar.watch(
           [watchDir].concat(
@@ -43,13 +45,13 @@ export function runESBuild(
           ),
 
           {
-            ignored: ['node_modules', '.git'].concat(
-              watchAssetsDir ? [] : assetsDirs.map((dir) => dir.input)
-            ),
+            ignored: ['node_modules', '.git']
+              .concat(watchAssetsDir ? [] : assetsDirs.map((dir) => dir.input))
+              .concat(ignored),
             cwd: watchDir,
             ignorePermissionErrors: false,
             depth: 99,
-            ...watchOptions,
+            ...restWatchOptions,
           }
         )
       : null;
@@ -100,10 +102,7 @@ export function runESBuild(
       })
       .catch((buildFailure: BuildFailure) => {
         subscriber.next({ buildResult: null, buildFailure });
-        if (failFast) {
-          subscriber.complete();
-        }
-      })
-      .finally(() => {});
+        failFast && subscriber.complete();
+      });
   });
 }

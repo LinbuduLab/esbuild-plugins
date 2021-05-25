@@ -12,7 +12,7 @@ export function resolveESBuildOption(
   const presetPlugins = [
     esbuildPluginDecorator({
       tsconfigPath: options.tsconfigPath,
-      compiler: options.decoratorHandler,
+      compiler: 'tsc',
       isNxProject: true,
       verbose: false,
     }),
