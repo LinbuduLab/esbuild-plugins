@@ -9,7 +9,7 @@ import { ESBuildExecutorSchema } from './schema';
 
 import { bufferUntil, ensureProjectConfig } from 'nx-plugin-devkit';
 
-import { zip, Observable, from, of } from 'rxjs';
+import { zip, Observable, from, of, merge } from 'rxjs';
 import {
   map,
   tap,
@@ -25,7 +25,7 @@ import path from 'path';
 
 import { runESBuild } from './lib/esbuild-runner';
 import { runTSC } from './lib/tsc-runner';
-import { pluginTitle, timeStamp, buildTimes } from './lib/log';
+import { pluginTitle, timeStamp, buildTimes, info } from './lib/log';
 import {
   collectESBuildRunnerMessages,
   collectTSCRunnerMessages,
@@ -59,6 +59,15 @@ export default function buildExecutor(
   );
 
   const esBuildOptions = resolveESBuildOption(options);
+
+  if (esBuildOptions.platform === 'browser') {
+    console.log(
+      chalk.blue('i'),
+      `Set ${info('BuildOptions.external')} as ${info('[]')} (or set ${info(
+        'schema.externalDependencies'
+      )} as ${info('none')} for browser builds.`
+    );
+  }
 
   let buildCounter = 1;
 
@@ -94,14 +103,14 @@ export default function buildExecutor(
           messageFragments,
         };
       }
-    ),
+    )
 
-    startWith({
-      success: true,
-      messageFragments: options.skipTypeCheck
-        ? [`${chalk.blue('i')} ESBuild Compiler Starting...`]
-        : [],
-    })
+    // startWith({
+    //   success: true,
+    //   messageFragments: options.skipTypeCheck
+    //     ? [`${chalk.blue('i')} ESBuild Compiler Starting...`]
+    //     : [],
+    // })
   );
 
   if (options.clearOutputPath) {
@@ -207,34 +216,57 @@ export default function buildExecutor(
     })
   );
 
-  const baseSubscriber = zip(esBuildSubscriber, tscSubscriber).pipe(
-    startWith([
-      {
-        success: true,
-        messageFragments: [`${chalk.blue('i')} ESBuild Compiler Starting...`],
-      },
-      {
-        success: true,
-        messageFragments: [
-          `${chalk.blue('i')} TypeScript Compiler Starting...`,
-        ],
-      },
-    ]),
+  const baseSubscriber = options.useMergeCombine
+    ? merge(esBuildSubscriber, tscSubscriber).pipe(
+        startWith({
+          success: true,
+          messageFragments: [
+            `${chalk.blue('i')} ESBuild Compiler Starting...`,
+            `${chalk.blue('i')} TypeScript Compiler Starting...`,
+          ],
+        }),
+        tap((res: RunnerSubcriber) => {
+          console.log(res.messageFragments.join('\n'));
+        }),
+        map(
+          (res): ExecutorResponse => {
+            return {
+              success: res?.success ?? true,
+              outfile: path.join(options.outputPath, 'main.js'),
+            };
+          }
+        )
+      )
+    : zip(esBuildSubscriber, tscSubscriber).pipe(
+        startWith([
+          {
+            success: true,
+            messageFragments: [
+              `${chalk.blue('i')} ESBuild Compiler Starting...`,
+            ],
+          },
+          {
+            success: true,
+            messageFragments: [
+              `${chalk.blue('i')} TypeScript Compiler Starting...`,
+            ],
+          },
+        ]),
 
-    tap(([buildResults, tscResults]) => {
-      console.log(tscResults.messageFragments.join('\n'));
-      console.log(buildResults.messageFragments.join('\n'));
-    }),
+        tap(([buildResults, tscResults]) => {
+          console.log(tscResults.messageFragments.join('\n'));
+          console.log(buildResults.messageFragments.join('\n'));
+        }),
 
-    map(
-      ([buildResults, tscResults]): ExecutorResponse => {
-        return {
-          success: buildResults?.success && tscResults?.success,
-          outfile: path.join(options.outputPath, 'main.js'),
-        };
-      }
-    )
-  );
+        map(
+          ([buildResults, tscResults]): ExecutorResponse => {
+            return {
+              success: buildResults?.success && tscResults?.success,
+              outfile: path.join(options.outputPath, 'main.js'),
+            };
+          }
+        )
+      );
 
   if (!options.watch) {
     return baseSubscriber.toPromise();

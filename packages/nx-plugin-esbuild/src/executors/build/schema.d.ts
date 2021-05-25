@@ -53,6 +53,7 @@ export interface ESBuildExecutorSchema {
   watchAssetsDir: boolean;
   watchDir: string;
   clearOutputPath: boolean;
+  useMergeCombine: boolean;
 
   assets: string[] | AssetsItem[];
   inserts: string[] | Insert[];

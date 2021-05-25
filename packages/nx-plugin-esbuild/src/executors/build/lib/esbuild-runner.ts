@@ -24,7 +24,7 @@ export function runESBuild(
       ...esbuildBuildOptions
     } = options;
 
-    if (!options.write) {
+    if (typeof options.write === 'boolean' && !options.write) {
       console.log(
         chalk.yellow('WARN'),
         `ESBuild ${info('BuildOptions.write')} is set to ${info('false')}.`

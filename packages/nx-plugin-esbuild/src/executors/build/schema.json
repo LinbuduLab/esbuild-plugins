@@ -21,6 +21,11 @@
       "type": "string",
       "description": "The path of nx-esbuild config file"
     },
+    "useMergeCombine": {
+      "type": "boolean",
+      "description": "Use merge operator for subscriber combinations",
+      "default": false
+    },
     "failFast": {
       "type": "boolean",
       "description": "Exit process when error occured.",
