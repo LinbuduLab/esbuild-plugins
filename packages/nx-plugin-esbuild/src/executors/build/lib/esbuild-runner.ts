@@ -1,11 +1,11 @@
 import type { BuildFailure } from 'esbuild';
 import type { ESBuildRunnerOptions, ESBuildRunnerResponse } from './types';
-
 import { Observable } from 'rxjs';
 import { build } from 'esbuild';
 import chokidar from 'chokidar';
 import { copyAssetFiles } from 'nx-plugin-devkit';
 import chalk from 'chalk';
+
 import { error, info, success } from './log';
 
 export function runESBuild(
@@ -18,12 +18,20 @@ export function runESBuild(
       assets: assetsDirs,
       failFast,
       watchDir,
+      watchOptions,
       ...esbuildBuildOptions
     } = options;
 
+    if (!options.write) {
+      console.log(
+        chalk.yellow('WARN'),
+        `ESBuild ${info('BuildOptions.write')} is set to ${info('false')}`
+      );
+    }
+
     buildWatch &&
       console.log(
-        `${chalk.blue('i')} Watching ${info(`${watchDir} for changes ...`)}\n`
+        `${chalk.blue('i')} Watching ${info(`${watchDir}`)} for changes ...\n`
       );
 
     const watcher = buildWatch
@@ -35,6 +43,7 @@ export function runESBuild(
             cwd: watchDir,
             ignorePermissionErrors: false,
             depth: 99,
+            ...watchOptions,
           }
         )
       : null;

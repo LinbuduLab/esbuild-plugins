@@ -6,6 +6,7 @@ import type {
 } from 'nx-plugin-devkit';
 import type { BuildOptions, Loader } from 'esbuild';
 import type { Insert, FormattedInsert } from './lib/types';
+import type { WatchOptions } from 'chokidar';
 
 // TODO: options to support
 // √：options integrated
@@ -111,4 +112,5 @@ export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
   alias: Record<string, string>;
   inject: string[];
   extendBuildOptions: BuildOptions;
+  extendWatchOptions: WatchOptions;
 }

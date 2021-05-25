@@ -28,6 +28,7 @@ export interface ESBuildRunnerOptions extends BuildOptions {
   assets: AssetFileInputOutput[];
   failFast: boolean;
   watchDir: string;
+  watchOptions: WatchOptions;
 }
 
 export interface ESBuildRunnerResponse {

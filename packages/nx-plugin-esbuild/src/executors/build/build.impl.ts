@@ -72,6 +72,7 @@ export default function buildExecutor(
     assets: options.assets,
     failFast: options.failFast,
     watchDir: options.watchDir,
+    watchOptions: options.extendWatchOptions,
   }).pipe(
     tap(() => {
       buildCounter++;

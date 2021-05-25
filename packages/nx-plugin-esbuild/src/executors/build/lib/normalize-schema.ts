@@ -81,7 +81,8 @@ export function normalizeBuildExecutorOptions(
     assets: normalizeAssets(options.assets, workspaceRoot, options.outputPath),
     inserts: formattedInserts,
     inject: normalizedInject,
-    extendBuildOptions: userConfigBuildOptions,
+    extendBuildOptions: userConfigBuildOptions.esbuildOptions ?? {},
+    extendWatchOptions: userConfigBuildOptions.watchOptions ?? {},
     watchDir,
   };
 }
