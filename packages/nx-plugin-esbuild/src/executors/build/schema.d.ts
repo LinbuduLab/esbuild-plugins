@@ -41,23 +41,25 @@ export interface ESBuildExecutorSchema {
   // required options
   main: string;
   tsconfigPath: string;
+
+  // output
   outputPath?: string;
-  failFast: boolean;
 
-  // extend ESBuild BuildOptions
-  pluginConfigPath?: string;
+  // extend nx-esbuild BuildOptions
   allowExtend: boolean;
+  pluginConfigPath?: string;
 
+  failFast: boolean;
+  watchAssetsDir: boolean;
   watchDir: string;
   clearOutputPath: boolean;
-  runAfterBuilt: boolean;
 
   assets: string[] | AssetsItem[];
   inserts: string[] | Insert[];
   fileReplacements: FileReplacement[];
   alias: Record<string, string>;
 
-  // optional options with default values
+  // ESBuild BuildOptions
   watch: boolean;
   write: boolean;
   outExtension: Record<string, string>;
@@ -93,13 +95,9 @@ export interface ESBuildExecutorSchema {
 
   // optimization options
   minify: boolean;
+  // TODO:
   // https://github.com/xz64/license-webpack-plugin
-  extractLicenses: boolean;
-
-  // plugin options
-  decoratorHandler: 'tsc' | 'swc';
-  // control by externalDependencies
-  // externalPlugin: boolean;
+  // extractLicenses: boolean;
 }
 
 export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {

@@ -14,6 +14,7 @@ export function resolveESBuildOption(
       tsconfigPath: options.tsconfigPath,
       compiler: options.decoratorHandler,
       isNxProject: true,
+      verbose: false,
     }),
     options.externalDependencies === 'all' && esbuildPluginNodeExternals(),
     esbuildPluginAliasPath({

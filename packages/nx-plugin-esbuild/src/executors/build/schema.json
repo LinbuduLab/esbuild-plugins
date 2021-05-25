@@ -26,6 +26,11 @@
       "description": "Exit process when error occured.",
       "default": false
     },
+    "watchAssetsDir": {
+      "type": "boolean",
+      "description": "Should change of assets dir trigger re-building",
+      "default": false
+    },
     "allowExtend": {
       "type": "boolean",
       "description": "Should extend nx-esbuild config file",

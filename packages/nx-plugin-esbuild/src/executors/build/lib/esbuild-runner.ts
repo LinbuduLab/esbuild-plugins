@@ -16,16 +16,18 @@ export function runESBuild(
     const {
       watch: buildWatch,
       assets: assetsDirs,
+
       failFast,
       watchDir,
       watchOptions,
+      watchAssetsDir,
       ...esbuildBuildOptions
     } = options;
 
     if (!options.write) {
       console.log(
         chalk.yellow('WARN'),
-        `ESBuild ${info('BuildOptions.write')} is set to ${info('false')}`
+        `ESBuild ${info('BuildOptions.write')} is set to ${info('false')}.`
       );
     }
 
@@ -36,10 +38,14 @@ export function runESBuild(
 
     const watcher = buildWatch
       ? chokidar.watch(
-          // ...assetsDirs.map((dir) => dir.input)
-          [watchDir],
+          [watchDir].concat(
+            watchAssetsDir ? assetsDirs.map((dir) => dir.input) : []
+          ),
+
           {
-            ignored: ['node_modules', '.git'],
+            ignored: ['node_modules', '.git'].concat(
+              watchAssetsDir ? [] : assetsDirs.map((dir) => dir.input)
+            ),
             cwd: watchDir,
             ignorePermissionErrors: false,
             depth: 99,
