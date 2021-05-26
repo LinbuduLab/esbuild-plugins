@@ -19,6 +19,7 @@ export const normalizeSchema = (
 
   const validSchema: Partial<ParcelServeSchema> = {};
 
+  // extract to devkit ?
   // exclude undefined string type option
   for (const [k, v] of Object.entries(schema)) {
     if (typeof v !== 'undefined') {

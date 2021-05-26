@@ -17,7 +17,7 @@ import path from 'path';
 
 export default function runExecutor(options: ParcelServeSchema) {
   return eachValueFrom(
-    startProgrammaticServe(options.entries, options.cwd).pipe(
+    startServe(options).pipe(
       tap((x) => {
         console.log(x);
       }),
@@ -28,6 +28,18 @@ export default function runExecutor(options: ParcelServeSchema) {
       })
     )
   );
+  // return eachValueFrom(
+  //   startProgrammaticServe(options.entries, options.cwd).pipe(
+  //     tap((x) => {
+  //       console.log(x);
+  //     }),
+  //     map(() => {
+  //       return {
+  //         success: true,
+  //       };
+  //     })
+  //   )
+  // );
 
   // return startProgrammaticServe(options.entries, options.cwd);
 }

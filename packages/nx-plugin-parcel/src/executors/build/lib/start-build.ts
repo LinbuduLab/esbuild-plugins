@@ -2,6 +2,7 @@ import execa from 'execa';
 import { from, Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
+import { ParcelBuildSchema } from '../schema';
 
 // parcel build <entries>
 // 如果
@@ -22,7 +23,7 @@ import { eachValueFrom } from 'rxjs-for-await';
 // --detailed-report
 // --no-content-hash
 
-export const startBuild = (cwd: string) => {
+export const startBuild = (options: ParcelBuildSchema) => {
   return from(
     execa(
       'parcel',
@@ -31,12 +32,13 @@ export const startBuild = (cwd: string) => {
         // '--cache-dir=parcel/cache',
         // '--dist-dir=parcel/dist',
         '--log-level=verbose',
-        'index.html',
+        // 'index.html',
+        `${options.entryFiles}`,
       ],
       {
         stdio: 'inherit',
         preferLocal: true,
-        cwd,
+        cwd: options.cwd,
       }
     )
   );

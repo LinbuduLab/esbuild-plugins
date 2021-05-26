@@ -1,5 +1,6 @@
 import execa from 'execa';
 import { from, Observable } from 'rxjs';
+import { ParcelServeSchema } from '../schema';
 
 // parcel serve <entries>
 // 如果
@@ -16,10 +17,11 @@ import { from, Observable } from 'rxjs';
 // host
 // --open
 
-export const startServe = (cwd: string) => {
+// FIXME: use require.resolve('parcel/lib/cli')
+export const startServe = (options: ParcelServeSchema) => {
   return from(
-    execa.node(
-      require.resolve('parcel/lib/cli'),
+    execa(
+      'parcel',
       [
         'serve',
         // cache目录这个选项，最好放在工作区根目录
@@ -28,11 +30,14 @@ export const startServe = (cwd: string) => {
         // '--cache-dir=parcel/cache',
         // '--dist-dir=parcel/dist',
         '--log-level=verbose',
-        'index.html',
+        // 'index.html',
+        // TODO: handle array
+        `${options.entryFiles}`,
       ],
       {
         stdio: 'inherit',
-        cwd,
+        cwd: options.cwd,
+        preferLocal: true,
       }
     )
   );
