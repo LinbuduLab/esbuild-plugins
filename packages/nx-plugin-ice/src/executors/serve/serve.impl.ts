@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
 import { startServe } from './lib/start-serve';
-import { startProgrammaticServe } from './lib/programmatic-start-serve';
+// import { startProgrammaticServe } from './lib/programmatic-start-serve';
 
 // ice应用：需要将依赖安装到app目录下
 // 这一点作为预检查
@@ -16,7 +16,7 @@ import { startProgrammaticServe } from './lib/programmatic-start-serve';
 // 重点在于把启动流程插入到哪个位置
 export default function runExecutor(options: ServeExecutorSchema) {
   return eachValueFrom(
-    startProgrammaticServe(options).pipe(
+    startServe(options).pipe(
       map(() => {
         return {
           success: true,

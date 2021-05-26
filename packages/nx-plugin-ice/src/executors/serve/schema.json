@@ -4,6 +4,36 @@
   "title": "Serve executor",
   "description": "",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "port": {
+      "type": "number",
+      "default": 3333
+    },
+    "host": {
+      "type": "string",
+      "default": "localhost"
+    },
+    "https": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableReload": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableMock": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableOpen": {
+      "type": "boolean",
+      "default": false
+    },
+    "disableAssets": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "additionalProperties": true,
   "required": []
 }
