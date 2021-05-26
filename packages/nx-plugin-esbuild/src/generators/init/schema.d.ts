@@ -6,6 +6,7 @@ import type {
 export interface ESBuildInitGeneratorExtraSchema {
   watch: boolean;
 
+
   entry: string;
   outputPath: string;
   tsconfigPath: string;
