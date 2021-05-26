@@ -4,6 +4,19 @@
   "title": "Build executor",
   "description": "",
   "type": "object",
-  "properties": {},
+  "properties": {
+    "analyzer": {
+      "type": "boolean",
+      "default": false
+    },
+    "analyzerPort": {
+      "type": "number",
+      "default": 7777
+    },
+    "config": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true,
   "required": []
 }

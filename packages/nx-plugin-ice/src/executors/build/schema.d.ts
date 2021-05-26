@@ -1,1 +1,5 @@
-export interface BuildExecutorSchema {} // eslint-disable-line
+import { IceBuildCLIArgs } from '../utils/types';
+
+export interface BuildExecutorSchema extends IceBuildCLIArgs {
+  root: string;
+}

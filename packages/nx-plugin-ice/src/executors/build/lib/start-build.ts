@@ -1,4 +1,4 @@
-import { ServeExecutorSchema } from '../schema';
+import { BuildExecutorSchema } from '../schema';
 import getBuiltInPlugins from 'ice.js/lib/getBuiltInPlugins';
 import { start } from '@alib/build-scripts';
 import { Observable } from 'rxjs';
@@ -8,18 +8,10 @@ import execa from 'execa';
 import kebabCase from 'lodash/kebabCase';
 import { ExecutorRes } from '../../utils/types';
 
-const serveCommands = (options: ServeExecutorSchema): string[] => {
-  const commands = ['start'];
+const buildCommands = (options: BuildExecutorSchema): string[] => {
+  const commands = ['build'];
 
   const { root, ...cliArgs } = options;
-
-  // const shouldAppendNewArgs = Object.keys(cliArgs).some(
-  //   (argKey) => cliArgs[argKey] === true
-  // );
-
-  // if (shouldAppendNewArgs) {
-  //   commands.push('--');
-  // }
 
   for (const [k, v] of Object.entries(cliArgs)) {
     if (v) {
@@ -31,12 +23,11 @@ const serveCommands = (options: ServeExecutorSchema): string[] => {
   return commands;
 };
 
-export const startServe = (
-  options: ServeExecutorSchema
+export const startBuild = (
+  options: BuildExecutorSchema
 ): Observable<ExecutorRes> => {
   return new Observable((subscriber) => {
-    //
-    execa('icejs', serveCommands(options), {
+    execa('icejs', buildCommands(options), {
       cwd: options.root,
       stdio: 'inherit',
       preferLocal: true,
