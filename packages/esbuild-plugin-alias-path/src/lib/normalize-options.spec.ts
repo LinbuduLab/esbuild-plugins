@@ -1,4 +1,5 @@
 import { normalizeOption, NormalizedOptions } from './normalize-options';
+import { ScriptTarget } from 'typescript';
 import path from 'path';
 
 describe('should normalize option correctly', () => {
@@ -30,7 +31,12 @@ describe('should normalize option correctly', () => {
         foo: 'bar',
       },
       tsconfigPath: tsconfigPath,
-      compilerOptions: {},
+      compilerOptions: {
+        importHelpers: false,
+        lib: [],
+        sourceMap: false,
+        target: ScriptTarget.ES2016,
+      },
       skip: false,
     } as NormalizedOptions);
   });

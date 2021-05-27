@@ -1,1 +1,1 @@
-export * from './lib/snowpack-plugin-serve';
+export { default } from './lib/snowpack-plugin-serve';
