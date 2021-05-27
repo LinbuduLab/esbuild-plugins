@@ -66,7 +66,7 @@ export default (options: Partial<Options> = {}): Plugin => {
         for (const { from, to } of formattedAssets) {
           const pathsCopyFrom = await globby(from, {
             expandDirectories: false,
-            onlyFiles: false,
+            onlyFiles: true,
             ...globbyOptions,
           });
 
