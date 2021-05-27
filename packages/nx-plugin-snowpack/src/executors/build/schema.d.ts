@@ -1,17 +1,16 @@
-export interface SnowpackBuildSchema {
-  cwd?: string;
-  workspaceRoot?: string;
-  mountRoot: stirng;
-  configPath: string;
-  outputPath: string;
-  watch: boolean;
+import {
+  SnowpackSharedSchema,
+  NormalizedSnowpackSharedSchema,
+} from '../../utils/types';
+
+export interface SnowpackBuildSchema extends SnowpackSharedSchema {
   clearCache: boolean;
   verbose: boolean;
+  watch: boolean;
 }
 
-export interface NormalizedSnowpackBuildSchema extends SnowpackBuildSchema {
-  absCwd: string;
-  projectName: string;
-  projectRoot: string;
-  projectSourceRoot: string;
+export interface NormalizedSnowpackBuildSchema
+  extends SnowpackBuildSchema,
+    NormalizedSnowpackSharedSchema {
+  workspaceRoot: string;
 }

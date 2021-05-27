@@ -12,6 +12,15 @@
     "configPath": {
       "type": "string",
       "description": "snowpack configPath(relative path to root)"
+    },
+    "verbose": {
+      "type": "boolean",
+      "description": "snowpack verbose logger",
+      "default": false
+    },
+    "open": {
+      "type": "string",
+      "default": "none"
     }
   },
   "additionalProperties": true,

@@ -9,6 +9,7 @@ export const normalizeSchema = (
   const normalizedBasicSchema = normalizeBasicSchema(schema, context);
 
   return {
+    ...schema,
     ...normalizedBasicSchema,
   };
 };

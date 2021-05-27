@@ -7,4 +7,6 @@ export interface SnowpackServeSchema extends SnowpackSharedSchema {}
 
 export interface NormalizedSnowpackServeSchema
   extends SnowpackServeSchema,
-    NormalizedSnowpackSharedSchema {}
+    NormalizedSnowpackSharedSchema {
+  workspaceRoot: string;
+}

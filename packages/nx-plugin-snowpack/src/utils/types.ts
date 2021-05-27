@@ -7,6 +7,8 @@ export interface SnowpackSharedSchema {
 }
 
 export interface NormalizedSnowpackSharedSchema {
+  workspaceRoot: string;
+
   absCwd: string;
   projectName: string;
   projectRoot: string;

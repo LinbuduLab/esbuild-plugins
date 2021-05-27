@@ -12,12 +12,11 @@ export default function runExecutor(
   context: ExecutorContext
 ) {
   const normalizedSchema = normalizeSchema(options, context);
-  console.log('normalizedSchema: ', normalizedSchema);
   logger.level = normalizedSchema.verbose ? 'debug' : 'info';
 
   return eachValueFrom(
     snowpackBuild(normalizedSchema).pipe(
-      map(() => {
+      map((res) => {
         return {
           success: true,
         };

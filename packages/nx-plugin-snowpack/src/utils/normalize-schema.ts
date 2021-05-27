@@ -1,6 +1,5 @@
-import { ExecutorContext, normalizePath } from '@nrwl/devkit';
+import { ExecutorContext } from '@nrwl/devkit';
 import path from 'path';
-import fs from 'fs-extra';
 import { SnowpackSharedSchema } from './types';
 
 export const normalizeSchema = <T extends SnowpackSharedSchema>(
