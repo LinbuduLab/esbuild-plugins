@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "es2016",
     "sourceMap": false,
-    "lib": [],
+    "lib": ["es2019"],
     "importHelpers": false
   },
   "files": [],
