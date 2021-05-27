@@ -1,6 +1,6 @@
 {
   "name": "snowpack-plugin-assets",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "snowpack plugin for assets copy.",
   "keywords": [
     "snowpack",
