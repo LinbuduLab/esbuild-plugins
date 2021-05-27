@@ -82,10 +82,10 @@ export async function main() {
   }
 
   step('\nUpdating package version...');
-  // updateVersion(targetProject, targetVersion, dryRun);
-  await execa('pnpx changeset', {
-    stdio: 'inherit',
-  });
+  updateVersion(targetProject, targetVersion, dryRun);
+  // await execa('pnpx changeset', {
+  //   stdio: 'inherit',
+  // });
 
   // step('\n pnpx changeset version');
 
