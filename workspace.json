@@ -2185,6 +2185,70 @@
         }
       }
     },
+    "snowpack-plugin-yaml-import": {
+      "root": "packages/snowpack-plugin-yaml-import",
+      "sourceRoot": "packages/snowpack-plugin-yaml-import/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/snowpack-plugin-yaml-import/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-yaml-import"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-yaml-import/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-yaml-import",
+            "tsConfig": "packages/snowpack-plugin-yaml-import/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-yaml-import/package.json",
+            "main": "packages/snowpack-plugin-yaml-import/src/index.ts",
+            "assets": ["packages/snowpack-plugin-yaml-import/*.md"]
+          }
+        }
+      }
+    },
+    "snowpack-plugin-serve": {
+      "root": "packages/snowpack-plugin-serve",
+      "sourceRoot": "packages/snowpack-plugin-serve/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/snowpack-plugin-serve/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-serve"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-serve/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-serve",
+            "tsConfig": "packages/snowpack-plugin-serve/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-serve/package.json",
+            "main": "packages/snowpack-plugin-serve/src/index.ts",
+            "assets": ["packages/snowpack-plugin-serve/*.md"]
+          }
+        }
+      }
+    },
     "rollup-plugin-static-serve": {
       "root": "packages/rollup-plugin-static-serve",
       "sourceRoot": "packages/rollup-plugin-static-serve/src",

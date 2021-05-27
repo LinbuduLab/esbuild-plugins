@@ -106,6 +106,10 @@
       "snowpack-plugin-swc-compiler": [
         "packages/snowpack-plugin-swc-compiler/src/index.ts"
       ],
+      "snowpack-plugin-yaml-import": [
+        "packages/snowpack-plugin-yaml-import/src/index.ts"
+      ],
+      "snowpack-plugin-serve": ["packages/snowpack-plugin-serve/src/index.ts"],
       "rollup-plugin-static-serve": [
         "packages/rollup-plugin-static-serve/src/index.ts"
       ],

@@ -66,6 +66,8 @@ module.exports = {
     "<rootDir>/packages/snowpack-plugin-markdown-import",
     "<rootDir>/packages/snowpack-plugin-tsconfig-paths",
     "<rootDir>/packages/snowpack-plugin-swc-compiler",
+    "<rootDir>/packages/snowpack-plugin-yaml-import",
+    "<rootDir>/packages/snowpack-plugin-serve",
     "<rootDir>/packages/rollup-plugin-static-serve",
     "<rootDir>/packages/rollup-plugin-graphql-loader",
     "<rootDir>/packages/rollup-plugin-swc-compiler",

@@ -29,6 +29,14 @@ export const defaultSnowpackOptions = (
     exclude: ['**/node_modules/**'],
     workspaceRoot: options.workspaceRoot,
     mode: 'production' as 'production',
+    // https://www.snowpack.dev/concepts/build-pipeline
+    devOptions: {
+      secure: false,
+      port: 8080,
+      output: 'dashboard',
+      hmr: true,
+      open: 'none',
+    },
     buildOptions: {
       watch: options.watch,
       clean: options.clean,
