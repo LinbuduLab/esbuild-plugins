@@ -9,8 +9,7 @@ export interface SnowpackBuildSchema {
   verbose: boolean;
 }
 
-export interface NormalizedSnowpackBuildSchema
-  extends Required<SnowpackBuildSchema> {
+export interface NormalizedSnowpackBuildSchema extends SnowpackBuildSchema {
   absCwd: string;
   projectName: string;
   projectRoot: string;

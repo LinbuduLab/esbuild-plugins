@@ -6,5 +6,5 @@ import {
 export interface SnowpackServeSchema extends SnowpackSharedSchema {}
 
 export interface NormalizedSnowpackServeSchema
-  extends Required<SnowpackServeSchema>,
+  extends SnowpackServeSchema,
     NormalizedSnowpackSharedSchema {}

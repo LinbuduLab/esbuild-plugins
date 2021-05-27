@@ -1,12 +1,9 @@
-export interface RunnerResponse {
-  success: boolean;
-}
-
 export interface SnowpackSharedSchema {
-  cwd?: string;
+  root?: string;
   workspaceRoot?: string;
-  mountRoot: string;
-  configPath: string;
+  // if provided, load config
+  // else, use internal configurations
+  configPath?: string;
 }
 
 export interface NormalizedSnowpackSharedSchema {
@@ -14,4 +11,9 @@ export interface NormalizedSnowpackSharedSchema {
   projectName: string;
   projectRoot: string;
   projectSourceRoot: string;
+}
+
+export interface RunnerResponse {
+  success: boolean;
+  error?: any;
 }

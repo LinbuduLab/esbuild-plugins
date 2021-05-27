@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit';
+import { ExecutorContext, normalizePath } from '@nrwl/devkit';
 import path from 'path';
 import fs from 'fs-extra';
 import { SnowpackSharedSchema } from './types';
@@ -19,9 +19,11 @@ export const normalizeSchema = <T extends SnowpackSharedSchema>(
 
   let absCwd: string = '';
 
-  if (schema.cwd && !path.isAbsolute(schema.cwd)) {
-    absCwd = path.resolve(workspaceRoot, schema.cwd);
-  } else if (!schema.cwd) {
+  // 也就是说，当作为嵌套文件夹时，必须提供cwd
+  // TODO: log tips
+  if (schema.root && !path.isAbsolute(schema.root)) {
+    absCwd = path.resolve(workspaceRoot, schema.root);
+  } else if (!schema.root) {
     absCwd = path.resolve(workspaceRoot, projectRoot);
   }
 
@@ -29,17 +31,9 @@ export const normalizeSchema = <T extends SnowpackSharedSchema>(
     schema.workspaceRoot = workspaceRoot;
   }
 
-  const snowpackConfigPath = path.resolve(absCwd, schema.configPath);
-
-  if (!fs.existsSync(snowpackConfigPath)) {
-    throw new Error(
-      `snowpack config file cannot be loaded from ${snowpackConfigPath} `
-    );
-  }
-
   return {
     ...schema,
-    cwd: schema.cwd,
+    root: schema.root,
     absCwd,
     workspaceRoot: schema.workspaceRoot,
     projectName,

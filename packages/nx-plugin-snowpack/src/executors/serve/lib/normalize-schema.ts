@@ -8,7 +8,5 @@ export const normalizeSchema = (
 ): NormalizedSnowpackServeSchema => {
   const normalizedBasicSchema = normalizeBasicSchema(schema, context);
 
-  return {
-    ...normalizedBasicSchema,
-  };
+  return normalizedBasicSchema;
 };
