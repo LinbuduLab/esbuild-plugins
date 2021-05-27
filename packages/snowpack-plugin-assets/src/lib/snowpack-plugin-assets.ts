@@ -18,7 +18,6 @@ export interface AssetPair {
 
 export interface AssetsPluginOptions {
   assets: MaybeArray<AssetPair>;
-  verbose: boolean;
   globbyOptions: GlobbyOptions;
 }
 
@@ -43,11 +42,15 @@ function formatAssets(assets: MaybeArray<AssetPair>) {
 
 export type AssetsPlugin = SnowpackPluginFactory<AssetsPluginOptions>;
 
+// TODO: 如果想要监听到assets变化时重新copy
+// 需要将assets放进src下
+// FIXME: 当启用watch时，不会被调用
+
 const snowpackPluginAssets: AssetsPlugin = (
   snowpackConfig: SnowpackConfig,
   pluginOptions: AssetsPluginOptions
 ): SnowpackPlugin => {
-  const { assets = [], globbyOptions = {}, verbose = true } = pluginOptions;
+  const { assets = [], globbyOptions = {} } = pluginOptions;
 
   return {
     name: 'plugin:assets',
@@ -69,7 +72,7 @@ const snowpackPluginAssets: AssetsPlugin = (
 
         log(
           `Files will be copied: \n${pathsCopyFrom
-            .map((file) => `- ${file}`)
+            .map((file) => chalk.cyan(`- ${file}`))
             .join('\n')}`
         );
 
@@ -78,9 +81,7 @@ const snowpackPluginAssets: AssetsPlugin = (
         }
       }
     },
-    async cleanup() {},
-    knownEntrypoints: [],
-    config(config) {},
+
     onChange({ filePath }) {},
   };
 };
