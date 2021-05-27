@@ -18,6 +18,11 @@
       "description": "snowpack verbose logger",
       "default": false
     },
+    "clearCache": {
+      "type": "boolean",
+      "description": "snowpack clear cache",
+      "default": false
+    },
     "open": {
       "type": "string",
       "default": "none"

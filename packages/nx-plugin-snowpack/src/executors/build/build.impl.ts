@@ -2,7 +2,7 @@ import { ExecutorContext } from '@nrwl/devkit';
 import { SnowpackBuildSchema } from './schema';
 import { eachValueFrom } from 'rxjs-for-await';
 import { map } from 'rxjs/operators';
-import { logger, LoggerLevel } from 'snowpack';
+import { logger } from 'snowpack';
 
 import { snowpackBuild } from './lib/snowpack-build';
 import { normalizeSchema } from './lib/normalize-schema';

@@ -31,6 +31,7 @@ export const defaultSnowpackOptions = (
     mode: 'production' as 'production',
     buildOptions: {
       watch: options.watch,
+      clean: options.clean,
     },
     optimize: {
       bundle: true,

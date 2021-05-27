@@ -7,6 +7,7 @@ export interface SnowpackBuildSchema extends SnowpackSharedSchema {
   clearCache: boolean;
   verbose: boolean;
   watch: boolean;
+  clean: boolean;
 }
 
 export interface NormalizedSnowpackBuildSchema

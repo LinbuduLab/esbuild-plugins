@@ -27,6 +27,11 @@
       "type": "boolean",
       "description": "snowpack verbose logger",
       "default": false
+    },
+    "clean": {
+      "type": "boolean",
+      "description": "snowpack clean",
+      "default": true
     }
   },
   "additionalProperties": true,

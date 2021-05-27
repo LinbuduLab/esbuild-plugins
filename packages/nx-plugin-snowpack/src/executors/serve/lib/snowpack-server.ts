@@ -1,6 +1,6 @@
 import { from, Observable, of } from 'rxjs';
 import { tap, switchMap } from 'rxjs/operators';
-import { startServer } from 'snowpack';
+import { startServer, clearCache } from 'snowpack';
 
 import { loadSnowpackConfig, createSnowpackConfig } from './nomalize-config';
 import { NormalizedSnowpackServeSchema } from '../schema';
@@ -25,21 +25,23 @@ export const snowpackServer = (
     }),
     switchMap((config) => {
       return new Observable<RunnerResponse>((subscriber) => {
-        startServer({ config })
-          .then((server) => {
-            // server.onFileChange
-            // server.getServerRuntime
+        (options.clearCache ? clearCache() : Promise.resolve()).then(() => {
+          startServer({ config })
+            .then((server) => {
+              // server.onFileChange
+              // server.getServerRuntime
 
-            subscriber.next({
-              success: true,
-            });
-          })
-          .catch((error) =>
-            subscriber.error({
-              success: false,
-              error,
+              subscriber.next({
+                success: true,
+              });
             })
-          );
+            .catch((error) =>
+              subscriber.error({
+                success: false,
+                error,
+              })
+            );
+        });
       });
     })
   );
