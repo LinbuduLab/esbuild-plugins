@@ -1,1 +1,1 @@
-export * from './lib/snowpack-plugin-assets';
+export { default, AssetsPluginOptions } from './lib/snowpack-plugin-assets';
