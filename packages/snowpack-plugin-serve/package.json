@@ -1,4 +1,27 @@
 {
   "name": "snowpack-plugin-serve",
-  "version": "0.0.1"
+  "version": "0.0.2",
+  "description": "snowpack plugin for static serve.",
+  "keywords": [
+    "snowpack",
+    "serve",
+    "plugin",
+    "static"
+  ],
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/snowpack-plugin-serve#readme",
+  "bugs": {
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "dependencies": {
+    "execa": "^5.0.0"
+  },
+  "peerDependencies": {
+    "snowpack": "^3.3.7"
+  }
 }

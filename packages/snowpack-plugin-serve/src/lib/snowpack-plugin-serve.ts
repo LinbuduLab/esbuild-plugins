@@ -26,7 +26,7 @@ const snowpackPluginServe: ServePlugin = (
         name: 'plugin:serve',
       });
 
-      logger.info(
+      logger.debug(
         `serve plugin commands: serve ${serveArgs.join(' ')} ${
           options.buildDirectory
         }`,
