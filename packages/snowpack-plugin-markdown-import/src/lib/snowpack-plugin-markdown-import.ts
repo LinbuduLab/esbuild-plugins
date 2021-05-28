@@ -6,9 +6,9 @@ import {
 import type { MarkedOptions } from 'marked';
 import path from 'path';
 import fs from 'fs-extra';
-import frontMatter from 'front-matter';
+// import frontMatter from 'front-matter';
 import marked from 'marked';
-import { promisify, TextDecoder } from 'util';
+import { TextDecoder } from 'util';
 
 // front matter
 // json?
@@ -18,11 +18,10 @@ import { promisify, TextDecoder } from 'util';
 
 export interface MDPluginOptions {
   markedOptions?: MarkedOptions;
-  sanitize?: boolean;
-  frontMatter?: boolean;
+  // sanitize?: boolean;
+  // frontMatter?: boolean;
   transformParsedResult?: (result: string) => string;
   transformRawBeforeParse?: (raw: string) => string;
-  transformRawAfterParse?: (raw: string) => string;
 }
 
 export type AssetsPlugin = SnowpackPluginFactory<MDPluginOptions>;
@@ -31,7 +30,11 @@ export const snowpackPluginMDImport: AssetsPlugin = (
   snowpackConfig: SnowpackConfig,
   pluginOptions: MDPluginOptions
 ): SnowpackPlugin => {
-  const { markedOptions = {}, sanitize = false } = pluginOptions;
+  const {
+    markedOptions = {},
+    // frontMatter = true,
+    // sanitize = false,
+  } = pluginOptions;
 
   const transformParsedResult = pluginOptions.transformParsedResult
     ? pluginOptions.transformParsedResult
@@ -39,10 +42,6 @@ export const snowpackPluginMDImport: AssetsPlugin = (
 
   const transformRawBeforeParse = pluginOptions.transformRawBeforeParse
     ? pluginOptions.transformRawBeforeParse
-    : (raw: string) => raw;
-
-  const transformRawAfterParse = pluginOptions.transformRawAfterParse
-    ? pluginOptions.transformRawAfterParse
     : (raw: string) => raw;
 
   return {
@@ -61,7 +60,7 @@ export const snowpackPluginMDImport: AssetsPlugin = (
 
       const result = {
         html: transformParsedResult(markdownHTML),
-        raw: transformRawAfterParse(markdownContent),
+        raw: markdownContent,
         fileName: path.basename(filePath),
         props: {},
       };
