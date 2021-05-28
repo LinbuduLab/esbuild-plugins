@@ -1,1 +1,1 @@
-export * from './lib/snowpack-plugin-compress';
+export { default } from './lib/snowpack-plugin-compress';

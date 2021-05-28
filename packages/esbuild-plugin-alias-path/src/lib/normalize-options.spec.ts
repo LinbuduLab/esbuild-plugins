@@ -35,7 +35,7 @@ describe('should normalize option correctly', () => {
         importHelpers: false,
         lib: [],
         sourceMap: false,
-        target: ScriptTarget.ES2016,
+        target: ('es2016' as unknown) as ScriptTarget.ES2016,
       },
       skip: false,
     } as NormalizedOptions);
