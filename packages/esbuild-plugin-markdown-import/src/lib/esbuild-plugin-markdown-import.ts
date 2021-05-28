@@ -4,9 +4,7 @@ import type { MarkedOptions } from 'marked';
 import path from 'path';
 import fs from 'fs-extra';
 import marked from 'marked';
-import { promisify } from 'util';
-
-import { TextDecoder } from 'util';
+import { promisify, TextDecoder } from 'util';
 
 export interface Options {
   markedOptions?: MarkedOptions;

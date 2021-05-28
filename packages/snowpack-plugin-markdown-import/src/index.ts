@@ -1,1 +1,1 @@
-export * from './lib/snowpack-plugin-markdown-import';
+export {default} from './lib/snowpack-plugin-markdown-import';

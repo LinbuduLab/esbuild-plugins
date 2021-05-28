@@ -203,6 +203,7 @@
     "filesize": "^6.3.0",
     "find-up": "^5.0.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
+    "front-matter": "^4.0.2",
     "fs-extra": "^10.0.0",
     "glob": "^7.1.7",
     "globby": "^11.0.3",

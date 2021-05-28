@@ -132,6 +132,7 @@ importers:
       filesize: ^6.3.0
       find-up: ^5.0.0
       friendly-errors-webpack-plugin: ^1.7.0
+      front-matter: ^4.0.2
       fs-extra: ^10.0.0
       glob: ^7.1.7
       globby: ^11.0.3
@@ -337,6 +338,7 @@ importers:
       filesize: 6.3.0
       find-up: 5.0.0
       friendly-errors-webpack-plugin: 1.7.0_webpack@4.42.0
+      front-matter: 4.0.2
       fs-extra: 10.0.0
       glob: 7.1.7
       globby: 11.0.3
@@ -15055,6 +15057,12 @@ packages:
     dependencies:
       inherits: 2.0.4
       readable-stream: 2.3.7
+    dev: true
+
+  /front-matter/4.0.2:
+    resolution: {integrity: sha512-I8ZuJ/qG92NWX8i5x1Y8qyj3vizhXS31OxjKDu3LKP+7/qBgfIKValiZIEwoVoJKUHlhWtYrktkxV1XsX+pPlg==}
+    dependencies:
+      js-yaml: 3.14.1
     dev: true
 
   /fs-capacitor/6.2.0:
