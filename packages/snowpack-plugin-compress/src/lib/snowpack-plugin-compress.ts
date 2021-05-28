@@ -2,11 +2,12 @@ import {
   SnowpackConfig,
   SnowpackPlugin,
   SnowpackPluginFactory,
+  logger,
 } from 'snowpack';
 import fs from 'fs-extra';
 import path from 'path';
 import chalk from 'chalk';
-import globby from 'globby';
+import globby, { GlobbyOptions } from 'globby';
 import { gzipSync, brotliCompressSync, BrotliOptions, ZlibOptions } from 'zlib';
 
 export interface CompressPluginOptions {
@@ -14,6 +15,7 @@ export interface CompressPluginOptions {
   gzipOptions?: ZlibOptions;
   brotli?: boolean;
   brotliOptions?: BrotliOptions;
+  globbyOptions?: GlobbyOptions;
   // relative to buildDirectory
   distDir?: string;
   // inside distDir
@@ -53,6 +55,7 @@ export const snowpackPluginCompress: CompressPlugin = (
     brotli = true,
     gzipOptions = {},
     brotliOptions = {},
+    globbyOptions = {},
     distDir = 'compressed',
     gzipCompressDist = 'gzip',
     brotliCompressDist = 'brotli',
@@ -97,6 +100,7 @@ export const snowpackPluginCompress: CompressPlugin = (
       const files = globby.sync(['**/*'], {
         cwd: buildDirectory,
         ignore: exclude,
+        ...globbyOptions,
       });
 
       const formattedFilePairs = files.map((f) => {
@@ -124,6 +128,9 @@ export const snowpackPluginCompress: CompressPlugin = (
           ? compressHandler(originPath, compressPath, compressPath)
           : compressHandler(originPath, gzipCompressPath, brotliCompressPath);
       }
+      logger.info('compression finished.', {
+        name: 'plugin:compress',
+      });
     },
   };
 };
