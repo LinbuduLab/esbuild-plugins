@@ -6,20 +6,15 @@ import {
 import type { MarkedOptions } from 'marked';
 import path from 'path';
 import fs from 'fs-extra';
-// import frontMatter from 'front-matter';
 import marked from 'marked';
 import { TextDecoder } from 'util';
-
-// front matter
-// json?
-// extra output(suffix)
-// extra output configs
-// skip empty
+import { sanitize as sanitizer, Config as SanitizeConfig } from 'dompurify';
 
 export interface MDPluginOptions {
   markedOptions?: MarkedOptions;
-  // sanitize?: boolean;
-  // frontMatter?: boolean;
+  sanitize?: boolean;
+  sanitizeOptions?: SanitizeConfig;
+  exportAsJSON?: boolean;
   transformParsedResult?: (result: string) => string;
   transformRawBeforeParse?: (raw: string) => string;
 }
@@ -32,8 +27,9 @@ export const snowpackPluginMDImport: AssetsPlugin = (
 ): SnowpackPlugin => {
   const {
     markedOptions = {},
-    // frontMatter = true,
-    // sanitize = false,
+    exportAsJSON = false,
+    sanitize = false,
+    sanitizeOptions = {},
   } = pluginOptions;
 
   const transformParsedResult = pluginOptions.transformParsedResult
@@ -48,7 +44,7 @@ export const snowpackPluginMDImport: AssetsPlugin = (
     name: 'plugin:markdown',
     resolve: {
       input: ['.md'],
-      output: ['.js'],
+      output: [exportAsJSON ? '.json' : '.js'],
     },
 
     async load({ filePath }) {
@@ -58,20 +54,20 @@ export const snowpackPluginMDImport: AssetsPlugin = (
 
       const markdownHTML = marked(markdownContent, markedOptions);
 
+      const transformedParsedHTML = transformParsedResult(markdownHTML);
+
       const result = {
-        html: transformParsedResult(markdownHTML),
+        html: sanitize
+          ? sanitizer(transformedParsedHTML, sanitizeOptions)
+          : transformedParsedHTML,
         raw: markdownContent,
         fileName: path.basename(filePath),
-        props: {},
       };
 
-      return `export default ${JSON.stringify(result)}`;
+      return exportAsJSON
+        ? JSON.stringify(result)
+        : `export default ${JSON.stringify(result)}`;
     },
-
-    async optimize(options) {},
-
-    knownEntrypoints: [],
-    config(config) {},
   };
 };
 

@@ -1,11 +1,12 @@
 {
   "name": "snowpack-plugin-markdown-import",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "snowpack plugin for markdown import.",
   "keywords": [
     "snowpack",
     "markdown",
-    "plugin"
+    "plugin",
+    "monorepo"
   ],
   "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/snowpack-plugin-markdown-import#readme",
   "bugs": {
@@ -18,10 +19,11 @@
   "license": "MIT",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
   "dependencies": {
-    "fs-extra": "^10.0.0"
+    "dompurify": "^2.2.8",
+    "fs-extra": "^10.0.0",
+    "marked": "^2.0.3"
   },
   "peerDependencies": {
-    "marked": "^2.0.3",
     "snowpack": "^3.3.7"
   }
 }

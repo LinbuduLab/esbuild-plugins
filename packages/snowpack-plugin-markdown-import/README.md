@@ -4,10 +4,8 @@ Snowpack plugin for markdown import
 
 ## Progress
 
-- [x] MarkDown transform/output.
-- [ ] FrontMatter
-- [ ] Sanitize(By DOMPurify)
-- [ ] Extra Output(JSON/HTML)
+- [x] MarkDown to HTML(By [Marked](https://marked.js.org/)).
+- [x] Sanitize(By [DOMPurify](https://github.com/cure53/DOMPurify))
 
 ## Usage
 
@@ -76,6 +74,17 @@ export interface MDPluginOptions {
   // options passed to marked
   // default: {}
   markedOptions?: MarkedOptions;
+  // should sanitize parsed HTML
+  // default: false
+  sanitize?: boolean;
+  // DOMPurify sanitize options
+  // default: {}
+  sanitizeOptions?: SanitizeConfig;
+  // export .md file as .json
+  // Note: Snowpack will generate .proxy.js for .json file
+  // so this option will not affect code result.
+  // default: false
+  exportAsJSON?: boolean;
   // transform marked parsed result(html)
   transformParsedResult?: (result: string) => string;
   // tranform markdown file raw before marked parse(plain text)
