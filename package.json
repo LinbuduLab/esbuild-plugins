@@ -192,7 +192,7 @@
     "deepmerge": "^4.2.2",
     "del": "^6.0.0",
     "dompurify": "^2.2.8",
-    "dotenv": "9.0.0",
+    "dotenv": "10.0.0",
     "dumi": "^1.1.17",
     "enquirer": "^2.3.6",
     "envinfo": "^7.8.1",
