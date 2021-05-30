@@ -2,15 +2,11 @@
 
 Snowpack plugin for assets copy.
 
-## Progress
-
-- [x] Common copy files.
-- [ ] Re-Copy assets when assets changed.
-- [ ] Copy assets when `watch` option enabled.
-
 ## Usage
 
 **GitHub Repository/Homepage is private for now, if you got any troubles, just open issue in this [repo](https://github.com/linbudu599/Blog).**
+
+**Note: This plugin use `optimize` hook to copy assets, Snowpack doesn't invoke `optimize` hook' when `buildOptions.watch` is true.**
 
 ```bash
 npm i snowpack-plugin-assets -D

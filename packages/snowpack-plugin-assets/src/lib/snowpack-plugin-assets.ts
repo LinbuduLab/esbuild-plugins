@@ -1,7 +1,8 @@
-import type {
+import {
   SnowpackConfig,
   SnowpackPlugin,
   SnowpackPluginFactory,
+  logger,
 } from 'snowpack';
 import path from 'path';
 import fs from 'fs-extra';
@@ -42,10 +43,6 @@ function formatAssets(assets: MaybeArray<AssetPair>) {
 
 export type AssetsPlugin = SnowpackPluginFactory<AssetsPluginOptions>;
 
-// TODO: 如果想要监听到assets变化时重新copy
-// 需要将assets放进src下
-// FIXME: 当启用watch时，不会被调用
-
 const snowpackPluginAssets: AssetsPlugin = (
   snowpackConfig: SnowpackConfig,
   pluginOptions: AssetsPluginOptions
@@ -54,12 +51,13 @@ const snowpackPluginAssets: AssetsPlugin = (
 
   return {
     name: 'plugin:assets',
-    // @ts-ignore
-    async optimize({ buildDirectory, log }) {
+    async optimize({ buildDirectory }) {
       const formattedAssets = formatAssets(assets);
 
       if (!formattedAssets.length) {
-        log('Asset Plugin Skipped.');
+        logger.info('Asset Plugin Skipped.', {
+          name: 'plugin:assets',
+        });
         return;
       }
 
@@ -70,10 +68,13 @@ const snowpackPluginAssets: AssetsPlugin = (
           ...globbyOptions,
         });
 
-        log(
+        logger.info(
           `Files will be copied: \n${pathsCopyFrom
             .map((file) => chalk.cyan(`- ${file}`))
-            .join('\n')}`
+            .join('\n')}`,
+          {
+            name: 'plugin:assets',
+          }
         );
 
         for (const fromPath of pathsCopyFrom) {
@@ -81,8 +82,6 @@ const snowpackPluginAssets: AssetsPlugin = (
         }
       }
     },
-
-    onChange({ filePath }) {},
   };
 };
 export default snowpackPluginAssets;
