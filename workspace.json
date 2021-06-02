@@ -1145,71 +1145,6 @@
         }
       }
     },
-    "nx-plugin-release": {
-      "root": "packages/nx-plugin-release",
-      "sourceRoot": "packages/nx-plugin-release/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-release/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-release"],
-          "options": {
-            "jestConfig": "packages/nx-plugin-release/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/nx-plugin-release",
-            "tsConfig": "packages/nx-plugin-release/tsconfig.lib.json",
-            "packageJson": "packages/nx-plugin-release/package.json",
-            "main": "packages/nx-plugin-release/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-release/*.md",
-              {
-                "input": "./packages/nx-plugin-release/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-release",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./packages/nx-plugin-release",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "nx-plugin-release-e2e": {
-      "projectType": "application",
-      "root": "e2e\\nx-plugin-release-e2e",
-      "sourceRoot": "e2e\\nx-plugin-release-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-plugin-release:build",
-            "npmPackageName": "@penumbra/nx-plugin-release",
-            "pluginOutputPath": "dist/packages/nx-plugin-release",
-            "jestConfig": "e2e/nx-plugin-release-e2e/jest.config.js"
-          }
-        }
-      }
-    },
     "nx-plugin-folio": {
       "root": "packages/nx-plugin-folio",
       "sourceRoot": "packages/nx-plugin-folio/src",
@@ -1465,38 +1400,6 @@
             "packageJson": "packages/esbuild-plugin-alias-path/package.json",
             "main": "packages/esbuild-plugin-alias-path/src/index.ts",
             "assets": ["packages/esbuild-plugin-alias-path/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-notifier": {
-      "root": "packages/esbuild-plugin-notifier",
-      "sourceRoot": "packages/esbuild-plugin-notifier/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-notifier/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-notifier"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-notifier/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-notifier",
-            "tsConfig": "packages/esbuild-plugin-notifier/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-notifier/package.json",
-            "main": "packages/esbuild-plugin-notifier/src/index.ts",
-            "assets": ["packages/esbuild-plugin-notifier/*.md"]
           }
         }
       }
@@ -1923,38 +1826,6 @@
         }
       }
     },
-    "snowpack-plugin-hash-gen": {
-      "root": "packages/snowpack-plugin-hash-gen",
-      "sourceRoot": "packages/snowpack-plugin-hash-gen/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/snowpack-plugin-hash-gen/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/snowpack-plugin-hash-gen"],
-          "options": {
-            "jestConfig": "packages/snowpack-plugin-hash-gen/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/snowpack-plugin-hash-gen",
-            "tsConfig": "packages/snowpack-plugin-hash-gen/tsconfig.lib.json",
-            "packageJson": "packages/snowpack-plugin-hash-gen/package.json",
-            "main": "packages/snowpack-plugin-hash-gen/src/index.ts",
-            "assets": ["packages/snowpack-plugin-hash-gen/*.md"]
-          }
-        }
-      }
-    },
     "snowpack-plugin-svgr-import": {
       "root": "packages/snowpack-plugin-svgr-import",
       "sourceRoot": "packages/snowpack-plugin-svgr-import/src",
@@ -2113,40 +1984,6 @@
             "packageJson": "packages/snowpack-plugin-markdown-import/package.json",
             "main": "packages/snowpack-plugin-markdown-import/src/index.ts",
             "assets": ["packages/snowpack-plugin-markdown-import/*.md"]
-          }
-        }
-      }
-    },
-    "snowpack-plugin-tsconfig-paths": {
-      "root": "packages/snowpack-plugin-tsconfig-paths",
-      "sourceRoot": "packages/snowpack-plugin-tsconfig-paths/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "packages/snowpack-plugin-tsconfig-paths/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/snowpack-plugin-tsconfig-paths"],
-          "options": {
-            "jestConfig": "packages/snowpack-plugin-tsconfig-paths/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/snowpack-plugin-tsconfig-paths",
-            "tsConfig": "packages/snowpack-plugin-tsconfig-paths/tsconfig.lib.json",
-            "packageJson": "packages/snowpack-plugin-tsconfig-paths/package.json",
-            "main": "packages/snowpack-plugin-tsconfig-paths/src/index.ts",
-            "assets": ["packages/snowpack-plugin-tsconfig-paths/*.md"]
           }
         }
       }

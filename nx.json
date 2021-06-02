@@ -123,11 +123,6 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-dumi"]
     },
-    "nx-plugin-release": { "tags": [] },
-    "nx-plugin-release-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-release"]
-    },
     "nx-plugin-folio": { "tags": [] },
     "nx-plugin-folio-e2e": {
       "tags": [],
@@ -139,7 +134,6 @@
     "esbuild-plugin-ignore": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-html": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-alias-path": { "tags": ["scope:esbuild"] },
-    "esbuild-plugin-notifier": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-node-polyfill": { "tags": [] },
     "esbuild-plugin-graphql": { "tags": [] },
     "esbuild-plugin-run": { "tags": [] },
@@ -153,13 +147,11 @@
     "vite-plugin-prisma": { "tags": ["scope:vite"] },
     "vite-plugin-gundam": { "tags": [] },
     "snowpack-plugin-graphql-import": { "tags": ["scope:snowpack"] },
-    "snowpack-plugin-hash-gen": { "tags": ["scope:snowpack"] },
     "snowpack-plugin-svgr-import": { "tags": ["scope:snowpack"] },
     "snowpack-plugin-rollup": { "tags": ["scope:snowpack"] },
     "snowpack-plugin-compress": { "tags": ["scope:snowpack"] },
     "snowpack-plugin-assets": { "tags": ["scope:snowpack"] },
     "snowpack-plugin-markdown-import": { "tags": ["scope:snowpack"] },
-    "snowpack-plugin-tsconfig-paths": { "tags": ["scope:snowpack"] },
     "snowpack-plugin-swc-compiler": { "tags": ["scope:snowpack"] },
     "snowpack-plugin-yaml-import": { "tags": ["scope:snowpack"] },
     "snowpack-plugin-serve": { "tags": ["scope:snowpack"] },
