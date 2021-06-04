@@ -163,7 +163,8 @@
     "parcel-plugin-markdown-import": { "tags": [] },
     "parcel-plugin-compress": { "tags": [] },
     "parcel-plugin-cleanup": { "tags": [] },
-    "parcel-plugin-esbuild-compiler": { "tags": [] }
+    "parcel-plugin-esbuild-compiler": { "tags": [] },
+    "snowpack-plugin-execa": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

@@ -73,5 +73,6 @@ module.exports = {
     '<rootDir>/packages/parcel-plugin-compress',
     '<rootDir>/packages/parcel-plugin-cleanup',
     '<rootDir>/packages/parcel-plugin-esbuild-compiler',
+    '<rootDir>/packages/snowpack-plugin-execa',
   ],
 };

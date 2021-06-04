@@ -1,5 +1,7 @@
 # Nx-Plugins
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/76741f4f-9793-44b8-a80e-a2787f621009/deploy-status)](https://app.netlify.com/sites/nx-plugins/deploys)
+
 ## Progress
 
 **WIP**

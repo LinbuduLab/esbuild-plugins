@@ -2381,6 +2381,38 @@
           }
         }
       }
+    },
+    "snowpack-plugin-execa": {
+      "root": "packages/snowpack-plugin-execa",
+      "sourceRoot": "packages/snowpack-plugin-execa/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/snowpack-plugin-execa/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-execa"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-execa/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-execa",
+            "tsConfig": "packages/snowpack-plugin-execa/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-execa/package.json",
+            "main": "packages/snowpack-plugin-execa/src/index.ts",
+            "assets": ["packages/snowpack-plugin-execa/*.md"]
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }
