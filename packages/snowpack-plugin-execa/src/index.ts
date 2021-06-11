@@ -1,1 +1,1 @@
-export * from './lib/snowpack-plugin-execa';
+export { default } from './lib/snowpack-plugin-execa';
