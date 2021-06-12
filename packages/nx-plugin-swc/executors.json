@@ -6,11 +6,6 @@
       "schema": "./src/executors/build/schema.json",
       "description": "build executor"
     },
-    "serve": {
-      "implementation": "./src/executors/serve/executor",
-      "schema": "./src/executors/serve/schema.json",
-      "description": "serve executor"
-    },
     "info": {
       "implementation": "./src/executors/info/executor",
       "schema": "./src/executors/info/schema.json",

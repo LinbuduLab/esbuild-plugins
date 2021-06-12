@@ -36,7 +36,6 @@ module.exports = {
     '<rootDir>/packages/nx-plugin-dumi',
     '<rootDir>/e2e/nx-plugin-dumi-e2e',
     '<rootDir>/e2e/nx-plugin-release-e2e',
-    '<rootDir>/packages/nx-plugin-folio',
     '<rootDir>/e2e/nx-plugin-folio-e2e',
     '<rootDir>/packages/esbuild-plugin-node-externals',
     '<rootDir>/packages/esbuild-plugin-filesize',

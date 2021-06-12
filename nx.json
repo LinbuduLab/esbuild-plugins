@@ -123,11 +123,6 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-dumi"]
     },
-    "nx-plugin-folio": { "tags": [] },
-    "nx-plugin-folio-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-folio"]
-    },
     "esbuild-plugin-decorator": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-node-externals": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-filesize": { "tags": ["scope:esbuild"] },
