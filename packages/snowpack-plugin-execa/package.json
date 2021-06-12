@@ -1,6 +1,6 @@
 {
   "name": "snowpack-plugin-execa",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "snowpack plugin integration for execa.",
   "keywords": [
     "snowpack",
