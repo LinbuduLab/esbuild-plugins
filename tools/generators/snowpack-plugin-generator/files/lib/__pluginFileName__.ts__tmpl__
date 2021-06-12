@@ -1,0 +1,35 @@
+import {
+  SnowpackConfig,
+  SnowpackPlugin,
+  SnowpackPluginFactory,
+  logger
+} from 'snowpack';
+
+export interface <%= pluginName %>PluginOptions {
+  __prop__: unknown;
+}
+
+export type <%= pluginName %>Plugin = SnowpackPluginFactory<<%= pluginName %>PluginOptions>;
+
+export const snowpackPlugin<%= pluginName %>: <%= pluginName %>Plugin = (
+  snowpackConfig: SnowpackConfig,
+  pluginOptions: <%= pluginName %>PluginOptions
+): SnowpackPlugin => {
+  return {
+    name: 'plugin:<%= pluginName %>',
+    resolve: {
+      input: [],
+      output: [],
+    },
+    async transform(options) {
+      console.log('options: ', options);
+    },
+    async load({ filePath, isDev, fileExt }) {},
+    async run(options) {},
+    async optimize(options) {},
+    async cleanup() {},
+    knownEntrypoints: [],
+    config(config) {},
+    onChange({ filePath }) {},
+  };
+};

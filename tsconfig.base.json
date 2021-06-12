@@ -136,7 +136,9 @@
       "parcel-plugin-esbuild-compiler": [
         "packages/parcel-plugin-esbuild-compiler/src/index.ts"
       ],
-      "snowpack-plugin-execa": ["packages/snowpack-plugin-execa/src/index.ts"]
+      "snowpack-plugin-execa": ["packages/snowpack-plugin-execa/src/index.ts"],
+      "snowpack-plugin-xxx": ["packages/snowpack-plugin-xxx/src/index.ts"],
+      "snowpack-plugin-gql": ["packages/snowpack-plugin-gql/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

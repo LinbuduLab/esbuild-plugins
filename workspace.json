@@ -2413,6 +2413,38 @@
           }
         }
       }
+    },
+    "snowpack-plugin-gql": {
+      "root": "packages/snowpack-plugin-gql",
+      "sourceRoot": "packages/snowpack-plugin-gql/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/snowpack-plugin-gql/**/*.ts"]
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-gql",
+            "tsConfig": "packages/snowpack-plugin-gql/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-gql/package.json",
+            "main": "packages/snowpack-plugin-gql/src/index.ts",
+            "assets": ["packages/snowpack-plugin-gql/*.md"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-gql"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-gql/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": { "defaultCollection": "@nrwl/workspace" }
