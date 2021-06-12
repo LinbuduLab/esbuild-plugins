@@ -123,6 +123,11 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-dumi"]
     },
+    "nx-plugin-strapi": { "tags": [] },
+    "nx-plugin-strapi-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-strapi"]
+    },
     "esbuild-plugin-decorator": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-node-externals": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-filesize": { "tags": ["scope:esbuild"] },
@@ -150,6 +155,7 @@
     "snowpack-plugin-swc-compiler": { "tags": ["scope:snowpack"] },
     "snowpack-plugin-yaml-import": { "tags": ["scope:snowpack"] },
     "snowpack-plugin-serve": { "tags": ["scope:snowpack"] },
+    "snowpack-plugin-execa": { "tags": [] },
     "rollup-plugin-static-serve": { "tags": [] },
     "rollup-plugin-graphql-loader": { "tags": [] },
     "rollup-plugin-swc-compiler": { "tags": [] },
@@ -158,8 +164,7 @@
     "parcel-plugin-markdown-import": { "tags": [] },
     "parcel-plugin-compress": { "tags": [] },
     "parcel-plugin-cleanup": { "tags": [] },
-    "parcel-plugin-esbuild-compiler": { "tags": [] },
-    "snowpack-plugin-execa": { "tags": [] }
+    "parcel-plugin-esbuild-compiler": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

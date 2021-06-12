@@ -22,7 +22,7 @@ export default {
         exclude: ['assets/**/*', '_snowpack/**/*'],
       },
     ],
-  ]
+  ],
 };
 ```
 
@@ -45,7 +45,7 @@ export interface CompressPluginOptions {
   // brotli options
   // default: {}
   brotliOptions?: BrotliOptions;
-  // extra globby options for file matching 
+  // extra globby options for file matching
   // default: {}
   globbyOptions?: GlobbyOptions;
   // relative to buildDirectory

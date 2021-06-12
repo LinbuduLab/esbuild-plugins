@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-plugin-strapi",
+  "version": "0.0.1",
+  "generators": {
+    "plugin": {
+      "factory": "./src/generators/plugin/generator",
+      "schema": "./src/generators/plugin/schema.json",
+      "description": "plugin generator"
+    },
+    "hook": {
+      "factory": "./src/generators/hook/generator",
+      "schema": "./src/generators/hook/schema.json",
+      "description": "hook generator"
+    },
+    "project": {
+      "factory": "./src/generators/project/generator",
+      "schema": "./src/generators/project/schema.json",
+      "description": "project generator"
+    },
+    "extension": {
+      "factory": "./src/generators/extension/generator",
+      "schema": "./src/generators/extension/schema.json",
+      "description": "extension generator"
+    },
+    "graphql": {
+      "factory": "./src/generators/graphql/generator",
+      "schema": "./src/generators/graphql/schema.json",
+      "description": "graphql generator"
+    }
+  }
+}

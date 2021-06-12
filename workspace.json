@@ -1145,6 +1145,71 @@
         }
       }
     },
+    "nx-plugin-strapi": {
+      "root": "packages/nx-plugin-strapi",
+      "sourceRoot": "packages/nx-plugin-strapi/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/nx-plugin-strapi/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-strapi"],
+          "options": {
+            "jestConfig": "packages/nx-plugin-strapi/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-strapi",
+            "tsConfig": "packages/nx-plugin-strapi/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-strapi/package.json",
+            "main": "packages/nx-plugin-strapi/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-strapi/*.md",
+              {
+                "input": "./packages/nx-plugin-strapi/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-strapi",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-strapi",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-strapi-e2e": {
+      "projectType": "application",
+      "root": "e2e\\nx-plugin-strapi-e2e",
+      "sourceRoot": "e2e\\nx-plugin-strapi-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-strapi:build",
+            "npmPackageName": "@penumbra/nx-plugin-strapi",
+            "pluginOutputPath": "dist/packages/nx-plugin-strapi",
+            "jestConfig": "e2e/nx-plugin-strapi-e2e/jest.config.js"
+          }
+        }
+      }
+    },
     "esbuild-plugin-decorator": {
       "root": "packages/esbuild-plugin-decorator",
       "sourceRoot": "packages/esbuild-plugin-decorator/src",
@@ -2021,6 +2086,38 @@
         }
       }
     },
+    "snowpack-plugin-execa": {
+      "root": "packages/snowpack-plugin-execa",
+      "sourceRoot": "packages/snowpack-plugin-execa/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/snowpack-plugin-execa/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/snowpack-plugin-execa"],
+          "options": {
+            "jestConfig": "packages/snowpack-plugin-execa/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/snowpack-plugin-execa",
+            "tsConfig": "packages/snowpack-plugin-execa/tsconfig.lib.json",
+            "packageJson": "packages/snowpack-plugin-execa/package.json",
+            "main": "packages/snowpack-plugin-execa/src/index.ts",
+            "assets": ["packages/snowpack-plugin-execa/*.md"]
+          }
+        }
+      }
+    },
     "rollup-plugin-static-serve": {
       "root": "packages/rollup-plugin-static-serve",
       "sourceRoot": "packages/rollup-plugin-static-serve/src",
@@ -2313,38 +2410,6 @@
             "packageJson": "packages/parcel-plugin-esbuild-compiler/package.json",
             "main": "packages/parcel-plugin-esbuild-compiler/src/index.ts",
             "assets": ["packages/parcel-plugin-esbuild-compiler/*.md"]
-          }
-        }
-      }
-    },
-    "snowpack-plugin-execa": {
-      "root": "packages/snowpack-plugin-execa",
-      "sourceRoot": "packages/snowpack-plugin-execa/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/snowpack-plugin-execa/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/snowpack-plugin-execa"],
-          "options": {
-            "jestConfig": "packages/snowpack-plugin-execa/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/snowpack-plugin-execa",
-            "tsConfig": "packages/snowpack-plugin-execa/tsconfig.lib.json",
-            "packageJson": "packages/snowpack-plugin-execa/package.json",
-            "main": "packages/snowpack-plugin-execa/src/index.ts",
-            "assets": ["packages/snowpack-plugin-execa/*.md"]
           }
         }
       }

@@ -20,15 +20,9 @@ yarn add snowpack-plugin-markdown-import -D
 ```javascript
 /** @type {import("snowpack").SnowpackUserConfig } */
 export default {
-  plugins: [
-    [
-      'snowpack-plugin-markdown-import',
-      {},
-    ],
-  ]
+  plugins: [['snowpack-plugin-markdown-import', {}]],
 };
 ```
-
 
 ```typescript
 declare module '*.md' {
@@ -51,7 +45,6 @@ import React from 'react';
 import MD from './hello.md';
 
 function App() {
-
   return (
     <div>
       <h3>HTML</h3>
@@ -63,9 +56,7 @@ function App() {
 }
 
 export default App;
-
 ```
-
 
 ## Configuration
 

@@ -24,10 +24,10 @@ export default {
       'snowpack-plugin-serve',
       {
         execaOptions: {},
-        serveArgs:[]
+        serveArgs: [],
       },
     ],
-  ]
+  ],
 };
 ```
 

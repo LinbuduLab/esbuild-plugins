@@ -28,7 +28,6 @@ import yaml from 'esbuild-plugin-yaml-import';
 
 Yaml content will be parsed as JSON, and processed by ESBuild json loader.
 
-
 ## Configuration
 
 See [JS-YAML documents](https://github.com/nodeca/js-yaml#load-string---options-) for details.
@@ -38,7 +37,7 @@ export interface Options {
   // JS-YAML load options
   jsyamlLoadOptions?: JSYamlOptions;
 
- // transform YAML content after read file
+  // transform YAML content after read file
   transformContent?: (content: string) => string;
 
   // transform parsed content after load
@@ -47,5 +46,4 @@ export interface Options {
     filePath: string
   ) => object | undefined;
 }
-
 ```

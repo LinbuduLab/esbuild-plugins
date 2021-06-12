@@ -1,4 +1,28 @@
 {
   "name": "snowpack-plugin-execa",
-  "version": "0.1.1"
+  "version": "0.1.1",
+  "description": "snowpack plugin integration for execa.",
+  "keywords": [
+    "snowpack",
+    "execa",
+    "plugin",
+    "monorepo"
+  ],
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/snowpack-plugin-execa#readme",
+  "bugs": {
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "execa": "^5.0.0"
+  },
+  "peerDependencies": {
+    "snowpack": "^3.3.7"
+  }
 }

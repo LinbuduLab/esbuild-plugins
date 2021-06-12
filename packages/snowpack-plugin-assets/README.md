@@ -28,7 +28,6 @@ assets:
       y-bar.txt
 ```
 
-
 ```javascript
 /** @type {import("snowpack").SnowpackUserConfig } */
 export default {
@@ -42,7 +41,7 @@ export default {
         },
       },
     ],
-  ]
+  ],
 };
 ```
 

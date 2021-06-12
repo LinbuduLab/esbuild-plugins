@@ -36,6 +36,7 @@
       "nx-plugin-dumi": ["packages/nx-plugin-dumi/src/index.ts"],
       "nx-plugin-release": ["packages/nx-plugin-release/src/index.ts"],
       "nx-plugin-folio": ["packages/nx-plugin-folio/src/index.ts"],
+      "nx-plugin-strapi": ["packages/nx-plugin-strapi/src/index.ts"],
       "esbuild-plugin-html": ["packages/esbuild-plugin-html/src/index.ts"],
       "esbuild-plugin-decorator": [
         "packages/esbuild-plugin-decorator/src/index.ts"
@@ -110,6 +111,9 @@
         "packages/snowpack-plugin-yaml-import/src/index.ts"
       ],
       "snowpack-plugin-serve": ["packages/snowpack-plugin-serve/src/index.ts"],
+      "snowpack-plugin-execa": ["packages/snowpack-plugin-execa/src/index.ts"],
+      "snowpack-plugin-xxx": ["packages/snowpack-plugin-xxx/src/index.ts"],
+      "snowpack-plugin-gql": ["packages/snowpack-plugin-gql/src/index.ts"],
       "rollup-plugin-static-serve": [
         "packages/rollup-plugin-static-serve/src/index.ts"
       ],
@@ -135,10 +139,7 @@
       ],
       "parcel-plugin-esbuild-compiler": [
         "packages/parcel-plugin-esbuild-compiler/src/index.ts"
-      ],
-      "snowpack-plugin-execa": ["packages/snowpack-plugin-execa/src/index.ts"],
-      "snowpack-plugin-xxx": ["packages/snowpack-plugin-xxx/src/index.ts"],
-      "snowpack-plugin-gql": ["packages/snowpack-plugin-gql/src/index.ts"]
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
