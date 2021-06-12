@@ -164,8 +164,7 @@
     "parcel-plugin-compress": { "tags": [] },
     "parcel-plugin-cleanup": { "tags": [] },
     "parcel-plugin-esbuild-compiler": { "tags": [] },
-    "snowpack-plugin-execa": { "tags": [] },
-    "snowpack-plugin-gql": { "tags": [] }
+    "snowpack-plugin-execa": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

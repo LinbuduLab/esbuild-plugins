@@ -74,6 +74,5 @@ module.exports = {
     '<rootDir>/packages/parcel-plugin-cleanup',
     '<rootDir>/packages/parcel-plugin-esbuild-compiler',
     '<rootDir>/packages/snowpack-plugin-execa',
-    '<rootDir>/packages/snowpack-plugin-gql',
   ],
 };

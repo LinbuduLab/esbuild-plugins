@@ -18,6 +18,7 @@ export function appendExportToIndexFile(
 
   const exportDeclaration: OptionalKind<ExportDeclarationStructure> = {
     kind: StructureKind.ExportDeclaration,
+    namedExports: ['default'],
     isTypeOnly: false,
     moduleSpecifier: `./lib/${fileName}`,
   };

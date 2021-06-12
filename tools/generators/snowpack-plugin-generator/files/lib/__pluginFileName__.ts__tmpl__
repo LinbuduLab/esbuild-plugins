@@ -11,7 +11,7 @@ export interface <%= pluginName %>PluginOptions {
 
 export type <%= pluginName %>Plugin = SnowpackPluginFactory<<%= pluginName %>PluginOptions>;
 
-export const snowpackPlugin<%= pluginName %>: <%= pluginName %>Plugin = (
+const snowpackPlugin<%= pluginName %>: <%= pluginName %>Plugin = (
   snowpackConfig: SnowpackConfig,
   pluginOptions: <%= pluginName %>PluginOptions
 ): SnowpackPlugin => {
@@ -33,3 +33,5 @@ export const snowpackPlugin<%= pluginName %>: <%= pluginName %>Plugin = (
     onChange({ filePath }) {},
   };
 };
+
+export default snowpackPlugin<%= pluginName %>;
