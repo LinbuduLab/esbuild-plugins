@@ -2,14 +2,11 @@ import {
   SnowpackConfig,
   SnowpackPlugin,
   SnowpackPluginFactory,
-  logger,
 } from 'snowpack';
 import chalk from 'chalk';
-import execa, { Options, SyncOptions, NodeOptions } from 'execa';
+import execa, { Options } from 'execa';
 
 export interface ExecaPluginOptions {
-  // sync?: boolean;
-  // node?: boolean;
   commands?: CommandItem[];
   sharedOptions?: Options;
   throwOnCommandFailed?: boolean;
