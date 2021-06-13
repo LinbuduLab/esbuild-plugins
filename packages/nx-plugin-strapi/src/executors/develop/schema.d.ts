@@ -1,1 +1,6 @@
-export interface DevelopExecutorSchema {} // eslint-disable-line
+export interface DevelopExecutorSchema {
+  cwd: string;
+  noBuild: boolean;
+  watchAdmin: boolean;
+  browser: boolean | string;
+}

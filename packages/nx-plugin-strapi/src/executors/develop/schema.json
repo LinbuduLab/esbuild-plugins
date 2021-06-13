@@ -4,6 +4,22 @@
   "title": "Develop executor",
   "description": "",
   "type": "object",
-  "properties": {},
-  "required": []
+  "properties": {
+    "cwd": {
+      "type": "string"
+    },
+    "noBuild": {
+      "type": "boolean",
+      "default": false
+    },
+    "watchAdmin": {
+      "type": "boolean",
+      "default": true
+    },
+    "browser": {
+      "oneOf": [{ "type": "string" }, { "type": "boolean" }],
+      "default": "chrome"
+    }
+  },
+  "required": ["cwd"]
 }

@@ -2,17 +2,17 @@
   "$schema": "http://json-schema.org/schema",
   "executors": {
     "build": {
-      "implementation": "./src/executors/build/executor",
+      "implementation": "./src/executors/build/build.impl",
       "schema": "./src/executors/build/schema.json",
       "description": "build executor"
     },
     "develop": {
-      "implementation": "./src/executors/develop/executor",
+      "implementation": "./src/executors/develop/develop.impl",
       "schema": "./src/executors/develop/schema.json",
       "description": "develop executor"
     },
     "start": {
-      "implementation": "./src/executors/start/executor",
+      "implementation": "./src/executors/start/start.impl",
       "schema": "./src/executors/start/schema.json",
       "description": "start executor"
     }

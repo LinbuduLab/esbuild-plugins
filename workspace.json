@@ -947,7 +947,7 @@
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
             "target": "nx-plugin-rollup:build",
-            "npmPackageName": "@penumbra/nx-plugin-rollup",
+            "npmPackageName": "nx-plugin-rollup",
             "pluginOutputPath": "dist/packages/nx-plugin-rollup",
             "jestConfig": "e2e/nx-plugin-rollup-e2e/jest.config.js"
           }
@@ -1012,7 +1012,7 @@
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
             "target": "nx-plugin-vuepress:build",
-            "npmPackageName": "@penumbra/nx-plugin-vuepress",
+            "npmPackageName": "nx-plugin-vuepress",
             "pluginOutputPath": "dist/packages/nx-plugin-vuepress",
             "jestConfig": "e2e/nx-plugin-vuepress-e2e/jest.config.js"
           }
@@ -1075,7 +1075,7 @@
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
             "target": "nx-plugin-ice:build",
-            "npmPackageName": "@penumbra/nx-plugin-ice",
+            "npmPackageName": "nx-plugin-ice",
             "pluginOutputPath": "dist/packages/nx-plugin-ice",
             "jestConfig": "e2e/nx-plugin-ice-e2e/jest.config.js"
           }
@@ -1138,7 +1138,7 @@
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
             "target": "nx-plugin-dumi:build",
-            "npmPackageName": "@penumbra/nx-plugin-dumi",
+            "npmPackageName": "nx-plugin-dumi",
             "pluginOutputPath": "dist/packages/nx-plugin-dumi",
             "jestConfig": "e2e/nx-plugin-dumi-e2e/jest.config.js"
           }
@@ -1203,7 +1203,7 @@
           "executor": "@nrwl/nx-plugin:e2e",
           "options": {
             "target": "nx-plugin-strapi:build",
-            "npmPackageName": "@penumbra/nx-plugin-strapi",
+            "npmPackageName": "nx-plugin-strapi",
             "pluginOutputPath": "dist/packages/nx-plugin-strapi",
             "jestConfig": "e2e/nx-plugin-strapi-e2e/jest.config.js"
           }
