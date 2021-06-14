@@ -21,7 +21,7 @@ aaaa!
 - nx g @nrwl/nx-plugin:executor my-executor --project=my-plugin
 - 在 workspace.json project.targets 中添加
 - \[packageName]:\[command]
-- 需要 executor 的：esbuild swc prisma midway serverless vite
+- 需要 executor 的：esbuild assets prisma midway serverless vite
 - --buildableProjectDepsInPackageJsonType=dependencies
 
 ## esbuild
@@ -49,4 +49,4 @@ aaaa!
 - nx koa-build nest-app --configuration=production
 - ts-node 参数顺序 https://github.com/TypeStrong/ts-node/issues/541
 
-nx g @nrwl/node:lib snowpack-plugin-swc-compiler --publishable --importPath=snowpack-plugin-swc-compiler
+nx g @nrwl/node:lib icejs-plugin-assets --publishable --importPath=icejs-plugin-assets

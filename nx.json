@@ -164,7 +164,10 @@
     "parcel-plugin-markdown-import": { "tags": [] },
     "parcel-plugin-compress": { "tags": [] },
     "parcel-plugin-cleanup": { "tags": [] },
-    "parcel-plugin-esbuild-compiler": { "tags": [] }
+    "parcel-plugin-esbuild-compiler": { "tags": [] },
+    "icejs-plugin-compress": { "tags": [] },
+    "icejs-plugin-swc": { "tags": [] },
+    "icejs-plugin-assets": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

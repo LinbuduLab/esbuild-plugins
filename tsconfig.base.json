@@ -139,7 +139,10 @@
       ],
       "parcel-plugin-esbuild-compiler": [
         "packages/parcel-plugin-esbuild-compiler/src/index.ts"
-      ]
+      ],
+      "icejs-plugin-compress": ["packages/icejs-plugin-compress/src/index.ts"],
+      "icejs-plugin-swc": ["packages/icejs-plugin-swc/src/index.ts"],
+      "icejs-plugin-assets": ["packages/icejs-plugin-assets/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
