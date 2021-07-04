@@ -1404,40 +1404,6 @@
         }
       }
     },
-    "esbuild-plugin-node-polyfill": {
-      "root": "packages/esbuild-plugin-node-polyfill",
-      "sourceRoot": "packages/esbuild-plugin-node-polyfill/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "packages/esbuild-plugin-node-polyfill/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-node-polyfill"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-node-polyfill/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-node-polyfill",
-            "tsConfig": "packages/esbuild-plugin-node-polyfill/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-node-polyfill/package.json",
-            "main": "packages/esbuild-plugin-node-polyfill/src/index.ts",
-            "assets": ["packages/esbuild-plugin-node-polyfill/*.md"]
-          }
-        }
-      }
-    },
     "esbuild-plugin-graphql": {
       "root": "packages/esbuild-plugin-graphql",
       "sourceRoot": "packages/esbuild-plugin-graphql/src",
@@ -2442,38 +2408,6 @@
             "packageJson": "packages/icejs-plugin-compress/package.json",
             "main": "packages/icejs-plugin-compress/src/index.ts",
             "assets": ["packages/icejs-plugin-compress/*.md"]
-          }
-        }
-      }
-    },
-    "icejs-plugin-swc": {
-      "root": "packages/icejs-plugin-swc",
-      "sourceRoot": "packages/icejs-plugin-swc/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/icejs-plugin-swc/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/icejs-plugin-swc"],
-          "options": {
-            "jestConfig": "packages/icejs-plugin-swc/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/icejs-plugin-swc",
-            "tsConfig": "packages/icejs-plugin-swc/tsconfig.lib.json",
-            "packageJson": "packages/icejs-plugin-swc/package.json",
-            "main": "packages/icejs-plugin-swc/src/index.ts",
-            "assets": ["packages/icejs-plugin-swc/*.md"]
           }
         }
       }

@@ -134,7 +134,6 @@
     "esbuild-plugin-ignore": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-html": { "tags": ["scope:esbuild"] },
     "esbuild-plugin-alias-path": { "tags": ["scope:esbuild"] },
-    "esbuild-plugin-node-polyfill": { "tags": [] },
     "esbuild-plugin-graphql": { "tags": [] },
     "esbuild-plugin-run": { "tags": [] },
     "esbuild-plugin-yaml-import": { "tags": [] },
@@ -166,7 +165,6 @@
     "parcel-plugin-cleanup": { "tags": [] },
     "parcel-plugin-esbuild-compiler": { "tags": [] },
     "icejs-plugin-compress": { "tags": [] },
-    "icejs-plugin-swc": { "tags": [] },
     "icejs-plugin-assets": { "tags": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
