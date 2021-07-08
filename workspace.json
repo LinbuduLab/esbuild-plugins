@@ -1,522 +1,6 @@
 {
   "version": 2,
   "projects": {
-    "esbuild-plugin-alias-path": {
-      "root": "packages/esbuild-plugin-alias-path",
-      "sourceRoot": "packages/esbuild-plugin-alias-path/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-alias-path/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-alias-path"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-alias-path/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-alias-path",
-            "tsConfig": "packages/esbuild-plugin-alias-path/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-alias-path/package.json",
-            "main": "packages/esbuild-plugin-alias-path/src/index.ts",
-            "assets": ["packages/esbuild-plugin-alias-path/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-clean": {
-      "root": "packages/esbuild-plugin-clean",
-      "sourceRoot": "packages/esbuild-plugin-clean/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-clean/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-clean"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-clean/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-clean",
-            "tsConfig": "packages/esbuild-plugin-clean/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-clean/package.json",
-            "main": "packages/esbuild-plugin-clean/src/index.ts",
-            "assets": ["packages/esbuild-plugin-clean/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-compress": {
-      "root": "packages/esbuild-plugin-compress",
-      "sourceRoot": "packages/esbuild-plugin-compress/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-compress/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-compress"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-compress/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-compress",
-            "tsConfig": "packages/esbuild-plugin-compress/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-compress/package.json",
-            "main": "packages/esbuild-plugin-compress/src/index.ts",
-            "assets": ["packages/esbuild-plugin-compress/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-copy": {
-      "root": "packages/esbuild-plugin-copy",
-      "sourceRoot": "packages/esbuild-plugin-copy/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-copy/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-copy"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-copy/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-copy",
-            "tsConfig": "packages/esbuild-plugin-copy/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-copy/package.json",
-            "main": "packages/esbuild-plugin-copy/src/index.ts",
-            "assets": ["packages/esbuild-plugin-copy/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-decorator": {
-      "root": "packages/esbuild-plugin-decorator",
-      "sourceRoot": "packages/esbuild-plugin-decorator/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-decorator/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-decorator"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-decorator/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-decorator",
-            "tsConfig": "packages/esbuild-plugin-decorator/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-decorator/package.json",
-            "main": "packages/esbuild-plugin-decorator/src/index.ts",
-            "assets": ["packages/esbuild-plugin-decorator/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-filesize": {
-      "root": "packages/esbuild-plugin-filesize",
-      "sourceRoot": "packages/esbuild-plugin-filesize/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-filesize/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-filesize"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-filesize/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-filesize",
-            "tsConfig": "packages/esbuild-plugin-filesize/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-filesize/package.json",
-            "main": "packages/esbuild-plugin-filesize/src/index.ts",
-            "assets": ["packages/esbuild-plugin-filesize/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-graphql": {
-      "root": "packages/esbuild-plugin-graphql",
-      "sourceRoot": "packages/esbuild-plugin-graphql/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-graphql/**/*.ts"]
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-graphql",
-            "tsConfig": "packages/esbuild-plugin-graphql/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-graphql/package.json",
-            "main": "packages/esbuild-plugin-graphql/src/index.ts",
-            "assets": ["packages/esbuild-plugin-graphql/*.md"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-graphql"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-graphql/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "esbuild-plugin-html": {
-      "root": "packages/esbuild-plugin-html",
-      "sourceRoot": "packages/esbuild-plugin-html/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-html/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-html"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-html/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-html",
-            "tsConfig": "packages/esbuild-plugin-html/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-html/package.json",
-            "main": "packages/esbuild-plugin-html/src/index.ts",
-            "assets": ["packages/esbuild-plugin-html/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-ignore": {
-      "root": "packages/esbuild-plugin-ignore",
-      "sourceRoot": "packages/esbuild-plugin-ignore/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-ignore/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-ignore"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-ignore/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-ignore",
-            "tsConfig": "packages/esbuild-plugin-ignore/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-ignore/package.json",
-            "main": "packages/esbuild-plugin-ignore/src/index.ts",
-            "assets": ["packages/esbuild-plugin-ignore/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-markdown-import": {
-      "root": "packages/esbuild-plugin-markdown-import",
-      "sourceRoot": "packages/esbuild-plugin-markdown-import/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "packages/esbuild-plugin-markdown-import/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-markdown-import"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-markdown-import/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-markdown-import",
-            "tsConfig": "packages/esbuild-plugin-markdown-import/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-markdown-import/package.json",
-            "main": "packages/esbuild-plugin-markdown-import/src/index.ts",
-            "assets": ["packages/esbuild-plugin-markdown-import/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-node-externals": {
-      "root": "packages/esbuild-plugin-node-externals",
-      "sourceRoot": "packages/esbuild-plugin-node-externals/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "packages/esbuild-plugin-node-externals/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-node-externals"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-node-externals/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-node-externals",
-            "tsConfig": "packages/esbuild-plugin-node-externals/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-node-externals/package.json",
-            "main": "packages/esbuild-plugin-node-externals/src/index.ts",
-            "assets": ["packages/esbuild-plugin-node-externals/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-run": {
-      "root": "packages/esbuild-plugin-run",
-      "sourceRoot": "packages/esbuild-plugin-run/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-run/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-run"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-run/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-run",
-            "tsConfig": "packages/esbuild-plugin-run/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-run/package.json",
-            "main": "packages/esbuild-plugin-run/src/index.ts",
-            "assets": ["packages/esbuild-plugin-run/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-svgr-import": {
-      "root": "packages/esbuild-plugin-svgr-import",
-      "sourceRoot": "packages/esbuild-plugin-svgr-import/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-svgr-import/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-svgr-import"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-svgr-import/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-svgr-import",
-            "tsConfig": "packages/esbuild-plugin-svgr-import/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-svgr-import/package.json",
-            "main": "packages/esbuild-plugin-svgr-import/src/index.ts",
-            "assets": ["packages/esbuild-plugin-svgr-import/*.md"]
-          }
-        }
-      }
-    },
-    "esbuild-plugin-yaml-import": {
-      "root": "packages/esbuild-plugin-yaml-import",
-      "sourceRoot": "packages/esbuild-plugin-yaml-import/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/esbuild-plugin-yaml-import/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/esbuild-plugin-yaml-import"],
-          "options": {
-            "jestConfig": "packages/esbuild-plugin-yaml-import/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/esbuild-plugin-yaml-import",
-            "tsConfig": "packages/esbuild-plugin-yaml-import/tsconfig.lib.json",
-            "packageJson": "packages/esbuild-plugin-yaml-import/package.json",
-            "main": "packages/esbuild-plugin-yaml-import/src/index.ts",
-            "assets": ["packages/esbuild-plugin-yaml-import/*.md"]
-          }
-        }
-      }
-    },
-    "icejs-plugin-assets": {
-      "root": "packages/icejs-plugin-assets",
-      "sourceRoot": "packages/icejs-plugin-assets/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/icejs-plugin-assets/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/icejs-plugin-assets"],
-          "options": {
-            "jestConfig": "packages/icejs-plugin-assets/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/icejs-plugin-assets",
-            "tsConfig": "packages/icejs-plugin-assets/tsconfig.lib.json",
-            "packageJson": "packages/icejs-plugin-assets/package.json",
-            "main": "packages/icejs-plugin-assets/src/index.ts",
-            "assets": ["packages/icejs-plugin-assets/*.md"]
-          }
-        }
-      }
-    },
-    "icejs-plugin-compress": {
-      "root": "packages/icejs-plugin-compress",
-      "sourceRoot": "packages/icejs-plugin-compress/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/icejs-plugin-compress/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/icejs-plugin-compress"],
-          "options": {
-            "jestConfig": "packages/icejs-plugin-compress/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/icejs-plugin-compress",
-            "tsConfig": "packages/icejs-plugin-compress/tsconfig.lib.json",
-            "packageJson": "packages/icejs-plugin-compress/package.json",
-            "main": "packages/icejs-plugin-compress/src/index.ts",
-            "assets": ["packages/icejs-plugin-compress/*.md"]
-          }
-        }
-      }
-    },
     "nx-plugin-devkit": {
       "root": "packages/nx-plugin-devkit",
       "sourceRoot": "packages/nx-plugin-devkit/src",
@@ -573,9 +57,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-dumi/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["packages/nx-plugin-dumi/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -697,6 +179,38 @@
         }
       }
     },
+    "nx-plugin-hasura": {
+      "root": "packages/nx-plugin-hasura",
+      "sourceRoot": "packages/nx-plugin-hasura/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/nx-plugin-hasura/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-hasura"],
+          "options": {
+            "jestConfig": "packages/nx-plugin-hasura/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-hasura",
+            "tsConfig": "packages/nx-plugin-hasura/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-hasura/package.json",
+            "main": "packages/nx-plugin-hasura/src/index.ts",
+            "assets": ["packages/nx-plugin-hasura/*.md"]
+          }
+        }
+      }
+    },
     "nx-plugin-ice": {
       "root": "packages/nx-plugin-ice",
       "sourceRoot": "packages/nx-plugin-ice/src",
@@ -704,9 +218,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-ice/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["packages/nx-plugin-ice/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -769,9 +281,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-koa/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["packages/nx-plugin-koa/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -1289,9 +799,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-swc/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["packages/nx-plugin-swc/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -1419,9 +927,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-umi/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["packages/nx-plugin-umi/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -1484,9 +990,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-vite/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["packages/nx-plugin-vite/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -1738,22 +1242,22 @@
         }
       }
     },
-    "parcel-plugin-assets": {
-      "root": "packages/parcel-plugin-assets",
-      "sourceRoot": "packages/parcel-plugin-assets/src",
+    "esbuild-plugin-alias-path": {
+      "root": "packages/esbuild-plugin-alias-path",
+      "sourceRoot": "packages/esbuild-plugin-alias-path/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/parcel-plugin-assets/**/*.ts"]
+            "lintFilePatterns": ["packages/esbuild-plugin-alias-path/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/parcel-plugin-assets"],
+          "outputs": ["coverage/packages/esbuild-plugin-alias-path"],
           "options": {
-            "jestConfig": "packages/parcel-plugin-assets/jest.config.js",
+            "jestConfig": "packages/esbuild-plugin-alias-path/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -1761,31 +1265,31 @@
           "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/packages/parcel-plugin-assets",
-            "tsConfig": "packages/parcel-plugin-assets/tsconfig.lib.json",
-            "packageJson": "packages/parcel-plugin-assets/package.json",
-            "main": "packages/parcel-plugin-assets/src/index.ts",
-            "assets": ["packages/parcel-plugin-assets/*.md"]
+            "outputPath": "dist/packages/esbuild-plugin-alias-path",
+            "tsConfig": "packages/esbuild-plugin-alias-path/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-alias-path/package.json",
+            "main": "packages/esbuild-plugin-alias-path/src/index.ts",
+            "assets": ["packages/esbuild-plugin-alias-path/*.md"]
           }
         }
       }
     },
-    "parcel-plugin-compress": {
-      "root": "packages/parcel-plugin-compress",
-      "sourceRoot": "packages/parcel-plugin-compress/src",
+    "esbuild-plugin-clean": {
+      "root": "packages/esbuild-plugin-clean",
+      "sourceRoot": "packages/esbuild-plugin-clean/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/parcel-plugin-compress/**/*.ts"]
+            "lintFilePatterns": ["packages/esbuild-plugin-clean/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/parcel-plugin-compress"],
+          "outputs": ["coverage/packages/esbuild-plugin-clean"],
           "options": {
-            "jestConfig": "packages/parcel-plugin-compress/jest.config.js",
+            "jestConfig": "packages/esbuild-plugin-clean/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -1793,33 +1297,257 @@
           "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/packages/parcel-plugin-compress",
-            "tsConfig": "packages/parcel-plugin-compress/tsconfig.lib.json",
-            "packageJson": "packages/parcel-plugin-compress/package.json",
-            "main": "packages/parcel-plugin-compress/src/index.ts",
-            "assets": ["packages/parcel-plugin-compress/*.md"]
+            "outputPath": "dist/packages/esbuild-plugin-clean",
+            "tsConfig": "packages/esbuild-plugin-clean/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-clean/package.json",
+            "main": "packages/esbuild-plugin-clean/src/index.ts",
+            "assets": ["packages/esbuild-plugin-clean/*.md"]
           }
         }
       }
     },
-    "rollup-plugin-esbuild-compiler": {
-      "root": "packages/rollup-plugin-esbuild-compiler",
-      "sourceRoot": "packages/rollup-plugin-esbuild-compiler/src",
+    "esbuild-plugin-compress": {
+      "root": "packages/esbuild-plugin-compress",
+      "sourceRoot": "packages/esbuild-plugin-compress/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-compress/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-compress"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-compress/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-compress",
+            "tsConfig": "packages/esbuild-plugin-compress/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-compress/package.json",
+            "main": "packages/esbuild-plugin-compress/src/index.ts",
+            "assets": ["packages/esbuild-plugin-compress/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-copy": {
+      "root": "packages/esbuild-plugin-copy",
+      "sourceRoot": "packages/esbuild-plugin-copy/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-copy/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-copy"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-copy/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-copy",
+            "tsConfig": "packages/esbuild-plugin-copy/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-copy/package.json",
+            "main": "packages/esbuild-plugin-copy/src/index.ts",
+            "assets": ["packages/esbuild-plugin-copy/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-decorator": {
+      "root": "packages/esbuild-plugin-decorator",
+      "sourceRoot": "packages/esbuild-plugin-decorator/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-decorator/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-decorator"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-decorator/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-decorator",
+            "tsConfig": "packages/esbuild-plugin-decorator/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-decorator/package.json",
+            "main": "packages/esbuild-plugin-decorator/src/index.ts",
+            "assets": ["packages/esbuild-plugin-decorator/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-filesize": {
+      "root": "packages/esbuild-plugin-filesize",
+      "sourceRoot": "packages/esbuild-plugin-filesize/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-filesize/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-filesize"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-filesize/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-filesize",
+            "tsConfig": "packages/esbuild-plugin-filesize/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-filesize/package.json",
+            "main": "packages/esbuild-plugin-filesize/src/index.ts",
+            "assets": ["packages/esbuild-plugin-filesize/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-graphql": {
+      "root": "packages/esbuild-plugin-graphql",
+      "sourceRoot": "packages/esbuild-plugin-graphql/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-graphql/**/*.ts"]
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-graphql",
+            "tsConfig": "packages/esbuild-plugin-graphql/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-graphql/package.json",
+            "main": "packages/esbuild-plugin-graphql/src/index.ts",
+            "assets": ["packages/esbuild-plugin-graphql/*.md"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-graphql"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-graphql/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "esbuild-plugin-html": {
+      "root": "packages/esbuild-plugin-html",
+      "sourceRoot": "packages/esbuild-plugin-html/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-html/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-html"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-html/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-html",
+            "tsConfig": "packages/esbuild-plugin-html/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-html/package.json",
+            "main": "packages/esbuild-plugin-html/src/index.ts",
+            "assets": ["packages/esbuild-plugin-html/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-ignore": {
+      "root": "packages/esbuild-plugin-ignore",
+      "sourceRoot": "packages/esbuild-plugin-ignore/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-ignore/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-ignore"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-ignore/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-ignore",
+            "tsConfig": "packages/esbuild-plugin-ignore/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-ignore/package.json",
+            "main": "packages/esbuild-plugin-ignore/src/index.ts",
+            "assets": ["packages/esbuild-plugin-ignore/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-markdown-import": {
+      "root": "packages/esbuild-plugin-markdown-import",
+      "sourceRoot": "packages/esbuild-plugin-markdown-import/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "packages/rollup-plugin-esbuild-compiler/**/*.ts"
+              "packages/esbuild-plugin-markdown-import/**/*.ts"
             ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/rollup-plugin-esbuild-compiler"],
+          "outputs": ["coverage/packages/esbuild-plugin-markdown-import"],
           "options": {
-            "jestConfig": "packages/rollup-plugin-esbuild-compiler/jest.config.js",
+            "jestConfig": "packages/esbuild-plugin-markdown-import/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -1827,33 +1555,33 @@
           "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/packages/rollup-plugin-esbuild-compiler",
-            "tsConfig": "packages/rollup-plugin-esbuild-compiler/tsconfig.lib.json",
-            "packageJson": "packages/rollup-plugin-esbuild-compiler/package.json",
-            "main": "packages/rollup-plugin-esbuild-compiler/src/index.ts",
-            "assets": ["packages/rollup-plugin-esbuild-compiler/*.md"]
+            "outputPath": "dist/packages/esbuild-plugin-markdown-import",
+            "tsConfig": "packages/esbuild-plugin-markdown-import/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-markdown-import/package.json",
+            "main": "packages/esbuild-plugin-markdown-import/src/index.ts",
+            "assets": ["packages/esbuild-plugin-markdown-import/*.md"]
           }
         }
       }
     },
-    "rollup-plugin-graphql-loader": {
-      "root": "packages/rollup-plugin-graphql-loader",
-      "sourceRoot": "packages/rollup-plugin-graphql-loader/src",
+    "esbuild-plugin-node-externals": {
+      "root": "packages/esbuild-plugin-node-externals",
+      "sourceRoot": "packages/esbuild-plugin-node-externals/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "packages/rollup-plugin-graphql-loader/**/*.ts"
+              "packages/esbuild-plugin-node-externals/**/*.ts"
             ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/rollup-plugin-graphql-loader"],
+          "outputs": ["coverage/packages/esbuild-plugin-node-externals"],
           "options": {
-            "jestConfig": "packages/rollup-plugin-graphql-loader/jest.config.js",
+            "jestConfig": "packages/esbuild-plugin-node-externals/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -1861,31 +1589,31 @@
           "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/packages/rollup-plugin-graphql-loader",
-            "tsConfig": "packages/rollup-plugin-graphql-loader/tsconfig.lib.json",
-            "packageJson": "packages/rollup-plugin-graphql-loader/package.json",
-            "main": "packages/rollup-plugin-graphql-loader/src/index.ts",
-            "assets": ["packages/rollup-plugin-graphql-loader/*.md"]
+            "outputPath": "dist/packages/esbuild-plugin-node-externals",
+            "tsConfig": "packages/esbuild-plugin-node-externals/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-node-externals/package.json",
+            "main": "packages/esbuild-plugin-node-externals/src/index.ts",
+            "assets": ["packages/esbuild-plugin-node-externals/*.md"]
           }
         }
       }
     },
-    "rollup-plugin-static-serve": {
-      "root": "packages/rollup-plugin-static-serve",
-      "sourceRoot": "packages/rollup-plugin-static-serve/src",
+    "esbuild-plugin-run": {
+      "root": "packages/esbuild-plugin-run",
+      "sourceRoot": "packages/esbuild-plugin-run/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/rollup-plugin-static-serve/**/*.ts"]
+            "lintFilePatterns": ["packages/esbuild-plugin-run/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/rollup-plugin-static-serve"],
+          "outputs": ["coverage/packages/esbuild-plugin-run"],
           "options": {
-            "jestConfig": "packages/rollup-plugin-static-serve/jest.config.js",
+            "jestConfig": "packages/esbuild-plugin-run/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -1893,31 +1621,31 @@
           "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/packages/rollup-plugin-static-serve",
-            "tsConfig": "packages/rollup-plugin-static-serve/tsconfig.lib.json",
-            "packageJson": "packages/rollup-plugin-static-serve/package.json",
-            "main": "packages/rollup-plugin-static-serve/src/index.ts",
-            "assets": ["packages/rollup-plugin-static-serve/*.md"]
+            "outputPath": "dist/packages/esbuild-plugin-run",
+            "tsConfig": "packages/esbuild-plugin-run/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-run/package.json",
+            "main": "packages/esbuild-plugin-run/src/index.ts",
+            "assets": ["packages/esbuild-plugin-run/*.md"]
           }
         }
       }
     },
-    "rollup-plugin-swc-compiler": {
-      "root": "packages/rollup-plugin-swc-compiler",
-      "sourceRoot": "packages/rollup-plugin-swc-compiler/src",
+    "esbuild-plugin-svgr-import": {
+      "root": "packages/esbuild-plugin-svgr-import",
+      "sourceRoot": "packages/esbuild-plugin-svgr-import/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/rollup-plugin-swc-compiler/**/*.ts"]
+            "lintFilePatterns": ["packages/esbuild-plugin-svgr-import/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/rollup-plugin-swc-compiler"],
+          "outputs": ["coverage/packages/esbuild-plugin-svgr-import"],
           "options": {
-            "jestConfig": "packages/rollup-plugin-swc-compiler/jest.config.js",
+            "jestConfig": "packages/esbuild-plugin-svgr-import/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -1925,11 +1653,139 @@
           "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/packages/rollup-plugin-swc-compiler",
-            "tsConfig": "packages/rollup-plugin-swc-compiler/tsconfig.lib.json",
-            "packageJson": "packages/rollup-plugin-swc-compiler/package.json",
-            "main": "packages/rollup-plugin-swc-compiler/src/index.ts",
-            "assets": ["packages/rollup-plugin-swc-compiler/*.md"]
+            "outputPath": "dist/packages/esbuild-plugin-svgr-import",
+            "tsConfig": "packages/esbuild-plugin-svgr-import/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-svgr-import/package.json",
+            "main": "packages/esbuild-plugin-svgr-import/src/index.ts",
+            "assets": ["packages/esbuild-plugin-svgr-import/*.md"]
+          }
+        }
+      }
+    },
+    "esbuild-plugin-yaml-import": {
+      "root": "packages/esbuild-plugin-yaml-import",
+      "sourceRoot": "packages/esbuild-plugin-yaml-import/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/esbuild-plugin-yaml-import/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/esbuild-plugin-yaml-import"],
+          "options": {
+            "jestConfig": "packages/esbuild-plugin-yaml-import/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/esbuild-plugin-yaml-import",
+            "tsConfig": "packages/esbuild-plugin-yaml-import/tsconfig.lib.json",
+            "packageJson": "packages/esbuild-plugin-yaml-import/package.json",
+            "main": "packages/esbuild-plugin-yaml-import/src/index.ts",
+            "assets": ["packages/esbuild-plugin-yaml-import/*.md"]
+          }
+        }
+      }
+    },
+    "vite-plugin-graphql": {
+      "root": "packages/vite-plugin-graphql",
+      "sourceRoot": "packages/vite-plugin-graphql/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/vite-plugin-graphql/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/vite-plugin-graphql"],
+          "options": {
+            "jestConfig": "packages/vite-plugin-graphql/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/vite-plugin-graphql",
+            "tsConfig": "packages/vite-plugin-graphql/tsconfig.lib.json",
+            "packageJson": "packages/vite-plugin-graphql/package.json",
+            "main": "packages/vite-plugin-graphql/src/index.ts",
+            "assets": ["packages/vite-plugin-graphql/*.md"]
+          }
+        }
+      }
+    },
+    "vite-plugin-gundam": {
+      "root": "packages/vite-plugin-gundam",
+      "sourceRoot": "packages/vite-plugin-gundam/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/vite-plugin-gundam/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/vite-plugin-gundam"],
+          "options": {
+            "jestConfig": "packages/vite-plugin-gundam/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/vite-plugin-gundam",
+            "tsConfig": "packages/vite-plugin-gundam/tsconfig.lib.json",
+            "packageJson": "packages/vite-plugin-gundam/package.json",
+            "main": "packages/vite-plugin-gundam/src/index.ts",
+            "assets": ["packages/vite-plugin-gundam/*.md"]
+          }
+        }
+      }
+    },
+    "vite-plugin-prisma": {
+      "root": "packages/vite-plugin-prisma",
+      "sourceRoot": "packages/vite-plugin-prisma/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/vite-plugin-prisma/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/vite-plugin-prisma"],
+          "options": {
+            "jestConfig": "packages/vite-plugin-prisma/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/vite-plugin-prisma",
+            "tsConfig": "packages/vite-plugin-prisma/tsconfig.lib.json",
+            "packageJson": "packages/vite-plugin-prisma/package.json",
+            "main": "packages/vite-plugin-prisma/src/index.ts",
+            "assets": ["packages/vite-plugin-prisma/*.md"]
           }
         }
       }
@@ -2260,22 +2116,24 @@
         }
       }
     },
-    "vite-plugin-graphql": {
-      "root": "packages/vite-plugin-graphql",
-      "sourceRoot": "packages/vite-plugin-graphql/src",
+    "rollup-plugin-esbuild-compiler": {
+      "root": "packages/rollup-plugin-esbuild-compiler",
+      "sourceRoot": "packages/rollup-plugin-esbuild-compiler/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/vite-plugin-graphql/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/rollup-plugin-esbuild-compiler/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/vite-plugin-graphql"],
+          "outputs": ["coverage/packages/rollup-plugin-esbuild-compiler"],
           "options": {
-            "jestConfig": "packages/vite-plugin-graphql/jest.config.js",
+            "jestConfig": "packages/rollup-plugin-esbuild-compiler/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -2283,31 +2141,33 @@
           "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/packages/vite-plugin-graphql",
-            "tsConfig": "packages/vite-plugin-graphql/tsconfig.lib.json",
-            "packageJson": "packages/vite-plugin-graphql/package.json",
-            "main": "packages/vite-plugin-graphql/src/index.ts",
-            "assets": ["packages/vite-plugin-graphql/*.md"]
+            "outputPath": "dist/packages/rollup-plugin-esbuild-compiler",
+            "tsConfig": "packages/rollup-plugin-esbuild-compiler/tsconfig.lib.json",
+            "packageJson": "packages/rollup-plugin-esbuild-compiler/package.json",
+            "main": "packages/rollup-plugin-esbuild-compiler/src/index.ts",
+            "assets": ["packages/rollup-plugin-esbuild-compiler/*.md"]
           }
         }
       }
     },
-    "vite-plugin-gundam": {
-      "root": "packages/vite-plugin-gundam",
-      "sourceRoot": "packages/vite-plugin-gundam/src",
+    "rollup-plugin-graphql-loader": {
+      "root": "packages/rollup-plugin-graphql-loader",
+      "sourceRoot": "packages/rollup-plugin-graphql-loader/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/vite-plugin-gundam/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/rollup-plugin-graphql-loader/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/vite-plugin-gundam"],
+          "outputs": ["coverage/packages/rollup-plugin-graphql-loader"],
           "options": {
-            "jestConfig": "packages/vite-plugin-gundam/jest.config.js",
+            "jestConfig": "packages/rollup-plugin-graphql-loader/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -2315,31 +2175,31 @@
           "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/packages/vite-plugin-gundam",
-            "tsConfig": "packages/vite-plugin-gundam/tsconfig.lib.json",
-            "packageJson": "packages/vite-plugin-gundam/package.json",
-            "main": "packages/vite-plugin-gundam/src/index.ts",
-            "assets": ["packages/vite-plugin-gundam/*.md"]
+            "outputPath": "dist/packages/rollup-plugin-graphql-loader",
+            "tsConfig": "packages/rollup-plugin-graphql-loader/tsconfig.lib.json",
+            "packageJson": "packages/rollup-plugin-graphql-loader/package.json",
+            "main": "packages/rollup-plugin-graphql-loader/src/index.ts",
+            "assets": ["packages/rollup-plugin-graphql-loader/*.md"]
           }
         }
       }
     },
-    "vite-plugin-prisma": {
-      "root": "packages/vite-plugin-prisma",
-      "sourceRoot": "packages/vite-plugin-prisma/src",
+    "rollup-plugin-static-serve": {
+      "root": "packages/rollup-plugin-static-serve",
+      "sourceRoot": "packages/rollup-plugin-static-serve/src",
       "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/vite-plugin-prisma/**/*.ts"]
+            "lintFilePatterns": ["packages/rollup-plugin-static-serve/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/vite-plugin-prisma"],
+          "outputs": ["coverage/packages/rollup-plugin-static-serve"],
           "options": {
-            "jestConfig": "packages/vite-plugin-prisma/jest.config.js",
+            "jestConfig": "packages/rollup-plugin-static-serve/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -2347,17 +2207,175 @@
           "executor": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/packages/vite-plugin-prisma",
-            "tsConfig": "packages/vite-plugin-prisma/tsconfig.lib.json",
-            "packageJson": "packages/vite-plugin-prisma/package.json",
-            "main": "packages/vite-plugin-prisma/src/index.ts",
-            "assets": ["packages/vite-plugin-prisma/*.md"]
+            "outputPath": "dist/packages/rollup-plugin-static-serve",
+            "tsConfig": "packages/rollup-plugin-static-serve/tsconfig.lib.json",
+            "packageJson": "packages/rollup-plugin-static-serve/package.json",
+            "main": "packages/rollup-plugin-static-serve/src/index.ts",
+            "assets": ["packages/rollup-plugin-static-serve/*.md"]
+          }
+        }
+      }
+    },
+    "rollup-plugin-swc-compiler": {
+      "root": "packages/rollup-plugin-swc-compiler",
+      "sourceRoot": "packages/rollup-plugin-swc-compiler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/rollup-plugin-swc-compiler/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/rollup-plugin-swc-compiler"],
+          "options": {
+            "jestConfig": "packages/rollup-plugin-swc-compiler/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/rollup-plugin-swc-compiler",
+            "tsConfig": "packages/rollup-plugin-swc-compiler/tsconfig.lib.json",
+            "packageJson": "packages/rollup-plugin-swc-compiler/package.json",
+            "main": "packages/rollup-plugin-swc-compiler/src/index.ts",
+            "assets": ["packages/rollup-plugin-swc-compiler/*.md"]
+          }
+        }
+      }
+    },
+    "parcel-plugin-assets": {
+      "root": "packages/parcel-plugin-assets",
+      "sourceRoot": "packages/parcel-plugin-assets/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/parcel-plugin-assets/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/parcel-plugin-assets"],
+          "options": {
+            "jestConfig": "packages/parcel-plugin-assets/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/parcel-plugin-assets",
+            "tsConfig": "packages/parcel-plugin-assets/tsconfig.lib.json",
+            "packageJson": "packages/parcel-plugin-assets/package.json",
+            "main": "packages/parcel-plugin-assets/src/index.ts",
+            "assets": ["packages/parcel-plugin-assets/*.md"]
+          }
+        }
+      }
+    },
+    "parcel-plugin-compress": {
+      "root": "packages/parcel-plugin-compress",
+      "sourceRoot": "packages/parcel-plugin-compress/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/parcel-plugin-compress/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/parcel-plugin-compress"],
+          "options": {
+            "jestConfig": "packages/parcel-plugin-compress/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/parcel-plugin-compress",
+            "tsConfig": "packages/parcel-plugin-compress/tsconfig.lib.json",
+            "packageJson": "packages/parcel-plugin-compress/package.json",
+            "main": "packages/parcel-plugin-compress/src/index.ts",
+            "assets": ["packages/parcel-plugin-compress/*.md"]
+          }
+        }
+      }
+    },
+    "icejs-plugin-assets": {
+      "root": "packages/icejs-plugin-assets",
+      "sourceRoot": "packages/icejs-plugin-assets/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/icejs-plugin-assets/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/icejs-plugin-assets"],
+          "options": {
+            "jestConfig": "packages/icejs-plugin-assets/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/icejs-plugin-assets",
+            "tsConfig": "packages/icejs-plugin-assets/tsconfig.lib.json",
+            "packageJson": "packages/icejs-plugin-assets/package.json",
+            "main": "packages/icejs-plugin-assets/src/index.ts",
+            "assets": ["packages/icejs-plugin-assets/*.md"]
+          }
+        }
+      }
+    },
+    "icejs-plugin-compress": {
+      "root": "packages/icejs-plugin-compress",
+      "sourceRoot": "packages/icejs-plugin-compress/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["packages/icejs-plugin-compress/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/icejs-plugin-compress"],
+          "options": {
+            "jestConfig": "packages/icejs-plugin-compress/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/icejs-plugin-compress",
+            "tsConfig": "packages/icejs-plugin-compress/tsconfig.lib.json",
+            "packageJson": "packages/icejs-plugin-compress/package.json",
+            "main": "packages/icejs-plugin-compress/src/index.ts",
+            "assets": ["packages/icejs-plugin-compress/*.md"]
           }
         }
       }
     }
   },
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+  "cli": { "defaultCollection": "@nrwl/workspace" }
 }

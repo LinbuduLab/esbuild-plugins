@@ -1,14 +1,9 @@
 {
   "npmScope": "penumbra",
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -26,60 +21,8 @@
     }
   },
   "projects": {
-    "esbuild-plugin-alias-path": {
-      "tags": ["scope:esbuild"]
-    },
-    "esbuild-plugin-clean": {
-      "tags": []
-    },
-    "esbuild-plugin-compress": {
-      "tags": []
-    },
-    "esbuild-plugin-copy": {
-      "tags": []
-    },
-    "esbuild-plugin-decorator": {
-      "tags": ["scope:esbuild"]
-    },
-    "esbuild-plugin-filesize": {
-      "tags": ["scope:esbuild"]
-    },
-    "esbuild-plugin-graphql": {
-      "tags": []
-    },
-    "esbuild-plugin-html": {
-      "tags": ["scope:esbuild"]
-    },
-    "esbuild-plugin-ignore": {
-      "tags": ["scope:esbuild"]
-    },
-    "esbuild-plugin-markdown-import": {
-      "tags": []
-    },
-    "esbuild-plugin-node-externals": {
-      "tags": ["scope:esbuild"]
-    },
-    "esbuild-plugin-run": {
-      "tags": []
-    },
-    "esbuild-plugin-svgr-import": {
-      "tags": []
-    },
-    "esbuild-plugin-yaml-import": {
-      "tags": []
-    },
-    "icejs-plugin-assets": {
-      "tags": []
-    },
-    "icejs-plugin-compress": {
-      "tags": []
-    },
-    "nx-plugin-devkit": {
-      "tags": ["scope:nx", "scope:devkit"]
-    },
-    "nx-plugin-dumi": {
-      "tags": []
-    },
+    "nx-plugin-devkit": { "tags": ["scope:nx", "scope:devkit"] },
+    "nx-plugin-dumi": { "tags": [] },
     "nx-plugin-dumi-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-dumi"]
@@ -96,48 +39,33 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-esbuild"]
     },
-    "nx-plugin-ice": {
-      "tags": []
-    },
+    "nx-plugin-hasura": { "tags": [] },
+    "nx-plugin-ice": { "tags": [] },
     "nx-plugin-ice-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-ice"]
     },
-    "nx-plugin-koa": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
+    "nx-plugin-koa": { "tags": ["scope:nx"], "implicitDependencies": [] },
     "nx-plugin-koa-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-koa"]
     },
-    "nx-plugin-midway": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
+    "nx-plugin-midway": { "tags": ["scope:nx"], "implicitDependencies": [] },
     "nx-plugin-midway-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-midway"]
     },
-    "nx-plugin-parcel": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
+    "nx-plugin-parcel": { "tags": ["scope:nx"], "implicitDependencies": [] },
     "nx-plugin-parcel-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-parcel"]
     },
-    "nx-plugin-prisma": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
+    "nx-plugin-prisma": { "tags": ["scope:nx"], "implicitDependencies": [] },
     "nx-plugin-prisma-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-prisma"]
     },
-    "nx-plugin-rollup": {
-      "tags": []
-    },
+    "nx-plugin-rollup": { "tags": [] },
     "nx-plugin-rollup-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-rollup"]
@@ -150,25 +78,17 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-serverless"]
     },
-    "nx-plugin-snowpack": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
+    "nx-plugin-snowpack": { "tags": ["scope:nx"], "implicitDependencies": [] },
     "nx-plugin-snowpack-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-snowpack"]
     },
-    "nx-plugin-strapi": {
-      "tags": []
-    },
+    "nx-plugin-strapi": { "tags": [] },
     "nx-plugin-strapi-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-strapi"]
     },
-    "nx-plugin-swc": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
+    "nx-plugin-swc": { "tags": ["scope:nx"], "implicitDependencies": [] },
     "nx-plugin-swc-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-swc"]
@@ -181,33 +101,22 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-typegraphql"]
     },
-    "nx-plugin-umi": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
+    "nx-plugin-umi": { "tags": ["scope:nx"], "implicitDependencies": [] },
     "nx-plugin-umi-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-umi"]
     },
-    "nx-plugin-vite": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
+    "nx-plugin-vite": { "tags": ["scope:nx"], "implicitDependencies": [] },
     "nx-plugin-vite-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-vite"]
     },
-    "nx-plugin-vitepress": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
+    "nx-plugin-vitepress": { "tags": ["scope:nx"], "implicitDependencies": [] },
     "nx-plugin-vitepress-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-vitepress"]
     },
-    "nx-plugin-vuepress": {
-      "tags": []
-    },
+    "nx-plugin-vuepress": { "tags": [] },
     "nx-plugin-vuepress-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-vuepress"]
@@ -220,66 +129,41 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-workspace"]
     },
-    "parcel-plugin-assets": {
-      "tags": []
-    },
-    "parcel-plugin-compress": {
-      "tags": []
-    },
-    "rollup-plugin-esbuild-compiler": {
-      "tags": []
-    },
-    "rollup-plugin-graphql-loader": {
-      "tags": []
-    },
-    "rollup-plugin-static-serve": {
-      "tags": []
-    },
-    "rollup-plugin-swc-compiler": {
-      "tags": []
-    },
-    "snowpack-plugin-assets": {
-      "tags": ["scope:snowpack"]
-    },
-    "snowpack-plugin-compress": {
-      "tags": ["scope:snowpack"]
-    },
-    "snowpack-plugin-execa": {
-      "tags": []
-    },
-    "snowpack-plugin-graphql-import": {
-      "tags": ["scope:snowpack"]
-    },
-    "snowpack-plugin-markdown-import": {
-      "tags": ["scope:snowpack"]
-    },
-    "snowpack-plugin-rollup": {
-      "tags": ["scope:snowpack"]
-    },
-    "snowpack-plugin-serve": {
-      "tags": ["scope:snowpack"]
-    },
-    "snowpack-plugin-svgr-import": {
-      "tags": ["scope:snowpack"]
-    },
-    "snowpack-plugin-swc-compiler": {
-      "tags": ["scope:snowpack"]
-    },
-    "snowpack-plugin-yaml-import": {
-      "tags": ["scope:snowpack"]
-    },
-    "vite-plugin-graphql": {
-      "tags": ["scope:vite"]
-    },
-    "vite-plugin-gundam": {
-      "tags": []
-    },
-    "vite-plugin-prisma": {
-      "tags": ["scope:vite"]
-    }
+    "esbuild-plugin-alias-path": { "tags": ["scope:esbuild"] },
+    "esbuild-plugin-clean": { "tags": [] },
+    "esbuild-plugin-compress": { "tags": [] },
+    "esbuild-plugin-copy": { "tags": [] },
+    "esbuild-plugin-decorator": { "tags": ["scope:esbuild"] },
+    "esbuild-plugin-filesize": { "tags": ["scope:esbuild"] },
+    "esbuild-plugin-graphql": { "tags": [] },
+    "esbuild-plugin-html": { "tags": ["scope:esbuild"] },
+    "esbuild-plugin-ignore": { "tags": ["scope:esbuild"] },
+    "esbuild-plugin-markdown-import": { "tags": [] },
+    "esbuild-plugin-node-externals": { "tags": ["scope:esbuild"] },
+    "esbuild-plugin-run": { "tags": [] },
+    "esbuild-plugin-svgr-import": { "tags": [] },
+    "esbuild-plugin-yaml-import": { "tags": [] },
+    "vite-plugin-graphql": { "tags": ["scope:vite"] },
+    "vite-plugin-gundam": { "tags": [] },
+    "vite-plugin-prisma": { "tags": ["scope:vite"] },
+    "snowpack-plugin-assets": { "tags": ["scope:snowpack"] },
+    "snowpack-plugin-compress": { "tags": ["scope:snowpack"] },
+    "snowpack-plugin-execa": { "tags": [] },
+    "snowpack-plugin-graphql-import": { "tags": ["scope:snowpack"] },
+    "snowpack-plugin-markdown-import": { "tags": ["scope:snowpack"] },
+    "snowpack-plugin-rollup": { "tags": ["scope:snowpack"] },
+    "snowpack-plugin-serve": { "tags": ["scope:snowpack"] },
+    "snowpack-plugin-svgr-import": { "tags": ["scope:snowpack"] },
+    "snowpack-plugin-swc-compiler": { "tags": ["scope:snowpack"] },
+    "snowpack-plugin-yaml-import": { "tags": ["scope:snowpack"] },
+    "rollup-plugin-esbuild-compiler": { "tags": [] },
+    "rollup-plugin-graphql-loader": { "tags": [] },
+    "rollup-plugin-static-serve": { "tags": [] },
+    "rollup-plugin-swc-compiler": { "tags": [] },
+    "parcel-plugin-assets": { "tags": [] },
+    "parcel-plugin-compress": { "tags": [] },
+    "icejs-plugin-assets": { "tags": [] },
+    "icejs-plugin-compress": { "tags": [] }
   },
-  "workspaceLayout": {
-    "appsDir": "e2e",
-    "libsDir": "packages"
-  }
+  "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

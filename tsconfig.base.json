@@ -16,6 +16,28 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"],
+      "nx-plugin-dumi": ["packages/nx-plugin-dumi/src/index.ts"],
+      "nx-plugin-esbuild": ["packages/nx-plugin-esbuild/src/index.ts"],
+      "nx-plugin-folio": ["packages/nx-plugin-folio/src/index.ts"],
+      "nx-plugin-hasura": ["packages/nx-plugin-hasura/src/index.ts"],
+      "nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
+      "nx-plugin-koa": ["packages/nx-plugin-koa/src/index.ts"],
+      "nx-plugin-midway": ["packages/nx-plugin-midway/src/index.ts"],
+      "nx-plugin-parcel": ["packages/nx-plugin-parcel/src/index.ts"],
+      "nx-plugin-prisma": ["packages/nx-plugin-prisma/src/index.ts"],
+      "nx-plugin-release": ["packages/nx-plugin-release/src/index.ts"],
+      "nx-plugin-rollup": ["packages/nx-plugin-rollup/src/index.ts"],
+      "nx-plugin-serverless": ["packages/nx-plugin-serverless/src/index.ts"],
+      "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"],
+      "nx-plugin-strapi": ["packages/nx-plugin-strapi/src/index.ts"],
+      "nx-plugin-swc": ["packages/nx-plugin-swc/src/index.ts"],
+      "nx-plugin-typegraphql": ["packages/nx-plugin-typegraphql/src/index.ts"],
+      "nx-plugin-umi": ["packages/nx-plugin-umi/src/index.ts"],
+      "nx-plugin-vite": ["packages/nx-plugin-vite/src/index.ts"],
+      "nx-plugin-vitepress": ["packages/nx-plugin-vitepress/src/index.ts"],
+      "nx-plugin-vuepress": ["packages/nx-plugin-vuepress/src/index.ts"],
+      "nx-plugin-workspace": ["packages/nx-plugin-workspace/src/index.ts"],
       "esbuild-plugin-alias-path": [
         "packages/esbuild-plugin-alias-path/src/index.ts"
       ],
@@ -56,56 +78,9 @@
       "esbuild-plugin-yaml-import": [
         "packages/esbuild-plugin-yaml-import/src/index.ts"
       ],
-      "icejs-plugin-assets": ["packages/icejs-plugin-assets/src/index.ts"],
-      "icejs-plugin-compress": ["packages/icejs-plugin-compress/src/index.ts"],
-      "icejs-plugin-swc": ["packages/icejs-plugin-swc/src/index.ts"],
-      "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"],
-      "nx-plugin-dumi": ["packages/nx-plugin-dumi/src/index.ts"],
-      "nx-plugin-esbuild": ["packages/nx-plugin-esbuild/src/index.ts"],
-      "nx-plugin-folio": ["packages/nx-plugin-folio/src/index.ts"],
-      "nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
-      "nx-plugin-koa": ["packages/nx-plugin-koa/src/index.ts"],
-      "nx-plugin-midway": ["packages/nx-plugin-midway/src/index.ts"],
-      "nx-plugin-parcel": ["packages/nx-plugin-parcel/src/index.ts"],
-      "nx-plugin-prisma": ["packages/nx-plugin-prisma/src/index.ts"],
-      "nx-plugin-release": ["packages/nx-plugin-release/src/index.ts"],
-      "nx-plugin-rollup": ["packages/nx-plugin-rollup/src/index.ts"],
-      "nx-plugin-serverless": ["packages/nx-plugin-serverless/src/index.ts"],
-      "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"],
-      "nx-plugin-strapi": ["packages/nx-plugin-strapi/src/index.ts"],
-      "nx-plugin-swc": ["packages/nx-plugin-swc/src/index.ts"],
-      "nx-plugin-typegraphql": ["packages/nx-plugin-typegraphql/src/index.ts"],
-      "nx-plugin-umi": ["packages/nx-plugin-umi/src/index.ts"],
-      "nx-plugin-vite": ["packages/nx-plugin-vite/src/index.ts"],
-      "nx-plugin-vitepress": ["packages/nx-plugin-vitepress/src/index.ts"],
-      "nx-plugin-vuepress": ["packages/nx-plugin-vuepress/src/index.ts"],
-      "nx-plugin-workspace": ["packages/nx-plugin-workspace/src/index.ts"],
-      "parcel-plugin-assets": ["packages/parcel-plugin-assets/src/index.ts"],
-      "parcel-plugin-cleanup": ["packages/parcel-plugin-cleanup/src/index.ts"],
-      "parcel-plugin-compress": [
-        "packages/parcel-plugin-compress/src/index.ts"
-      ],
-      "parcel-plugin-copy-assets": [
-        "packages/parcel-plugin-copy-assets/src/index.ts"
-      ],
-      "parcel-plugin-esbuild-compiler": [
-        "packages/parcel-plugin-esbuild-compiler/src/index.ts"
-      ],
-      "parcel-plugin-markdown-import": [
-        "packages/parcel-plugin-markdown-import/src/index.ts"
-      ],
-      "rollup-plugin-esbuild-compiler": [
-        "packages/rollup-plugin-esbuild-compiler/src/index.ts"
-      ],
-      "rollup-plugin-graphql-loader": [
-        "packages/rollup-plugin-graphql-loader/src/index.ts"
-      ],
-      "rollup-plugin-static-serve": [
-        "packages/rollup-plugin-static-serve/src/index.ts"
-      ],
-      "rollup-plugin-swc-compiler": [
-        "packages/rollup-plugin-swc-compiler/src/index.ts"
-      ],
+      "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"],
+      "vite-plugin-gundam": ["packages/vite-plugin-gundam/src/index.ts"],
+      "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"],
       "snowpack-plugin-assets": [
         "packages/snowpack-plugin-assets/src/index.ts"
       ],
@@ -140,9 +115,35 @@
       "snowpack-plugin-yaml-import": [
         "packages/snowpack-plugin-yaml-import/src/index.ts"
       ],
-      "vite-plugin-graphql": ["packages/vite-plugin-graphql/src/index.ts"],
-      "vite-plugin-gundam": ["packages/vite-plugin-gundam/src/index.ts"],
-      "vite-plugin-prisma": ["packages/vite-plugin-prisma/src/index.ts"]
+      "rollup-plugin-esbuild-compiler": [
+        "packages/rollup-plugin-esbuild-compiler/src/index.ts"
+      ],
+      "rollup-plugin-graphql-loader": [
+        "packages/rollup-plugin-graphql-loader/src/index.ts"
+      ],
+      "rollup-plugin-static-serve": [
+        "packages/rollup-plugin-static-serve/src/index.ts"
+      ],
+      "rollup-plugin-swc-compiler": [
+        "packages/rollup-plugin-swc-compiler/src/index.ts"
+      ],
+      "parcel-plugin-assets": ["packages/parcel-plugin-assets/src/index.ts"],
+      "parcel-plugin-cleanup": ["packages/parcel-plugin-cleanup/src/index.ts"],
+      "parcel-plugin-compress": [
+        "packages/parcel-plugin-compress/src/index.ts"
+      ],
+      "parcel-plugin-copy-assets": [
+        "packages/parcel-plugin-copy-assets/src/index.ts"
+      ],
+      "parcel-plugin-esbuild-compiler": [
+        "packages/parcel-plugin-esbuild-compiler/src/index.ts"
+      ],
+      "parcel-plugin-markdown-import": [
+        "packages/parcel-plugin-markdown-import/src/index.ts"
+      ],
+      "icejs-plugin-assets": ["packages/icejs-plugin-assets/src/index.ts"],
+      "icejs-plugin-compress": ["packages/icejs-plugin-compress/src/index.ts"],
+      "icejs-plugin-swc": ["packages/icejs-plugin-swc/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
