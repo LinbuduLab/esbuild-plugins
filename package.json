@@ -200,7 +200,7 @@
     "es-module-lexer": "^0.6.0",
     "esbuild": "^0.12.14",
     "escape-string-regexp": "^5.0.0",
-    "eslint": "7.30.0",
+    "eslint": "7.31.0",
     "eslint-config-prettier": "8.3.0",
     "execa": "^5.1.1",
     "filesize": "^6.4.0",
