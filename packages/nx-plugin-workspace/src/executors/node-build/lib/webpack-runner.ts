@@ -30,11 +30,11 @@ export function runWebpack(
     if (enableAnalytics) {
       plugins.push(
         new SMP({ outputFormat: 'humanVerbose' }),
-        (new BundleAnalyzerPlugin({
+        new BundleAnalyzerPlugin({
           analyzerMode: 'static',
           reportTitle: name,
           openAnalyzer: false,
-        }) as unknown) as Plugin
+        }) as unknown as Plugin
       );
     }
 

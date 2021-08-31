@@ -2,6 +2,9 @@
   "name": "@penumbra/nx-plugins",
   "version": "0.1.0",
   "license": "MIT",
+  "workspace": [
+    "packages/*"
+  ],
   "scripts": {
     "nx": "nx",
     "start": "nx serve",

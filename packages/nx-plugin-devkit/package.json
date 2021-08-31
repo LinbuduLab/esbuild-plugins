@@ -16,6 +16,7 @@
     "url": "git+https://github.com/PenumbraPro/nx-plugins.git"
   },
   "license": "MIT",
+  "main": "dist/index.js",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
   "dependencies": {
     "chalk": "^4.1.0",
