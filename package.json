@@ -277,7 +277,7 @@
     "webpack-dev-server": "3.11.2",
     "webpack-merge": "4.2.1",
     "webpack-node-externals": "1.7.2",
-    "webpack-sources": "1.4.3",
+    "webpack-sources": "3.2.0",
     "webpack-subresource-integrity": "^1.5.2",
     "webpackbar": "^5.0.0-3",
     "yaml": "^1.10.2",
