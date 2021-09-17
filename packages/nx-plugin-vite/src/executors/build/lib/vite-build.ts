@@ -4,8 +4,9 @@ import { build } from 'vite';
 
 import { Res } from '../../utils/types';
 import { RollupWatcher, RollupOutput } from 'rollup';
+import chalk from 'chalk';
 
-const determineIsWacther = (
+const isRollupWacther = (
   watch: boolean,
   watcherOrOutput: RollupWatcher | RollupOutput | RollupOutput[]
 ): watcherOrOutput is RollupWatcher => {
@@ -14,6 +15,8 @@ const determineIsWacther = (
 
 export const startViteBuild = (schema: ViteBuildSchema): Observable<Res> => {
   return new Observable<Res>((subscriber) => {
+    console.log(chalk.blue('i'), chalk.cyan('Nx-Vite [Build] Starting'));
+
     build({
       root: schema.root,
       configFile: schema.configFile,
@@ -21,16 +24,23 @@ export const startViteBuild = (schema: ViteBuildSchema): Observable<Res> => {
         watch: schema.watch ? {} : null,
         outDir: schema.outDir,
         write: schema.write,
+        manifest: schema.manifest,
       },
-    }).then((watcherOrOutput) => {
-      if (determineIsWacther(schema.watch, watcherOrOutput)) {
-        watcherOrOutput.addListener('event', (event) => {
-          subscriber.next({
-            success: event.code !== 'ERROR',
+    })
+      .then((watcherOrOutput) => {
+        if (isRollupWacther(schema.watch, watcherOrOutput)) {
+          watcherOrOutput.addListener('event', (event) => {
+            subscriber.next({
+              success: event.code !== 'ERROR',
+            });
           });
+        }
+      })
+      .catch((error) => {
+        subscriber.error({
+          success: false,
+          error,
         });
-      }
-      // apply modifications on RollupOutput ?
-    });
+      });
   });
 };

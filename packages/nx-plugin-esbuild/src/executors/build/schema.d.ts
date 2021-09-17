@@ -38,6 +38,8 @@ import type { WatchOptions } from 'chokidar';
 // TODO: tree-shaking、pure、img-process
 
 export interface ESBuildExecutorSchema {
+  verbose: boolean;
+
   // required options
   main: string;
   tsconfigPath: string;

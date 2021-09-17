@@ -2,14 +2,27 @@ import { Tree, joinPathFragments, GeneratorCallback } from '@nrwl/devkit';
 import { jestProjectGenerator } from '@nrwl/jest';
 import { Linter, lintProjectGenerator } from '@nrwl/linter';
 import { initializeNodeApp } from './node-app-setup';
-import type { BasicNormalizedAppGenSchema } from '../shared-schema';
+import type { BasicNormalizedAppGenSchema } from '../schema/shared-schema';
 
+/**
+ * Create node application initialize task
+ * GeneratorCallback will be collected and execute together
+ * @param host
+ * @returns
+ */
 export async function createNodeInitTask(
   host: Tree
 ): Promise<GeneratorCallback> {
   return initializeNodeApp(host);
 }
 
+/**
+ * Create node application jest task
+ * GeneratorCallback will be collected and execute together
+ * @param host
+ * @param schema
+ * @returns
+ */
 export async function createNodeJestTask<
   NormalizedAppSchema extends BasicNormalizedAppGenSchema
 >(host: Tree, schema: NormalizedAppSchema): Promise<GeneratorCallback> {
@@ -24,6 +37,13 @@ export async function createNodeJestTask<
   return jestTask;
 }
 
+/**
+ * Create node application lint task
+ * GeneratorCallback will be collected and execute together
+ * @param host
+ * @param schema
+ * @returns
+ */
 export async function createNodeLintTask<
   NormalizedAppSchema extends BasicNormalizedAppGenSchema
 >(host: Tree, schema: NormalizedAppSchema): Promise<GeneratorCallback> {

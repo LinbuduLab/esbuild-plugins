@@ -1,32 +1,24 @@
 {
   "name": "nx-plugin-vite",
-  "version": "0.0.1-1",
-  "description": "@nrwl/nx plugin integration with vite.",
-  "keywords": [
-    "nx",
-    "@nrwl/nx",
-    "vite",
-    "plugin",
-    "monorepo"
-  ],
+  "version": "0.0.1",
+  "main": "dist/src/index.js",
   "scripts": {
-    "link": "pnpm link && pnpm link ../nx-plugin-devkit"
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
   },
-  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/nx-plugin-vite#readme",
-  "bugs": {
-    "url": "https://github.com/linbudu599/nx-plugins/issues"
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "consola": "^2.15.3",
+    "dotenv": "~10.0.0",
+    "nx-plugin-devkit": "^0.0.2",
+    "rxjs": "6.6.7",
+    "rxjs-for-await": "^0.0.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/linbudu599/nx-plugins.git"
-  },
-  "license": "MIT",
-  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
-  "main": "src/index.js",
-  "dependencies": {},
   "peerDependencies": {
-    "@nrwl/devkit": "12.0.8"
+    "@nrwl/devkit": "^12.7.2"
   },
-  "executors": "./executors.json",
-  "generators": "./generators.json"
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
 }

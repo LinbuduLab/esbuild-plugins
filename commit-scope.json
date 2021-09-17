@@ -1,21 +1,16 @@
 {
-  "pluginKind": [
-    "nx",
-    "esbuild",
-    "vite",
-    "snowpack",
-    "umi",
-    "vitepress",
-    "rollup"
-  ],
-  "workspace": [
+  "pluginScope": ["nx", "esbuild", "vite", "snowpack", "gatsby"],
+  "workspaceScope": [
     "workspace",
     "tools-generators",
     "tools-scripts",
-    "docs",
+    "docs-content",
     "docs-site",
     "add-plugin",
     "remove-plugin",
+    "add-playground",
+    "remove-playground",
+    "readme",
     "ci",
     "examples",
     "wip",

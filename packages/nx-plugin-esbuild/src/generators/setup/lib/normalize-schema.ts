@@ -5,7 +5,7 @@ import {
   names,
   getWorkspaceLayout,
 } from '@nrwl/devkit';
-import { getAvailableAppsOrLibs } from 'nx-plugin-devkit';
+import { getAvailableApps } from 'nx-plugin-devkit';
 import {
   ESBuildSetupGeneratorSchema,
   NormalizedESBuildSetupGeneratorSchema,
@@ -15,7 +15,7 @@ export function normalizeSchema(
   host: Tree,
   schema: ESBuildSetupGeneratorSchema
 ): NormalizedESBuildSetupGeneratorSchema {
-  const { apps } = getAvailableAppsOrLibs(host);
+  const apps = getAvailableApps(host);
 
   const appNames = apps.map((app) => app.appName);
 

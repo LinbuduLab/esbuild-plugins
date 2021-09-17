@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-decorator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "ESBuild plugin for decorator compilation.",
   "keywords": [
     "esbuild",
@@ -20,16 +20,25 @@
   },
   "license": "MIT",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
+  },
   "dependencies": {
-    "chalk": "^4.1.1",
+    "chalk": "^4.1.2",
     "fs-extra": "^10.0.0",
     "jsonfile": "^6.1.0",
     "lodash": "^4.17.21",
     "strip-comments": "^2.0.1"
   },
   "peerDependencies": {
-    "@swc/core": "^1.2.54",
-    "esbuild": "^0.11.19",
-    "typescript": "~4.2.4"
-  }
+    "@swc/core": "^1.2.85",
+    "esbuild": "^0.12.25",
+    "typescript": "~4.3.5"
+  },
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
 }

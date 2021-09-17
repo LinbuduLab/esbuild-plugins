@@ -2,10 +2,6 @@
 
 ESBuild plugin for cleaning up output/assets before building.
 
-# esbuild-plugin-clean
-
-ESBuild plugin for cleaning up output/assets before building.
-
 ## Usage
 
 **Node: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks**

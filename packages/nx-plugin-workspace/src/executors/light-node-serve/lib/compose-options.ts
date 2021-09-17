@@ -1,7 +1,4 @@
-import {
-  LightNodeServeExecutorSchema,
-  NormalizedLightNodeServeExecutorSchema,
-} from '../schema';
+import { LightNodeServeExecutorSchema } from '../schema';
 
 export const getNodeDevOptions = (schema: LightNodeServeExecutorSchema) => {
   // replace with Primitive

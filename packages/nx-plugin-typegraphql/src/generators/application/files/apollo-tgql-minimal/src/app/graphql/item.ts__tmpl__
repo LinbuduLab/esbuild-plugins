@@ -1,7 +1,0 @@
-import { ObjectType, Field, ID } from "type-graphql";
-
-@ObjectType()
-export class Item {
-  @Field((type) => ID)
-  id!: number;
-}

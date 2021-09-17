@@ -5,7 +5,7 @@ import { build } from 'esbuild';
 import chokidar from 'chokidar';
 import { copyAssetFiles } from 'nx-plugin-devkit';
 import chalk from 'chalk';
-
+import consola from 'consola';
 import { error, info, success } from './log';
 
 export function runESBuild(
@@ -21,20 +21,20 @@ export function runESBuild(
       watchDir,
       watchOptions,
       watchAssetsDir,
+      verbose,
       ...esbuildBuildOptions
     } = options;
 
     if (typeof options.write === 'boolean' && !options.write) {
-      console.log(
-        chalk.yellow('WARN'),
-        `ESBuild ${info('BuildOptions.write')} is set to ${info('false')}.`
-      );
+      verbose &&
+        console.log(
+          chalk.yellow('WARN'),
+          `ESBuild ${info('BuildOptions.write')} set to ${info('false')}\n`
+        );
     }
 
     buildWatch &&
-      console.log(
-        `${chalk.blue('i')} Watching ${info(`${watchDir}`)} for changes ...\n`
-      );
+      consola.info(`Watching ${info(`${watchDir}`)} for changes ...\n`);
 
     const { ignored = [], ...restWatchOptions } = watchOptions;
 
@@ -43,7 +43,6 @@ export function runESBuild(
           [watchDir].concat(
             watchAssetsDir ? assetsDirs.map((dir) => dir.input) : []
           ),
-
           {
             ignored: ['node_modules', '.git']
               .concat(watchAssetsDir ? [] : assetsDirs.map((dir) => dir.input))
@@ -76,9 +75,9 @@ export function runESBuild(
         buildWatch
           ? watcher.on('all', (eventName, path) => {
               console.log(
-                `${'\nChanges Detected:'} ${info(
+                `${chalk.white('Changes Detected:')} ${info(
                   eventName.toLocaleUpperCase()
-                )} ${info(path)}\n`
+                )} on ${info(path)}`
               );
 
               buildResult

@@ -1,37 +1,26 @@
 {
   "name": "nx-plugin-workspace",
-  "version": "0.0.1-1",
-  "description": "@nrwl/nx plugin integration with workspace.",
-  "keywords": [
-    "nx",
-    "@nrwl/nx",
-    "workspace",
-    "plugin",
-    "monorepo"
-  ],
-  "homepage": "https://github.com/PenumbraPro/nx-plugins/tree/master/packages/nx-plugin-workspace#readme",
-  "bugs": {
-    "url": "https://github.com/PenumbraPro/nx-plugins/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PenumbraPro/nx-plugins.git"
-  },
-  "license": "MIT",
-  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
-  "main": "src/index.js",
+  "version": "0.0.1",
+  "main": "dist/src/index.js",
   "scripts": {
-    "link": "pnpm link && npm-run-all --print-label --print-name  link:**",
-    "link:devkit": " pnpm link ../nx-plugin-devkit"
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
   },
   "dependencies": {
-    "dotenv": "8.2.0",
+    "dotenv": "~10.0.0",
     "execa": "^5.0.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "lodash": "^4.17.21",
     "npm-run-path": "^4.0.1",
+<<<<<<< HEAD
     "nx-plugin-devkit": "workspace:*",
     "rxjs": "^6.6.7",
+=======
+    "nx-plugin-devkit": "^0.0.2",
+    "rxjs": "6.6.7",
+>>>>>>> migration/workspace
     "rxjs-for-await": "^0.0.2",
     "speed-measure-webpack-plugin": "^1.5.0",
     "tree-kill": "^1.2.2",
@@ -40,12 +29,11 @@
     "yargs-parser": "^20.2.7"
   },
   "peerDependencies": {
-    "@nrwl/devkit": "12.0.8",
-    "@nrwl/node": "12.0.8",
-    "@nrwl/workspace": "12.0.8",
-    "webpack": "4.42.0",
-    "webpack-dev-server": "3.11.0"
+    "@nrwl/devkit": "^12.7.2",
+    "@nrwl/node": "^12.7.2",
+    "@nrwl/workspace": "^12.7.2",
+    "typescript": "~4.3.5"
   },
-  "executors": "./executors.json",
-  "generators": "./generators.json"
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
 }

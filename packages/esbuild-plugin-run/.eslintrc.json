@@ -5,7 +5,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["packages/esbuild-plugin-run/tsconfig.*?.json"]
+        "project": ["packages/esbuild-plugin-run/tsconfig.json"]
       },
       "rules": {}
     },

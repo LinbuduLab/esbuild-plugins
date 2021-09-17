@@ -1,8 +1,6 @@
 import {
   Tree,
   addProjectConfiguration,
-  readWorkspaceConfiguration,
-  updateWorkspaceConfiguration,
   generateFiles,
   addDependenciesToPackageJson,
   offsetFromRoot,
@@ -17,13 +15,22 @@ import {
 import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
 
 import { nxVersion } from '@nrwl/node/src/utils/versions';
-import type { BasicNormalizedAppGenSchema } from '../shared-schema';
+import type { BasicNormalizedAppGenSchema } from '../schema/shared-schema';
 import {
   createNodeAppBuildConfig,
   createNodeAppServeConfig,
 } from './node-app-config';
-import { setDefaultProject } from '../workspace';
+import { setDefaultProject } from '../workspace-utils/set-default-project';
+// import { setDefaultProject } from '../workspace-utils/check-project';
 
+/**
+ * For node applications, when generator invokes with `--frontendProject` flag,
+ * we setup proxy config for specified frontend project,
+ * which connects to generated node applications.
+ * @param host
+ * @param schema
+ * @returns
+ */
 export function setupProxy<
   NormalizedAppSchema extends BasicNormalizedAppGenSchema
 >(host: Tree, schema: NormalizedAppSchema) {
@@ -31,12 +38,15 @@ export function setupProxy<
 
   const projectConfig = readProjectConfiguration(host, schema.frontendProject);
 
+  // TODO: Should throw on frontendProject not found?
+
   if (projectConfig?.targets?.serve) {
     const pathToProxyFile = `${projectConfig.root}/proxy.conf.json`;
     projectConfig.targets.serve.options.proxyConfig = pathToProxyFile;
     const proxyFileExists = host.exists(pathToProxyFile);
 
     if (proxyFileExists) {
+      // If proxy file exist, append new configuration
       const existProxyFileContent = host.read(pathToProxyFile).toString();
       const updatedProxyFileContent = {
         ...JSON.parse(existProxyFileContent),
@@ -50,6 +60,7 @@ export function setupProxy<
         JSON.stringify(updatedProxyFileContent, null, 2)
       );
     } else {
+      // Else, create new proxy file
       host.write(
         pathToProxyFile,
         JSON.stringify(
@@ -64,19 +75,31 @@ export function setupProxy<
         )
       );
     }
+
     updateProjectConfiguration(host, schema.frontendProject, projectConfig);
   }
 }
 
+/**
+ * Update dependencies for node applications.
+ * Move @nrwl/node to devDependencies
+ * @param host
+ * @returns
+ */
 export function updateNodeAppDeps(host: Tree) {
   updateJson(host, 'package.json', (json) => {
-    delete json.dependencies['@nrwl/node'];
+    '@nrwl/node' in json.dependencies && delete json.dependencies['@nrwl/node'];
     return json;
   });
 
   return addDependenciesToPackageJson(host, {}, { '@nrwl/node': nxVersion });
 }
 
+/**
+ * Initialize node applications, should be invoked after `createNodeAppProject`
+ * @param host
+ * @returns
+ */
 export async function initializeNodeApp(host: Tree) {
   setDefaultCollection(host, '@nrwl/node');
 
@@ -86,6 +109,15 @@ export async function initializeNodeApp(host: Tree) {
   };
 }
 
+/**
+ * Create brand new node project and configurations
+ * @param host
+ * @param schema
+ * @param buildTarget
+ * @param serveTarget
+ * @param buildTargetName
+ * @param serveTargetName
+ */
 export function createNodeAppProject<
   NormalizedAppSchema extends BasicNormalizedAppGenSchema
 >(
@@ -119,12 +151,20 @@ export function createNodeAppProject<
   setDefaultProject(host, schema);
 }
 
+/**
+ * Simple wrapper for node applications file generator
+ * Using EJS as template engine under the hood.
+ * @param host
+ * @param schema
+ * @param targetPath
+ * @param substitutions
+ */
 export function createNodeAppFiles<
   NormalizedAppSchema extends BasicNormalizedAppGenSchema
 >(
   host: Tree,
   schema: NormalizedAppSchema,
-  path: string,
+  targetPath: string,
   substitutions: Record<string, unknown> = {}
 ) {
   const subs = {
@@ -135,5 +175,5 @@ export function createNodeAppFiles<
     ...substitutions,
   };
 
-  generateFiles(host, path, schema.projectRoot, subs);
+  generateFiles(host, targetPath, schema.projectRoot, subs);
 }

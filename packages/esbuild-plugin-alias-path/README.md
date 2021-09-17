@@ -47,6 +47,8 @@ export interface Options {
   // alias, default as {}
   // {"replace-key": "replace-with"}
   // you will need to use absolute path as replace-with
+  // if value of k-v is absolute path, it will be used directly
+  // or the path will be resolved with process.cwd() (for CICD usage)
   alias?: Record<string, string>;
   // tsconfig.json path
   tsconfigPath?: string;

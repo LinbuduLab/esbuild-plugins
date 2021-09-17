@@ -34,11 +34,9 @@ export function collectESBuildRunnerMessages(
 
     messageFragments.push(errorTxt(buildFailure.message));
 
-    //  FIXME: ESBuild API got breaking changes ?
-    // buildFailure.errors?.forEach((error) => {
-    //   messageFragments.push(errorTxt(error.text));
-    // });
-    // console.log(error('\nESBuild Compilation Failed.\n'));
+    buildFailure.errors?.forEach((error) => {
+      messageFragments.push(errorTxt(error.text));
+    });
   } else if (buildResult?.warnings?.length > 0) {
     messageFragments.push(
       success(

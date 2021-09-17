@@ -1,7 +1,8 @@
-import { ViteServeSchema, Res } from '../schema';
+import { ViteServeSchema } from '../schema';
 import { from, Observable } from 'rxjs';
-import { tap, switchMap, map, mapTo } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
 import { createServer, ViteDevServer } from 'vite';
+import consola from 'consola';
 import chalk from 'chalk';
 
 export interface ServeRes {
@@ -12,40 +13,20 @@ export interface ServeRes {
 export const startViteServer = (
   schema: ViteServeSchema
 ): Observable<ServeRes> => {
-  // new Observable((subscriber) => {
-  //   createServer({
-  //     configFile: schema.configFile,
-  //     root: schema.root,
-  //   }).then((server) => {
-  //     // TODO:
-  //     // 预置gundam插件
-  //     // 暴露事件监听、插件容器、修改模块图等能力
-  //     server.listen().then((viteDevServer) => {
-  //       subscriber.next({
-  //         success: true,
-  //       });
-
-  //       viteDevServer.watcher.addListener('error', () => {
-  //         subscriber.next({
-  //           success: false,
-  //         });
-  //       });
-  //     });
-  //   });
-  // });
   return from(
     createServer({
-      configFile: schema.configFile,
       root: schema.root,
+      configFile: schema.configFile,
+      server: {
+        port: schema.port,
+        watch: schema.watch ? {} : null,
+      },
     })
   ).pipe(
     tap(() => {
-      console.log(
-        ' ',
-        chalk.blue('i'),
-        chalk.green('Nx-Vite [Serve] Starting')
-      );
+      console.log(chalk.blue('i'), chalk.cyan('Nx-Vite [Serve] Starting'));
     }),
+
     switchMap((server) => {
       return new Observable<ServeRes>((subscriber) => {
         server
@@ -60,8 +41,11 @@ export const startViteServer = (
               success: true,
             });
           })
-          .catch(() => {
-            subscriber.error();
+          .catch((error) => {
+            subscriber.error({
+              success: false,
+              error,
+            });
           });
       });
     })

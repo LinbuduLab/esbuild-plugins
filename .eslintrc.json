@@ -7,32 +7,14 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": [
-          "warning",
+          "error",
           {
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "scope:nx",
-                "onlyDependOnLibsWithTags": [
-                  "scope:nx",
-                  "scope:esbuild",
-                  "scope:vite",
-                  "scope:snowpack",
-                  "scope:devkit"
-                ]
-              },
-              {
-                "sourceTag": "scope:esbuild",
-                "onlyDependOnLibsWithTags": ["scope:esbuild", "scope:devkit"]
-              },
-              {
-                "sourceTag": "scope:vite",
-                "onlyDependOnLibsWithTags": ["scope:vite", "scope:devkit"]
-              },
-              {
-                "sourceTag": "scope:snowpack",
-                "onlyDependOnLibsWithTags": ["scope:snowpack", "scope:devkit"]
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
               }
             ]
           }

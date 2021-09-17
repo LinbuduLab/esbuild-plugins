@@ -1,28 +1,19 @@
 {
   "name": "esbuild-plugin-node-externals",
   "version": "0.1.2",
-  "description": "ESBuild plugin for node externals handing.",
-  "keywords": [
-    "esbuild",
-    "ESBuild",
-    "node-externals",
-    "plugin"
-  ],
-  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-node-externals#readme",
-  "bugs": {
-    "url": "https://github.com/linbudu599/nx-plugins/issues"
+  "main": "dist/src/index.js",
+  "scripts": {
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/linbudu599/nx-plugins.git"
-  },
-  "license": "MIT",
-  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
   "dependencies": {
-    "find-up": "^5.0.0",
     "jsonfile": "^6.1.0"
   },
   "peerDependencies": {
-    "esbuild": "^0.11.19"
-  }
+    "esbuild": "^0.12.25"
+  },
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
 }

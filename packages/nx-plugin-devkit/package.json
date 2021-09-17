@@ -1,16 +1,14 @@
 {
   "name": "nx-plugin-devkit",
-  "version": "0.0.1-1",
-  "description": "Nx plugin development utilities collection",
-  "keywords": [
-    "nx",
-    "plugin",
-    "devkit"
-  ],
-  "homepage": "https://github.com/PenumbraPro/nx-plugins/tree/master/packages/nx-plugin-devkit#readme",
-  "bugs": {
-    "url": "https://github.com/PenumbraPro/nx-plugins/issues"
+  "version": "0.0.2",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
   },
+<<<<<<< HEAD
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PenumbraPro/nx-plugins.git"
@@ -18,22 +16,24 @@
   "license": "MIT",
   "main": "dist/index.js",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+=======
+>>>>>>> migration/workspace
   "dependencies": {
-    "chalk": "^4.1.0",
-    "dotenv": "8.2.0",
+    "chalk": "^4.1.2",
+    "dotenv": "~10.0.0",
+    "envinfo": "^7.8.1",
     "execa": "^5.0.0",
     "fs-extra": "^9.1.0",
     "glob": "^7.1.6",
-    "rxjs": "^6.6.7",
+    "rxjs": "6.6.7",
     "yargs-parser": "^20.2.7"
   },
   "peerDependencies": {
-    "@nrwl/devkit": "12.0.8",
-    "@nrwl/jest": "12.0.8",
-    "@nrwl/linter": "12.0.8",
-    "@nrwl/node": "12.0.8",
-    "@nrwl/workspace": "12.0.8"
-  },
-  "executors": "./executors.json",
-  "generators": "./generators.json"
+    "@nrwl/devkit": "^12.7.2",
+    "@nrwl/jest": "^12.7.2",
+    "@nrwl/linter": "^12.7.2",
+    "@nrwl/node": "^12.7.2",
+    "@nrwl/workspace": "^12.7.2",
+    "esbuild": "^0.12.25"
+  }
 }

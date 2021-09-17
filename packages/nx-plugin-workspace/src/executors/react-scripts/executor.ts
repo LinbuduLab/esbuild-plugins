@@ -1,7 +1,6 @@
-import { ReactScriptsExecutorSchema } from './schema';
 import { eachValueFrom } from 'rxjs-for-await';
-import { from, Observable } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
+import { from } from 'rxjs';
+import { map } from 'rxjs/operators';
 import execa from 'execa';
 
 // jest 版本问题
@@ -20,14 +19,11 @@ const reactScriptsStart = (cwd: string) => {
 };
 
 export default function runExecutor(options: any) {
-  console.log('Executor ran for ReactScripts', options);
   return eachValueFrom(
     from(reactScriptsStart(options.cwd)).pipe(
-      map(() => {
-        return {
-          success: true,
-        };
-      })
+      map(() => ({
+        success: true,
+      }))
     )
   );
 }

@@ -5,6 +5,8 @@ import fs from 'fs-extra';
 export interface Options {
   // alias default as {}
   // {"a":"b"}
+  // for absolute path: use
+  // or connect with process.cwd() !
   alias?: Record<string, string>;
 
   // path of tsconfig.json
