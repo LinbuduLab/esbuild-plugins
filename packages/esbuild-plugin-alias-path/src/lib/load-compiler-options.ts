@@ -1,6 +1,6 @@
-import findUp from 'find-up';
 import { CompilerOptions } from 'typescript';
 import jsonfile from 'jsonfile';
+import findUp from 'find-up';
 import fs from 'fs-extra';
 
 export function loadCompilerOptions(tsconfigPath?: string): CompilerOptions {

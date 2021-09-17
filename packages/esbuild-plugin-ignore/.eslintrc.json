@@ -5,7 +5,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["packages/esbuild-plugin-ignore/tsconfig.*?.json"]
+        "project": ["packages/esbuild-plugin-ignore/tsconfig.json"]
       },
       "rules": {}
     },

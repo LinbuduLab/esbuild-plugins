@@ -1,5 +1,5 @@
 import { Tree, joinPathFragments } from '@nrwl/devkit';
-import { normalizeNodeAppSchema } from 'nx-plugin-devkit';
+import { normalizeNodeAppSchema, checkProjectExist } from 'nx-plugin-devkit';
 import {
   PrismaGeneratorSchema,
   NormalizedPrismaGeneratorSchema,
@@ -9,6 +9,10 @@ export function normalizeSchema(
   host: Tree,
   schema: PrismaGeneratorSchema
 ): NormalizedPrismaGeneratorSchema {
+  if (!checkProjectExist(schema.app)) {
+    throw new Error(`Project ${schema.app} does not exist!`);
+  }
+
   const basicNormalizedAppGenSchema = normalizeNodeAppSchema(
     host,
     schema,
@@ -40,7 +44,7 @@ export function normalizeSchema(
     ? joinPathFragments(basicNormalizedAppGenSchema.projectRoot, '.env')
     : '.env';
 
-  const datasourceUrl = "env('DATABASE_URL')";
+  const datasourceUrl = 'env("DATABASE_URL")';
 
   return {
     ...schema,

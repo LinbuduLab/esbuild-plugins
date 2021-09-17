@@ -4,9 +4,6 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "parserOptions": {
-        "project": ["packages/snowpack-plugin-markdown-import/tsconfig.*?.json"]
-      },
       "rules": {}
     },
     {

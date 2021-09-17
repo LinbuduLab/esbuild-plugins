@@ -12,6 +12,7 @@ import {
   createNodeLintTask,
   setDefaultProject,
   setupProxy,
+  checkProjectExist,
 } from 'nx-plugin-devkit';
 
 import { PrismaInitGeneratorSchema } from './schema';

@@ -1,6 +1,5 @@
-import { joinPathFragments } from '@nrwl/devkit';
 import path from 'path';
-
+import fs from 'fs-extra';
 import type {
   ESBuildExecutorSchema,
   NormalizedESBuildExecutorSchema,
@@ -13,6 +12,8 @@ import {
   normalizeInserts,
   normalizeFileReplacements,
 } from './normaliz-helper';
+import consola from 'consola';
+import chalk from 'chalk';
 
 export function normalizeBuildExecutorOptions(
   options: ESBuildExecutorSchema,
@@ -22,23 +23,29 @@ export function normalizeBuildExecutorOptions(
   projectRoot: string,
   appsLayout: string
 ): NormalizedESBuildExecutorSchema {
-  const { main, tsconfigPath } = options;
+  const { main, tsconfigPath, verbose } = options;
 
   const outputPath = options.outputPath ?? `dist/${appsLayout}/${projectName}`;
 
   const formattedInserts = normalizeInserts(options.inserts ?? []);
 
-  // TODO: config file generator
-  // TODO: if .ts is not found, use .js file
   const pluginConfigPath = path.resolve(
     workspaceRoot,
+    projectRoot,
     options.pluginConfigPath ?? 'nx-esbuild.ts'
   );
 
-  const userConfigBuildOptions = options.allowExtend
+  const shouldExtendConfig = fs.existsSync(pluginConfigPath);
+
+  shouldExtendConfig &&
+    verbose &&
+    consola.info(
+      `Extending config file from ${chalk.cyan(pluginConfigPath)}\n`
+    );
+
+  const userConfigBuildOptions = shouldExtendConfig
     ? normalizeESBuildExtendConfig(
         path.resolve(workspaceRoot, projectRoot),
-
         pluginConfigPath
       )
     : {};
@@ -83,6 +90,8 @@ export function normalizeBuildExecutorOptions(
     inject: normalizedInject,
     extendBuildOptions: userConfigBuildOptions.esbuildOptions ?? {},
     extendWatchOptions: userConfigBuildOptions.watchOptions ?? {},
+    // extendBuildOptions: {},
+    // extendWatchOptions: {},
     watchDir,
   };
 }

@@ -56,6 +56,11 @@
       "type": "string",
       "description": "Prisma client output"
     },
+    "setDefault": {
+      "type": "boolean",
+      "description": "Set default project in nx configuration",
+      "default": true
+    },
     "initialSchema": {
       "type": "boolean",
       "description": "Create model definitions for generated schema",

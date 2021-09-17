@@ -1,8 +1,8 @@
 {
   "recommendations": [
-    "ms-vscode.vscode-typescript-tslint-plugin",
+    "nrwl.angular-console",
     "esbenp.prettier-vscode",
-    "firsttris.vscode-jest-runner",
-    "GraphQL.vscode-graphql"
+    "dbaeumer.vscode-eslint",
+    "firsttris.vscode-jest-runner"
   ]
 }

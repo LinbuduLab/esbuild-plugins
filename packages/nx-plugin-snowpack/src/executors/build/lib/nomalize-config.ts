@@ -28,7 +28,7 @@ export const defaultSnowpackOptions = (
     },
     exclude: ['**/node_modules/**'],
     workspaceRoot: options.workspaceRoot,
-    mode: 'production' as 'production',
+    mode: 'production' as const,
     // https://www.snowpack.dev/concepts/build-pipeline
     devOptions: {
       secure: false,
@@ -58,7 +58,7 @@ const defaultSnowpackBuildOptions = (
   return {
     root: options.absCwd,
     workspaceRoot: options.workspaceRoot,
-    mode: 'production' as 'production',
+    mode: 'production' as const,
   };
 };
 

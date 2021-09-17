@@ -1,5 +1,5 @@
 {
-  "npmScope": "penumbra",
+  "npmScope": "nps",
   "affected": {
     "defaultBase": "master"
   },
@@ -10,24 +10,31 @@
       "devDependencies": "*"
     },
     "tsconfig.base.json": "*",
-    "tslint.json": "*",
-    ".eslintrc.json": "*",
-    "nx.json": "*"
+    "nx.json": "*",
+    ".eslintrc.json": "*"
   },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["lint", "test", "e2e"],
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
         "parallel": true,
         "maxParallel": 8,
         "skipNxCache": true
       }
     }
   },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
   "projects": {
     "esbuild-plugin-alias-path": {
-      "tags": ["scope:esbuild"]
+      "tags": []
     },
     "esbuild-plugin-clean": {
       "tags": []
@@ -39,169 +46,106 @@
       "tags": []
     },
     "esbuild-plugin-decorator": {
-      "tags": ["scope:esbuild"]
+      "tags": []
     },
     "esbuild-plugin-filesize": {
-      "tags": ["scope:esbuild"]
-    },
-    "esbuild-plugin-graphql": {
       "tags": []
     },
     "esbuild-plugin-ignore": {
-      "tags": ["scope:esbuild"]
+      "tags": []
     },
     "esbuild-plugin-markdown-import": {
       "tags": []
     },
     "esbuild-plugin-node-externals": {
-      "tags": ["scope:esbuild"]
+      "tags": []
     },
     "esbuild-plugin-run": {
       "tags": []
     },
-    "esbuild-plugin-svgr-import": {
-      "tags": []
-    },
-    "esbuild-plugin-yaml-import": {
+    "node-playground": {
       "tags": []
     },
     "nx-plugin-devkit": {
-      "tags": ["scope:nx", "scope:devkit"]
+      "tags": []
+    },
+    "nx-plugin-devkit-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-devkit"]
     },
     "nx-plugin-esbuild": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": [
-        "esbuild-plugin-decorator",
-        "esbuild-plugin-node-externals",
-        "esbuild-plugin-alias-path"
-      ]
+      "tags": [],
+      "implicitDependencies": []
     },
     "nx-plugin-esbuild-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-esbuild"]
     },
-    "nx-plugin-ice": {
-      "tags": []
-    },
-    "nx-plugin-ice-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-ice"]
-    },
-    "nx-plugin-koa": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
-    "nx-plugin-koa-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-koa"]
-    },
-    "nx-plugin-midway": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
-    "nx-plugin-midway-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-midway"]
-    },
-    "nx-plugin-parcel": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
-    "nx-plugin-parcel-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-parcel"]
-    },
     "nx-plugin-prisma": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
+      "tags": []
     },
     "nx-plugin-prisma-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-prisma"]
     },
-    "nx-plugin-rollup": {
-      "tags": []
-    },
-    "nx-plugin-rollup-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-rollup"]
-    },
     "nx-plugin-snowpack": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
+      "tags": []
     },
     "nx-plugin-snowpack-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-snowpack"]
     },
     "nx-plugin-swc": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
+      "tags": []
     },
     "nx-plugin-swc-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-swc"]
     },
-    "nx-plugin-typegraphql": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-devkit"]
-    },
-    "nx-plugin-typegraphql-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-typegraphql"]
-    },
-    "nx-plugin-umi": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
-    },
-    "nx-plugin-umi-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-umi"]
-    },
     "nx-plugin-vite": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": []
+      "tags": []
     },
     "nx-plugin-vite-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-vite"]
     },
     "nx-plugin-workspace": {
-      "tags": ["scope:nx"],
-      "implicitDependencies": ["nx-plugin-devkit"]
+      "tags": []
     },
     "nx-plugin-workspace-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-workspace"]
     },
-    "rollup-plugin-esbuild-compiler": {
+    "prisma-playground": {
+      "tags": [],
+      "implicitDependencies": []
+    },
+    "react-playground": {
       "tags": []
     },
-    "rollup-plugin-graphql-loader": {
+    "snowpack-app": {
       "tags": []
     },
     "snowpack-plugin-assets": {
-      "tags": ["scope:snowpack"]
+      "tags": []
     },
     "snowpack-plugin-compress": {
-      "tags": ["scope:snowpack"]
+      "tags": []
     },
     "snowpack-plugin-execa": {
       "tags": []
     },
-    "snowpack-plugin-graphql-import": {
-      "tags": ["scope:snowpack"]
-    },
     "snowpack-plugin-markdown-import": {
-      "tags": ["scope:snowpack"]
+      "tags": []
     },
     "snowpack-plugin-serve": {
-      "tags": ["scope:snowpack"]
+      "tags": []
     },
-    "vite-plugin-graphql": {
-      "tags": ["scope:vite"]
+    "tmp": {
+      "tags": [],
+      "implicitDependencies": []
     },
-    "vite-plugin-gundam": {
+    "vite-app": {
       "tags": []
     }
   },

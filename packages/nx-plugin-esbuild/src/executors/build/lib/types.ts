@@ -30,6 +30,7 @@ export interface ESBuildRunnerOptions extends BuildOptions {
   watchDir: string;
   watchOptions: WatchOptions;
   watchAssetsDir: boolean;
+  verbose: boolean;
 }
 
 export interface ESBuildRunnerResponse {

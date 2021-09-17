@@ -1,16 +1,11 @@
 import execa from 'execa';
-import { from, Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
-import { eachValueFrom } from 'rxjs-for-await';
+import { from } from 'rxjs';
 import {
   getNodeDevOptions,
   getTsNodeOptions,
   getExecaOptions,
 } from './compose-options';
-import {
-  LightNodeServeExecutorSchema,
-  NormalizedLightNodeServeExecutorSchema,
-} from '../schema';
+import { LightNodeServeExecutorSchema } from '../schema';
 
 // ts-node-dev [node-dev|ts-node flags] [ts-node-dev flags] [node cli flags] [--] [script] [script arguments]
 // tsnd

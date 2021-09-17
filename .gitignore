@@ -1,14 +1,17 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
+dist
 /tmp
 /out-tsc
 
-# dependencies
-/node_modules
+.yarn/cache
 
-/**/node_modules
+# dependencies
+node_modules
+
+drafts
+draft
 
 # IDEs and editors
 /.idea
@@ -18,8 +21,6 @@
 *.launch
 .settings/
 *.sublime-workspace
-
-/**/dist
 
 # IDE - VSCode
 .vscode/*
@@ -41,6 +42,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-*.graphql
-/generated/schema.json

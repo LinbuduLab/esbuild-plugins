@@ -1,33 +1,20 @@
 {
   "name": "nx-plugin-prisma",
-  "version": "0.0.1-1",
-  "description": "@nrwl/nx plugin integration with prisma.",
-  "keywords": [
-    "nx",
-    "@nrwl/nx",
-    "prisma",
-    "plugin",
-    "monorepo"
-  ],
-  "homepage": "https://github.com/PenumbraPro/nx-plugins/tree/master/packages/nx-plugin-prisma#readme",
-  "bugs": {
-    "url": "https://github.com/PenumbraPro/nx-plugins/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PenumbraPro/nx-plugins.git"
-  },
-  "license": "MIT",
-  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
-  "main": "src/index.js",
+  "version": "0.0.1",
+  "main": "dist/src/index.js",
   "scripts": {
-    "link": "pnpm link && npm-run-all --print-label --print-name  link:**",
-    "link:devkit": " pnpm link ../nx-plugin-devkit"
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
   },
-  "dependencies": {},
+  "dependencies": {
+    "nx-plugin-devkit": "^0.0.2"
+  },
   "peerDependencies": {
-    "@nrwl/devkit": "12.0.8"
+    "@nrwl/devkit": "^12.7.2",
+    "@nrwl/workspace": "^12.7.2"
   },
-  "executors": "./executors.json",
-  "generators": "./generators.json"
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
 }
