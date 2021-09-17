@@ -1,4 +1,4 @@
-import { getAvailableAppsOrLibs } from '../get-avaliable-projects';
+import { getAvailableApps } from '../workspace-utils/get-avaliable-projects';
 import {
   getWorkspaceLayout,
   names,
@@ -11,8 +11,15 @@ import {
 import type {
   BasicNodeAppGenSchema,
   BasicNormalizedAppGenSchema,
-} from '../shared-schema';
+} from '../schema/shared-schema';
 
+/**
+ * Shared execution logic of node application executor/generator schema normalization
+ * @param host
+ * @param schema
+ * @param shouldThrowErrorOnAppExists
+ * @returns
+ */
 export function normalizeNodeAppSchema<
   NormalizedAppSchema extends BasicNodeAppGenSchema
 >(
@@ -22,25 +29,30 @@ export function normalizeNodeAppSchema<
 ): BasicNormalizedAppGenSchema {
   const throwErrorOnAppExists = shouldThrowErrorOnAppExists ?? true;
 
-  const { apps } = getAvailableAppsOrLibs(host);
+  const apps = getAvailableApps(host);
 
   const appNames = apps.map((app) => app.appName);
 
+  // When used by generator, we donot want app exist.
+  // When used by executor, we donot want app to be non-existent
   if (appNames.includes(schema.app) && throwErrorOnAppExists) {
     throw new Error(`App ${schema.app} already exist!`);
   }
 
   const name = names(schema.app).fileName;
 
-  // directory可以与app不一致
-  // app1 dir -> apps/dir/app1 dir-app1
-  // dir目录下可以存在多个app... 项目名会被注册为dir-app1的形式
+  // directory can be differed with app
+  // e.g. app1 dir -> apps/dir/app1 dir-app1
+  // there can be multiple applications under dir directory
+  // project name will be registered as dir-app1 dir-app2
   const projectDirectory = schema.directory
     ? `${names(schema.directory).fileName}/${name}`
     : name;
 
+  // dir/app -> dir-app
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
 
+  // apps/dir/app
   const projectRoot = normalizePath(
     `${getWorkspaceLayout(host).appsDir}/${projectDirectory}`
   );

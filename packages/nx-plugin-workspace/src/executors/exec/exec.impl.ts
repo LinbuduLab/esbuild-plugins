@@ -4,6 +4,9 @@ import { normalizeSchema } from './lib/normalize-schema';
 import { loadEnvVars } from './lib/env';
 import { runInParallel, runSerially } from './lib/runner';
 
+// Enhanced version of original @nrwl/workspace:run-commands
+// support local installed packages execution
+// PR: https://github.com/nrwl/nx/pull/6807
 export default async function (
   options: WorkspaceExecSchema,
   context: ExecutorContext

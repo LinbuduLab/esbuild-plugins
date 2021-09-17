@@ -1,78 +1,30 @@
+import { addProjectConfiguration, formatFiles, Tree } from '@nrwl/devkit';
 import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  getWorkspaceLayout,
-  names,
-  offsetFromRoot,
-  Tree,
-} from '@nrwl/devkit';
-import * as path from 'path';
-import { AppGeneratorSchema } from './schema';
+  minimalNormalizeOptions,
+  minimalAddFiles,
+  MinimalAppGeneratorSchema,
+  minimalProjectConfiguration,
+} from 'nx-plugin-devkit';
+import path from 'path';
+import { pluginSpecifiedTargets } from '../utils';
 
-interface NormalizedSchema extends AppGeneratorSchema {
-  projectName: string;
-  projectRoot: string;
-  projectDirectory: string;
-  parsedTags: string[];
-}
-
-function normalizeOptions(
-  host: Tree,
-  options: AppGeneratorSchema
-): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-  const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-  const projectRoot = `${getWorkspaceLayout(host).libsDir}/${projectDirectory}`;
-  const parsedTags = options.tags
-    ? options.tags.split(',').map((s) => s.trim())
-    : [];
-
-  return {
+export default async function (host: Tree, options: MinimalAppGeneratorSchema) {
+  const normalizedOptions = minimalNormalizeOptions(host, {
     ...options,
-    projectName,
-    projectRoot,
-    projectDirectory,
-    parsedTags,
-  };
-}
+    projectType: 'application',
+  });
 
-function addFiles(host: Tree, options: NormalizedSchema) {
-  const templateOptions = {
-    ...options,
-    ...names(options.name),
-    offsetFromRoot: offsetFromRoot(options.projectRoot),
-    template: '',
-  };
-  generateFiles(
-    host,
-    path.join(__dirname, 'files'),
-    options.projectRoot,
-    templateOptions
-  );
-}
+  const { projectName, projectRoot } = normalizedOptions;
 
-export default async function (host: Tree, options: AppGeneratorSchema) {
-  const normalizedOptions = normalizeOptions(host, options);
-  console.log('normalizedOptions: ', normalizedOptions);
-  // addProjectConfiguration(
-  //   host,
-  //   normalizedOptions.projectName,
-  //   {
-  //     root: normalizedOptions.projectRoot,
-  //     projectType: 'library',
-  //     sourceRoot: `${normalizedOptions.projectRoot}/src`,
-  //     targets: {
-  //       build: {
-  //         executor: "@penumbra/app:build",
-  //       },
-  //     },
-  //     tags: normalizedOptions.parsedTags,
-  //   }
-  // );
-  // addFiles(host, normalizedOptions);
+  const baseProjectConfiguration =
+    minimalProjectConfiguration(normalizedOptions);
+
+  addProjectConfiguration(host, projectName, {
+    ...baseProjectConfiguration,
+    targets: pluginSpecifiedTargets(projectRoot),
+  });
+
+  minimalAddFiles(host, path.join(__dirname, './files'), normalizedOptions);
+
   await formatFiles(host);
 }

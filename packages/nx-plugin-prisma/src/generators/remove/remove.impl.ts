@@ -6,10 +6,7 @@ import {
   TargetConfiguration,
   formatFiles,
 } from '@nrwl/devkit';
-import {
-  PrismaRemoveGeneratorSchema,
-  NormalizedPrismaRemoveGeneratorSchema,
-} from './schema';
+import { PrismaRemoveGeneratorSchema } from './schema';
 import { avaliablePrismaTargets } from '../utils/prisma-targets';
 
 export default async function (

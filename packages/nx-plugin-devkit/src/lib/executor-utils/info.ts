@@ -1,13 +1,22 @@
 import { report } from '@nrwl/workspace/src/command-line/report';
 import envinfo from 'envinfo';
 
-export const nxReportHandler = report.handler;
+export const nxReportHandler: () => void = report.handler;
 
-export const envInfo = async (packages: string[] = [], extraOptions = {}) => {
+/**
+ * Report system environment informations
+ * @param packages
+ * @param extraOptions
+ * @returns
+ */
+export const envInfo = async (
+  packages: string[] = [],
+  extraOptions = {}
+): Promise<string> => {
   const envInfos = await envinfo.run(
     {
       System: ['OS', 'CPU'],
-      Binaries: ['Node', 'Yarn', 'npm'],
+      Binaries: ['Node', 'Yarn', 'npm', 'pnpm'],
       Browsers: ['Chrome', 'Firefox', 'Safari'],
       npmPackages: packages,
     },

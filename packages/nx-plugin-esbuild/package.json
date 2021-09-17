@@ -1,53 +1,37 @@
 {
   "name": "nx-plugin-esbuild",
-  "version": "0.0.1-2",
-  "description": "@nrwl/nx plugin integration with esbuild.",
-  "keywords": [
-    "nx",
-    "@nrwl/nx",
-    "esbuild",
-    "plugin",
-    "monorepo"
-  ],
-  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/nx-plugin-esbuild#readme",
-  "bugs": {
-    "url": "https://github.com/linbudu599/nx-plugins/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/linbudu599/nx-plugins.git"
-  },
-  "license": "MIT",
-  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
-  "main": "src/index.js",
+  "version": "0.1.5",
+  "main": "dist/src/index.js",
   "scripts": {
-    "link": "pnpm link && npm-run-all --print-label --print-name  link:**",
-    "link:decorator": "pnpm link ../esbuild-plugin-decorator",
-    "link:externals": "pnpm link ../esbuild-plugin-node-externals",
-    "link:alias-path": "pnpm link ../esbuild-plugin-alias-path",
-    "link:devkit": " pnpm link ../nx-plugin-devkit",
-    "link:workspace": " pnpm link ../nx-plugin-workspace"
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
   },
   "dependencies": {
-    "chalk": "^4.1.0",
+    "@adonisjs/require-ts": "^2.0.8",
+    "chalk": "^4.1.2",
     "chokidar": "^3.5.1",
+    "consola": "^2.15.3",
     "cross-spawn": "^7.0.3",
     "dayjs": "^1.10.4",
-    "dotenv": "8.2.0",
+    "dotenv": "~10.0.0",
+    "esbuild-plugin-alias-path": "^0.3.3",
+    "esbuild-plugin-decorator": "^0.1.2",
+    "esbuild-plugin-node-externals": "^0.1.2",
     "fs-extra": "^9.1.0",
     "jsonfile": "^6.1.0",
-    "rxjs": "^6.6.7",
+    "nx-plugin-devkit": "^0.0.2",
+    "rxjs": "6.6.7",
     "rxjs-for-await": "^0.0.2",
-    "tree-kill": "^1.2.2",
-    "nx-plugin-devkit": "workspace:*",
-    "esbuild-plugin-decorator": "workspace:*",
-    "esbuild-plugin-node-externals": "workspace:*",
-    "esbuild-plugin-alias-path": "workspace:*",
-    "nx-plugin-workspace": "workspace:*"
+    "tree-kill": "^1.2.2"
   },
   "peerDependencies": {
-    "esbuild": "^0.11.11"
+    "@nrwl/devkit": "^12.7.2",
+    "@nrwl/workspace": "^12.7.2",
+    "esbuild": "^0.12.25",
+    "typescript": "~4.3.5"
   },
-  "executors": "./executors.json",
-  "generators": "./generators.json"
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
 }

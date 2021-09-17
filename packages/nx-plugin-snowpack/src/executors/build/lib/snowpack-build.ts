@@ -14,13 +14,16 @@ export const snowpackBuild = (
     : of(createSnowpackConfig(options));
 
   const configLoadInfo = options.configPath
-    ? `Using External Config File`
-    : 'Using Internal Default Config';
+    ? `external config file`
+    : 'internal default config';
 
   return from(configResolver).pipe(
     tap(() => {
-      console.log(chalk.blue('i'), chalk.green('Nx-Snowpack [Build] Starting'));
-      console.log(chalk.blue('i'), chalk.green(configLoadInfo));
+      console.log(
+        chalk.blue('i'),
+        chalk.cyan('Nx-Snowpack [Serve] Starting'),
+        `(${chalk.white(configLoadInfo)}).\n`
+      );
     }),
     switchMap((config) => {
       return new Observable<RunnerResponse>((subscriber) => {

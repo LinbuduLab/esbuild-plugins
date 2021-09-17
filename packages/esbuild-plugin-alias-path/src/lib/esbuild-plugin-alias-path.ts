@@ -5,20 +5,22 @@ import { normalizeOption } from './normalize-options';
 
 import { nodeModuleNameResolver, sys } from 'typescript';
 import { escapeNamespace } from './escape-namespace';
+import path from 'path';
 
 // const debug = require('debug')('esbuild:alias-path');
 
 const pluginName = 'esbuild:alias-path';
 
 export const esbuildPluginAliasPath = (options: Options = {}): Plugin => {
-  const { alias, skip, tsconfigPath, compilerOptions } = normalizeOption(
-    options
-  );
+  const { alias, skip, tsconfigPath, compilerOptions } =
+    normalizeOption(options);
 
   if (skip) {
     return {
       name: pluginName,
-      setup(build) {},
+      setup(build) {
+        void 0;
+      },
     };
   }
 
@@ -29,12 +31,16 @@ export const esbuildPluginAliasPath = (options: Options = {}): Plugin => {
     setup(build) {
       // handle alias replacement
       build.onResolve({ filter: escapedNamespace }, ({ path: fromPath }) => {
-        if (!alias[fromPath]) {
+        const replacedPath = alias[fromPath];
+
+        if (!replacedPath) {
           return null;
         }
 
         return {
-          path: alias[fromPath],
+          path: path.isAbsolute(replacedPath)
+            ? replacedPath
+            : path.join(process.cwd(), replacedPath),
         };
       });
 
@@ -46,10 +52,8 @@ export const esbuildPluginAliasPath = (options: Options = {}): Plugin => {
             return null;
           }
 
-          const hasMatchingPath = Object.keys(
-            compilerOptions.paths
-          ).some((path) =>
-            new RegExp(path.replace('*', '\\w*')).test(filePath)
+          const hasMatchingPath = Object.keys(compilerOptions.paths).some(
+            (path) => new RegExp(path.replace('*', '\\w*')).test(filePath)
           );
 
           if (!hasMatchingPath) {

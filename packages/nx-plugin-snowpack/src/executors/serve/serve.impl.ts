@@ -14,12 +14,6 @@ export default function runExecutor(
   logger.level = normalizedSchema.verbose ? 'debug' : 'info';
 
   return eachValueFrom(
-    snowpackServer(normalizedSchema).pipe(
-      map(() => {
-        return {
-          success: true,
-        };
-      })
-    )
+    snowpackServer(normalizedSchema).pipe(map((res) => res))
   );
 }

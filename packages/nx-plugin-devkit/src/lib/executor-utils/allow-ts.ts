@@ -1,9 +1,6 @@
 import { build, buildSync } from 'esbuild';
 import type { BuildOptions } from 'esbuild';
 
-/**
- * Create esbuild `BuildOptions` for `buildToCode`
- */
 export const createBuildToCodeOptions = (
   filePath: string,
   extraExternals: string[] = []
@@ -14,28 +11,29 @@ export const createBuildToCodeOptions = (
   target: 'node12',
   bundle: true,
   write: false,
-  external: [
-    'fsevents',
-    'vuepress',
-    '@vuepress/*',
-    'vite',
-    'rollup',
-    'react-refresh',
-    'terser',
-    ...extraExternals,
-  ],
+  external: extraExternals,
 });
 
 /**
- * Take a file as entry point, and build it to cjs code
+ * Use ESBuild to compile TypeScript files to plain JavaScript files with CommonJS
+ * @param filePath
+ * @returns
  */
-export const buildToCode = async (filePath: string): Promise<string> => {
-  const buildResult = await build(createBuildToCodeOptions(filePath));
+export const buildToCode = async (
+  filePath: string,
+  extraExternals: string[] = []
+): Promise<string> => {
+  const buildResult = await build(
+    createBuildToCodeOptions(filePath, extraExternals)
+  );
   return buildResult.outputFiles[0].text;
 };
 
 /**
- * Sync version fo `buildToCode`
+ * Sync version of `buildToCode`
+ * @param filePath
+ * @param extraExternals
+ * @returns
  */
 export const buildToCodeSync = (
   filePath: string,
@@ -47,8 +45,11 @@ export const buildToCodeSync = (
   return buildResult.outputFiles[0].text;
 };
 
+/**
+ * Allow require .ts file like `require("foo.ts")`
+ * @param extraExternals
+ */
 export const allowTs = (extraExternals: string[] = []): void => {
-  // eslint-disable-next-line node/no-deprecated-api
   require.extensions['.ts'] = (m: any, filename) => {
     const code = buildToCodeSync(filename, extraExternals);
     m._compile(code, filename);

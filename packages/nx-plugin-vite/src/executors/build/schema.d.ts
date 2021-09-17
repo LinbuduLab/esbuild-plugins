@@ -8,4 +8,5 @@ export interface ViteBuildSchema {
   emitAtRootLevel: boolean;
   watch: boolean;
   write: boolean;
+  manifest: boolean;
 }

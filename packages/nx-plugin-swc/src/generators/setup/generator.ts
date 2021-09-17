@@ -14,19 +14,16 @@ interface NormalizedSchema extends SetupGeneratorSchema {
   projectName: string;
   projectRoot: string;
   projectDirectory: string;
-  parsedTags: string[];
+  parsedTags: string[]
 }
 
-function normalizeOptions(
-  host: Tree,
-  options: SetupGeneratorSchema
-): NormalizedSchema {
+function normalizeOptions(tree: Tree, options: SetupGeneratorSchema): NormalizedSchema {
   const name = names(options.name).fileName;
   const projectDirectory = options.directory
     ? `${names(options.directory).fileName}/${name}`
     : name;
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-  const projectRoot = `${getWorkspaceLayout(host).libsDir}/${projectDirectory}`;
+  const projectRoot = `${getWorkspaceLayout(tree).libsDir}/${projectDirectory}`;
   const parsedTags = options.tags
     ? options.tags.split(',').map((s) => s.trim())
     : [];
@@ -40,34 +37,33 @@ function normalizeOptions(
   };
 }
 
-function addFiles(host: Tree, options: NormalizedSchema) {
-  const templateOptions = {
-    ...options,
-    ...names(options.name),
-    offsetFromRoot: offsetFromRoot(options.projectRoot),
-    template: '',
-  };
-  generateFiles(
-    host,
-    path.join(__dirname, 'files'),
-    options.projectRoot,
-    templateOptions
-  );
+function addFiles(tree: Tree, options: NormalizedSchema) {
+    const templateOptions = {
+      ...options,
+      ...names(options.name),
+      offsetFromRoot: offsetFromRoot(options.projectRoot),
+      template: ''
+    };
+    generateFiles(tree, path.join(__dirname, 'files'), options.projectRoot, templateOptions);
 }
 
-export default async function (host: Tree, options: SetupGeneratorSchema) {
-  const normalizedOptions = normalizeOptions(host, options);
-  addProjectConfiguration(host, normalizedOptions.projectName, {
-    root: normalizedOptions.projectRoot,
-    projectType: 'library',
-    sourceRoot: `${normalizedOptions.projectRoot}/src`,
-    targets: {
-      build: {
-        executor: '@penumbra/nx-plugin-swc:build',
+export default async function (tree: Tree, options: SetupGeneratorSchema) {
+  const normalizedOptions = normalizeOptions(tree, options);
+  addProjectConfiguration(
+    tree,
+    normalizedOptions.projectName,
+    {
+      root: normalizedOptions.projectRoot,
+      projectType: 'library',
+      sourceRoot: `${normalizedOptions.projectRoot}/src`,
+      targets: {
+        build: {
+          executor: "@nps/nx-plugin-swc:build",
+        },
       },
-    },
-    tags: normalizedOptions.parsedTags,
-  });
-  addFiles(host, normalizedOptions);
-  await formatFiles(host);
+      tags: normalizedOptions.parsedTags,
+    }
+  );
+  addFiles(tree, normalizedOptions);
+  await formatFiles(tree);
 }

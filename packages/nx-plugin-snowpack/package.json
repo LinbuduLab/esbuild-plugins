@@ -1,29 +1,23 @@
 {
   "name": "nx-plugin-snowpack",
-  "version": "0.0.1-1",
-  "description": "@nrwl/nx plugin integration with snowpack.",
-  "keywords": [
-    "nx",
-    "@nrwl/nx",
-    "snowpack",
-    "plugin",
-    "monorepo"
-  ],
-  "homepage": "https://github.com/PenumbraPro/nx-plugins/tree/master/packages/nx-plugin-snowpack#readme",
-  "bugs": {
-    "url": "https://github.com/PenumbraPro/nx-plugins/issues"
+  "version": "0.0.1",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PenumbraPro/nx-plugins.git"
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "nx-plugin-devkit": "^0.0.2",
+    "rxjs": "6.6.7",
+    "rxjs-for-await": "^0.0.2"
   },
-  "license": "MIT",
-  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
-  "main": "src/index.js",
-  "dependencies": {},
   "peerDependencies": {
-    "@nrwl/devkit": "12.0.8"
+    "@nrwl/devkit": "^12.7.2",
+    "snowpack": "^3.8.8"
   },
-  "executors": "./executors.json",
-  "generators": "./generators.json"
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
 }

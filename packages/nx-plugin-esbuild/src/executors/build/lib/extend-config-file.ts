@@ -9,6 +9,7 @@ export function normalizeESBuildExtendConfig(
     cache: false,
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const resolvedModule = require(configPath);
 
   return resolvedModule.default as NXESBuildConfigExport;

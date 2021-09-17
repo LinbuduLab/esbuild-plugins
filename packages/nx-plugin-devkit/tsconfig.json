@@ -8,6 +8,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "target": "es2015",
+<<<<<<< HEAD
     "module": "esnext",
     "lib": ["es2017", "dom"],
     "esModuleInterop": true,
@@ -15,4 +16,19 @@
     "skipDefaultLibCheck": true
   },
   "include": ["src"]
+=======
+    "module": "CommonJS",
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": "."
+  },
+  "include": [
+    "src"
+  ]
+>>>>>>> migration/workspace
 }

@@ -66,9 +66,10 @@ export function normalizeOption(
     );
   }
 
-  console.log(
-    `${pluginTitle()} ${info('Load ts config file from')} ${tsconfigPath}`
-  );
+  verbose &&
+    console.log(
+      `${pluginTitle()} ${info('Load ts config file from')} ${tsconfigPath}`
+    );
 
   if (compiler === 'swc' && !swcrcExist) {
     console.log(

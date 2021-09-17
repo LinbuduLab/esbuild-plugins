@@ -1,6 +1,6 @@
-import { BuildOptions } from 'esbuild';
+import type { BuildOptions } from 'esbuild';
 import uniqBy from 'lodash/uniqBy';
-import { NormalizedESBuildExecutorSchema } from '../schema';
+import type { NormalizedESBuildExecutorSchema } from '../schema';
 
 import { esbuildPluginDecorator } from 'esbuild-plugin-decorator';
 import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
@@ -27,7 +27,6 @@ export function resolveESBuildOption(
     ? options.externalDependencies
     : [];
 
-  // 插件去重？
   const userConfigPlugins = options?.extendBuildOptions?.plugins ?? [];
 
   const decupedPlugins = uniqBy(
@@ -68,6 +67,7 @@ export function resolveESBuildOption(
     minifySyntax: options.minify,
     inject: options.inject,
     define: options.define,
+    write: options.write,
     ...options.extendBuildOptions,
   };
 

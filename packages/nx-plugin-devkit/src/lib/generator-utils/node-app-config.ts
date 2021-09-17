@@ -1,16 +1,21 @@
 import { joinPathFragments, TargetConfiguration } from '@nrwl/devkit';
 
-import type { BasicNormalizedAppGenSchema } from '../shared-schema';
+import type { BasicNormalizedAppGenSchema } from '../schema/shared-schema';
 
-// 如果没有传入覆写的配置
-// 则使用@nrwl/node:build/serve作为executor
-// TODO: 默认使用 nx-plugin-workspace
+// TODO: Shall we use mx-plugin-workspace:node-build as default executor?
+/**
+ * Compose build configuration for node project in workspace.project
+ * @param schema
+ * @param buildTarget
+ * @returns
+ */
 export function createNodeAppBuildConfig<
   NormalizedAppSchema extends BasicNormalizedAppGenSchema
 >(
   schema: NormalizedAppSchema,
   buildTarget?: TargetConfiguration | null
 ): TargetConfiguration {
+  // Specify args.buildTarget to generate configuration extend from it
   const extendBuildTarget = buildTarget ?? {
     executor: undefined,
     options: {},
@@ -27,6 +32,7 @@ export function createNodeAppBuildConfig<
       assets: [joinPathFragments(schema.projectSourceRoot, 'assets')],
       ...extendBuildTarget.options,
     },
+    // NOTE: When migarating to nx-plugin-workspace, remember to update configurations here
     configurations: {
       production: {
         optimization: true,
@@ -50,6 +56,15 @@ export function createNodeAppBuildConfig<
   };
 }
 
+// TODO: Shall we use mx-plugin-workspace:node-serve as default executor?
+/**
+ * Compose serve configuration for node project in workspace.project
+ * @param schema
+ * @param serveTarget
+ * @param buildTargetName
+ * @param prodConfigurationName
+ * @returns
+ */
 export function createNodeAppServeConfig<
   NormalizedAppSchema extends BasicNormalizedAppGenSchema
 >(
@@ -58,13 +73,17 @@ export function createNodeAppServeConfig<
   buildTargetName?: string | null,
   prodConfigurationName?: string | null
 ): TargetConfiguration {
+  // Specify args.serveTarget to generate configuration extend from it
   const extendServeTarget = serveTarget ?? {
     executor: undefined,
     options: {},
     configurations: {},
   };
 
+  // Serve executor will invoke build target at first
   const projectBuildTargetName = buildTargetName ?? 'build';
+
+  // You can also use serve executor with production configuration to check applications
   const projectProdConfigurationName = prodConfigurationName ?? 'production';
 
   return {
@@ -73,6 +92,8 @@ export function createNodeAppServeConfig<
       buildTarget: `${schema.projectName}:${projectBuildTargetName}`,
       ...extendServeTarget.options,
     },
+    // NOTE: When migarating to nx-plugin-workspace, remember to update configurations here
+
     configurations: {
       [projectProdConfigurationName]: {
         buildTarget: `${schema.projectName}:${projectBuildTargetName}:${prodConfigurationName}`,

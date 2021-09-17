@@ -18,11 +18,20 @@
   },
   "license": "MIT",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
+  },
   "dependencies": {
-    "chalk": "^4.1.1",
+    "chalk": "^4.1.2",
     "fs-extra": "^10.0.0"
   },
   "peerDependencies": {
-    "esbuild": "^0.11.19"
-  }
+    "esbuild": "^0.12.25"
+  },
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
 }

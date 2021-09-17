@@ -15,8 +15,6 @@ export function initPrismaProjectConfiguration(
 ): ProjectConfiguration & NxJsonProjectConfiguration {
   const { prismaRelatedTargets } = prismaTargetsConfig(schema);
 
-  console.log('schema: ', schema);
-
   const commonTargets: Record<string, TargetConfiguration> = {
     build: {
       executor: 'nx-plugin-workspace:node-build',
