@@ -1,0 +1,326 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Build executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "verbose": {
+      "type": "boolean",
+      "description": "Use verbose log output",
+      "default": true
+    },
+    "main": {
+      "type": "string",
+      "description": "The name of the main entry-point file."
+    },
+    "tsconfigPath": {
+      "type": "string",
+      "description": "The name of the Typescript configuration file."
+    },
+    "outputPath": {
+      "type": "string",
+      "description": "The output path of the generated files."
+    },
+    "pluginConfigPath": {
+      "type": "string",
+      "description": "The path of nx-esbuild config file"
+    },
+    "useMergeCombine": {
+      "type": "boolean",
+      "description": "Use merge operator for subscriber combinations",
+      "default": false
+    },
+    "failFast": {
+      "type": "boolean",
+      "description": "Exit process when error occured.",
+      "default": false
+    },
+    "watchAssetsDir": {
+      "type": "boolean",
+      "description": "Should change of assets dir trigger re-building",
+      "default": false
+    },
+    "allowExtend": {
+      "type": "boolean",
+      "description": "Should extend nx-esbuild config file",
+      "default": true
+    },
+    "watch": {
+      "type": "boolean",
+      "description": "Run build when files change.",
+      "default": false
+    },
+    "clearOutputPath": {
+      "type": "boolean",
+      "description": "Clear output path before building.",
+      "default": true
+    },
+    "bundle": {
+      "type": "boolean",
+      "description": "Use bundle mode.",
+      "default": false
+    },
+    "skipTypeCheck": {
+      "type": "boolean",
+      "description": "Should skip type checking.",
+      "default": false
+    },
+    "watchDir": {
+      "type": "string",
+      "description": "Dirs to watch, default as project source root"
+    },
+    "format": {
+      "type": "string",
+      "description": "Output format for the generated JS files.",
+      "enum": ["iife", "cjs", "esm"],
+      "default": "cjs"
+    },
+    "write": {
+      "type": "boolean",
+      "description": "Will output be written to disk.",
+      "default": true
+    },
+    "spliting": {
+      "type": "boolean",
+      "description": "Apply experimental ESBuild Code-Splitting",
+      "default": false
+    },
+    "platform": {
+      "type": "string",
+      "description": "Platform for generated code.",
+      "enum": ["browser", "node"],
+      "default": "node"
+    },
+    "logLevel": {
+      "type": "string",
+      "description": "ESBuild log levels.",
+      "enum": ["info", "warning", "error", "silent"],
+      "default": "info"
+    },
+    "logLimit": {
+      "type": "number",
+      "description": "ESBuild log limits.",
+      "default": 10
+    },
+    "sourceMap": {
+      "type": "boolean",
+      "description": "Produce source maps.",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": ["external", "inline", "both"]
+        },
+        {
+          "type": "boolean"
+        }
+      ],
+      "default": "external"
+    },
+    "assets": {
+      "type": "array",
+      "description": "List of static application assets.",
+      "default": [],
+      "items": {
+        "$ref": "#/definitions/assetPattern"
+      }
+    },
+    "target": {
+      "type": "array",
+      "description": "Target environments",
+      "items": {
+        "type": "string"
+      },
+      "default": ["esnext"]
+    },
+    "outExtension": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true,
+      "default": {}
+    },
+    "inserts": {
+      "type": "array",
+      "description": "List of content to insert into the output file.",
+      "default": [],
+      "items": {
+        "$ref": "#/definitions/assetPattern"
+      }
+    },
+    "externalDependencies": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": ["none", "all"]
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "Dependencies to keep external to the bundle. (\"all\" (default, will use esbuild-plugin-node-externals), \"none\", or an array of module names)",
+      "default": "all"
+    },
+    "inject": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Files to inject as globals variables, should provide with suffix (.js/.ts)",
+      "default": []
+    },
+    "loader": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true,
+      "default": {}
+    },
+    "define": {
+      "type": "object",
+      "description": "ESBuild define options, support string literal replacement only",
+      "default": {}
+    },
+    "metaFile": {
+      "type": "boolean",
+      "description": "Generates a 'meta.json' file by esbuild",
+      "default": false
+    },
+    "extractLicenses": {
+      "type": "boolean",
+      "description": "(Not supported yet!)Extract all licenses in a separate file, in the case of production builds only.",
+      "default": false
+    },
+    "minify": {
+      "type": "boolean",
+      "description": "Minify the output file.",
+      "default": false
+    },
+    "fileReplacements": {
+      "description": "Replace files with other files in the build.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "replace": {
+            "type": "string"
+          },
+          "with": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["replace", "with"]
+      },
+      "default": []
+    },
+    "alias": {
+      "description": "Alias replace(required when file replacement is enabled)",
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": ["from", "to"]
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": true
+        }
+      ],
+      "default": {}
+    },
+    "buildLibsFromSource": {
+      "type": "boolean",
+      "description": "Read buildable libraries from source instead of building them separately.",
+      "default": true
+    },
+    "generatePackageJson": {
+      "type": "boolean",
+      "description": "Generates a package.json file with the project's node_module dependencies populated for installing in a container. If a package.json exists in the project's directory, it will be reused with dependencies populated.",
+      "default": false
+    },
+    "decoratorHandler": {
+      "type": "string",
+      "description": "Decorator handler in compilayion.",
+      "enum": ["tsc", "swc"],
+      "default": "tsc"
+    }
+  },
+  "required": ["main", "tsconfigPath"],
+
+  "definitions": {
+    "assetPattern": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "glob": {
+              "type": "string",
+              "description": "The pattern to match."
+            },
+            "input": {
+              "type": "string",
+              "description": "The input directory path in which to apply 'glob'. Defaults to the project root."
+            },
+            "ignore": {
+              "description": "An array of globs to ignore.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "output": {
+              "type": "string",
+              "description": "Absolute path within the output."
+            }
+          },
+          "additionalProperties": false,
+          "required": ["glob", "input", "output"]
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "insertPattern": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "banner": {
+              "type": "boolean",
+              "description": "Insert as file banner.",
+              "default": true
+            },
+            "applyToJSFile": {
+              "type": "boolean",
+              "description": "Insert content to js file.",
+              "default": true
+            },
+            "content": {
+              "type": "string",
+              "description": "Content to insert."
+            }
+          },
+          "additionalProperties": false,
+          "required": ["content"]
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  }
+}

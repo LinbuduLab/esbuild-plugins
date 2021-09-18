@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "id": "Init",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "app": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Which app would you like to init Prisma?"
+    },
+    "directory": {
+      "type": "string",
+      "alias": "d",
+      "description": "A directory where the project is located"
+    },
+    "tags": {
+      "type": "string",
+      "description": "Add tags to the project (used for linting)",
+      "alias": "t"
+    },
+    "frontendProject": {
+      "type": "string",
+      "alias": "f",
+      "description": "Frontend project that needs to access this application. This sets up proxy configuration."
+    },
+    "prismaDirectory": {
+      "type": "string",
+      "alias": "p",
+      "description": "A directory where the prisma schema is located",
+      "default": "app/prisma"
+    },
+    "schemaName": {
+      "type": "string",
+      "alias": "s",
+      "description": "Prisma schema file name",
+      "default": "schema"
+    },
+    "datasourceProvider": {
+      "type": "string",
+      "enum": ["sqlite", "postgresql", "mysql", "sqlserver"],
+      "description": "Prisma datasource provider",
+      "default": "sqlite"
+    },
+    "useProjectEnv": {
+      "type": "boolean",
+      "description": "Create env file inside project",
+      "default": true
+    },
+    "NOT_SUPPORT_YET_clientOutput": {
+      "type": "string",
+      "description": "Prisma client output"
+    },
+    "setDefault": {
+      "type": "boolean",
+      "description": "Set default project in nx configuration",
+      "default": true
+    },
+    "initialSchema": {
+      "type": "boolean",
+      "description": "Create model definitions for generated schema",
+      "default": true
+    },
+    "collectArgs": {
+      "type": "boolean",
+      "description": "Collect all args in options.args",
+      "default": false
+    },
+    "noDBPull": {
+      "type": "boolean",
+      "description": "Donot create prisma-db-pull target",
+      "default": false
+    },
+    "noDBPush": {
+      "type": "boolean",
+      "description": "Donot create prisma-db-push target",
+      "default": false
+    },
+    "noStudio": {
+      "type": "boolean",
+      "description": "Donot create prisma-studio target",
+      "default": false
+    },
+    "noMigrate": {
+      "type": "boolean",
+      "description": "Donot create prisma-migrate-deploy/reset/status target",
+      "default": false
+    },
+    "noIntrospect": {
+      "type": "boolean",
+      "description": "Donot create prisma-introspect target",
+      "default": false
+    }
+  },
+  "required": ["app"]
+}

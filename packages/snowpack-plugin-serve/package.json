@@ -1,0 +1,16 @@
+{
+  "name": "snowpack-plugin-serve",
+  "version": "0.0.1",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
+  },
+  "peerDependencies": {
+    "snowpack": "^3.8.8"
+  },
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
+}

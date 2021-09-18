@@ -1,0 +1,36 @@
+# Enhancement
+
+- 必须执行一次 collect deps?
+- 芜湖！那对于项目内的package也可以这么处理？但是如果，A collect deps，依赖了B，B1.0.0版本，
+- 把1.0.0加进去了，然后B又升级...？
+- ^1.0.0 minor 和 patch都最新
+- log output！
+- 文档基于 VitePress
+
+## Workflow
+
+- Script for package release & changelog & generation
+- Update project configurations after creaing it by nx cli
+  - npm.scripts
+  - .release-it.json
+  - CHANGELOG
+  - package.json
+  - tsconfig.json
+  - workspace.json
+  - nx.json
+
+
+## Script
+
+- release
+-
+- 文档生成
+
+
+nx g @nrwl/node:lib snowpack-plugin-markdown-import --publishable --importPath=snowpack-plugin-markdown-import
+yarn cli i snowpack-plugin-markdown-import --no-prefix --exist
+
+- Astro
+- Midway Hooks
+- BlitzJS
+- esbuild 的 alias

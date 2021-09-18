@@ -1,0 +1,37 @@
+{
+  "name": "esbuild-plugin-markdown-import",
+  "version": "0.1.2",
+  "description": "ESBuild plugin for markdown import. ",
+  "keywords": [
+    "esbuild",
+    "ESBuild",
+    "markdown",
+    "plugin"
+  ],
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-markdown-import#readme",
+  "bugs": {
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
+  },
+  "dependencies": {
+    "fs-extra": "^10.0.0"
+  },
+  "peerDependencies": {
+    "esbuild": "^0.12.25",
+    "marked": "^3.0.2"
+  },
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
+}

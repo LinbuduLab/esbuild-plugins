@@ -1,0 +1,23 @@
+{
+  "name": "nx-plugin-snowpack",
+  "version": "0.0.1",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "nx-plugin-devkit": "^0.0.2",
+    "rxjs": "6.6.7",
+    "rxjs-for-await": "^0.0.2"
+  },
+  "peerDependencies": {
+    "@nrwl/devkit": "^12.7.2",
+    "snowpack": "^3.8.8"
+  },
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
+}

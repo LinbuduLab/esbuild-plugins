@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Build executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "cwd": { "type": "string", "description": "project root" },
+    "useWebpack5": {
+      "type": "boolean",
+      "description": "use webpack5",
+      "default": false
+    }
+  },
+  "additionalProperties": true,
+  "required": []
+}

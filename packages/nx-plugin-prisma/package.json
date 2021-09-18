@@ -1,0 +1,20 @@
+{
+  "name": "nx-plugin-prisma",
+  "version": "0.0.1",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "release": "release-it",
+    "release:dry": "release-it --dry-run",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
+  },
+  "dependencies": {
+    "nx-plugin-devkit": "^0.0.2"
+  },
+  "peerDependencies": {
+    "@nrwl/devkit": "^12.7.2",
+    "@nrwl/workspace": "^12.7.2"
+  },
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
+}

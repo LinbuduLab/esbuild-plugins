@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Info executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "serveTarget": {
+      "type": "string"
+    },
+    "buildTarget": {
+      "type": "string"
+    }
+  },
+  "required": []
+}
