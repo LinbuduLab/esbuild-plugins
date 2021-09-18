@@ -1,17 +1,90 @@
+const fs = require('fs-extra');
+const path = require('path');
+
+const NX_PLUGIN_LIST = [
+  {
+    title: 'Overview',
+    path: '/nx/',
+  },
+  {
+    title: 'ESBuild',
+    path: 'esbuild',
+  },
+  {
+    title: 'Vite',
+    path: 'vite',
+  },
+  {
+    title: 'Snowpack',
+    path: 'snowpack',
+  },
+  {
+    title: 'Prisma',
+    path: 'prisma',
+  },
+  {
+    title: 'TypeGraphQL',
+    path: 'type-graphql',
+  },
+  {
+    title: 'Devkit',
+    path: 'devkit',
+  },
+  {
+    title: 'Workspace',
+    path: 'workspace',
+  },
+];
+
+const DERIVED_PLUGIN_LIST = [
+  {
+    title: 'Overview',
+    path: '/derived/',
+  },
+  {
+    title: 'ESBuild Plugins',
+    path: 'esbuild',
+  },
+  {
+    title: 'Snowpack Plugins',
+    path: 'snowpack',
+  },
+];
+
 module.exports = {
-  title: 'VuePress template',
-  description:
-    'A JAMstack website template with the default VuePress theme and Netlify CMS config.',
-  //   base: "/VuePress-with-Netlify-CMS/",
+  title: 'LinbuduLab: Nx Plugins',
+  logo: '/media/logo.jpeg',
+  description: 'Nx plugin integrations with Bundler / Library / Framework.',
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Guide', link: '/guide/' },
+      { text: 'Nx Plugins', link: '/nx/' },
+      // { text: 'Guide', link: '/guide/' },
+      { text: 'Derived Plugins', link: '/derived/' },
+      {
+        text: 'Nx Workspace',
+        link: 'https://nx.dev',
+      },
       {
         text: 'GitHub',
         link: 'https://github.com/LinbuduLab/nx-plugins',
       },
     ],
-    sidebar: ['/_pages/guide'],
+    displayAllHeaders: false,
+    sidebar: {
+      '/nx/': NX_PLUGIN_LIST,
+      '/derived/': DERIVED_PLUGIN_LIST,
+    },
+    lastUpdated: 'Last Updated',
+    nextLinks: true,
+    prevLinks: true,
+    repo: 'LinbuduLab/nx-plugins',
+    repoLabel: 'Contribute!',
+    docsRepo: 'LinbuduLab/nx-plugins',
+    docsDir: 'docs',
+    docsBranch: 'main',
+    editLinks: true,
+    editLinkText: 'Help me improve this page!',
+    smoothScroll: true,
   },
 };

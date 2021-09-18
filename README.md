@@ -1,6 +1,6 @@
 # Nx Plugins
 
-**WARNING: These plugins are still under hevay developings.**
+**WARNING: This project are still under heavy developings.**
 
 ## Progress
 

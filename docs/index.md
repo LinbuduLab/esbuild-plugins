@@ -1,19 +1,22 @@
 ---
 home: true
-heroImage: /media/VuePress_+_Netlify_CMS.png
-heroText: VuePress + Netlify CMS
-tagline: A starter template for your JAMstack website
+heroImage: /media/logo.jpeg
+heroText: Nx Plugins
+tagline: Nx plugin integrations with Bundler / Library / Framework.
 actionText: Get Started →
-actionLink: /guide/
+actionLink: /nx/
+
 features:
-  - details: Use Netlify CMS to create and manage your content within your Git repo.
-    title: Git-powered content
-  - details: Create your own custom theme and use Vue components in your content.
-    title: Vue-powered development
-  - details: >-
-      VuePress generates static html for fast page load, then runs as a slick
-      SPA.
-    title: '"Best of both" performance'
-footer: Template maintained by Pete Davis | MIT Licensed
+  - title: Monorepo workflow with popular tools.
+    details: Enjoy Nx Workspace with frameworks you are familiar with.
+
+  - title: Derived plugins for better integration.
+    details: Use derived plugins for better enhanced experience.
+
+  - title: Quick start with initialize generator support.
+    details: Use provided plugin generator to setup your workspace in one-line command.
+
+footer: MIT Licensed | Copyright © 2021-present LinbuduLab
 ---
-<a href="https://app.netlify.com/start/deploy?repository=https://github.com/p440davis/VuePress-with-Netlify-CMS&amp;stack=cms" style="display:block; text-align:center"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify"></a>
+
+<a href="https://app.netlify.com/start/deploy?repository=https://github.com/LinbuduLab/nx-plugins&amp;stack=cms" style="display:block; text-align:center"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify"></a>

@@ -33,6 +33,11 @@ module.exports = {
       description: 'update documentation',
       emoji: '📝',
     },
+    'docs-site': {
+      value: 'docs',
+      description: 'docs site enhancement',
+      emoji: '📝',
+    },
     typo: {
       value: 'typo',
       description: 'fix documentation typo',
@@ -58,13 +63,13 @@ module.exports = {
       description: 'merge branch',
       emoji: '🔀',
     },
-    ['workspace-chore']: {
-      value: 'chore',
+    workspace: {
+      value: 'workspace',
       description: 'workspace configuration',
       emoji: '🏗️',
     },
-    ['emergency-fix']: {
-      value: 'emergency-fix',
+    emergency: {
+      value: 'emergency',
       description: 'emergency correction',
       emoji: '🚑',
     },
@@ -181,7 +186,7 @@ module.exports = {
     'fix-macos': {
       value: 'fix-macos',
       description: 'fix issues on macos',
-      emoji: '🔖',
+      emoji: '🍎',
     },
   },
   scopes: [...pluginRelatedScope, ...pluginShared, ...workspaceScope],
@@ -192,11 +197,12 @@ module.exports = {
     'init',
     'feat',
     'docs',
+    'docs-site',
     'chore',
     'example',
     'fix',
-    'workspace-chore',
-    'emergency-fix',
+    'workspace',
+    'emergency',
     'perf',
     'ui',
     'ci',
