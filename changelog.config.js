@@ -186,6 +186,8 @@ module.exports = {
   },
   scopes: [...pluginRelatedScope, ...pluginShared, ...workspaceScope],
   disableEmoji: false,
+  maxMessageLength: 64,
+  minMessageLength: 3,
   list: [
     'init',
     'feat',
