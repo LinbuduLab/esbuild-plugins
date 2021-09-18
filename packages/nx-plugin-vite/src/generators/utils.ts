@@ -4,6 +4,8 @@ import {
   ProjectConfiguration,
 } from '@nrwl/devkit';
 
+export const VITE_CONFIG_FILE = 'vite.config.ts';
+
 export const pluginSpecifiedTargets = (
   projectRoot: string
 ): (ProjectConfiguration & NxJsonProjectConfiguration)['targets'] => ({
@@ -12,8 +14,8 @@ export const pluginSpecifiedTargets = (
     options: {
       root: projectRoot,
       outDir: 'dist',
-      configFile: joinPathFragments(projectRoot, 'vite-config.ts'),
-      watch: true,
+      configFile: joinPathFragments(projectRoot, VITE_CONFIG_FILE),
+      watch: false,
       emitAtRootLevel: false,
       manifest: true,
     },
@@ -22,7 +24,7 @@ export const pluginSpecifiedTargets = (
     executor: 'nx-plugin-vite:serve',
     options: {
       root: projectRoot,
-      configFile: joinPathFragments(projectRoot, 'vite.config.ts'),
+      configFile: joinPathFragments(projectRoot, VITE_CONFIG_FILE),
     },
   },
 });

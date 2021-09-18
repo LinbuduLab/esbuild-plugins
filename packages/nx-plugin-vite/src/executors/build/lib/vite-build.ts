@@ -16,6 +16,7 @@ const isRollupWacther = (
 export const startViteBuild = (schema: ViteBuildSchema): Observable<Res> => {
   return new Observable<Res>((subscriber) => {
     console.log(chalk.blue('i'), chalk.cyan('Nx-Vite [Build] Starting'));
+    console.log('');
 
     build({
       root: schema.root,
@@ -34,6 +35,11 @@ export const startViteBuild = (schema: ViteBuildSchema): Observable<Res> => {
               success: event.code !== 'ERROR',
             });
           });
+        } else {
+          subscriber.next({
+            success: true,
+          });
+          subscriber.complete();
         }
       })
       .catch((error) => {

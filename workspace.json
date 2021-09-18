@@ -1213,8 +1213,8 @@
           "options": {
             "root": "e2e/vite-app",
             "outDir": "dist",
-            "configFile": "e2e/vite-app/vite-config.ts",
-            "watch": true,
+            "configFile": "e2e/vite-app/vite.config.ts",
+            "watch": false,
             "emitAtRootLevel": false,
             "manifest": true
           }
