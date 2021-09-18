@@ -28,12 +28,15 @@ export const snowpackBuild = (
     switchMap((config) => {
       return new Observable<RunnerResponse>((subscriber) => {
         (options.clearCache ? clearCache() : Promise.resolve()).then(() => {
-          build({ config })
+          build({
+            config,
+          })
             .then((buildResult) => {
               // buildResult.onFileChange
               subscriber.next({
                 success: true,
               });
+              !config.buildOptions.watch && subscriber.complete();
             })
             .catch((error) =>
               subscriber.error({

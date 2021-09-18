@@ -1,7 +1,7 @@
 {
   "npmScope": "nps",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
   },
   "implicitDependencies": {
     "workspace.json": "*",

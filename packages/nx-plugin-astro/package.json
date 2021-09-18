@@ -14,8 +14,7 @@
     "rxjs-for-await": "^0.0.2"
   },
   "peerDependencies": {
-    "@nrwl/devkit": "^12.7.2",
-    "astro": "^0.20.5"
+    "@nrwl/devkit": "^12.7.2"
   },
   "executors": "./dist/executors.json",
   "generators": "./dist/generators.json"

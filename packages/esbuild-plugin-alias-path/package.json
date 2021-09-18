@@ -9,6 +9,7 @@
     "release:major": "release-it major"
   },
   "dependencies": {
+    "find-up": "5.0.0",
     "jsonfile": "^6.1.0"
   },
   "peerDependencies": {

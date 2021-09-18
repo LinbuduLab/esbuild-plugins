@@ -1010,7 +1010,7 @@
           "options": {
             "root": "e2e/snowpack-app",
             "configPath": "snowpack.config.js",
-            "watch": true,
+            "watch": false,
             "clearCache": true,
             "verbose": false,
             "clean": true

@@ -1,0 +1,21 @@
+{
+  "name": "astro-playground",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "astro dev",
+    "build": "astro build"
+  },
+  "devDependencies": {
+    "@astrojs/renderer-preact": "^0.2.1",
+    "@astrojs/renderer-react": "^0.2.0",
+    "@astrojs/renderer-solid": "^0.1.0",
+    "@astrojs/renderer-svelte": "^0.1.1",
+    "@astrojs/renderer-vue": "^0.1.7",
+    "astro": "^0.20.5"
+  },
+  "dependencies": {
+    "@snowpack/plugin-svelte": "^3.7.0",
+    "@snowpack/plugin-vue": "^2.6.2"
+  }
+}
