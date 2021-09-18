@@ -1,5 +1,7 @@
 # Nx Plugins
 
+**WARNING: These plugins are still under hevay developings.**
+
 ## Progress
 
 - Detailed Documentations
