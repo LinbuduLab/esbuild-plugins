@@ -60,6 +60,7 @@ module.exports = {
       { text: 'Home', link: '/' },
       { text: 'Nx Plugins', link: '/nx/' },
       { text: 'Derived Plugins', link: '/derived/' },
+      { text: 'Develop Guide', link: '/guiding/' },
       {
         text: 'Learn Nx',
         link: 'https://nx.dev',
@@ -73,6 +74,7 @@ module.exports = {
     sidebar: {
       '/nx/': NX_PLUGIN_LIST,
       '/derived/': DERIVED_PLUGIN_LIST,
+      '/guiding/': 'auto',
     },
     lastUpdated: 'Last Updated',
     nextLinks: true,
