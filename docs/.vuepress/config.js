@@ -1,84 +1,19 @@
-const fs = require('fs-extra');
-const path = require('path');
-
-const NX_PLUGIN_LIST = [
-  {
-    title: 'Overview',
-    path: '/nx/',
-  },
-  {
-    title: 'ESBuild',
-    path: 'esbuild',
-  },
-  {
-    title: 'Vite',
-    path: 'vite',
-  },
-  {
-    title: 'Snowpack',
-    path: 'snowpack',
-  },
-  {
-    title: 'Prisma',
-    path: 'prisma',
-  },
-  {
-    title: 'TypeGraphQL',
-    path: 'type-graphql',
-  },
-  {
-    title: 'Devkit',
-    path: 'devkit',
-  },
-  {
-    title: 'Workspace',
-    path: 'workspace',
-  },
-];
-
-const DERIVED_PLUGIN_LIST = [
-  {
-    title: 'Overview',
-    path: '/derived/',
-  },
-  {
-    title: 'ESBuild Plugins',
-    path: 'esbuild',
-  },
-  {
-    title: 'Snowpack Plugins',
-    path: 'snowpack',
-  },
-];
-
 module.exports = {
-  title: 'LinbuduLab: Nx Plugins',
-  logo: '/media/logo.jpeg',
-  description: 'Nx plugin integrations with Bundler / Library / Framework.',
+  title: 'LinbuduLab Recording',
+  description: 'LinbuduLab Recording Site',
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Nx Plugins', link: '/nx/' },
-      { text: 'Derived Plugins', link: '/derived/' },
-      {
-        text: 'Learn Nx',
-        link: 'https://nx.dev',
-      },
       {
         text: 'GitHub',
         link: 'https://github.com/LinbuduLab/nx-plugins',
       },
+      { text: 'Open Source', link: '/open-source/' },
+      { text: 'Extra', link: '/extra/' },
     ],
-    displayAllHeaders: false,
-    sidebar: {
-      '/nx/': NX_PLUGIN_LIST,
-      '/derived/': DERIVED_PLUGIN_LIST,
-    },
+    sidebar: ['_pages/open-source.md'],
+    displayAllHeaders: true,
     lastUpdated: 'Last Updated',
-    nextLinks: true,
-    prevLinks: true,
-    // repo: 'LinbuduLab/nx-plugins',
-    // repoLabel: 'Contribute!',
     docsRepo: 'LinbuduLab/nx-plugins',
     docsDir: 'docs',
     docsBranch: 'main',
