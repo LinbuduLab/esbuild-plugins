@@ -6,6 +6,9 @@ import jsonfile from 'jsonfile';
 import prettier from 'prettier';
 import path from 'path';
 import { ProjectConfiguration } from '@nrwl/devkit';
+import nxJSON from '../../nx.json';
+import workspaceJSON from '../../workspace.json';
+import tsconfigJSON from '../../tsconfig.base.json';
 
 const nxJsonPath = path.join(process.cwd(), 'nx.json');
 const tsconfigJsonPath = path.join(process.cwd(), 'tsconfig.base.json');
@@ -13,8 +16,8 @@ const workspaceJsonPath = path.join(process.cwd(), 'workspace.json');
 const jestConfigFilePath = path.join(process.cwd(), 'jest.config.js');
 
 interface NxJsonProjectItem {
-  tags: string[];
-  implicitDependencies: string[];
+  tags?: string[];
+  implicitDependencies?: string[];
 }
 
 export default function useSortConfiguration(cli: CAC) {
@@ -38,45 +41,50 @@ export default function useSortConfiguration(cli: CAC) {
 }
 
 function sortPluginInNxJson() {
-  const nxJsonContent = jsonfile.readFileSync(nxJsonPath, 'utf8');
+  const nxJsonContent: typeof nxJSON = jsonfile.readFileSync(
+    nxJsonPath,
+    'utf8'
+  );
+
   const projects: Record<string, NxJsonProjectItem> = nxJsonContent.projects;
-  const nxProjects: Record<string, NxJsonProjectItem> = {};
-  const esbuildProjects: Record<string, NxJsonProjectItem> = {};
-  const viteProjects: Record<string, NxJsonProjectItem> = {};
-  const snowpackProjects: Record<string, NxJsonProjectItem> = {};
-  const rollupProjects: Record<string, NxJsonProjectItem> = {};
-  const parcelProjects: Record<string, NxJsonProjectItem> = {};
-  const otherProjects: Record<string, NxJsonProjectItem> = {};
+
+  const projectMap: Record<string, string[]> = {
+    playground: [],
+  };
 
   for (const [k, v] of Object.entries(projects)) {
-    if (k.startsWith('nx')) {
-      nxProjects[k] = v;
-    } else if (k.startsWith('esbuild')) {
-      esbuildProjects[k] = v;
-    } else if (k.startsWith('vite')) {
-      viteProjects[k] = v;
-    } else if (k.startsWith('snowpack')) {
-      snowpackProjects[k] = v;
-    } else if (k.startsWith('rollup')) {
-      rollupProjects[k] = v;
-    } else if (k.startsWith('parcel')) {
-      parcelProjects[k] = v;
+    const key = k.split('-')[0];
+
+    if (k.endsWith('-app') || k.endsWith('-playground')) {
+      projectMap['playground'].push(k);
     } else {
-      otherProjects[k] = v;
+      if (!projectMap[key]) {
+        projectMap[key] = [];
+      }
+      projectMap[key].push(k);
     }
   }
 
-  const sortedProjects = {
-    ...nxProjects,
-    ...esbuildProjects,
-    ...viteProjects,
-    ...snowpackProjects,
-    ...rollupProjects,
-    ...parcelProjects,
-    ...otherProjects,
+  const sortedProjectMap: Record<string, string[]> = {
+    nx: projectMap['nx'],
+    esbuild: projectMap['esbuild'],
+    snowpack: projectMap['snowpack'],
+    vite: projectMap['vite'],
+    gatsby: projectMap['gatsby'],
+    playground: projectMap['playground'],
+    ...projectMap,
   };
 
-  nxJsonContent.projects = sortedProjects;
+  const tmpProjects: Record<string, NxJsonProjectItem> = {};
+
+  for (const [k, v] of Object.entries(sortedProjectMap)) {
+    v &&
+      v.forEach((projectName) => {
+        tmpProjects[projectName] = nxJsonContent.projects[projectName];
+      });
+  }
+
+  nxJsonContent.projects = tmpProjects as any;
 
   fs.writeFileSync(
     nxJsonPath,
@@ -85,46 +93,52 @@ function sortPluginInNxJson() {
 }
 
 function sortPluginInTsconfigJson() {
-  const tsconfigJsonContent = jsonfile.readFileSync(tsconfigJsonPath, 'utf8');
+  const tsconfigJsonContent: typeof tsconfigJSON = jsonfile.readFileSync(
+    tsconfigJsonPath,
+    'utf8'
+  );
+
   const paths: Record<string, string[]> =
     tsconfigJsonContent.compilerOptions.paths;
-  const nxProjects: Record<string, string[]> = {};
-  const esbuildProjects: Record<string, string[]> = {};
-  const viteProjects: Record<string, string[]> = {};
-  const snowpackProjects: Record<string, string[]> = {};
-  const rollupProjects: Record<string, string[]> = {};
-  const parcelProjects: Record<string, string[]> = {};
-  const otherProjects: Record<string, string[]> = {};
+
+  const projectMap: Record<string, string[]> = {
+    playground: [],
+  };
 
   for (const [k, v] of Object.entries(paths)) {
-    if (k.startsWith('nx')) {
-      nxProjects[k] = v;
-    } else if (k.startsWith('esbuild')) {
-      esbuildProjects[k] = v;
-    } else if (k.startsWith('vite')) {
-      viteProjects[k] = v;
-    } else if (k.startsWith('snowpack')) {
-      snowpackProjects[k] = v;
-    } else if (k.startsWith('rollup')) {
-      rollupProjects[k] = v;
-    } else if (k.startsWith('parcel')) {
-      parcelProjects[k] = v;
+    const key = k.split('-')[0];
+
+    if (k.endsWith('-app') || k.endsWith('-playground')) {
+      projectMap['playground'].push(k);
     } else {
-      otherProjects[k] = v;
+      if (!projectMap[key]) {
+        projectMap[key] = [];
+      }
+      projectMap[key].push(k);
     }
   }
 
-  const sortedProjects = {
-    ...nxProjects,
-    ...esbuildProjects,
-    ...viteProjects,
-    ...snowpackProjects,
-    ...rollupProjects,
-    ...parcelProjects,
-    ...otherProjects,
+  const sortedProjectMap: Record<string, string[]> = {
+    nx: projectMap['nx'],
+    esbuild: projectMap['esbuild'],
+    snowpack: projectMap['snowpack'],
+    vite: projectMap['vite'],
+    gatsby: projectMap['gatsby'],
+    playground: projectMap['playground'],
+    ...projectMap,
   };
 
-  tsconfigJsonContent.compilerOptions.paths = sortedProjects;
+  const tmpProjects: Record<string, string[]> = {};
+
+  for (const [k, v] of Object.entries(sortedProjectMap)) {
+    v &&
+      v.forEach((projectName) => {
+        tmpProjects[projectName] =
+          tsconfigJsonContent.compilerOptions.paths[projectName];
+      });
+  }
+
+  tsconfigJsonContent.compilerOptions.paths = tmpProjects as any;
 
   fs.writeFileSync(
     tsconfigJsonPath,
@@ -133,47 +147,50 @@ function sortPluginInTsconfigJson() {
 }
 
 function sortPluginInWorkspaceJson() {
-  const workspaceJsonContent = jsonfile.readFileSync(workspaceJsonPath, 'utf8');
-  const projects: Record<string, ProjectConfiguration> =
-    workspaceJsonContent.projects;
+  const workspaceJsonContent: typeof workspaceJSON = jsonfile.readFileSync(
+    workspaceJsonPath,
+    'utf8'
+  );
 
-  const nxProjects: Record<string, ProjectConfiguration> = {};
-  const esbuildProjects: Record<string, ProjectConfiguration> = {};
-  const viteProjects: Record<string, ProjectConfiguration> = {};
-  const snowpackProjects: Record<string, ProjectConfiguration> = {};
-  const rollupProjects: Record<string, ProjectConfiguration> = {};
-  const parcelProjects: Record<string, ProjectConfiguration> = {};
-  const otherProjects: Record<string, ProjectConfiguration> = {};
+  const projects = workspaceJsonContent.projects;
+
+  const projectMap: Record<string, string[]> = {
+    playground: [],
+  };
 
   for (const [k, v] of Object.entries(projects)) {
-    if (k.startsWith('nx')) {
-      nxProjects[k] = v;
-    } else if (k.startsWith('esbuild')) {
-      esbuildProjects[k] = v;
-    } else if (k.startsWith('vite')) {
-      viteProjects[k] = v;
-    } else if (k.startsWith('snowpack')) {
-      snowpackProjects[k] = v;
-    } else if (k.startsWith('rollup')) {
-      rollupProjects[k] = v;
-    } else if (k.startsWith('parcel')) {
-      parcelProjects[k] = v;
+    const key = k.split('-')[0];
+
+    if (k.endsWith('-app') || k.endsWith('-playground')) {
+      projectMap['playground'].push(k);
     } else {
-      otherProjects[k] = v;
+      if (!projectMap[key]) {
+        projectMap[key] = [];
+      }
+      projectMap[key].push(k);
     }
   }
 
-  const sortedProjects = {
-    ...nxProjects,
-    ...esbuildProjects,
-    ...viteProjects,
-    ...snowpackProjects,
-    ...rollupProjects,
-    ...parcelProjects,
-    ...otherProjects,
+  const sortedProjectMap: Record<string, string[]> = {
+    nx: projectMap['nx'],
+    esbuild: projectMap['esbuild'],
+    snowpack: projectMap['snowpack'],
+    vite: projectMap['vite'],
+    gatsby: projectMap['gatsby'],
+    playground: projectMap['playground'],
+    ...projectMap,
   };
 
-  workspaceJsonContent.projects = sortedProjects;
+  const tmpProjects: Record<string, NxJsonProjectItem> = {};
+
+  for (const [k, v] of Object.entries(sortedProjectMap)) {
+    v &&
+      v.forEach((projectName) => {
+        tmpProjects[projectName] = workspaceJsonContent.projects[projectName];
+      });
+  }
+
+  workspaceJsonContent.projects = tmpProjects as any;
 
   fs.writeFileSync(
     workspaceJsonPath,

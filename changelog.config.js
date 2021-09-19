@@ -33,6 +33,11 @@ module.exports = {
       description: 'update documentation',
       emoji: '📝',
     },
+    scripts: {
+      value: 'scripts',
+      description: 'workspace scripts',
+      emoji: '🛠️',
+    },
     'docs-site': {
       value: 'docs',
       description: 'docs site enhancement',
@@ -197,6 +202,7 @@ module.exports = {
     'init',
     'feat',
     'docs',
+    'scripts',
     'docs-site',
     'chore',
     'example',

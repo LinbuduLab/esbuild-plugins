@@ -1,5 +1,16 @@
 {
-  "pluginScope": ["nx", "esbuild", "vite", "snowpack", "gatsby"],
+  "pluginScope": [
+    "nx",
+    "esbuild",
+    "vite",
+    "snowpack",
+    "gatsby",
+    "midway",
+    "parcel",
+    "ice",
+    "umi",
+    "rollup"
+  ],
   "workspaceScope": [
     "workspace",
     "tools-generators",
