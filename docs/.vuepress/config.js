@@ -18,7 +18,7 @@ module.exports = {
     docsDir: 'docs',
     docsBranch: 'main',
     editLinks: true,
-    editLinkText: 'Help me improve this page!',
+    editLinkText: 'Help! me improve this page!',
     smoothScroll: true,
   },
 };
