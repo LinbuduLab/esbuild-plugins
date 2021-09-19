@@ -50,7 +50,7 @@ collections:
           - { label: 'Body', name: body, widget: markdown, required: false }
   - label: 'Nx Plugin'
     name: 'nx_plugin'
-    folder: 'docs/nx'
+    folder: 'docs/nx-folder'
     create: true
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
@@ -64,7 +64,7 @@ collections:
         }
   - label: 'Derived Plugin'
     name: 'derived_plugin'
-    folder: 'docs/derived_plugin'
+    folder: 'docs/derived-folder'
     create: true
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
