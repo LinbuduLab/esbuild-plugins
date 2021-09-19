@@ -199,49 +199,51 @@ function sortPluginInWorkspaceJson() {
 }
 
 function sortPluginInJestConfigFile() {
-  const jestConfigFileContent: {
+  const {
+    projects,
+  }: {
     projects: string[];
   } = require(jestConfigFilePath);
 
-  const nxProjects: string[] = [];
-  const esbuildProjects: string[] = [];
-  const viteProjects: string[] = [];
-  const snowpackProjects: string[] = [];
-  const rollupProjects: string[] = [];
-  const parcelProjects: string[] = [];
-  const otherProjects: string[] = [];
+  const projectMap: Record<string, string[]> = {
+    packages: [],
+    playground: [],
+  };
 
-  for (const project of jestConfigFileContent.projects.map((p) =>
-    p.replace('\\', '/')
-  )) {
-    if (project.includes('nx-plugin-')) {
-      nxProjects.push(project);
-    } else if (project.includes('esbuild-plugin-')) {
-      esbuildProjects.push(project);
-    } else if (project.includes('vite-plugin-')) {
-      viteProjects.push(project);
-    } else if (project.includes('snowpack-plugin-')) {
-      snowpackProjects.push(project);
-    } else if (project.includes('rollup-plugin-')) {
-      rollupProjects.push(project);
-    } else if (project.includes('parcel-plugin-')) {
-      parcelProjects.push(project);
+  for (const k of projects.map((p) => p.replace('\\', '/'))) {
+    const key = k.includes('/packages/')
+      ? k.split('/packages/')[1].split('-')[0]
+      : 'playground';
+
+    if (k.endsWith('-app') || k.endsWith('-playground')) {
+      projectMap['playground'].push(k);
     } else {
-      otherProjects.push(project);
+      if (!projectMap[key]) {
+        projectMap[key] = [];
+      }
+      projectMap[key].push(k);
     }
   }
+  const sortedProjectMap: Record<string, string[]> = {
+    nx: projectMap['nx'],
+    esbuild: projectMap['esbuild'],
+    snowpack: projectMap['snowpack'],
+    vite: projectMap['vite'] ?? [],
+    gatsby: projectMap['gatsby'] ?? [],
+    playground: projectMap['playground'],
+    ...projectMap,
+  };
 
-  const sortedProjects = [
-    ...nxProjects,
-    ...esbuildProjects,
-    ...viteProjects,
-    ...snowpackProjects,
-    ...rollupProjects,
-    ...parcelProjects,
-    ...otherProjects,
+  const tmpProjects: string[] = [
+    ...sortedProjectMap['nx'],
+    ...sortedProjectMap['esbuild'],
+    ...sortedProjectMap['snowpack'],
+    ...sortedProjectMap['vite'],
+    ...sortedProjectMap['gatsby'],
+    ...sortedProjectMap['playground'],
   ].map((p) => `"${p}"`);
 
-  const updatedContent = `module.exports = { projects:[${sortedProjects}] }`;
+  const updatedContent = `module.exports = { projects:[${tmpProjects}]}`;
 
   fs.writeFileSync(
     jestConfigFilePath,
