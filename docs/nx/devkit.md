@@ -1,7 +1,9 @@
 ---
 title: DevKit
-description: nx-plugin-devkit
+description: devkit
 permalink: /:slug
 ---
+
+# Devkit
 
 Devkit 西内！

@@ -2,7 +2,7 @@
 home: true
 heroImage: /media/logo.jpeg
 heroText: Nx Plugins
-tagline: Nx plugin integrations with Bundler / Library / Framework.
+tagline: Nx + Bundler / Library / Framework.
 actionText: Get Started →
 actionLink: /nx/
 
@@ -14,7 +14,7 @@ features:
     details: Use derived plugins for better enhanced experience.
 
   - title: Quick start with initialize generator support.
-    details: Use provided plugin generator to setup your workspace in one-line command.
+    details: Setup your workspace in one-line command by plugin generator.
 
 footer: MIT Licensed | Copyright © 2021-present LinbuduLab
 ---

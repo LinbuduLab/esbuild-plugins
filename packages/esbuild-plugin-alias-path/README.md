@@ -6,8 +6,6 @@ ESBuild plugin for alias / tsconfig-paths.
 
 **Node: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks**
 
-**GitHub Repository/Homepage is private for now, if you got any troubles, just open issue in this [repo](https://github.com/linbudu599/Blog).**
-
 ```bash
 npm i esbuild-plugin-alias-path -D
 

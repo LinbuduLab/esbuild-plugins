@@ -59,10 +59,9 @@ module.exports = {
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Nx Plugins', link: '/nx/' },
-      // { text: 'Guide', link: '/guide/' },
       { text: 'Derived Plugins', link: '/derived/' },
       {
-        text: 'Nx Workspace',
+        text: 'Learn Nx',
         link: 'https://nx.dev',
       },
       {
@@ -78,8 +77,8 @@ module.exports = {
     lastUpdated: 'Last Updated',
     nextLinks: true,
     prevLinks: true,
-    repo: 'LinbuduLab/nx-plugins',
-    repoLabel: 'Contribute!',
+    // repo: 'LinbuduLab/nx-plugins',
+    // repoLabel: 'Contribute!',
     docsRepo: 'LinbuduLab/nx-plugins',
     docsDir: 'docs',
     docsBranch: 'main',
