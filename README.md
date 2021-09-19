@@ -4,12 +4,12 @@
 ![npm](https://img.shields.io/npm/v/nx?label=nx%20version)
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/LinbuduLab/nx-plugins)
 
-**WARNING: This project are still under heavy developings.**
+**WARNING: This project is still under heavy developings...**
 
-## Progress
+## Quick Start
 
-- Detailed Documentations
-- Enhancement
+- [Docs Site](https://nx-plugins.netlify.app/)
+- [Learn about Nx](https://nx.dev/)
 
 ## Packages
 
