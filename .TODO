@@ -18,6 +18,7 @@
   - tsconfig.json
   - workspace.json
   - nx.json
+  - noop
 
 
 ## Script
