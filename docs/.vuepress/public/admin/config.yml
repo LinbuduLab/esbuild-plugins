@@ -58,7 +58,21 @@ collections:
         }
   - label: 'Nx Plugin'
     name: 'nx-plugin'
-    folder: 'docs/_nx'
+    folder: 'docs/nx'
+    create: true
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Meta description', name: 'description', widget: 'string' }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - {
+          label: 'Permalink',
+          name: 'permalink',
+          widget: 'hidden',
+          default: '/:slug',
+        }
+  - label: 'Pages'
+    name: 'page'
+    folder: 'docs/_pages'
     create: true
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
@@ -72,7 +86,7 @@ collections:
         }
   - label: 'Derived Plugin'
     name: 'derived-plugin'
-    folder: 'docs/_derived'
+    folder: 'docs/derived'
     create: true
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
