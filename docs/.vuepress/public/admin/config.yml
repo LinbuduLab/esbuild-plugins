@@ -1,15 +1,9 @@
 backend:
   name: github
   repo: LinbuduLab/nx-plugins
-
 media_folder: 'docs/.vuepress/public/media'
 public_folder: '/media'
-
-locale: 'en'
-
 publish_mode: editorial_workflow
-show_preview_links: true
-
 collections:
   - label: 'Home'
     name: 'home'
@@ -48,9 +42,23 @@ collections:
               required: false,
             }
           - { label: 'Body', name: body, widget: markdown, required: false }
+  - label: 'Page'
+    name: 'pages'
+    folder: 'docs/_pages'
+    create: true
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Meta description', name: 'description', widget: 'string' }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - {
+          label: 'Permalink',
+          name: 'permalink',
+          widget: 'hidden',
+          default: '/:slug',
+        }
   - label: 'Nx Plugin'
-    name: 'nx_plugin'
-    folder: 'docs/nx-folder'
+    name: 'nx-plugin'
+    folder: 'docs/_nx'
     create: true
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
@@ -63,8 +71,8 @@ collections:
           default: '/:slug',
         }
   - label: 'Derived Plugin'
-    name: 'derived_plugin'
-    folder: 'docs/derived-folder'
+    name: 'derived-plugin'
+    folder: 'docs/_derived'
     create: true
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
