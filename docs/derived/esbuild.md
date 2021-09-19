@@ -477,9 +477,22 @@ console.log(md);
 
 // typing.d.ts
 declare module '*.md' {
+  // parsed html
   export const html: string;
+  // raw .md file content
   export const raw: string;
+  // markdown file name (basename)
   export const filename: string;
+}
+
+// or
+declare module '*.md' {
+  const result: {
+    raw: string;
+    html: string;
+    fileName: string;
+  };
+  export default result;
 }
 ```
 
