@@ -166,7 +166,7 @@ export default function useReleaseProject(cli: CAC) {
 
         await execa(
           'git',
-          ['add', `packages/${projectToRelease}`, '--dry-run', '--verbose'],
+          ['add', `packages/${projectToRelease}`, '--verbose'],
           {
             stdio: 'inherit',
           }
@@ -175,9 +175,9 @@ export default function useReleaseProject(cli: CAC) {
         await execa(
           'git-cz',
           [
-            '--type release',
-            `--scope ${projectToRelease.split('-')[0]}`,
-            `--subject="Release ${releaseTag}"`,
+            '--type=release',
+            `--scope=${projectToRelease.split('-')[0]}`,
+            `--subject=Release ${releaseTag}`,
             '--non-interactive',
           ],
           {
@@ -185,15 +185,6 @@ export default function useReleaseProject(cli: CAC) {
             preferLocal: true,
           }
         );
-
-        console.log([
-          '--non-interactive',
-          '--type release',
-          `--scope ${projectToRelease.split('-')[0]}`,
-          `--subject Release ${releaseTag}`,
-        ]);
-
-        process.exit(0);
 
         await execa('git', ['tag', releaseTag], {
           stdio: 'inherit',
@@ -220,6 +211,13 @@ export default function useReleaseProject(cli: CAC) {
       } else {
         console.info('No changes to commit.');
       }
+
+      consola.info('Pubishing package...');
+
+      await execa('npm', ['publish', '--access=public', '--dry-run'], {
+        cwd: projectDir,
+        stdio: 'inherit',
+      });
     });
 }
 
