@@ -1,7 +1,7 @@
 # nx-plugin-vite
 
-This library was generated with [Nx](https://nx.dev).
+Nx plugin integration with [Vite](https://vitejs.dev/).
 
-## Running unit tests
-
-Run `nx test nx-plugin-vite` to execute the unit tests via [Jest](https://jestjs.io).
+- [Documentation](https://nx-plugins.netlify.app/vite/)
+- [GitHub Repo](https://github.com/LinbuduLab/nx-plugins)
+- [Author](https://github.com/linbudu599)
