@@ -2,7 +2,7 @@ import path from 'path';
 import jsonfile from 'jsonfile';
 import pacote from 'pacote';
 import { allPackages } from '../utils/packages';
-import { readPackagesWithVersion } from '../utils/read-packages';
+import { readWorkspacePackagesWithVersion } from '../utils/read-packages';
 
 export async function collectDepsVersion(deps: string[]) {
   const depsInfoWithVersion: Record<string, string> = {};
@@ -21,8 +21,8 @@ export function collectDepsVersionFromProjectPackage(deps: string[]) {
     allPackages.includes(dep)
   );
 
-  const packagesWithVersion = readPackagesWithVersion().filter((pair) =>
-    filteredDeps.includes(pair.project)
+  const packagesWithVersion = readWorkspacePackagesWithVersion().filter(
+    (pair) => filteredDeps.includes(pair.project)
   );
 
   const packageVersionRecord: Record<string, string> = {};
