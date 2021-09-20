@@ -37,7 +37,7 @@ export async function main() {
 
   const currentVersion = packagesInfo.find(
     (info) => info.project === targetProject
-  ).version;
+  )!.version;
 
   if (!targetVersion) {
     const { release }: Record<'release', string> = await enquirer.prompt({
@@ -60,7 +60,7 @@ export async function main() {
       });
       targetVersion = version;
     } else {
-      targetVersion = release.match(/\((.*)\)/)[1];
+      targetVersion = release.match(/\((.*)\)/)![1];
     }
 
     if (!semver.valid(targetVersion)) {
