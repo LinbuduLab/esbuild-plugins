@@ -2,55 +2,6 @@
 
 ESBuild plugin for alias / tsconfig-paths.
 
-## Usage
-
-**Node: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks**
-
-```bash
-npm i esbuild-plugin-alias-path -D
-
-pnpm i esbuild-plugin-alias-path -D
-
-yarn add esbuild-plugin-alias-path -D
-```
-
-```typescript
-import { esbuildPluginAliasPath } from 'esbuild-plugin-alias-path';
-
-(async () => {
-  const res = await build({
-    entryPoints: ['apps/nest-app/src/main.ts'],
-    bundle: true,
-    tsconfig: './tsconfig.base.json',
-    outfile: './dist/main.js',
-    plugins: [
-      esbuildPluginAliasPath({
-        // absolute path is required
-        // for node package resolve, use require.resolve("package-name")
-        alias: { '@/foo': 'D://schematics/apps/nest-app/src/alias/foo.ts' },
-        tsconfigPath: 'apps/nest-app/tsconfig.app.json',
-      }),
-    ],
-    platform: 'node',
-    format: 'cjs',
-    external: ['@nestjs/core', '@nestjs/common'],
-  });
-})();
-```
-
-## Configuration
-
-```typescript
-export interface Options {
-  // alias, default as {}
-  // {"replace-key": "replace-with"}
-  // you will need to use absolute path as replace-with
-  // if value of k-v is absolute path, it will be used directly
-  // or the path will be resolved with process.cwd() (for CICD usage)
-  alias?: Record<string, string>;
-  // tsconfig.json path
-  tsconfigPath?: string;
-  // should this plugin be skipped
-  skip?: boolean;
-}
-```
+- [Documentation](https://nx-plugins.netlify.app/derived/esbuild.html#alias-path).
+- [GitHub Repo](https://github.com/LinbuduLab/nx-plugins)
+- [Author](https://github.com/linbudu599)

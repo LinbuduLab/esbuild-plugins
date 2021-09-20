@@ -47,6 +47,7 @@ export interface ReleaseCLIOptions {
   dryRun: boolean;
   version?: string;
   yes: boolean;
+  skipGit: boolean;
 }
 
 export default function useReleaseProject(cli: CAC) {
@@ -58,14 +59,13 @@ export default function useReleaseProject(cli: CAC) {
       default: ReleaseType.PATCH,
     })
     .option('--version [version]', 'Use custom version instead semver bump')
-    .option('--with-deps', 'Build package with deps', {
-      default: true,
+    .option('--skip-git', 'Skip git add & commit & push', {
+      default: false,
     })
     // .option('--yes', 'Skip confirm prompt', {
     //   default: false,
     // })
     // .option('--no-yes', 'Donnot skip confirm prompt')
-    .option('--no-with-deps', 'Build package without deps')
     .option('--dry-run', 'Use dry run mode', {
       default: false,
     })
@@ -86,7 +86,7 @@ export default function useReleaseProject(cli: CAC) {
           process.exit(1);
         }
 
-        const { dryRun, version } = options;
+        const { dryRun, version, skipGit } = options;
 
         const packagesInfo = readWorkspacePackagesWithVersion();
 
@@ -180,73 +180,84 @@ export default function useReleaseProject(cli: CAC) {
           process.exit(0);
         }
 
-        dryRunInfoLogger('Committing changes...', dryRun);
+        if (!skipGit) {
+          dryRunInfoLogger('Committing changes...', dryRun);
 
-        await execa(
-          'git',
-          ['add', `packages/${projectToRelease}`, '--verbose'].concat(
-            dryRun ? ['--dry-run'] : []
-          ),
-          {
-            stdio: 'inherit',
-          }
-        );
-
-        const gitCZCommandArgs = [
-          '--type=release',
-          `--scope=${projectToRelease.split('-')[0]}`,
-          `--subject=Release ${releaseTag}`,
-          '--non-interactive',
-        ];
-
-        const gitCZCommand = `git-cz ${gitCZCommandArgs.join(' ')}`;
-
-        !dryRun
-          ? await execa('git-cz', gitCZCommandArgs, {
+          await execa(
+            'git',
+            ['add', `packages/${projectToRelease}`, '--verbose'].concat(
+              dryRun ? ['--dry-run'] : []
+            ),
+            {
               stdio: 'inherit',
-              preferLocal: true,
-            })
-          : consola.info(
-              `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
-                `git-cz ${gitCZCommandArgs.join(' ')}`
-              )}`
-            );
+            }
+          );
 
-        !dryRun
-          ? await execa('git', ['tag', releaseTag], {
+          const gitCZCommandArgs = [
+            '--type=release',
+            `--scope=${projectToRelease.split('-')[0]}`,
+            `--subject=Release ${releaseTag}`,
+            '--non-interactive',
+          ];
+
+          !dryRun
+            ? await execa('git-cz', gitCZCommandArgs, {
+                stdio: 'inherit',
+                preferLocal: true,
+              })
+            : consola.info(
+                `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
+                  `git-cz ${gitCZCommandArgs.join(' ')}`
+                )}`
+              );
+
+          !dryRun
+            ? await execa('git', ['tag', releaseTag], {
+                stdio: 'inherit',
+              })
+            : consola.info(
+                `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
+                  `git tag ${releaseTag}`
+                )}`
+              );
+
+          await execa(
+            'git',
+            [
+              'push',
+              'origin',
+              `refs/tags/${releaseTag}`,
+              '--verbose',
+              '--progress',
+            ].concat(dryRun ? ['--dry-run'] : []),
+            {
               stdio: 'inherit',
-            })
-          : consola.info(
-              `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
-                `git tag ${releaseTag}`
-              )}`
-            );
+            }
+          );
 
-        await execa(
-          'git',
-          [
-            'push',
-            'origin',
-            `refs/tags/${releaseTag}`,
-            '--verbose',
-            '--progress',
-          ].concat(dryRun ? ['--dry-run'] : []),
-          {
-            stdio: 'inherit',
-          }
-        );
-
-        await execa(
-          'git',
-          ['push', '--verbose', '--progress'].concat(
-            dryRun ? ['--dry-run'] : []
-          ),
-          {
-            stdio: 'inherit',
-          }
-        );
+          await execa(
+            'git',
+            ['push', '--verbose', '--progress'].concat(
+              dryRun ? ['--dry-run'] : []
+            ),
+            {
+              stdio: 'inherit',
+            }
+          );
+        } else {
+          consola.warn('Remember you have skipped git process.');
+        }
 
         dryRunInfoLogger('Pubishing package...', dryRun);
+
+        const { stdout: logAs } = await execa('npm', ['whoami'], {
+          cwd: projectDir,
+          stdio: 'pipe',
+          shell: true,
+          preferLocal: true,
+        });
+
+        consola.info(`You're now logged as ${chalk.bold(chalk.white(logAs))}`);
 
         await execa(
           'npm',
@@ -254,6 +265,8 @@ export default function useReleaseProject(cli: CAC) {
           {
             cwd: projectDir,
             stdio: 'inherit',
+            shell: true,
+            preferLocal: true,
           }
         );
 

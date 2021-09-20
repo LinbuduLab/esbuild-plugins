@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-decorator",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "ESBuild plugin for decorator compilation.",
   "keywords": [
     "esbuild",
