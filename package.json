@@ -35,7 +35,6 @@
     "dep-graph": "nx dep-graph",
     "cli": "ts-node --transpile-only ./scripts/cli.ts",
     "commit": "git add -A && git-cz",
-    "cz": "git add -A && git-cz --type release --scope nx --non-interactive --subject='r r r'",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "docs:serve": "vuepress serve docs"
