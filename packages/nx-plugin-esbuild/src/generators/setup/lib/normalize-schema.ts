@@ -38,18 +38,21 @@ export function normalizeSchema(
 
   // if specified when calling setup generator, then use the specified path;
   // if not specified, and build target options contain this config, use this path;
-  // if both not, use PROJECT_SOURCE_ROOT/main.ts, e.g apps/app1/src/main.ts
+  // if both not, use PROJECT_SOURCE_ROOT/main.ts, e.g. apps/app1/src/main.ts
 
   const entry = schema.entry
     ? // apps/app1/src/main.ts
       schema.entry.startsWith(projectRoot)
-      ? schema.entry
+      ? // use it!
+        schema.entry
       : // app1/src/main.ts
       schema.entry.startsWith(projectName)
-      ? joinPathFragments(appsDir, schema.entry)
+      ? // join with nx.workspace.appDir
+        joinPathFragments(appsDir, schema.entry)
       : // src/main.ts
         joinPathFragments(projectRoot, schema.entry)
     : existBuildTargetOptions?.main ??
+      // final fallback: PROJECT_SRC_ROOT/main.ts
       joinPathFragments(projectSourceRoot, 'main.ts');
 
   const tsconfigPath = schema.tsconfigPath

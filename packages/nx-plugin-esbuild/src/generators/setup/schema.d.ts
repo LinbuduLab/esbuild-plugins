@@ -5,7 +5,7 @@ export interface ESBuildSetupGeneratorSchema {
   override: boolean;
 
   watch: boolean;
-  useTSCPluginForDecorator: boolean;
+  decoratorHandler: 'tsc' | 'swc';
 
   entry?: string;
   tsconfigPath?: string;

@@ -45,7 +45,6 @@ export function normalizeSchema(
     tsconfigPath,
     assets: schema.assets ?? [`${projectRoot}/src/assets`],
     watch: schema.watch,
-    override: schema.override,
     bundle: schema.bundle,
     platform: schema.platform,
     decoratorHandler: schema.decoratorHandler,

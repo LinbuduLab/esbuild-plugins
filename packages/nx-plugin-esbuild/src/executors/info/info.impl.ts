@@ -2,6 +2,7 @@ import { ExecutorContext } from '@nrwl/devkit';
 import { ESBuildInfoExecutorSchema } from './schema';
 import { normalizeInfoExecutorSchema } from './lib/normalize-schema';
 import { nxReportHandler, envInfo } from 'nx-plugin-devkit';
+
 // info executor：
 // nx esinfo project1
 // nx report
@@ -21,10 +22,8 @@ export default async function infoExecutor(
   rawOptions: ESBuildInfoExecutorSchema,
   context: ExecutorContext
 ) {
-  const {
-    sourceRoot: projectSourceRoot,
-    root: projectRoot,
-  } = context.workspace.projects[context.projectName];
+  const { sourceRoot: projectSourceRoot, root: projectRoot } =
+    context.workspace.projects[context.projectName];
 
   if (!projectSourceRoot) {
     throw new Error(`${context.projectName} does not have a sourceRoot.`);

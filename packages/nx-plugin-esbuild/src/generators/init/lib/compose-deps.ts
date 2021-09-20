@@ -1,3 +1,4 @@
+import { ESBUILD_DEP_VERSION } from '../../utils/constants';
 import { NormalizedESBuildInitGeneratorSchema } from '../schema';
 
 export function composeDepsList(
@@ -12,9 +13,7 @@ export function composeDevDepsList(
   schema: NormalizedESBuildInitGeneratorSchema
 ): Record<string, string> {
   const basic = {
-    esbuild: 'latest',
-    // 'esbuild-plugin-decorator': 'latest',
-    // 'esbuild-plugin-node-externals': 'latest',
+    esbuild: ESBUILD_DEP_VERSION,
   };
 
   return basic;

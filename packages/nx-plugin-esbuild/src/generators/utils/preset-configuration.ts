@@ -12,7 +12,6 @@ export function createProductionConfiguration(projectSourceRoot: string) {
       {
         from: './environments/environment',
         to: path.resolve(
-          process.cwd(),
           projectSourceRoot,
           './environments/environment.prod.ts'
         ),

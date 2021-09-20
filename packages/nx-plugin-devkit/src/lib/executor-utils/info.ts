@@ -1,5 +1,6 @@
 import { report } from '@nrwl/workspace/src/command-line/report';
-import envinfo from 'envinfo';
+import envinfo, { Options } from 'envinfo';
+import execa, { Options as ExecaOptions } from 'execa';
 
 export const nxReportHandler: () => void = report.handler;
 
@@ -11,11 +12,11 @@ export const nxReportHandler: () => void = report.handler;
  */
 export const envInfo = async (
   packages: string[] = [],
-  extraOptions = {}
+  extraOptions: Options = {}
 ): Promise<string> => {
   const envInfos = await envinfo.run(
     {
-      System: ['OS', 'CPU'],
+      System: ['OS', 'CPU', 'Shell'],
       Binaries: ['Node', 'Yarn', 'npm', 'pnpm'],
       Browsers: ['Chrome', 'Firefox', 'Safari'],
       npmPackages: packages,
@@ -24,4 +25,25 @@ export const envInfo = async (
   );
 
   return envInfos;
+};
+
+export const envInfoCLI = async (
+  packages: string[] = [],
+  execaOptions: ExecaOptions = {}
+) => {
+  console.log(
+    `npx envinfo --system --browsers  --binaries --npmPackages=${packages.join(
+      ','
+    )} --console`
+  );
+  await execa(
+    `npx envinfo --system --browsers  --binaries --npmPackages=${packages.join(
+      ','
+    )} --console`,
+    {
+      stdio: 'inherit',
+      shell: true,
+      ...execaOptions,
+    }
+  );
 };

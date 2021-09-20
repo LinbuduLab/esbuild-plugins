@@ -1,5 +1,3 @@
 # Vite
 
-## graphql
-
-## gundam
+There is no plugins here...

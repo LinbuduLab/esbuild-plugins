@@ -29,8 +29,6 @@ export default async function (
     override,
     watch,
     assets,
-    // TODO: expose plugin option in executor schema
-    useTSCPluginForDecorator,
   } = normalizedSchema;
 
   const projectConfig = readProjectConfiguration(host, projectName);
@@ -44,6 +42,7 @@ export default async function (
       main: entry,
       tsConfig: tsconfigPath,
       assets,
+      watch,
     },
     configurations: {
       ...(buildTargetConfig?.configurations ?? {}),
@@ -62,12 +61,12 @@ export default async function (
     },
   };
 
-  if (override) {
+  if (override || (!buildTargetConfig && !serveTargetConfig)) {
     projectConfig.targets['build'] = setupBuildTargetConfig;
     projectConfig.targets['serve'] = setupServeTargetConfig;
   } else {
-    projectConfig.targets['esbuild'] = setupBuildTargetConfig;
-    projectConfig.targets['esserve'] = setupServeTargetConfig;
+    projectConfig.targets['esbuild-build'] = setupBuildTargetConfig;
+    projectConfig.targets['esbuild-serve'] = setupServeTargetConfig;
   }
 
   updateProjectConfiguration(host, projectName, projectConfig);

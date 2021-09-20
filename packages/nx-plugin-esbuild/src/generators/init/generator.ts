@@ -27,8 +27,6 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
 
   const {
     projectName,
-    projectRoot,
-    parsedTags,
     offsetFromRoot,
     watch,
     projectSourceRoot,
@@ -36,7 +34,6 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
     outputPath,
     tsconfigPath: tsConfig,
     assets,
-    override,
     bundle,
     platform,
     decoratorHandler,
@@ -47,8 +44,8 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
   const initTask = await createNodeInitTask(host);
   tasks.push(initTask);
 
-  const buildTargetName = override ? 'esbuild' : 'build';
-  const serveTargetName = override ? 'esserve' : 'serve';
+  const buildTargetName = 'build';
+  const serveTargetName = 'serve';
 
   createNodeAppProject(
     host,
@@ -63,6 +60,7 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
         assets,
         bundle,
         decoratorHandler,
+        platform,
       },
       configurations: {
         production: createProductionConfiguration(projectSourceRoot),

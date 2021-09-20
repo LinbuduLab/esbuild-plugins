@@ -10,7 +10,6 @@ export interface ESBuildInitGeneratorExtraSchema {
   outputPath: string;
   tsconfigPath: string;
   assets: string[];
-  override: boolean;
 
   bundle: boolean;
   platform: 'browser' | 'node' | 'neutral';
