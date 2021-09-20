@@ -1,7 +1,6 @@
 # nx-plugin-esbuild
 
-This library was generated with [Nx](https://nx.dev).
+Nx plugin integration with [ESBuild](https://esbuild.github.io/).
 
-## Running unit tests
-
-Run `nx test nx-plugin-esbuild` to execute the unit tests via [Jest](https://jestjs.io).
+- [Documentation](https://nx-plugins.netlify.app/esbuild/).
+- Inspired by [nx-esbuild](https://www.npmjs.com/package/@wanews/nx-esbuild).
