@@ -2,14 +2,14 @@ import jsonfile from 'jsonfile';
 import fs from 'fs-extra';
 import enquirer from 'enquirer';
 import path from 'path';
-import { readPackagesWithVersion } from './read-packages';
+import { readWorkspacePackagesWithVersion } from './read-packages';
 import uniq from 'lodash/uniq';
 
 export const selectScope = async (
   extraScopes: string[] = [],
   message?: string | null
 ) => {
-  const packagesInfo = readPackagesWithVersion();
+  const packagesInfo = readWorkspacePackagesWithVersion();
   const availableScopes = uniq(
     packagesInfo.map((pkg) => pkg.project.split('-plugin-')[0])
   );
@@ -28,7 +28,7 @@ export const selectSingleProject = async (
   message?: string | null,
   scopes?: string[] | null
 ) => {
-  const packagesInfo = readPackagesWithVersion();
+  const packagesInfo = readWorkspacePackagesWithVersion();
   const allPackages = packagesInfo.map((pkg) => pkg.project);
   const scopePackages =
     scopes?.includes('all') || !scopes
@@ -52,7 +52,7 @@ export const selectMultiProjects = async (
   message?: string | null,
   scopes?: string[] | null
 ) => {
-  const packagesInfo = readPackagesWithVersion();
+  const packagesInfo = readWorkspacePackagesWithVersion();
   const allPackages = packagesInfo.map((pkg) => pkg.project);
   const scopePackages =
     scopes?.includes('all') || !scopes

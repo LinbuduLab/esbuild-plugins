@@ -7,7 +7,7 @@ type ProjectWithVersion = {
   version: string;
 };
 
-export const readPackagesWithVersion = (): ProjectWithVersion[] => {
+export const readWorkspacePackagesWithVersion = (): ProjectWithVersion[] => {
   const packageDir = path.join(process.cwd(), 'packages');
   const packages = fs.readdirSync(packageDir);
   return packages.map((project) => {

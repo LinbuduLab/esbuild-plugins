@@ -5,7 +5,6 @@ import fs from 'fs-extra';
 import jsonfile from 'jsonfile';
 import prettier from 'prettier';
 import path from 'path';
-import { ProjectConfiguration } from '@nrwl/devkit';
 import nxJSON from '../../nx.json';
 import workspaceJSON from '../../workspace.json';
 import tsconfigJSON from '../../tsconfig.base.json';
