@@ -17,6 +17,17 @@ import { getPluginDir } from '../utils/constants';
 import sortPackageJson from 'sort-package-json';
 import ow from 'ow';
 
+// 不需要CHANGELOG
+// yarn cli release
+// -> 选择 package
+// -> 选择 release type
+// -> bump version
+// -> collect deps
+// -> (optinal)bump dep workspace package version
+// git add packages/PACKAGE (--dry-run --verbose)
+// git-cz
+// yarn cli release PACKAGE --minor
+
 // prompt:
 // release type
 // dry
