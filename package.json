@@ -11,7 +11,11 @@
       "e2e/vite-app",
       "e2e/snowpack-app",
       "e2e/tmp",
-      "e2e/prisma-playground"
+      "e2e/prisma-app"
+    ],
+    "nohoist": [
+      "prisma",
+      "@prisma/client"
     ]
   },
   "scripts": {
@@ -45,6 +49,7 @@
     }
   },
   "dependencies": {
+    "@prisma/client": "3.0.2",
     "@swc/core": "^1.2.85",
     "core-js": "^3.6.5",
     "dompurify": "^2.3.1",
@@ -122,6 +127,7 @@
     "jest": "27.0.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.1",
+    "prisma": "3.0.2",
     "release-it": "^14.11.5",
     "release-it-yarn-workspaces": "^2.0.1",
     "sort-package-json": "^1.50.0",

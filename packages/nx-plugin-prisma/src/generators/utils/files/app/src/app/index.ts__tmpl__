@@ -1,3 +1,7 @@
+import { PrismaClient } from './prisma/client';
+
+const client = new PrismaClient();
+
 export function main(){
-  console.log("芜湖！起飞！");
+  console.log("Your Prisma App Here!");
 }

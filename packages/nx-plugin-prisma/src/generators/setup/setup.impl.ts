@@ -6,7 +6,7 @@ import {
   Tree,
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
-import { setupProxy } from 'nx-plugin-devkit';
+import { setupProxy, addProjectDepsToPackageJSON } from 'nx-plugin-devkit';
 import { PrismaSetupGeneratorSchema } from './schema';
 import { normalizeSchema } from '../utils/normalize-schema';
 import { createPrismaSchemaFiles } from '../utils/create-files';

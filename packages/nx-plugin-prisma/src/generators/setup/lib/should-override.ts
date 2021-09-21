@@ -21,7 +21,7 @@ export function shouldOverrideExistPrismaTargets(
 
   if (isAlreadyPrismaSetup && !schema.override) {
     throw new Error(
-      "This project contains Prisma Client / Prisma Related Targsts already, set 'override' to be true to execute."
+      "This project contains Prisma related targsts already, set 'override' to be true to execute."
     );
   }
 

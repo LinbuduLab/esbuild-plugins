@@ -30,6 +30,11 @@
       "implementation": "./src/executors/node-package/package.impl",
       "schema": "./src/executors/node-package/schema.json",
       "description": "node-package executor"
+    },
+    "tsc": {
+      "implementation": "./src/executors/tsc/executor",
+      "schema": "./src/executors/tsc/schema.json",
+      "description": "tsc executor"
     }
   }
 }

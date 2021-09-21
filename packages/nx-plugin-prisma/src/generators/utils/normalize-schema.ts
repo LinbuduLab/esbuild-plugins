@@ -22,7 +22,7 @@ export function normalizeSchema(
 
   // FIXME: client output support
   // const clientOutput = schema.clientOutput ?? './client';
-  const clientOutput = schema.clientOutput ?? 'node_modules/.prisma/client';
+  // const clientOutput = schema.clientOutput ?? 'node_modules/.prisma/client';
 
   const prismaSchemaDir = joinPathFragments(
     basicNormalizedAppGenSchema.projectSourceRoot,
@@ -55,6 +55,6 @@ export function normalizeSchema(
     datasourceUrl,
     prismaSchemaDir,
     clientProvider: 'prisma-client-js',
-    clientOutput,
+    // clientOutput,
   };
 }

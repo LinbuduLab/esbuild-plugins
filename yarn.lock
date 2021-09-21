@@ -2366,6 +2366,23 @@
     slugify "^1.6.0"
     truncatise "0.0.8"
 
+"@prisma/client@3.0.2", "@prisma/client@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-3.0.2.tgz#f04d9b252f3d0c6918df43ad228eac27d03f6db1"
+  integrity sha512-6SrDYY2Yr5AmYpVB3XAXFqfzxKMdDTemXR7FmfXthnxWhQHoBwRLNZ3B3GyI/MmWa5tr+kaaGDJjp1LU0vuYvQ==
+  dependencies:
+    "@prisma/engines-version" "2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db"
+
+"@prisma/engines-version@2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db":
+  version "2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db"
+  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db.tgz#c45323e420f47dd950b22c873bdcf38f75e65779"
+  integrity sha512-iArSApZZImVmT9oC/rGOjzvpG2AOqlIeqYcVnop9poA3FxD4zfVPbNPH9DTgOWhc06OkBHujJZeAcsNddVabIQ==
+
+"@prisma/engines@2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db":
+  version "2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db"
+  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db.tgz#b6cf70bc05dd2a62168a16f3ea58a1b011074621"
+  integrity sha512-Q9CwN6e5E5Abso7J3A1fHbcF4NXGRINyMnf7WQ07fXaebxTTARY5BNUzy2Mo5uH82eRVO5v7ImNuR044KTjLJg==
+
 "@release-it/conventional-changelog@^3.3.0":
   version "3.3.0"
   resolved "https://registry.nlark.com/@release-it/conventional-changelog/download/@release-it/conventional-changelog-3.3.0.tgz#0f79e4b736412040d37c2b84bf433e393268c08e"
@@ -7771,6 +7788,32 @@ es6-promise@^4.1.0:
   version "4.2.8"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.8.tgz#4eb21594c972bc40553d276e510539143db53e0a"
   integrity sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==
+
+esbuild-plugin-alias-path@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/esbuild-plugin-alias-path/-/esbuild-plugin-alias-path-0.3.3.tgz#2d4d84cc4ca92d36a1c1ff61fb0c5e66640a6663"
+  integrity sha512-AH0y2xzKUwnCTpNP3KJbLEtxyYY0jqS/p+cD5nOl82CcATIwWBNVPf/pepW1QlIuz8HUhjaf8dPaC+gzcsInWQ==
+  dependencies:
+    jsonfile "^6.1.0"
+
+esbuild-plugin-decorator@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/esbuild-plugin-decorator/-/esbuild-plugin-decorator-0.1.2.tgz#461cc882aa6bb529d59e997de2acc0f198eaebbd"
+  integrity sha512-3peZOqCAQzTYbnp60kDOC6SH0XJYP9ZUyfpxSmO/2hVP0XwVC+AGbQhGoT72YncnJxiZxubwQ8ptRWOmtPJ/bA==
+  dependencies:
+    chalk "^4.1.1"
+    fs-extra "^10.0.0"
+    jsonfile "^6.1.0"
+    lodash "^4.17.21"
+    strip-comments "^2.0.1"
+
+esbuild-plugin-node-externals@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/esbuild-plugin-node-externals/-/esbuild-plugin-node-externals-0.1.2.tgz#6271c75b084e1335194a7a61e095f96a28109334"
+  integrity sha512-ffmEXr2gtaZelnwZHyXcukN/kpK/LeR1jy+zihnZeUXzKOvoCjp9tKAgaRRQErB0Y4A8wd+Cx3VtRg4wrAzMRg==
+  dependencies:
+    find-up "^5.0.0"
+    jsonfile "^6.1.0"
 
 esbuild@^0.12.17, esbuild@^0.12.24, esbuild@^0.12.25:
   version "0.12.28"
@@ -14185,6 +14228,13 @@ pretty-time@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/pretty-time/download/pretty-time-1.1.0.tgz#ffb7429afabb8535c346a34e41873adf3d74dd0e"
   integrity sha1-/7dCmvq7hTXDRqNOQYc63z103Q4=
+
+prisma@3.0.2, prisma@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/prisma/-/prisma-3.0.2.tgz#e86cb6abf4a815c7ac97b9d0ed383f01c253ce34"
+  integrity sha512-TyOCbtWGDVdWvsM1RhUzJXoGClXGalHhyYWIc5eizSF8T1ScGiOa34asBUdTnXOUBFSErbsqMNw40DHAteBm1A==
+  dependencies:
+    "@prisma/engines" "2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db"
 
 prismjs@^1.13.0:
   version "1.25.0"

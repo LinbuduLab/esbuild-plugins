@@ -20,9 +20,10 @@ export function initPrismaProjectConfiguration(
       executor: 'nx-plugin-workspace:node-build',
       outputs: ['{options.outputPath}'],
       options: {
-        outputPath: joinPathFragments('dist/apps', schema.projectDirectory),
+        outputPath: joinPathFragments(schema.projectDirectory, 'dist'),
         main: joinPathFragments(schema.projectSourceRoot, 'main.ts'),
         tsConfig: joinPathFragments(schema.projectRoot, 'tsconfig.app.json'),
+        // TODO:
         assets: [joinPathFragments(schema.projectSourceRoot, 'assets')],
       },
       configurations: {
@@ -49,7 +50,9 @@ export function initPrismaProjectConfiguration(
       executor: 'nx-plugin-workspace:node-serve',
       options: { buildTarget: `${schema.projectName}:build` },
       configurations: {
-        buildTarget: `${schema.projectName}:build:production`,
+        production: {
+          buildTarget: `${schema.projectName}:build:production`,
+        },
       },
     },
   };

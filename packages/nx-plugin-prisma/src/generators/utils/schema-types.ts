@@ -20,7 +20,7 @@ export interface PrismaGeneratorExtraSchema {
   // 无默认值，当使用sqlite时，使用file:../db.sqlite
   // datasourceUrl: string;
   // 支持prisma-client-js与schema path的相对路径
-  clientOutput: string;
+  // clientOutput: string;
   clientProvider: 'prisma-client-js';
   // 创建一个简单的model
   initialSchema: boolean;

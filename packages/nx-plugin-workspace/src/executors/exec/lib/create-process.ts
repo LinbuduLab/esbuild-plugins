@@ -5,7 +5,8 @@ export function createExecaProcess(
   command: string,
   color: boolean,
   useLocalPackage: boolean,
-  cwd: string
+  cwd: string,
+  shell: boolean
 ) {
   return new Promise((res, rej) => {
     const childProcess = execa(command, {
@@ -14,6 +15,7 @@ export function createExecaProcess(
       cwd,
       stdio: 'inherit',
       preferLocal: useLocalPackage,
+      shell,
     });
 
     const processExitListener = () => childProcess.kill();
@@ -35,7 +37,8 @@ export function createSyncExecaProcess(
   command: string,
   color: boolean,
   useLocalPackage: boolean,
-  cwd: string
+  cwd: string,
+  shell: boolean
 ) {
   execa.sync(command, {
     extendEnv: true,
@@ -43,5 +46,6 @@ export function createSyncExecaProcess(
     stdio: 'inherit',
     cwd,
     preferLocal: useLocalPackage,
+    shell,
   });
 }

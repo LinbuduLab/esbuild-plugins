@@ -6,6 +6,7 @@ import yargsParser from 'yargs-parser';
 import kebabCase from 'lodash/kebabCase';
 import camelCase from 'lodash/camelCase';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 export const debug = require('debug')('nx-plugin-workspace');
 
 export const parseArgs = (options: WorkspaceExecSchema) => {

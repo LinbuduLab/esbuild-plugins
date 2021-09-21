@@ -82,7 +82,8 @@
       "implicitDependencies": ["nx-plugin-esbuild"]
     },
     "nx-plugin-prisma": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
     },
     "nx-plugin-prisma-e2e": {
       "tags": [],

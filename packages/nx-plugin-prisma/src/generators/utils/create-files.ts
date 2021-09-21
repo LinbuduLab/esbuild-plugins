@@ -25,7 +25,6 @@ export function createPrismaSchemaFiles(
       tmpl: '',
       SchemaName: schema.schemaName.trim(),
       ClientProvider: schema.clientProvider,
-      ClientOutput: schema.clientOutput,
       // prisma schema does not allow single quote
       DatasourceURL: schema.datasourceUrl,
       DatasourceProvider: schema.datasourceProvider,

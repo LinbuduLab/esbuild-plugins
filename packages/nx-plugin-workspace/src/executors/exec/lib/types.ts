@@ -16,6 +16,7 @@ export interface WorkspaceExecSchema {
   outputPath?: string | string[];
   useCamelCase?: boolean;
   useLocalPackage?: boolean;
+  shell: boolean;
 }
 
 export interface NormalizedExecSchema extends WorkspaceExecSchema {
@@ -35,4 +36,5 @@ export const schemaProps: (SchemaProps | string)[] = [
   'envFile',
   'outputPath',
   'useLocalPackage',
+  'shell',
 ];

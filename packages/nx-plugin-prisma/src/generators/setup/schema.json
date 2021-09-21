@@ -52,10 +52,6 @@
       "description": "Create env file inside project",
       "default": true
     },
-    "NOT_SUPPORT_YET_clientOutput": {
-      "type": "string",
-      "description": "Prisma client output"
-    },
     "initialSchema": {
       "type": "boolean",
       "description": "Create model definitions for generated schema",

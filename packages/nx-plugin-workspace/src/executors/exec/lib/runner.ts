@@ -14,7 +14,8 @@ export async function runInParallel(
       c.command,
       options.color,
       options.useLocalPackage,
-      cwd
+      cwd,
+      options.shell
     ).then((success: boolean) => ({
       success,
       command: c.command,
@@ -42,13 +43,13 @@ export async function runSerially(
   context: ExecutorContext
 ) {
   const cwd = calculateCwd(options.cwd, context);
-
   for (const c of options.commands) {
     createSyncExecaProcess(
       c.command,
       options.color,
       options.useLocalPackage,
-      cwd
+      cwd,
+      options.shell
     );
   }
   return true;

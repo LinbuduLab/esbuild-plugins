@@ -31,19 +31,19 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
       outputPath: schema.prismaSchemaDir,
       useCamelCase: false,
       useLocalPackage: true,
+      shell: true,
     },
   };
 
   const prismaGenerateOption = schema.collectArgs
     ? {
         options: {
-          args: `--schema=${cwd2SchemaRelativePath} --watch=false`,
+          args: `--schema=${cwd2SchemaRelativePath}`,
         },
       }
     : {
         options: {
           schema: cwd2SchemaRelativePath,
-          watch: false,
         },
       };
 

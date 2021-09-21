@@ -8,6 +8,7 @@ export * from './lib/generator-utils/node-app-tasks';
 export * from './lib/generator-utils/node-app-setup';
 export * from './lib/generator-utils/normalize-schema';
 export * from './lib/generator-utils/minimal-generator';
+export * from './lib/generator-utils/package-json';
 
 export * from './lib/executor-utils/info';
 export * from './lib/executor-utils/allow-ts';
