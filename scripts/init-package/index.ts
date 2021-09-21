@@ -48,13 +48,11 @@ export default function useInitPackage(cli: CAC) {
 
         const dir = getPluginDir(pluginName);
 
-        fs.ensureFileSync(path.resolve(dir, '.release-it.json'));
+        fs.ensureFileSync(path.resolve(dir, '.npmignore'));
 
         fs.writeFileSync(
-          path.resolve(dir, '.release-it.json'),
-          prettier.format(JSON.stringify(releaseItConfig(pluginName)), {
-            parser: 'json-stringify',
-          })
+          path.resolve(dir, '.npmignore'),
+          JSON.stringify(npmIgnoreFile().trim())
         );
 
         fs.rmSync(path.resolve(dir, 'tsconfig.lib.json'), { force: true });
@@ -77,6 +75,13 @@ export default function useInitPackage(cli: CAC) {
         originPkg.scripts = npmScripts();
         originPkg.generators = './dist/generators.json';
         originPkg.executors = './dist/executors.json';
+
+        const initPackageJSONFields = packageJSON(pluginName);
+
+        originPkg.homepage = initPackageJSONFields.homepage;
+        originPkg.bugs = initPackageJSONFields.bugs;
+        originPkg.repository = initPackageJSONFields.repository;
+        originPkg.license = initPackageJSONFields.license;
 
         fs.writeFileSync(
           path.resolve(dir, 'package.json'),
@@ -150,12 +155,29 @@ export const tsConfigJSON = (): {
   };
 };
 
+export const packageJSON = (pluginName: string) => {
+  return {
+    homepage: `
+      https://github.com/LinbuduLab/nx-plugins/tree/main/packages/${pluginName}#readme,
+    `,
+    bugs: {
+      url: 'https://github.com/LinbuduLab/nx-plugins/issues',
+    },
+    repository: {
+      type: 'git',
+      url: 'git+https://github.com/LinbuduLab/nx-plugins.git',
+    },
+    license: 'MIT',
+    author: 'Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)',
+  };
+};
+
 export const npmScripts = () => {
   return {
-    release: 'release-it',
-    'release:dry': 'release-it --dry-run',
-    'release:minor': 'release-it minor',
-    'release:major': 'release-it major',
+    // release: 'release-it',
+    // 'release:dry': 'release-it --dry-run',
+    // 'release:minor': 'release-it minor',
+    // 'release:major': 'release-it major',
   };
 };
 
@@ -166,6 +188,11 @@ export const workspaceJSON = (plugin: string) => {
   };
 };
 
+/**
+ * @deprecated
+ * @param plugin
+ * @returns
+ */
 export const releaseItConfig = (plugin: string) => {
   return {
     github: {
@@ -201,3 +228,11 @@ export const releaseItConfig = (plugin: string) => {
     },
   };
 };
+
+export const npmIgnoreFile = () => `
+.babelrc
+.eslintrc.json
+.release-it.json
+jest.config.js
+tsconfig.spec.json
+`;
