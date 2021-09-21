@@ -7,9 +7,10 @@ import {
 
 export function normalizeSchema(
   host: Tree,
-  schema: PrismaGeneratorSchema
+  schema: PrismaGeneratorSchema,
+  requireExist = false
 ): NormalizedPrismaGeneratorSchema {
-  if (!checkProjectExist(schema.app)) {
+  if (requireExist && !checkProjectExist(schema.app)) {
     throw new Error(`Project ${schema.app} does not exist!`);
   }
 
