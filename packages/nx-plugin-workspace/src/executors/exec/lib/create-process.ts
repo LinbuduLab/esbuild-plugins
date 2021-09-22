@@ -1,4 +1,6 @@
 import execa from 'execa';
+import chalk from 'chalk';
+import consola from 'consola';
 import { processEnv } from './env';
 
 export function createExecaProcess(
@@ -9,6 +11,7 @@ export function createExecaProcess(
   shell: boolean
 ) {
   return new Promise((res, rej) => {
+    consola.info(`[ASYNC] Executing command: ${chalk.white(command)}`);
     const childProcess = execa(command, {
       env: processEnv(color),
       extendEnv: true,
@@ -40,6 +43,7 @@ export function createSyncExecaProcess(
   cwd: string,
   shell: boolean
 ) {
+  consola.info(`[SYNC] Executing command: ${chalk.white(command)}`);
   execa.sync(command, {
     extendEnv: true,
     env: processEnv(color),

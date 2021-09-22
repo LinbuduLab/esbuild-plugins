@@ -12,6 +12,7 @@ export const normalizeSchema = (
   const parsedArgs = parseArgs(schema);
 
   const commands: NormalizedCommandItem[] = [];
+
   let parallel = true;
 
   if (schema.command) {
@@ -24,6 +25,8 @@ export const normalizeSchema = (
         typeof cmd === 'string' ? { command: cmd } : { command: cmd.command }
       )
     );
+    // TODO: VERIFY
+    parallel = schema.parallel;
   }
 
   commands.forEach((cmd) => {
