@@ -88,4 +88,12 @@ module.exports = {
     editLinkText: 'Help me improve this page!',
     smoothScroll: true,
   },
+  plugins: [
+    [
+      '@vuepress/google-analytics',
+      {
+        ga: 'G-NE3SMQE6C5',
+      },
+    ],
+  ],
 };

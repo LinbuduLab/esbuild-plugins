@@ -103,6 +103,7 @@
     "@types/styled-components": "5.1.9",
     "@typescript-eslint/eslint-plugin": "~4.28.3",
     "@typescript-eslint/parser": "~4.28.3",
+    "@vuepress/plugin-google-analytics": "^1.8.2",
     "auto-changelog": "^2.3.0",
     "babel-jest": "27.0.6",
     "babel-plugin-styled-components": "1.10.7",
