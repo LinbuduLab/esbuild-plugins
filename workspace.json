@@ -1412,6 +1412,25 @@
       "projectType": "application",
       "target": {}
     },
+    "astro-playground": {
+      "root": "e2e/astro-playground",
+      "sourceRoot": "e2e/astro-playground/src",
+      "projectType": "application",
+      "targets": {
+        "dev": {
+          "executor": "nx-plugin-workspace:exec",
+          "options": {
+            "commands": ["astro dev"],
+            "cwd": "e2e/astro-playground",
+            "parallel": false,
+            "color": true,
+            "useCamelCase": false,
+            "useLocalPackage": true,
+            "shell": true
+          }
+        }
+      }
+    },
     "vite-app": {
       "root": "e2e/vite-app",
       "sourceRoot": "e2e/vite-app/src",
