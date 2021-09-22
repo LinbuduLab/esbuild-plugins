@@ -33,7 +33,7 @@ export function createPrismaSchemaFiles(
 
   const defaultEnvDBUrl =
     schema.datasourceProvider === 'sqlite'
-      ? 'file:../../db.sqlite'
+      ? 'file:../../../db.sqlite'
       : 'SET_DATABASE_URL_HERE';
 
   const envPath = path.join(

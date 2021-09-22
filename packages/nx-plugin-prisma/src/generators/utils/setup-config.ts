@@ -16,6 +16,24 @@ export function initPrismaProjectConfiguration(
   const { prismaRelatedTargets } = prismaTargetsConfig(schema);
 
   const commonTargets: Record<string, TargetConfiguration> = {
+    dev: {
+      executor: 'nx-plugin-workspace:exec',
+      options: {
+        commands: [
+          'rm -rf ./dist',
+          'tsc --build tsconfig.app.json',
+          'ncp ./src/app/prisma ./dist/app/prisma',
+          'ncp db.sqlite ./dist/db.sqlite',
+          'node dist/main.js',
+        ],
+        cwd: schema.projectRoot,
+        parallel: false,
+        color: true,
+        useCamelCase: false,
+        useLocalPackage: true,
+        shell: true,
+      },
+    },
     build: {
       executor: 'nx-plugin-workspace:node-build',
       outputs: ['{options.outputPath}'],

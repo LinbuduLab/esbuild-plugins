@@ -1,5 +1,6 @@
 
     
+    
     # Add files here to ignore them from prettier formatting
 
 /dist
@@ -8,3 +9,5 @@
 e2e/prisma-app/src/app/prisma/node_modules/.prisma/client
 
 e2e/prisma-app/src/app/prisma/client
+
+e2e/prisma-app1/src/app/prisma/client

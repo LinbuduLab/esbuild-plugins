@@ -924,15 +924,32 @@
       "sourceRoot": "e2e/prisma-app/src",
       "projectType": "application",
       "targets": {
+        "dev": {
+          "executor": "nx-plugin-workspace:exec",
+          "options": {
+            "commands": [
+              "rm -rf ./dist",
+              "tsc --build tsconfig.app.json",
+              "ncp ./src/app/prisma ./dist/app/prisma",
+              "ncp db.sqlite ./dist/db.sqlite",
+              "node dist/main.js"
+            ],
+            "cwd": "e2e/prisma-app",
+            "parallel": false,
+            "color": true,
+            "useCamelCase": false,
+            "useLocalPackage": true,
+            "shell": true
+          }
+        },
         "build": {
           "executor": "nx-plugin-workspace:node-build",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "e2e/prisma-app/dist",
+            "outputPath": "prisma-app/dist",
             "main": "e2e/prisma-app/src/main.ts",
             "tsConfig": "e2e/prisma-app/tsconfig.app.json",
-            "assets": ["e2e/prisma-app/src/assets"],
-            "externalDependencies": ["prisma", "@prisma/client", "./client"]
+            "assets": ["e2e/prisma-app/src/assets"]
           },
           "configurations": {
             "production": {

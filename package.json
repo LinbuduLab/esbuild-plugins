@@ -38,7 +38,7 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "cli": "ts-node --transpile-only ./scripts/cli.ts",
-    "commit": "git add -A && git-cz",
+    "commit": "git-cz",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "docs:serve": "vuepress serve docs"
@@ -52,6 +52,7 @@
     "@prisma/client": "3.0.2",
     "@swc/core": "^1.2.85",
     "core-js": "^3.6.5",
+    "cpy-cli": "^3.1.1",
     "dompurify": "^2.3.1",
     "esbuild": "^0.12.25",
     "find-up": "5.0.0",

@@ -1,5 +1,6 @@
 
     
+    
     # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
@@ -49,3 +50,5 @@ Thumbs.db
 e2e/prisma-app/src/app/prisma/node_modules/.prisma/client
 
 e2e/prisma-app/src/app/prisma/client
+
+e2e/prisma-app1/src/app/prisma/client

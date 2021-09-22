@@ -1,4 +1,5 @@
 import { main } from './app/index';
 
-// <%= SchemaName %>
-main();
+(async () => {
+  await main();
+})();

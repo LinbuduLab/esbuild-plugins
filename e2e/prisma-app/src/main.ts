@@ -1,4 +1,5 @@
 import { main } from './app/index';
 
-// schema
-main();
+(async () => {
+  await main();
+})();
