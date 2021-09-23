@@ -63,6 +63,10 @@
     "esbuild-plugin-run": {
       "tags": []
     },
+    "ice-vite-app": {
+      "tags": [],
+      "implicitDependencies": []
+    },
     "node-playground": {
       "tags": []
     },
@@ -80,6 +84,13 @@
     "nx-plugin-esbuild-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-esbuild"]
+    },
+    "nx-plugin-ice": {
+      "tags": []
+    },
+    "nx-plugin-ice-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-ice"]
     },
     "nx-plugin-prisma": {
       "tags": [],

@@ -1,6 +1,25 @@
 {
   "version": 2,
   "projects": {
+    "astro-playground": {
+      "root": "e2e/astro-playground",
+      "sourceRoot": "e2e/astro-playground/src",
+      "projectType": "application",
+      "targets": {
+        "dev": {
+          "executor": "nx-plugin-workspace:exec",
+          "options": {
+            "commands": ["astro dev"],
+            "cwd": "e2e/astro-playground",
+            "parallel": false,
+            "color": true,
+            "useCamelCase": false,
+            "useLocalPackage": true,
+            "shell": true
+          }
+        }
+      }
+    },
     "esbuild-plugin-alias-path": {
       "root": "packages/esbuild-plugin-alias-path",
       "sourceRoot": "packages/esbuild-plugin-alias-path/src",
@@ -325,6 +344,25 @@
         }
       }
     },
+    "ice-vite-app": {
+      "root": "e2e/ice-vite-app",
+      "sourceRoot": "e2e/ice-vite-app/src",
+      "projectType": "application",
+      "targets": {
+        "start": {
+          "executor": "nx-plugin-workspace:exec",
+          "options": {
+            "commands": ["icejs start"],
+            "cwd": "e2e/ice-vite-app",
+            "parallel": false,
+            "color": true,
+            "useCamelCase": false,
+            "useLocalPackage": true,
+            "shell": true
+          }
+        }
+      }
+    },
     "node-playground": {
       "root": "e2e/node-playground",
       "sourceRoot": "e2e/node-playground/src",
@@ -575,6 +613,75 @@
           "options": {
             "target": "nx-plugin-esbuild:build",
             "jestConfig": "e2e/nx-plugin-esbuild-e2e/jest.config.js"
+          }
+        }
+      }
+    },
+    "nx-plugin-ice": {
+      "root": "packages/nx-plugin-ice",
+      "sourceRoot": "packages/nx-plugin-ice/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["packages/nx-plugin-ice/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/nx-plugin-ice"],
+          "options": {
+            "jestConfig": "packages/nx-plugin-ice/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/packages/nx-plugin-ice",
+            "tsConfig": "packages/nx-plugin-ice/tsconfig.lib.json",
+            "packageJson": "packages/nx-plugin-ice/package.json",
+            "main": "packages/nx-plugin-ice/src/index.ts",
+            "assets": [
+              "packages/nx-plugin-ice/*.md",
+              {
+                "input": "./packages/nx-plugin-ice/src",
+                "glob": "**/!(*.ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-ice/src",
+                "glob": "**/*.d.ts",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/nx-plugin-ice",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/nx-plugin-ice",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "nx-plugin-ice-e2e": {
+      "root": "e2e/nx-plugin-ice-e2e",
+      "projectType": "application",
+      "sourceRoot": "e2e/nx-plugin-ice-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "nx-plugin-ice:build",
+            "jestConfig": "e2e/nx-plugin-ice-e2e/jest.config.js"
           }
         }
       }
@@ -1411,25 +1518,6 @@
       "sourceRoot": "e2e/tmp/src",
       "projectType": "application",
       "target": {}
-    },
-    "astro-playground": {
-      "root": "e2e/astro-playground",
-      "sourceRoot": "e2e/astro-playground/src",
-      "projectType": "application",
-      "targets": {
-        "dev": {
-          "executor": "nx-plugin-workspace:exec",
-          "options": {
-            "commands": ["astro dev"],
-            "cwd": "e2e/astro-playground",
-            "parallel": false,
-            "color": true,
-            "useCamelCase": false,
-            "useLocalPackage": true,
-            "shell": true
-          }
-        }
-      }
     },
     "vite-app": {
       "root": "e2e/vite-app",

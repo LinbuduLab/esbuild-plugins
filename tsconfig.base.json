@@ -43,6 +43,7 @@
       "nx-plugin-astro": ["packages/nx-plugin-astro/src/index.ts"],
       "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"],
       "nx-plugin-esbuild": ["packages/nx-plugin-esbuild/src/index.ts"],
+      "nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
       "nx-plugin-prisma": ["packages/nx-plugin-prisma/src/index.ts"],
       "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"],
       "nx-plugin-swc": ["packages/nx-plugin-swc/src/index.ts"],

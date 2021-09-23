@@ -12,14 +12,19 @@
       "e2e/vite-app",
       "e2e/snowpack-app",
       "e2e/tmp",
-      "e2e/prisma-app"
+      "e2e/prisma-app",
+      "e2e/ice-vite-app"
     ],
     "nohoist": [
       "**/prisma",
       "**/@prisma/client",
       "**/@astrojs/**",
       "**/astro",
-      "**/react"
+      "**/react",
+      "**/react-dom",
+      "**/ice.js",
+      "**/build-plugin-fusion",
+      "**/build-plugin-moment-locales"
     ]
   },
   "scripts": {
@@ -139,6 +144,7 @@
     "sort-package-json": "^1.50.0",
     "ts-jest": "27.0.3",
     "ts-node": "~9.1.1",
+    "tslib": "^2.0.0",
     "typescript": "~4.3.5",
     "vuepress": "1.5.2"
   }
