@@ -2,16 +2,19 @@ import execa from 'execa';
 import chalk from 'chalk';
 import consola from 'consola';
 import { processEnv } from './env';
+import type { NormalizedExecSchema } from './types';
 
 export function createExecaProcess(
   command: string,
-  color: boolean,
-  useLocalPackage: boolean,
   cwd: string,
-  shell: boolean
+  { color, shell, useLocalPackage }: NormalizedExecSchema
 ) {
   return new Promise((res, rej) => {
-    consola.info(`[ASYNC] Executing command: ${chalk.white(command)}`);
+    consola.info(
+      `${chalk.bgBlue(
+        chalk.white(chalk.bold('[ASYNC]'))
+      )} Executing command: ${chalk.white(command)}`
+    );
     const childProcess = execa(command, {
       env: processEnv(color),
       extendEnv: true,
@@ -38,12 +41,14 @@ export function createExecaProcess(
 
 export function createSyncExecaProcess(
   command: string,
-  color: boolean,
-  useLocalPackage: boolean,
   cwd: string,
-  shell: boolean
+  { color, shell, useLocalPackage }: NormalizedExecSchema
 ) {
-  consola.info(`[SYNC] Executing command: ${chalk.white(command)}`);
+  consola.info(
+    `${chalk.bgBlue(
+      chalk.white(chalk.bold('[SYNC]'))
+    )} Executing command: ${chalk.white(command)}`
+  );
   execa.sync(command, {
     extendEnv: true,
     env: processEnv(color),

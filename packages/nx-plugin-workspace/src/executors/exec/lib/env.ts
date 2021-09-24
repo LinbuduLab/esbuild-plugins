@@ -5,6 +5,7 @@ export function processEnv(color: boolean, useLocalPackage = false) {
   const env = useLocalPackage
     ? {
         ...process.env,
+        // FIXME: no longer needed in favor of execa.preferLocal
         ...npmRunPath.env(),
       }
     : { ...process.env };

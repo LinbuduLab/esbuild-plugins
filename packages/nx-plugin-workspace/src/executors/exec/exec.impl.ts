@@ -4,14 +4,20 @@ import { normalizeSchema } from './lib/normalize-schema';
 import { loadEnvVars } from './lib/env';
 import { runInParallel, runSerially } from './lib/runner';
 
-// Enhanced version of original @nrwl/workspace:run-commands
-// support local installed packages execution
-// PR: https://github.com/nrwl/nx/pull/6807
+/**
+ * Enhanced version of original @nrwl/workspace:run-commands:
+ * - support local installed packages execution
+ * - use execa under the hood
+ * - more flexiable args forwarding
+ * - camel-case transform
+ * PR: https://github.com/nrwl/nx/pull/6807
+ */
 export default async function (
   options: WorkspaceExecSchema,
   context: ExecutorContext
 ): Promise<{ success: boolean }> {
   loadEnvVars(options.envFile);
+
   const normalized = normalizeSchema(options);
 
   if (!normalized.commands.length) {

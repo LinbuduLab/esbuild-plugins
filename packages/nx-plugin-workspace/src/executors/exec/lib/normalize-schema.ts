@@ -16,16 +16,16 @@ export const normalizeSchema = (
   let parallel = true;
 
   if (schema.command) {
+    // when there's only one command, execute it synchronously
     commands.push({ command: schema.command });
     parallel = false;
   } else {
     commands.push(
       ...schema.commands.map((cmd) =>
-        // aviod incorrect args
         typeof cmd === 'string' ? { command: cmd } : { command: cmd.command }
       )
     );
-    // TODO: VERIFY
+    // control by options
     parallel = schema.parallel;
   }
 
@@ -33,6 +33,7 @@ export const normalizeSchema = (
     cmd.command = normalizeCommand(
       cmd.command,
       parsedArgs,
+      // command level
       cmd.forwardAllArgs ?? true
     );
   });
@@ -42,6 +43,5 @@ export const normalizeSchema = (
     commands,
     parsedArgs,
     parallel,
-    useCamelCase: schema.useCamelCase ?? false,
   };
 };

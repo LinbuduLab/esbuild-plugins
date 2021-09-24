@@ -1,63 +1,66 @@
 import { ExecutorContext } from '@nrwl/devkit';
-import type { WorkspaceExecSchema } from './types';
 import path from 'path';
-import { schemaProps } from './types';
+import { internalSchemaProps, WorkspaceExecSchema } from './types';
 import yargsParser from 'yargs-parser';
 import kebabCase from 'lodash/kebabCase';
 import camelCase from 'lodash/camelCase';
+import consola from 'consola';
+import chalk from 'chalk';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 export const debug = require('debug')('nx-plugin-workspace');
 
 export const parseArgs = (options: WorkspaceExecSchema) => {
-  // schema 中可以使用任意形式的选项格式，最终通过useCamelCase控制
-  // 只需要支持camelCase和kebabCase这两个即可
-  const transformer = options.useCamelCase ? camelCase : kebabCase;
-  const resetter = options.useCamelCase ? kebabCase : camelCase;
+  const { args: argsSchemaOption, useCamelCase, ignoreFalsy } = options;
 
-  const args = options.args;
+  // support `--some-arg` or `--someArg`, controlled by useCamelCase option
+  const [transformer, resetter] = useCamelCase
+    ? [camelCase, kebabCase]
+    : [camelCase, kebabCase].reverse();
 
-  // 将schema中多余的选项收集起来，如a:1，b:2,dry-run:true
-  // 收集为{}的形式
-  if (!args) {
-    const unknownOptionsTreatedAsArgs = Object.keys(options)
-      .filter((p) => schemaProps.indexOf(p) === -1)
-      .map((p) => transformer(p))
-      .reduce(
-        (unknownOptionsMap, key) => (
-          (unknownOptionsMap[key] =
-            // use resetter ?
-            // options[camelCase(key)] ?? options[kebabCase(key)]),
-            // use camelCase only in json schema
-            options[camelCase(key)]),
-          unknownOptionsMap
-        ),
-        {} as Record<string, string>
-      );
+  // if `--args` is not provided, we collect all addtional arguments
+  // make it as object form, with transformed key: value
+  if (!argsSchemaOption) {
+    const unknownOptionsTreatedAsArgs: Record<string, string> = Object.keys(
+      options
+    )
+      // options that doesnot consumed by exec executor itself
+      .filter((p) => internalSchemaProps.indexOf(p) === -1)
+      // apply transformer, be default we use kebab case.
+      .reduce((unknownOptionsMap, key) => {
+        ignoreFalsy
+          ? options[key]
+            ? (unknownOptionsMap[transformer(key)] = options[key])
+            : void 0
+          : (unknownOptionsMap[transformer(key)] = options[key]);
 
-    options.useCamelCase
-      ? delete unknownOptionsTreatedAsArgs['useCamelCase']
-      : delete unknownOptionsTreatedAsArgs['use-camel-case'];
+        return unknownOptionsMap;
+      }, {} as Record<string, string>);
 
-    console.log(
-      `Extra options was regarded as command arguments: [${Object.keys(
-        unknownOptionsTreatedAsArgs
-      )}]`
+    consola.info(
+      `Extra options was regarded as command arguments: ${chalk.white(
+        Object.keys(unknownOptionsTreatedAsArgs).join(' ,')
+      )}`
     );
 
     return unknownOptionsTreatedAsArgs;
   }
 
+  // if `--args` is specified, we need to handle it, and ignore extra option args
   // passing unknown options to some libs will cause errors(like Prisma)
-  const { _, ...parsedArgs } = yargsParser(args.replace(/(^"|"$)/g, ''), {
-    configuration: {
-      'camel-case-expansion': false,
-    },
-  });
+  // so we remove extra args at first
+  const { _, ...parsedArgs } = yargsParser(
+    argsSchemaOption.replace(/(^"|"$)/g, ''),
+    {
+      configuration: {
+        // do not expand camel case
+        // options.useCamelCase should be ignore here
+        'camel-case-expansion': false,
+      },
+    }
+  );
 
-  options.useCamelCase
-    ? delete parsedArgs['useCamelCase']
-    : delete parsedArgs['use-camel-case'];
+  // do not apply transform to it because it comes from the user!
 
   return parsedArgs;
 };
@@ -67,14 +70,14 @@ export const normalizeCommand = (
   args: Record<string, string>,
   forwardAllArgs: boolean
 ) => {
-  // {args.xxx} 会被args.xxx的值填充
-  // 这里将会固定使用驼峰填充属性？
+  // fill command --aaa={args.foo} from args: "--foo=bar"
   if (command.indexOf('{args.') > -1) {
     const regex = /{args\.([^}]+)}/g;
-    return command.replace(regex, (_, group: string) => args[camelCase(group)]);
+    return command.replace(regex, (_, group: string) => args[group]);
+    // if forwardAllArgs, attach all args
   } else if (Object.keys(args).length > 0 && forwardAllArgs) {
     const stringifiedArgs = Object.keys(args)
-      .map((a) => `--${a}=${args[a]}`)
+      .map((arg) => `--${arg}=${args[arg]}`)
       .join(' ');
     return `${command} ${stringifiedArgs}`;
   } else {

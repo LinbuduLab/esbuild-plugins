@@ -1052,6 +1052,7 @@
             "color": true,
             "useCamelCase": false,
             "useLocalPackage": true,
+            "outputPath": "e2e/prisma-app/dist",
             "shell": true
           }
         },
@@ -1062,9 +1063,13 @@
             "cwd": "e2e/prisma-app",
             "parallel": false,
             "color": true,
-            "useCamelCase": false,
+            "useCamelCase": true,
             "useLocalPackage": true,
-            "shell": true
+            "shell": true,
+            "foo": true,
+            "foo-bar": true,
+            "fooBar1": true,
+            "args": "--foo=1 --bar='bar!!!' --fooBar='??' --foooo-bar='!!'"
           }
         },
         "prisma-generate": {
@@ -1079,6 +1084,8 @@
             "useCamelCase": false,
             "useLocalPackage": true,
             "shell": true,
+            "watch": false,
+            "ignoreFalsy": true,
             "schema": "src/app/prisma/schema.prisma"
           }
         },

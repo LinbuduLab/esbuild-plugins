@@ -8,15 +8,16 @@ export type CommandItem = NormalizedCommandItem | string;
 export interface WorkspaceExecSchema {
   command?: string;
   commands: CommandItem[];
-  color?: boolean;
-  parallel?: boolean;
+  color: boolean;
+  parallel: boolean;
   cwd?: string;
   args?: string;
   envFile?: string;
   outputPath?: string | string[];
-  useCamelCase?: boolean;
-  useLocalPackage?: boolean;
+  useCamelCase: boolean;
+  useLocalPackage: boolean;
   shell: boolean;
+  ignoreFalsy: boolean;
 }
 
 export interface NormalizedExecSchema extends WorkspaceExecSchema {
@@ -24,9 +25,11 @@ export interface NormalizedExecSchema extends WorkspaceExecSchema {
   parsedArgs: Record<string, string>;
 }
 
-export type SchemaProps = keyof WorkspaceExecSchema;
+export type InternalSchemaProps = keyof WorkspaceExecSchema;
 
-export const schemaProps: (SchemaProps | string)[] = [
+// These options will not be passed to actual command
+// FIXME: typings
+export const internalSchemaProps: (InternalSchemaProps | string)[] = [
   'command',
   'commands',
   'color',
@@ -35,6 +38,8 @@ export const schemaProps: (SchemaProps | string)[] = [
   'args',
   'envFile',
   'outputPath',
+  'useCamelCase',
   'useLocalPackage',
+  'ignoreFalsy',
   'shell',
 ];

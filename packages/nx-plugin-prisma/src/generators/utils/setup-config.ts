@@ -4,6 +4,7 @@ import {
   NxJsonProjectConfiguration,
   readProjectConfiguration,
   TargetConfiguration,
+  joinPathFragments,
 } from '@nrwl/devkit';
 import { NormalizedPrismaGeneratorSchema } from './schema-types';
 import merge from 'lodash/merge';
@@ -36,6 +37,7 @@ export function initPrismaProjectConfiguration(
         color: true,
         useCamelCase: false,
         useLocalPackage: true,
+        outputPath: joinPathFragments(schema.projectRoot, 'dist'),
         shell: true,
       },
     },

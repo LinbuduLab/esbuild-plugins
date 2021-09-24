@@ -1,6 +1,7 @@
-import { ExecutorContext } from '@nrwl/devkit';
-import { calculateCwd } from './helper';
+import type { ExecutorContext } from '@nrwl/devkit';
 import type { NormalizedExecSchema } from './types';
+
+import { calculateCwd } from './helper';
 import { createExecaProcess, createSyncExecaProcess } from './create-process';
 
 export async function runInParallel(
@@ -10,13 +11,7 @@ export async function runInParallel(
   const cwd = calculateCwd(options.cwd, context);
 
   const processGroup = options.commands.map((c) =>
-    createExecaProcess(
-      c.command,
-      options.color,
-      options.useLocalPackage,
-      cwd,
-      options.shell
-    ).then((success: boolean) => ({
+    createExecaProcess(c.command, cwd, options).then((success: boolean) => ({
       success,
       command: c.command,
     }))
@@ -44,13 +39,7 @@ export async function runSerially(
 ) {
   const cwd = calculateCwd(options.cwd, context);
   for (const c of options.commands) {
-    createSyncExecaProcess(
-      c.command,
-      options.color,
-      options.useLocalPackage,
-      cwd,
-      options.shell
-    );
+    createSyncExecaProcess(c.command, cwd, options);
   }
   return true;
 }

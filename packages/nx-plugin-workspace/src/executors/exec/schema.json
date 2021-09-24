@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
   "title": "Exec executor",
-  "description": "",
+  "description": "nx-plugin-workspace:exec",
   "type": "object",
   "outputCapture": "pipe",
   "properties": {
@@ -19,7 +19,8 @@
               },
               "forwardAllArgs": {
                 "type": "boolean",
-                "description": "Whether arguments should be forwarded when interpolation is not present"
+                "description": "Whether arguments should be forwarded when interpolation is not present",
+                "default": true
               }
             },
             "additionalProperties": false,
@@ -50,7 +51,7 @@
     },
     "shell": {
       "type": "boolean",
-      "description": "Use shell mode for execa",
+      "description": "Enable shell mode of execa",
       "default": false
     },
     "color": {
@@ -62,6 +63,16 @@
       "type": "boolean",
       "description": "Use package installed locally (like npm-scripts)",
       "default": true
+    },
+    "useCamelCase": {
+      "type": "boolean",
+      "description": "Force args to be converted to camel case",
+      "default": true
+    },
+    "ignoreFalsy": {
+      "type": "boolean",
+      "description": "Ignore false value in args like `--watch=false`",
+      "default": false
     },
     "outputPath": {
       "description": "Allows you to specify where the build artifacts are stored. This allows Nx Cloud to pick them up correctly, in the case that the build artifacts are placed somewhere other than the top level dist folder.",
