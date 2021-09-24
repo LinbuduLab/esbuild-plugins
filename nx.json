@@ -33,6 +33,7 @@
     ]
   },
   "projects": {
+    "astro-playground": {},
     "esbuild-plugin-alias-path": {
       "tags": []
     },

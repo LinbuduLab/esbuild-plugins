@@ -54,12 +54,22 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
     {
       name: normalizedSchema.projectName,
       version: '1.0.0',
-      scripts: {},
+      scripts: {
+        dev: 'ts-node scripts/dev.ts',
+        build: 'ts-node scripts/build.ts',
+        start: 'npm run build && node dist/main.js',
+      },
       dependencies: {
         '@prisma/client': INTEGRATED_VERSION,
       },
       devDependencies: {
         prisma: INTEGRATED_VERSION,
+        '@types/ncp': '^2.0.5',
+        execa: '^5.1.1',
+        ncp: '^2.0.0',
+        'ts-node': '^10.2.1',
+        'ts-node-dev': '^1.1.8',
+        typescript: '^4.4.3',
       },
     },
     normalizedSchema.projectRoot
@@ -78,6 +88,12 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
     },
     {
       prisma: INTEGRATED_VERSION,
+      '@types/ncp': '^2.0.5',
+      execa: '^5.1.1',
+      ncp: '^2.0.0',
+      'ts-node': '^10.2.1',
+      'ts-node-dev': '^1.1.8',
+      typescript: '^4.4.3',
     }
   );
 

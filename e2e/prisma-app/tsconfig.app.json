@@ -6,6 +6,6 @@
     "baseUrl": "./",
     "rootDir": "./src"
   },
-  "exclude": ["**/*.spec.ts"],
+  "exclude": ["**/*.spec.ts", "scripts"],
   "include": ["**/*.ts"]
 }

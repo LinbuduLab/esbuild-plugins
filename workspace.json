@@ -1034,13 +1034,7 @@
         "dev": {
           "executor": "nx-plugin-workspace:exec",
           "options": {
-            "commands": [
-              "rm -rf ./dist",
-              "tsc --build tsconfig.app.json",
-              "ncp ./src/app/prisma ./dist/app/prisma",
-              "ncp db.sqlite ./dist/db.sqlite",
-              "node dist/main.js"
-            ],
+            "command": "npm run dev",
             "cwd": "e2e/prisma-app",
             "parallel": false,
             "color": true,
@@ -1050,37 +1044,27 @@
           }
         },
         "build": {
-          "executor": "nx-plugin-workspace:node-build",
-          "outputs": ["{options.outputPath}"],
+          "executor": "nx-plugin-workspace:exec",
           "options": {
-            "outputPath": "prisma-app/dist",
-            "main": "e2e/prisma-app/src/main.ts",
-            "tsConfig": "e2e/prisma-app/tsconfig.app.json",
-            "assets": ["e2e/prisma-app/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "e2e/prisma-app/src/environments/environment.ts",
-                  "with": "e2e/prisma-app/src/environments/environment.prod.ts"
-                }
-              ]
-            }
+            "command": "npm run build",
+            "cwd": "e2e/prisma-app",
+            "parallel": false,
+            "color": true,
+            "useCamelCase": false,
+            "useLocalPackage": true,
+            "shell": true
           }
         },
-        "serve": {
-          "executor": "nx-plugin-workspace:node-serve",
+        "start": {
+          "executor": "nx-plugin-workspace:exec",
           "options": {
-            "buildTarget": "prisma-app:build"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "prisma-app:build:production"
-            }
+            "command": "npm run start",
+            "cwd": "e2e/prisma-app",
+            "parallel": false,
+            "color": true,
+            "useCamelCase": false,
+            "useLocalPackage": true,
+            "shell": true
           }
         },
         "prisma-generate": {

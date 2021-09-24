@@ -28,8 +28,8 @@ module.exports = {
     '<rootDir>/e2e/nx-plugin-swc-e2e',
     '<rootDir>/e2e/node-playground',
     '<rootDir>/e2e/react-playground',
-    '<rootDir>/e2e/prisma-app',
     '<rootDir>/packages/nx-plugin-ice',
     '<rootDir>/e2e/nx-plugin-ice-e2e',
+    '<rootDir>/e2e/prisma-app',
   ],
 };
