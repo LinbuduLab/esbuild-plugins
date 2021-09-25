@@ -44,10 +44,15 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
   const jestTask = await createNodeJestTask(host, normalizedSchema);
   tasks.push(jestTask);
 
-  // TODO: USE --latest to enable fetching latest version
-  // consola.info('Fetching latest version of `prisma`, `@prisma/client`');
-  // const { version: cliVersion } = await pacote.manifest('prisma');
-  // const { version: clientVersion } = await pacote.manifest('@prisma/client');
+  let packageVersion = INTEGRATED_VERSION;
+
+  if (schema.latestPackage) {
+    consola.info('Fetching latest version of `prisma`, `@prisma/client`');
+    // use one of it
+    const { version } = await pacote.manifest('prisma');
+    // const { version: clientVersion } = await pacote.manifest('@prisma/client');
+    packageVersion = version;
+  }
 
   // create package.json
   createPackageJSON(
@@ -60,10 +65,10 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
         start: 'npm run build && node dist/main.js',
       },
       dependencies: {
-        '@prisma/client': INTEGRATED_VERSION,
+        '@prisma/client': packageVersion,
       },
       devDependencies: {
-        prisma: INTEGRATED_VERSION,
+        prisma: packageVersion,
         '@types/ncp': '^2.0.5',
         execa: '^5.1.1',
         ncp: '^2.0.0',
@@ -76,18 +81,16 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
   );
 
   addPrismaClientToIgnore(host, normalizedSchema);
-
   setDefaultProject(host, normalizedSchema);
-
   setupProxy(host, normalizedSchema);
 
   const addDepsTask = addDependenciesToPackageJson(
     host,
     {
-      '@prisma/client': INTEGRATED_VERSION,
+      '@prisma/client': packageVersion,
     },
     {
-      prisma: INTEGRATED_VERSION,
+      prisma: packageVersion,
       '@types/ncp': '^2.0.5',
       execa: '^5.1.1',
       ncp: '^2.0.0',

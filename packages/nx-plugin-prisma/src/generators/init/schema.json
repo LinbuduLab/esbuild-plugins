@@ -91,6 +91,11 @@
       "type": "boolean",
       "description": "Donot create prisma-introspect target",
       "default": false
+    },
+    "latestPackage": {
+      "type": "boolean",
+      "description": "Use latest prisma package version(fetch from npm)",
+      "default": false
     }
   },
   "required": ["app"]

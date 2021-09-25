@@ -1,7 +1,4 @@
-import {
-  BasicNodeAppGenSchema,
-  BasicNormalizedAppGenSchema,
-} from 'nx-plugin-devkit';
+import { BasicNodeAppGenSchema } from 'nx-plugin-devkit';
 import {
   PrismaGeneratorSchema,
   NormalizedPrismaGeneratorSchema,
@@ -13,7 +10,11 @@ import {
 
 export interface PrismaInitGeneratorSchema
   extends BasicNodeAppGenSchema,
-    PrismaGeneratorSchema {}
+    PrismaGeneratorSchema {
+  latestPackage: boolean;
+}
 
 export interface NormalizedPrismaInitGeneratorSchema
-  extends NormalizedPrismaGeneratorSchema {}
+  extends NormalizedPrismaGeneratorSchema {
+  latestPackage: boolean;
+}
