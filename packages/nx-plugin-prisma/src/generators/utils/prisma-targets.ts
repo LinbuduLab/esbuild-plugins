@@ -5,7 +5,6 @@ import merge from 'lodash/merge';
 
 export const avaliablePrismaTargets = [
   'prisma-generate',
-  'prisma-introspect',
   'prisma-format',
   'prisma-studio',
   'prisma-db-pull',
@@ -20,7 +19,6 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
     path.relative(schema.projectRoot, schema.prismaSchemaPath)
   );
 
-  // TODO: use lodash.mergeWith
   const basicPrismaTargetConfiguration = {
     executor: 'nx-plugin-workspace:exec',
     options: {
@@ -32,10 +30,11 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
       useCamelCase: false,
       useLocalPackage: true,
       shell: true,
+      ignoreFalsy: true,
     },
   };
 
-  const prismaGenerateOption = schema.collectArgs
+  const sharedPrismaOptions = schema.collectArgs
     ? {
         options: {
           args: `--schema=${cwd2SchemaRelativePath}`,
@@ -43,45 +42,6 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
       }
     : {
         options: {
-          schema: cwd2SchemaRelativePath,
-        },
-      };
-
-  const prismaIntrospectOption = schema.collectArgs
-    ? {
-        options: {
-          args: `--schema=${cwd2SchemaRelativePath} --force=false --print`,
-        },
-      }
-    : {
-        options: {
-          schema: cwd2SchemaRelativePath,
-          force: false,
-          print: true,
-        },
-      };
-
-  const prismaFormatOption = schema.collectArgs
-    ? {
-        options: {
-          args: `--schema=${cwd2SchemaRelativePath}`,
-        },
-      }
-    : {
-        options: {
-          schema: cwd2SchemaRelativePath,
-        },
-      };
-
-  const prismaDBPullOption = schema.collectArgs
-    ? {
-        options: {
-          args: `--preview-feature --schema=${cwd2SchemaRelativePath}`,
-        },
-      }
-    : {
-        options: {
-          previewFeature: true,
           schema: cwd2SchemaRelativePath,
         },
       };
@@ -89,14 +49,12 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
   const prismaDBPushOption = schema.collectArgs
     ? {
         options: {
-          args: `--preview-feature --schema=${cwd2SchemaRelativePath} --skip-generate --force-reset=fasle --help=false --accept-data-loss=false`,
+          args: `--schema=${cwd2SchemaRelativePath} --force-reset=false --accept-data-loss=false`,
         },
       }
     : {
         options: {
-          previewFeature: true,
           schema: cwd2SchemaRelativePath,
-          skipGenerate: false,
           forceReset: false,
           acceptDataLoss: false,
         },
@@ -116,86 +74,7 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
         },
       };
 
-  const prismaMigrateResetOption = schema.collectArgs
-    ? {
-        options: {
-          args: `--schema=${cwd2SchemaRelativePath} --force=false --skip-generate --skip-seed`,
-        },
-      }
-    : {
-        options: {
-          schema: cwd2SchemaRelativePath,
-          force: false,
-          skipGenerate: true,
-          skipSeed: true,
-        },
-      };
-
-  const prismaMigrateDeployOption = schema.collectArgs
-    ? {
-        options: {
-          args: `--schema=${cwd2SchemaRelativePath}`,
-        },
-      }
-    : {
-        options: {
-          schema: cwd2SchemaRelativePath,
-        },
-      };
-
-  const prismaMigrateStatusOption = schema.collectArgs
-    ? {
-        options: {
-          args: `--schema=${cwd2SchemaRelativePath}`,
-        },
-      }
-    : {
-        options: {
-          schema: cwd2SchemaRelativePath,
-        },
-      };
-
   const prismaRelatedTargets = {
-    'prisma-generate': merge(
-      {
-        executor: 'nx-plugin-workspace:exec',
-        options: {
-          command: 'prisma generate',
-        },
-      },
-      basicPrismaTargetConfiguration,
-      prismaGenerateOption
-    ),
-    'prisma-introspect': merge(
-      {
-        executor: 'nx-plugin-workspace:exec',
-        options: {
-          command: 'prisma introspect',
-        },
-      },
-      basicPrismaTargetConfiguration,
-      prismaIntrospectOption
-    ),
-    'prisma-format': merge(
-      {
-        executor: 'nx-plugin-workspace:exec',
-        options: {
-          command: 'prisma format',
-        },
-      },
-      basicPrismaTargetConfiguration,
-      prismaFormatOption
-    ),
-    'prisma-db-pull': merge(
-      {
-        executor: 'nx-plugin-workspace:exec',
-        options: {
-          command: 'prisma db pull',
-        },
-      },
-      basicPrismaTargetConfiguration,
-      prismaDBPullOption
-    ),
     'prisma-db-push': merge(
       {
         executor: 'nx-plugin-workspace:exec',
@@ -206,6 +85,37 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
       basicPrismaTargetConfiguration,
       prismaDBPushOption
     ),
+    'prisma-db-pull': merge(
+      {
+        executor: 'nx-plugin-workspace:exec',
+        options: {
+          command: 'prisma db pull',
+        },
+      },
+      basicPrismaTargetConfiguration,
+      sharedPrismaOptions
+    ),
+    'prisma-generate': merge(
+      {
+        executor: 'nx-plugin-workspace:exec',
+        options: {
+          command: 'prisma generate',
+        },
+      },
+      basicPrismaTargetConfiguration,
+      sharedPrismaOptions
+    ),
+    'prisma-format': merge(
+      {
+        executor: 'nx-plugin-workspace:exec',
+        options: {
+          command: 'prisma format',
+        },
+      },
+      basicPrismaTargetConfiguration,
+      sharedPrismaOptions
+    ),
+
     'prisma-studio': merge(
       {
         executor: 'nx-plugin-workspace:exec',
@@ -224,7 +134,7 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
         },
       },
       basicPrismaTargetConfiguration,
-      prismaMigrateResetOption
+      sharedPrismaOptions
     ),
     'prisma-migrate-deploy': merge(
       {
@@ -234,7 +144,7 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
         },
       },
       basicPrismaTargetConfiguration,
-      prismaMigrateDeployOption
+      sharedPrismaOptions
     ),
     'prisma-migrate-status': merge(
       {
@@ -244,18 +154,12 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
         },
       },
       basicPrismaTargetConfiguration,
-      prismaMigrateStatusOption
+      sharedPrismaOptions
     ),
   };
 
   return {
     basicPrismaTargetConfiguration,
-    prismaGenerateOption,
-    prismaIntrospectOption,
-    prismaFormatOption,
-    prismaDBPullOption,
-    prismaDBPushOption,
-    prismaStudioOption,
     prismaRelatedTargets,
   };
 }

@@ -1046,95 +1046,26 @@
         "build": {
           "executor": "nx-plugin-workspace:exec",
           "options": {
-            "command": "npm run build",
+            "command": "npm run dev",
             "cwd": "e2e/prisma-app",
             "parallel": false,
             "color": true,
             "useCamelCase": false,
             "useLocalPackage": true,
-            "outputPath": "e2e/prisma-app/dist",
-            "shell": true
+            "shell": true,
+            "outputPath": "e2e/prisma-app/dist"
           }
         },
         "start": {
           "executor": "nx-plugin-workspace:exec",
           "options": {
-            "command": "npm run start",
+            "command": "npm run dev",
             "cwd": "e2e/prisma-app",
             "parallel": false,
             "color": true,
-            "useCamelCase": true,
-            "useLocalPackage": true,
-            "shell": true,
-            "foo": true,
-            "foo-bar": true,
-            "fooBar1": true,
-            "args": "--foo=1 --bar='bar!!!' --fooBar='??' --foooo-bar='!!'"
-          }
-        },
-        "prisma-generate": {
-          "executor": "nx-plugin-workspace:exec",
-          "options": {
-            "command": "prisma generate",
-            "cwd": "e2e/prisma-app",
-            "parallel": false,
-            "color": true,
-            "envFile": "e2e/prisma-app/.env",
-            "outputPath": "e2e/prisma-app/src/app/prisma",
             "useCamelCase": false,
             "useLocalPackage": true,
-            "shell": true,
-            "watch": false,
-            "ignoreFalsy": true,
-            "schema": "src/app/prisma/schema.prisma"
-          }
-        },
-        "prisma-introspect": {
-          "executor": "nx-plugin-workspace:exec",
-          "options": {
-            "command": "prisma introspect",
-            "cwd": "e2e/prisma-app",
-            "parallel": false,
-            "color": true,
-            "envFile": "e2e/prisma-app/.env",
-            "outputPath": "e2e/prisma-app/src/app/prisma",
-            "useCamelCase": false,
-            "useLocalPackage": true,
-            "shell": true,
-            "schema": "src/app/prisma/schema.prisma",
-            "force": false,
-            "print": true
-          }
-        },
-        "prisma-format": {
-          "executor": "nx-plugin-workspace:exec",
-          "options": {
-            "command": "prisma format",
-            "cwd": "e2e/prisma-app",
-            "parallel": false,
-            "color": true,
-            "envFile": "e2e/prisma-app/.env",
-            "outputPath": "e2e/prisma-app/src/app/prisma",
-            "useCamelCase": false,
-            "useLocalPackage": true,
-            "shell": true,
-            "schema": "src/app/prisma/schema.prisma"
-          }
-        },
-        "prisma-db-pull": {
-          "executor": "nx-plugin-workspace:exec",
-          "options": {
-            "command": "prisma db pull",
-            "cwd": "e2e/prisma-app",
-            "parallel": false,
-            "color": true,
-            "envFile": "e2e/prisma-app/.env",
-            "outputPath": "e2e/prisma-app/src/app/prisma",
-            "useCamelCase": false,
-            "useLocalPackage": true,
-            "shell": true,
-            "previewFeature": true,
-            "schema": "src/app/prisma/schema.prisma"
+            "shell": true
           }
         },
         "prisma-db-push": {
@@ -1149,11 +1080,58 @@
             "useCamelCase": false,
             "useLocalPackage": true,
             "shell": true,
-            "previewFeature": true,
+            "ignoreFalsy": true,
             "schema": "src/app/prisma/schema.prisma",
-            "skipGenerate": false,
             "forceReset": false,
             "acceptDataLoss": false
+          }
+        },
+        "prisma-db-pull": {
+          "executor": "nx-plugin-workspace:exec",
+          "options": {
+            "command": "prisma db pull",
+            "cwd": "e2e/prisma-app",
+            "parallel": false,
+            "color": true,
+            "envFile": "e2e/prisma-app/.env",
+            "outputPath": "e2e/prisma-app/src/app/prisma",
+            "useCamelCase": false,
+            "useLocalPackage": true,
+            "shell": true,
+            "ignoreFalsy": true,
+            "schema": "src/app/prisma/schema.prisma"
+          }
+        },
+        "prisma-generate": {
+          "executor": "nx-plugin-workspace:exec",
+          "options": {
+            "command": "prisma generate",
+            "cwd": "e2e/prisma-app",
+            "parallel": false,
+            "color": true,
+            "envFile": "e2e/prisma-app/.env",
+            "outputPath": "e2e/prisma-app/src/app/prisma",
+            "useCamelCase": false,
+            "useLocalPackage": true,
+            "shell": true,
+            "ignoreFalsy": true,
+            "schema": "src/app/prisma/schema.prisma"
+          }
+        },
+        "prisma-format": {
+          "executor": "nx-plugin-workspace:exec",
+          "options": {
+            "command": "prisma format",
+            "cwd": "e2e/prisma-app",
+            "parallel": false,
+            "color": true,
+            "envFile": "e2e/prisma-app/.env",
+            "outputPath": "e2e/prisma-app/src/app/prisma",
+            "useCamelCase": false,
+            "useLocalPackage": true,
+            "shell": true,
+            "ignoreFalsy": true,
+            "schema": "src/app/prisma/schema.prisma"
           }
         },
         "prisma-studio": {
@@ -1168,6 +1146,7 @@
             "useCamelCase": false,
             "useLocalPackage": true,
             "shell": true,
+            "ignoreFalsy": true,
             "schema": "src/app/prisma/schema.prisma",
             "browser": "chrome",
             "port": 7777
@@ -1185,10 +1164,8 @@
             "useCamelCase": false,
             "useLocalPackage": true,
             "shell": true,
-            "schema": "src/app/prisma/schema.prisma",
-            "force": false,
-            "skipGenerate": true,
-            "skipSeed": true
+            "ignoreFalsy": true,
+            "schema": "src/app/prisma/schema.prisma"
           }
         },
         "prisma-migrate-deploy": {
@@ -1203,6 +1180,7 @@
             "useCamelCase": false,
             "useLocalPackage": true,
             "shell": true,
+            "ignoreFalsy": true,
             "schema": "src/app/prisma/schema.prisma"
           }
         },
@@ -1218,6 +1196,7 @@
             "useCamelCase": false,
             "useLocalPackage": true,
             "shell": true,
+            "ignoreFalsy": true,
             "schema": "src/app/prisma/schema.prisma"
           }
         },

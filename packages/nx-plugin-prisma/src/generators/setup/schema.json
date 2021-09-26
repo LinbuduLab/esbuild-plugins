@@ -66,6 +66,31 @@
       "type": "boolean",
       "description": "Collect all args in options.args",
       "default": false
+    },
+    "noDBPull": {
+      "type": "boolean",
+      "description": "Donot create prisma-db-pull target",
+      "default": false
+    },
+    "noDBPush": {
+      "type": "boolean",
+      "description": "Donot create prisma-db-push target",
+      "default": false
+    },
+    "noStudio": {
+      "type": "boolean",
+      "description": "Donot create prisma-studio target",
+      "default": false
+    },
+    "noMigrate": {
+      "type": "boolean",
+      "description": "Donot create prisma-migrate-deploy/reset/status target",
+      "default": false
+    },
+    "latestPackage": {
+      "type": "boolean",
+      "description": "Use latest prisma package version(fetch from npm)",
+      "default": false
     }
   },
   "required": ["app"]

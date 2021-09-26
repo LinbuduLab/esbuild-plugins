@@ -2,8 +2,8 @@
   "name": "prisma-app",
   "version": "1.0.0",
   "scripts": {
-    "dev": "ts-node scripts/dev.ts",
-    "build": "ts-node scripts/build.ts",
+    "dev": "ts-node-dev --respawn scripts/dev.ts",
+    "build": "ts-node-dev --respawn scripts/build.ts",
     "start": "npm run build && node dist/main.js"
   },
   "dependencies": {

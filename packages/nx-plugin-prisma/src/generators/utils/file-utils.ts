@@ -1,8 +1,39 @@
-import { generateFiles, Tree } from '@nrwl/devkit';
+import { generateFiles, joinPathFragments, Tree } from '@nrwl/devkit';
 import path from 'path';
-import { createNodeAppFiles } from 'nx-plugin-devkit';
+import {
+  createNodeAppFiles,
+  updateGitIgnore,
+  updatePrettierIgnore,
+} from 'nx-plugin-devkit';
+import { stripIndents } from '@nrwl/devkit';
+import { CLIENT_OUTPUT } from './constants';
 import { NormalizedPrismaGeneratorSchema } from './schema-types';
-import { envContent } from './env';
+
+export function addPrismaClientToIgnore<
+  T extends NormalizedPrismaGeneratorSchema
+>(host: Tree, schema: T): void {
+  const prismaClientPath = joinPathFragments(
+    schema.prismaSchemaDir,
+    CLIENT_OUTPUT
+  );
+  updateGitIgnore(host, [prismaClientPath]);
+  updatePrettierIgnore(host, [prismaClientPath]);
+}
+
+export const envContent = (
+  dbUrl: string,
+  existContent?: string
+) => stripIndents`
+      ${existContent}
+
+      # Environment variables declared in this file are automatically made available to Prisma.
+      # See the documentation for more detail: https://pris.ly/d/prisma-schema#using-environment-variables
+
+      # Prisma supports the native connection string format for PostgreSQL, MySQL and SQLite.
+      # See the documentation for all the connection string options: https://pris.ly/d/connection-strings
+
+      DATABASE_URL="${dbUrl}"
+`;
 
 export function createPrismaSchemaFiles(
   host: Tree,

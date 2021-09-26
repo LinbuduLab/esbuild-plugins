@@ -19,10 +19,13 @@ import pacote from 'pacote';
 import consola from 'consola';
 
 import { PrismaInitGeneratorSchema } from './schema';
+
 import { normalizeSchema } from '../utils/normalize-schema';
-import { createPrismaSchemaFiles } from '../utils/create-files';
-import { initPrismaProjectConfiguration } from '../utils/setup-config';
-import { addPrismaClientToIgnore } from '../utils/update-ignore';
+import {
+  createPrismaSchemaFiles,
+  addPrismaClientToIgnore,
+} from '../utils/file-utils';
+import { initPrismaProjectConfiguration } from '../utils/prisma-workspace-config';
 import { INTEGRATED_VERSION } from '../utils/constants';
 
 export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
@@ -54,28 +57,32 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
     packageVersion = version;
   }
 
+  const initialPackageDeps = {
+    '@prisma/client': packageVersion,
+  };
+
+  const initialPackageDevDeps = {
+    prisma: packageVersion,
+    '@types/ncp': '^2.0.5',
+    execa: '^5.1.1',
+    ncp: '^2.0.0',
+    'ts-node': '^10.2.1',
+    'ts-node-dev': '^1.1.8',
+    typescript: '^4.4.3',
+  };
+
   // create package.json
   createPackageJSON(
     {
       name: normalizedSchema.projectName,
       version: '1.0.0',
       scripts: {
-        dev: 'ts-node scripts/dev.ts',
-        build: 'ts-node scripts/build.ts',
+        dev: 'ts-node-dev --respawn scripts/dev.ts',
+        build: 'ts-node-dev --respawn scripts/build.ts',
         start: 'npm run build && node dist/main.js',
       },
-      dependencies: {
-        '@prisma/client': packageVersion,
-      },
-      devDependencies: {
-        prisma: packageVersion,
-        '@types/ncp': '^2.0.5',
-        execa: '^5.1.1',
-        ncp: '^2.0.0',
-        'ts-node': '^10.2.1',
-        'ts-node-dev': '^1.1.8',
-        typescript: '^4.4.3',
-      },
+      dependencies: initialPackageDeps,
+      devDependencies: initialPackageDevDeps,
     },
     normalizedSchema.projectRoot
   );
@@ -86,18 +93,8 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
 
   const addDepsTask = addDependenciesToPackageJson(
     host,
-    {
-      '@prisma/client': packageVersion,
-    },
-    {
-      prisma: packageVersion,
-      '@types/ncp': '^2.0.5',
-      execa: '^5.1.1',
-      ncp: '^2.0.0',
-      'ts-node': '^10.2.1',
-      'ts-node-dev': '^1.1.8',
-      typescript: '^4.4.3',
-    }
+    initialPackageDeps,
+    initialPackageDevDeps
   );
 
   tasks.push(addDepsTask);

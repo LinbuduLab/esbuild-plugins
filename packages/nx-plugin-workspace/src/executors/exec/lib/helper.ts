@@ -39,7 +39,7 @@ export const parseArgs = (options: WorkspaceExecSchema) => {
 
     consola.info(
       `Extra options was regarded as command arguments: ${chalk.white(
-        Object.keys(unknownOptionsTreatedAsArgs).join(' ,')
+        Object.keys(unknownOptionsTreatedAsArgs).join(', ')
       )}`
     );
 

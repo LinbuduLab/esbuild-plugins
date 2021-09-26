@@ -33,7 +33,10 @@ export interface PrismaGeneratorExtraSchema {
   noDBPush: boolean;
   noStudio: boolean;
   noMigrate: boolean;
-  noIntrospect: boolean;
+  /**
+   * @deprecated
+   */
+  // noIntrospect: boolean;
 }
 
 export interface PrismaGeneratorSchema
