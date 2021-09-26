@@ -12,11 +12,6 @@
       "factory": "./src/generators/setup/setup.impl",
       "schema": "./src/generators/setup/schema.json",
       "description": "setup generator"
-    },
-    "remove": {
-      "factory": "./src/generators/remove/remove.impl",
-      "schema": "./src/generators/remove/schema.json",
-      "description": "remove generator"
     }
   }
 }

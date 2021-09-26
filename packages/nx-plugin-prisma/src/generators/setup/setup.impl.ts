@@ -22,7 +22,7 @@ import { setupPrismaProjectConfiguration } from '../utils/prisma-workspace-confi
 import { INTEGRATED_VERSION } from '../utils/constants';
 
 export default async function (host: Tree, schema: PrismaSetupGeneratorSchema) {
-  const normalizedSchema = normalizeSchema(host, schema);
+  const normalizedSchema = normalizeSchema(host, schema, true);
 
   const tasks: GeneratorCallback[] = [];
 
