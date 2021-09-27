@@ -3,10 +3,10 @@
   "name": "nx-plugin-snowpack",
   "version": "0.0.1",
   "generators": {
-    "init": {
-      "factory": "./src/generators/init/generator",
-      "schema": "./src/generators/init/schema.json",
-      "description": "init generator"
+    "app": {
+      "factory": "./src/generators/app/generator",
+      "schema": "./src/generators/app/schema.json",
+      "description": "app generator"
     },
     "setup": {
       "factory": "./src/generators/setup/generator",

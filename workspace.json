@@ -1102,34 +1102,6 @@
         }
       }
     },
-    "snowpack-app": {
-      "root": "e2e/snowpack-app",
-      "projectType": "application",
-      "sourceRoot": "e2e/snowpack-app/src",
-      "targets": {
-        "build": {
-          "executor": "nx-plugin-snowpack:build",
-          "options": {
-            "root": "e2e/snowpack-app",
-            "configPath": "snowpack.config.js",
-            "watch": false,
-            "clearCache": true,
-            "verbose": false,
-            "clean": true
-          }
-        },
-        "serve": {
-          "executor": "nx-plugin-snowpack:serve",
-          "options": {
-            "root": "e2e/snowpack-app",
-            "configPath": "snowpack.config.js",
-            "verbose": false,
-            "clearCache": true,
-            "open": "chrome"
-          }
-        }
-      }
-    },
     "snowpack-plugin-assets": {
       "root": "packages/snowpack-plugin-assets",
       "sourceRoot": "packages/snowpack-plugin-assets/src",

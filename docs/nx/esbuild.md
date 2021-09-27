@@ -13,7 +13,7 @@ Nx plugin integration with [ESBuild](https://github.com/evanw/esbuild).
 ### init
 
 ```bash
-nx generate nx-plugin-esbuild:init [app] --options
+nx g nx-plugin-esbuild:init your-app-name --options
 ```
 
 create a nx application project with esbuild-based workspace configuration, for example:
@@ -21,9 +21,6 @@ create a nx application project with esbuild-based workspace configuration, for 
 ```json
 {
   "node-playground": {
-    "root": "apps/node-playground",
-    "sourceRoot": "apps/node-playground/src",
-    "projectType": "application",
     "targets": {
       "build": {
         "executor": "nx-plugin-esbuild:build",
@@ -54,7 +51,7 @@ You can find more supported schema options in [ESBuild.Generator.Init](/packages
 ### setup
 
 ```bash
-nx generate nx-plugin-esbuild:setup exist-node-app
+nx g nx-plugin-esbuild:setup exist-node-app
 ```
 
 Similar to `init` generator, but `setup` generator should be applied in exist application, and create related target & target configurations in `workspace.json`.
@@ -98,26 +95,3 @@ nx build node-playground --options
 ```
 
 You can find more supported schema options in [ESBuild.Executor.Build](/packages/nx-plugin-esbuild/src/executors/build/schema.json).
-
-### info
-
-Display your nx related environments & packages version.
-
-```json
-{
-  "your-app": {
-    "root": "apps/node-playground",
-    "sourceRoot": "apps/node-playground/src",
-    "projectType": "application",
-    "targets": {
-      "esbuild-info": {
-        "executor": "nx-plugin-esbuild:info",
-        "options": {
-          "buildTarget": "node-playground:esbuild-build",
-          "serveTarget": "node-playground:esbuild-serve"
-        }
-      }
-    }
-  }
-}
-```
