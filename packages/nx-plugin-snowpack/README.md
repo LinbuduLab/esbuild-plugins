@@ -1,7 +1,7 @@
-# nx-plugin-snowpack
+# nx-plugin-vite
 
-This library was generated with [Nx](https://nx.dev).
+Nx plugin integration with [Snowpack](https://www.snowpack.dev/).
 
-## Running unit tests
-
-Run `nx test nx-plugin-snowpack` to execute the unit tests via [Jest](https://jestjs.io).
+- [Documentation](https://nx-plugins.netlify.app/nx/snowpack.html)
+- [GitHub Repo](https://github.com/LinbuduLab/nx-plugins)
+- [Author](https://github.com/linbudu599)

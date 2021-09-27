@@ -1,6 +1,6 @@
 {
   "name": "nx-plugin-snowpack",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "dist/src/index.js",
   "scripts": {
     "release": "release-it",

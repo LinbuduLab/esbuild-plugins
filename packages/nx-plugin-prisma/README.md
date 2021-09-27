@@ -1,7 +1,7 @@
-# nx-plugin-prisma
+# nx-plugin-vite
 
-This library was generated with [Nx](https://nx.dev).
+Nx plugin integration with [Prisma](https://www.prisma.io/).
 
-## Running unit tests
-
-Run `nx test nx-plugin-prisma` to execute the unit tests via [Jest](https://jestjs.io).
+- [Documentation](https://nx-plugins.netlify.app/prisma/)
+- [GitHub Repo](https://github.com/LinbuduLab/nx-plugins)
+- [Author](https://github.com/linbudu599)
