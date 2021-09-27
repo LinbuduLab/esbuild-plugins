@@ -34,6 +34,7 @@ export default async function infoExecutor(
   const envInfos = await envInfo([
     'prisma',
     '@prisma/client',
+    'nx-plugin-devkit',
     'nx-plugin-workspace',
   ]);
 

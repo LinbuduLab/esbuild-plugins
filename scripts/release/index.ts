@@ -235,6 +235,8 @@ export default function useReleaseProject(cli: CAC) {
             }
           );
 
+          console.log('');
+
           await execa(
             'git',
             ['push', '--verbose', '--progress'].concat(
@@ -270,7 +272,7 @@ export default function useReleaseProject(cli: CAC) {
           }
         );
 
-        dryRunSuccessLogger('Package published', dryRun);
+        dryRunSuccessLogger('Package published.', dryRun);
       } catch (error) {
         consola.error(error);
       }
@@ -288,4 +290,4 @@ export const dryRunInfoLogger = (msg: string, dryRun: boolean) =>
 export const dryRunSuccessLogger = (msg: string, dryRun: boolean) =>
   dryRun
     ? consola.success(`${chalk.white('DRY RUN MODE')}: ${msg}`)
-    : consola.info(msg);
+    : consola.success(msg);

@@ -156,6 +156,10 @@ export function prismaTargetsConfig(schema: NormalizedPrismaGeneratorSchema) {
       basicPrismaTargetConfiguration,
       sharedPrismaOptions
     ),
+    info: merge({
+      executor: 'nx-plugin-prisma:info',
+      options: {},
+    }),
   };
 
   return {
