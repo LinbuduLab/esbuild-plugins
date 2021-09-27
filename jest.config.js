@@ -30,6 +30,5 @@ module.exports = {
     '<rootDir>/e2e/react-playground',
     '<rootDir>/packages/nx-plugin-ice',
     '<rootDir>/e2e/nx-plugin-ice-e2e',
-    '<rootDir>/e2e/prisma-app',
   ],
 };

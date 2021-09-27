@@ -31,11 +31,6 @@ export const envInfoCLI = async (
   packages: string[] = [],
   execaOptions: ExecaOptions = {}
 ) => {
-  console.log(
-    `npx envinfo --system --browsers  --binaries --npmPackages=${packages.join(
-      ','
-    )} --console`
-  );
   await execa(
     `npx envinfo --system --browsers  --binaries --npmPackages=${packages.join(
       ','

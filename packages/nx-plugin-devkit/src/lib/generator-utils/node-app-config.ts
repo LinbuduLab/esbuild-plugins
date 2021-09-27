@@ -2,7 +2,6 @@ import { joinPathFragments, TargetConfiguration } from '@nrwl/devkit';
 
 import type { BasicNormalizedAppGenSchema } from '../schema/shared-schema';
 
-// TODO: Shall we use mx-plugin-workspace:node-build as default executor?
 /**
  * Compose build configuration for node project in workspace.project
  * @param schema
@@ -56,7 +55,6 @@ export function createNodeAppBuildConfig<
   };
 }
 
-// TODO: Shall we use mx-plugin-workspace:node-serve as default executor?
 /**
  * Compose serve configuration for node project in workspace.project
  * @param schema

@@ -1,9 +1,10 @@
-import sortPackageJson from 'sort-package-json';
-import { readJsonFile, writeJsonFile, updateJson, Tree } from '@nrwl/devkit';
-import {} from '@nrwl/workspace';
 import path from 'path';
-import fs from 'fs-extra';
 import merge from 'lodash/merge';
+import { Tree } from '@nrwl/devkit';
+
+import { ObjectType } from '../tool-type';
+import { writeJsonFile } from '../utils/file-utils';
+import { updateJson } from '../utils/json';
 
 export interface BasePackageJSONFields {
   name: string;
@@ -11,8 +12,14 @@ export interface BasePackageJSONFields {
   scripts: Record<string, string>;
   dependencies: Record<string, string>;
   devDependencies: Record<string, string>;
+  peerDependencies: Record<string, string>;
 }
 
+/**
+ * Create a new package.json file for project
+ * @param content
+ * @param projectRoot
+ */
 export const createPackageJSON = (
   content: Partial<BasePackageJSONFields>,
   projectRoot: string
@@ -22,43 +29,31 @@ export const createPackageJSON = (
   });
 };
 
+/**
+ * Update exist package.json
+ * @param tree
+ * @param content
+ */
 export const updatePackageJson = (
   tree: Tree,
   content: Partial<
-    Pick<BasePackageJSONFields, 'dependencies' | 'devDependencies' | 'scripts'>
+    Pick<
+      BasePackageJSONFields,
+      'dependencies' | 'devDependencies' | 'peerDependencies' | 'scripts'
+    >
   >
 ) => {
-  updateJson(tree, 'package.json', (val: BasePackageJSONFields) => {
-    merge(val.dependencies, content.dependencies);
-    merge(val.devDependencies, content.devDependencies);
-    merge(val.scripts, content.scripts);
-    return val;
-  });
-};
+  updateJson<ObjectType<keyof BasePackageJSONFields>>(
+    tree,
+    'package.json',
+    (val: BasePackageJSONFields) => {
+      merge(val.scripts, content.scripts);
 
-export const addProjectDepsToPackageJSON = (
-  projectRoot: string,
-  deps: {
-    dependencies?: Record<string, string>;
-    devDependencies?: Record<string, string>;
-    peerDependencies?: Record<string, string>;
-  }
-) => {
-  const originPkg = readJsonFile(path.resolve(projectRoot, 'package.json'));
+      merge(val.dependencies, content.dependencies);
+      merge(val.devDependencies, content.devDependencies);
+      merge(val.peerDependencies, content.peerDependencies);
 
-  for (const depType of [
-    'dependencies',
-    'devDependencies',
-    'peerDependencies',
-  ]) {
-    originPkg[depType] = {
-      ...originPkg[depType],
-      ...deps[depType],
-    };
-  }
-
-  fs.writeFileSync(
-    path.resolve(projectRoot, 'package.json'),
-    sortPackageJson(JSON.stringify(originPkg, null, 2))
+      return val;
+    }
   );
 };

@@ -129,7 +129,6 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-workspace"]
     },
-    "prisma-app": {},
     "react-playground": {
       "tags": []
     },

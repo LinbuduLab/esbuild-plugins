@@ -25,6 +25,12 @@ interface MinimalNormalizedSchema extends MinimalAppGeneratorSchema {
   projectType: ProjectType;
 }
 
+/**
+ * A minimal options required for project generators
+ * @param host
+ * @param options
+ * @returns
+ */
 export function minimalNormalizeOptions(
   host: Tree,
   options: MinimalAppGeneratorSchema
@@ -58,6 +64,12 @@ export function minimalNormalizeOptions(
   };
 }
 
+/**
+ * Add minimal files, inject minimal template placeholder(template/tmpl/offsetFromRoot)
+ * @param host
+ * @param templatePath
+ * @param options
+ */
 export function minimalAddFiles(
   host: Tree,
   templatePath: string,
@@ -73,6 +85,11 @@ export function minimalAddFiles(
   generateFiles(host, templatePath, options.projectRoot, templateOptions);
 }
 
+/**
+ * Compose minimal project configuration in workspace.json
+ * @param normalizedOptions
+ * @returns
+ */
 export function minimalProjectConfiguration(
   normalizedOptions: MinimalNormalizedSchema
 ): ProjectConfiguration & NxJsonProjectConfiguration {

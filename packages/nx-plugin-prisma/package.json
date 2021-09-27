@@ -9,7 +9,10 @@
     "release:major": "release-it major"
   },
   "dependencies": {
-    "nx-plugin-devkit": "^0.0.2"
+    "consola": "^2.15.3",
+    "execa": "^5.1.1",
+    "nx-plugin-devkit": "^0.0.2",
+    "pacote": "^11.3.5"
   },
   "peerDependencies": {
     "@nrwl/devkit": "^12.7.2",

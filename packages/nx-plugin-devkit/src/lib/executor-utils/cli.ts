@@ -15,14 +15,11 @@ export function executeFromCLICommand(
       ...execaOptions,
     })
       .then((e) => {
-        console.log('???');
         subscriber.next({
           success: true,
         });
       })
       .catch((error) => {
-        console.log('!!!');
-        console.log('error: ', error);
         subscriber.error({
           success: false,
           error,

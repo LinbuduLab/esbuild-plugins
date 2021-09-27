@@ -16,9 +16,11 @@
     "cross-spawn": "^7.0.3",
     "dayjs": "^1.10.4",
     "dotenv": "~10.0.0",
-    "esbuild-plugin-alias-path": "^0.3.3",
-    "esbuild-plugin-decorator": "^0.1.2",
-    "esbuild-plugin-node-externals": "^0.1.2",
+    "esbuild-plugin-alias-path": "^0.4.0",
+    "esbuild-plugin-decorator": "^0.2.0",
+    "esbuild-plugin-node-externals": "^0.2.0",
+    "execa": "^5.1.1",
+    "find-up": "5.0.0",
     "fs-extra": "^9.1.0",
     "jsonfile": "^6.1.0",
     "nx-plugin-devkit": "^0.0.2",
@@ -29,6 +31,7 @@
   "peerDependencies": {
     "@nrwl/devkit": "^12.7.2",
     "@nrwl/workspace": "^12.7.2",
+    "@swc/core": "^1.2.85",
     "esbuild": "^0.12.25",
     "typescript": "~4.3.5"
   },

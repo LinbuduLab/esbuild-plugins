@@ -8,7 +8,9 @@
     "release:minor": "release-it minor",
     "release:major": "release-it major"
   },
-  "dependencies": {},
+  "dependencies": {
+    "execa": "^5.1.1"
+  },
   "peerDependencies": {
     "snowpack": "^3.8.8"
   },

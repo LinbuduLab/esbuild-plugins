@@ -2,6 +2,10 @@
   "name": "@nps/nx-plugin-ice",
   "version": "0.0.1",
   "main": "src/index.js",
-  "generators": "./generators.json",
-  "executors": "./executors.json"
+  "dependencies": {},
+  "peerDependencies": {
+    "@nrwl/devkit": "^12.7.2"
+  },
+  "executors": "./executors.json",
+  "generators": "./generators.json"
 }
