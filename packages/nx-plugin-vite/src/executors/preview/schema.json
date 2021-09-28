@@ -4,6 +4,15 @@
   "title": "Preview executor",
   "description": "",
   "type": "object",
-  "properties": {},
-  "required": []
+  "properties": {
+    "root": {
+      "type": "string",
+      "description": "vite project root"
+    },
+    "configFile": {
+      "type": "string",
+      "description": "vite config file path"
+    }
+  },
+  "required": ["configFile"]
 }

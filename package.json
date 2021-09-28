@@ -13,7 +13,10 @@
       "e2e/snowpack-app",
       "e2e/tmp",
       "e2e/prisma-app",
-      "e2e/ice-vite-app"
+      "e2e/ice-vite-app",
+      "e2e/nx-plugin-vite-e2e",
+      "e2e/nx-plugin-prisma-e2e",
+      "e2e/nx-plugin-snowpack-e2e"
     ],
     "nohoist": [
       "**/prisma",
@@ -100,7 +103,7 @@
     "@testing-library/react": "11.2.6",
     "@testing-library/react-hooks": "7.0.1",
     "@types/envinfo": "^7.8.1",
-    "@types/jest": "26.0.24",
+    "@types/jest": "27.0.2",
     "@types/jsonfile": "^6.0.1",
     "@types/lodash": "^4.14.172",
     "@types/marked": "^3.0.0",
@@ -137,7 +140,7 @@
     "eslint-plugin-react-hooks": "4.2.0",
     "execa": "^5.1.1",
     "git-cz": "^4.7.6",
-    "jest": "27.0.3",
+    "jest": "27.2.3",
     "jsonc-parser": "^3.0.0",
     "ncp": "^2.0.0",
     "npm-run-all": "^4.1.5",
@@ -146,7 +149,7 @@
     "release-it": "^14.11.5",
     "release-it-yarn-workspaces": "^2.0.1",
     "sort-package-json": "^1.50.0",
-    "ts-jest": "27.0.3",
+    "ts-jest": "27.0.5",
     "ts-node": "~9.1.1",
     "ts-node-dev": "^1.1.8",
     "tslib": "^2.0.0",

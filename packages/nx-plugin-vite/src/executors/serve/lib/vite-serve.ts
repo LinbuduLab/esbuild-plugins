@@ -1,9 +1,11 @@
-import { ViteServeSchema } from '../schema';
+import type { ViteServeSchema } from '../schema';
+
 import { from, Observable } from 'rxjs';
 import { tap, switchMap } from 'rxjs/operators';
 import { createServer, ViteDevServer } from 'vite';
-import consola from 'consola';
+
 import chalk from 'chalk';
+import consola from 'consola';
 
 export interface ServeRes {
   server: ViteDevServer;
@@ -13,27 +15,29 @@ export interface ServeRes {
 export const startViteServer = (
   schema: ViteServeSchema
 ): Observable<ServeRes> => {
+  const { root, configFile, port, watch } = schema;
+
   return from(
     createServer({
-      root: schema.root,
-      configFile: schema.configFile,
+      root,
+      configFile,
       server: {
-        port: schema.port,
-        watch: schema.watch ? {} : null,
+        port,
+        watch: watch ? {} : null,
       },
     })
   ).pipe(
     tap(() => {
-      console.log(chalk.blue('i'), chalk.cyan('Nx-Vite [Serve] Starting'));
+      consola.info(chalk.cyan('Nx-Vite [Start] Starting \n'));
     }),
 
     switchMap((server) => {
       return new Observable<ServeRes>((subscriber) => {
         server
-          .listen()
+          .listen(port)
           .then((devServer) => {
-            devServer.watcher.addListener('error', () => {
-              subscriber.error();
+            devServer.watcher.addListener('error', (error) => {
+              subscriber.error({ error });
             });
 
             subscriber.next({
@@ -43,12 +47,10 @@ export const startViteServer = (
           })
           .catch((error) => {
             subscriber.error({
-              success: false,
               error,
             });
           });
       });
     })
-    // EventListener应该需要用高阶Ob+操作符实现
   );
 };

@@ -1278,7 +1278,6 @@
         "build": {
           "executor": "nx-plugin-vite:build",
           "options": {
-            "root": "e2e/vite-app",
             "outDir": "dist",
             "configFile": "e2e/vite-app/vite.config.ts",
             "watch": false,
@@ -1288,6 +1287,13 @@
         },
         "serve": {
           "executor": "nx-plugin-vite:serve",
+          "options": {
+            "root": "e2e/vite-app",
+            "configFile": "e2e/vite-app/vite.config.ts"
+          }
+        },
+        "preview": {
+          "executor": "nx-plugin-vite:preview",
           "options": {
             "root": "e2e/vite-app",
             "configFile": "e2e/vite-app/vite.config.ts"

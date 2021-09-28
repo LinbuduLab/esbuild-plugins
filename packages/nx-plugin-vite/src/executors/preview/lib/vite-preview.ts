@@ -1,10 +1,10 @@
-import { Observable, from } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import execa from 'execa';
-import { VitePreviewSchema } from '../schema';
-import { Res } from '../../utils/types';
+import type { VitePreviewSchema } from '../schema';
+import type { Res } from '../../utils/types';
 
-// TODO: 当outDir位于root外部时，不支持预览
+import { Observable } from 'rxjs';
+import execa from 'execa';
+import consola from 'consola';
+import chalk from 'chalk';
 
 export function startVitePreview(schema: VitePreviewSchema): Observable<Res> {
   const previewCommandArgs = (): string[] => {
@@ -18,6 +18,10 @@ export function startVitePreview(schema: VitePreviewSchema): Observable<Res> {
   };
 
   return new Observable((subscriber) => {
+    const cmdArgs = previewCommandArgs();
+
+    consola.info(`Executing ${chalk.white(`vite ${cmdArgs.join(' ')}`)}`);
+
     execa('vite', previewCommandArgs(), {
       stdio: 'inherit',
       preferLocal: true,
@@ -27,9 +31,9 @@ export function startVitePreview(schema: VitePreviewSchema): Observable<Res> {
           success: true,
         });
       })
-      .catch(() => {
-        subscriber.next({
-          success: false,
+      .catch((error) => {
+        subscriber.error({
+          error,
         });
       });
   });

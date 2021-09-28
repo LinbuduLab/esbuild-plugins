@@ -57,6 +57,19 @@ Run `vite build` command for project.
 
 Find more supported schema options in [Vite.Executor.Build](/packages/nx-plugin-vite/src/executors/build/schema.json).
 
+Extra schema options:
+
+- `emitAtRootLevel`(default: `false`): Specify should emit built dist file in workspace root level, and `--outDir` will still be used for path calculation. For example:
+
+  ```json
+  {
+    "outDir": "dist",
+    "emitAtRootLevel": true
+  }
+  ```
+
+  Configurations above will use `WORKSPACE_ROOT/dist` as dist directory, instead it will be `WORKSPACE_ROOT/APPS_DIR/vite-app/dist` if you set `emitAtRootLevel` to be `false`.
+
 ### preview
 
 ```bash

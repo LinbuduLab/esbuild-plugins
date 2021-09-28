@@ -1,10 +1,11 @@
-import { ViteBuildSchema } from '../schema';
+import type { ViteBuildSchema } from '../schema';
+import type { Res } from '../../utils/types';
+import type { RollupWatcher, RollupOutput } from 'rollup';
+
+import chalk from 'chalk';
 import { Observable } from 'rxjs';
 import { build } from 'vite';
-
-import { Res } from '../../utils/types';
-import { RollupWatcher, RollupOutput } from 'rollup';
-import chalk from 'chalk';
+import consola from 'consola';
 
 const isRollupWacther = (
   watch: boolean,
@@ -15,25 +16,30 @@ const isRollupWacther = (
 
 export const startViteBuild = (schema: ViteBuildSchema): Observable<Res> => {
   return new Observable<Res>((subscriber) => {
-    console.log(chalk.blue('i'), chalk.cyan('Nx-Vite [Build] Starting'));
-    console.log('');
+    consola.info(chalk.cyan('Nx-Vite [Build] Starting \n'));
+
+    const { root, configFile, watch, outDir, write, manifest } = schema;
 
     build({
-      root: schema.root,
-      configFile: schema.configFile,
+      root,
+      configFile,
       build: {
-        watch: schema.watch ? {} : null,
-        outDir: schema.outDir,
-        write: schema.write,
-        manifest: schema.manifest,
+        watch: watch ? {} : null,
+        outDir,
+        write,
+        manifest,
       },
     })
       .then((watcherOrOutput) => {
         if (isRollupWacther(schema.watch, watcherOrOutput)) {
           watcherOrOutput.addListener('event', (event) => {
-            subscriber.next({
-              success: event.code !== 'ERROR',
-            });
+            event.code === 'ERROR'
+              ? subscriber.error({
+                  error: event.error,
+                })
+              : subscriber.next({
+                  success: true,
+                });
           });
         } else {
           subscriber.next({

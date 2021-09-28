@@ -13,12 +13,17 @@
     "consola": "^2.15.3",
     "dotenv": "~10.0.0",
     "execa": "^5.1.1",
-    "nx-plugin-devkit": "^0.0.2",
+    "nx-plugin-devkit": "^0.1.0",
     "rxjs": "6.6.7",
     "rxjs-for-await": "^0.0.2"
   },
   "peerDependencies": {
-    "@nrwl/devkit": "^12.7.2"
+    "@nrwl/devkit": "^12.7.2",
+    "@nrwl/jest": "^12.7.2",
+    "@nrwl/linter": "^12.7.2",
+    "@nrwl/node": "^12.7.2",
+    "@nrwl/workspace": "^12.7.2",
+    "esbuild": "^0.12.25"
   },
   "executors": "./dist/executors.json",
   "generators": "./dist/generators.json"

@@ -11,7 +11,7 @@
     },
     "configFile": {
       "type": "string",
-      "description": "vite config file (relative to workspace root)"
+      "description": "vite config file path"
     },
     "watch": {
       "type": "boolean",
@@ -22,5 +22,5 @@
       "default": 3000
     }
   },
-  "required": []
+  "required": ["configFile"]
 }
