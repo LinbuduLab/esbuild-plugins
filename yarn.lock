@@ -15532,20 +15532,6 @@ nwsapi@^2.2.0:
   resolved "https://registry.nlark.com/nwsapi/download/nwsapi-2.2.0.tgz#204879a9e3d068ff2a55139c2c772780681a38b7"
   integrity sha1-IEh5qePQaP8qVROcLHcngGgaOLc=
 
-nx-plugin-devkit@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/nx-plugin-devkit/-/nx-plugin-devkit-0.0.2.tgz#01fb3d95cb707623defe6daa3a412a0230a37f8d"
-  integrity sha512-QbNDymhoHGizx/SBmpRH7K9Vd/EZ5ar3ZPQpl+uzhvKtIazyNANDvlDXd01aFJd3WBqdpSBsX1BxrQH5n/+2WQ==
-  dependencies:
-    chalk "^4.1.2"
-    dotenv "~10.0.0"
-    envinfo "^7.8.1"
-    execa "^5.0.0"
-    fs-extra "^9.1.0"
-    glob "^7.1.6"
-    rxjs "6.6.7"
-    yargs-parser "^20.2.7"
-
 nx@12.9.0:
   version "12.9.0"
   resolved "https://registry.nlark.com/nx/download/nx-12.9.0.tgz#8553ce806fd19181ad8f81395f7812ab9fe5d4e2"

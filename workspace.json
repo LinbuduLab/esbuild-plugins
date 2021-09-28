@@ -1275,6 +1275,18 @@
       "projectType": "application",
       "sourceRoot": "e2e/vite-app/src",
       "targets": {
+        "serve": {
+          "executor": "nx-plugin-vite:serve",
+          "options": {
+            "configFile": "e2e/vite-app/vite.config.ts"
+          }
+        },
+        "preview": {
+          "executor": "nx-plugin-vite:preview",
+          "options": {
+            "configFile": "e2e/vite-app/vite.config.ts"
+          }
+        },
         "build": {
           "executor": "nx-plugin-vite:build",
           "options": {
@@ -1283,19 +1295,6 @@
             "watch": false,
             "emitAtRootLevel": false,
             "manifest": true
-          }
-        },
-        "serve": {
-          "executor": "nx-plugin-vite:serve",
-          "options": {
-            "root": "e2e/vite-app",
-            "configFile": "e2e/vite-app/vite.config.ts"
-          }
-        },
-        "preview": {
-          "executor": "nx-plugin-vite:preview",
-          "options": {
-            "configFile": "e2e/vite-app/vite.config.ts"
           }
         }
       }

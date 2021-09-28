@@ -18,13 +18,6 @@ nx g nx-plugin-vite:app  --name vite-app
 
 Create a Vite + React template based application(official version) and related workspace targets.
 
-You will need to install deps manually for now.
-
-```bash
-yarn add react react-dom --save
-yarn add @types/react @types/react-dom @vitejs/plugin-react-refresh typescript vite --save-dev
-```
-
 ### setup
 
 ```bash
@@ -77,3 +70,5 @@ nx preview vite-app
 ```
 
 Run `vite preview` command for project.
+
+Find more supported schema options in [Vite.Executor.Preview](/packages/nx-plugin-vite/src/executors/preview/schema.json).
