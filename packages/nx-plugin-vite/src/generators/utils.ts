@@ -8,23 +8,30 @@ export const VITE_CONFIG_FILE = 'vite.config.ts';
 
 export const pluginSpecifiedTargets = (
   projectRoot: string
-): (ProjectConfiguration & NxJsonProjectConfiguration)['targets'] => ({
-  build: {
-    executor: 'nx-plugin-vite:build',
-    options: {
-      root: projectRoot,
-      outDir: 'dist',
-      configFile: joinPathFragments(projectRoot, VITE_CONFIG_FILE),
-      watch: false,
-      emitAtRootLevel: false,
-      manifest: true,
+): (ProjectConfiguration & NxJsonProjectConfiguration)['targets'] => {
+  const configFile = joinPathFragments(projectRoot, VITE_CONFIG_FILE);
+  return {
+    serve: {
+      executor: 'nx-plugin-vite:serve',
+      options: {
+        configFile,
+      },
     },
-  },
-  serve: {
-    executor: 'nx-plugin-vite:serve',
-    options: {
-      root: projectRoot,
-      configFile: joinPathFragments(projectRoot, VITE_CONFIG_FILE),
+    preview: {
+      executor: 'nx-plugin-vite:preview',
+      options: {
+        configFile,
+      },
     },
-  },
-});
+    build: {
+      executor: 'nx-plugin-vite:build',
+      options: {
+        outDir: 'dist',
+        configFile,
+        watch: false,
+        emitAtRootLevel: false,
+        manifest: true,
+      },
+    },
+  };
+};

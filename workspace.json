@@ -1295,7 +1295,6 @@
         "preview": {
           "executor": "nx-plugin-vite:preview",
           "options": {
-            "root": "e2e/vite-app",
             "configFile": "e2e/vite-app/vite.config.ts"
           }
         }

@@ -12,6 +12,11 @@
     "configFile": {
       "type": "string",
       "description": "vite config file path"
+    },
+    "port": {
+      "type": "number",
+      "description": "port",
+      "default": 5000
     }
   },
   "required": ["configFile"]
