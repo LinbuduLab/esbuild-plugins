@@ -25,5 +25,6 @@
       "alias": "d"
     }
   },
+  "additionalProperties": true,
   "required": ["name"]
 }

@@ -1026,78 +1026,39 @@
         }
       }
     },
-    "react-playground": {
-      "root": "e2e/react-playground",
-      "sourceRoot": "e2e/react-playground/src",
+    "react-app": {
+      "root": "e2e/react-app",
       "projectType": "application",
+      "sourceRoot": "e2e/react-app/src",
       "targets": {
+        "start": {
+          "executor": "nx-plugin-workspace:exec",
+          "options": {
+            "commands": ["react-scripts start"],
+            "cwd": "e2e/react-app",
+            "parallel": false,
+            "useLocalPackage": true,
+            "shell": true
+          }
+        },
         "build": {
-          "executor": "@nrwl/web:build",
-          "outputs": ["{options.outputPath}"],
+          "executor": "nx-plugin-workspace:exec",
           "options": {
-            "outputPath": "dist/e2e/react-playground",
-            "index": "e2e/react-playground/src/index.html",
-            "main": "e2e/react-playground/src/main.tsx",
-            "polyfills": "e2e/react-playground/src/polyfills.ts",
-            "tsConfig": "e2e/react-playground/tsconfig.app.json",
-            "assets": [
-              "e2e/react-playground/src/favicon.ico",
-              "e2e/react-playground/src/assets"
-            ],
-            "styles": [],
-            "scripts": [],
-            "webpackConfig": "@nrwl/react/plugins/webpack"
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "e2e/react-playground/src/environments/environment.ts",
-                  "with": "e2e/react-playground/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                }
-              ]
-            }
+            "commands": ["react-scripts build"],
+            "cwd": "e2e/react-app",
+            "parallel": false,
+            "useLocalPackage": true,
+            "shell": true
           }
         },
-        "serve": {
-          "executor": "@nrwl/web:dev-server",
+        "eject": {
+          "executor": "nx-plugin-workspace:exec",
           "options": {
-            "buildTarget": "react-playground:build",
-            "hmr": true
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "react-playground:build:production",
-              "hmr": false
-            }
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["e2e/react-playground/**/*.{ts,tsx,js,jsx}"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/e2e/react-playground"],
-          "options": {
-            "jestConfig": "e2e/react-playground/jest.config.js",
-            "passWithNoTests": true
+            "commands": ["react-scripts eject"],
+            "cwd": "e2e/react-app",
+            "parallel": false,
+            "useLocalPackage": true,
+            "shell": true
           }
         }
       }

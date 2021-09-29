@@ -129,7 +129,7 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-workspace"]
     },
-    "react-playground": {
+    "react-app": {
       "tags": []
     },
     "snowpack-app": {

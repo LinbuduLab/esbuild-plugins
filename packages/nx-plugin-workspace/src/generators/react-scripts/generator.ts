@@ -1,76 +1,75 @@
 import {
+  addDependenciesToPackageJson,
   addProjectConfiguration,
   formatFiles,
-  generateFiles,
-  getWorkspaceLayout,
-  names,
-  offsetFromRoot,
+  GeneratorCallback,
+  installPackagesTask,
   Tree,
 } from '@nrwl/devkit';
-import * as path from 'path';
-import { ReactScriptsGeneratorSchema } from './schema';
+import {
+  minimalNormalizeOptions,
+  minimalAddFiles,
+  MinimalAppGeneratorSchema,
+  minimalProjectConfiguration,
+} from 'nx-plugin-devkit';
+import path from 'path';
+import fs from 'fs-extra';
+import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { pluginSpecifiedTargets } from './targets';
 
-interface NormalizedSchema extends ReactScriptsGeneratorSchema {
-  projectName: string;
-  projectRoot: string;
-  projectDirectory: string;
-  parsedTags: string[];
-}
+export default async function (host: Tree, options: MinimalAppGeneratorSchema) {
+  const tasks: GeneratorCallback[] = [];
 
-function normalizeOptions(
-  host: Tree,
-  options: ReactScriptsGeneratorSchema
-): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-  const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-  const projectRoot = `${getWorkspaceLayout(host).libsDir}/${projectDirectory}`;
-  const parsedTags = options.tags
-    ? options.tags.split(',').map((s) => s.trim())
-    : [];
-
-  return {
+  const normalizedOptions = minimalNormalizeOptions(host, {
     ...options,
-    projectName,
-    projectRoot,
-    projectDirectory,
-    parsedTags,
-  };
-}
-
-function addFiles(host: Tree, options: NormalizedSchema) {
-  const templateOptions = {
-    ...options,
-    ...names(options.name),
-    offsetFromRoot: offsetFromRoot(options.projectRoot),
-    template: '',
-  };
-  generateFiles(
-    host,
-    path.join(__dirname, 'files'),
-    options.projectRoot,
-    templateOptions
-  );
-}
-
-export default async function (
-  host: Tree,
-  options: ReactScriptsGeneratorSchema
-) {
-  const normalizedOptions = normalizeOptions(host, options);
-  addProjectConfiguration(host, normalizedOptions.projectName, {
-    root: normalizedOptions.projectRoot,
-    projectType: 'library',
-    sourceRoot: `${normalizedOptions.projectRoot}/src`,
-    targets: {
-      build: {
-        executor: '@penumbra/nx-plugin-workspace:build',
-      },
-    },
-    tags: normalizedOptions.parsedTags,
+    projectType: 'application',
   });
-  addFiles(host, normalizedOptions);
+
+  const { projectName, projectRoot } = normalizedOptions;
+
+  const baseProjectConfiguration =
+    minimalProjectConfiguration(normalizedOptions);
+
+  addProjectConfiguration(host, projectName, {
+    ...baseProjectConfiguration,
+    targets: pluginSpecifiedTargets(projectRoot),
+  });
+
+  minimalAddFiles(host, path.join(__dirname, './files'), normalizedOptions);
+
+  fs.ensureFileSync(path.resolve(projectRoot, '.env'));
+
+  fs.writeFileSync(
+    path.resolve(projectRoot, '.env'),
+    'SKIP_PREFLIGHT_CHECK=true\n'
+  );
+
+  const addDepsTask = addDependenciesToPackageJson(
+    host,
+    // follow original CRA deps structure
+    {
+      '@testing-library/jest-dom': '^5.11.4',
+      '@testing-library/react': '^11.1.0',
+      '@testing-library/user-event': '^12.1.10',
+      '@types/jest': '^26.0.15',
+      '@types/node': '^12.0.0',
+      '@types/react': '^17.0.0',
+      '@types/react-dom': '^17.0.0',
+      react: '^17.0.2',
+      'react-dom': '^17.0.2',
+      'react-scripts': '4.0.3',
+      typescript: '^4.1.2',
+      'web-vitals': '^1.0.1',
+    },
+    {}
+  );
+
+  tasks.push(addDepsTask);
+
   await formatFiles(host);
+
+  return () => {
+    installPackagesTask(host);
+    runTasksInSerial(...tasks);
+  };
 }
