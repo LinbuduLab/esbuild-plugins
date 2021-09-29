@@ -18,15 +18,6 @@ nx g nx-plugin-snowpack:app snowpack-app
 
 Create a Snowpack + React template based application(official version) and related workspace targets.
 
-You will need to install deps manually for now.
-
-```bash
-yarn add react react-dom --save
-yarn add @types/react @types/react-dom @types/snowpack-env typescript snowpack @snowpack/plugin-dotenv @snowpack/plugin-react-refresh @snowpack/plugin-typescript  --save-dev
-```
-
-> Testing related dependencies are not listed.
-
 ### setup
 
 ```bash

@@ -9,7 +9,7 @@ export const defaultSnowpackOptions = (
   options: NormalizedSnowpackBuildSchema
 ): SnowpackUserConfig => {
   return {
-    root: options.absCwd,
+    root: options.absoluteRoot,
     // 同一键名不会覆盖，并且这里的优先级更高
     // 所以默认不会启用
     mount: {
@@ -56,7 +56,7 @@ const defaultSnowpackBuildOptions = (
   options: NormalizedSnowpackBuildSchema
 ): SnowpackUserConfig => {
   return {
-    root: options.absCwd,
+    root: options.absoluteRoot,
     workspaceRoot: options.workspaceRoot,
     mode: 'production' as const,
   };

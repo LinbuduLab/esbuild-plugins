@@ -1,12 +1,18 @@
-import {
-  joinPathFragments,
-  NxJsonProjectConfiguration,
-  ProjectConfiguration,
-} from '@nrwl/devkit';
+import { NxJsonProjectConfiguration, ProjectConfiguration } from '@nrwl/devkit';
 
 export const pluginSpecifiedTargets = (
   projectRoot: string
 ): (ProjectConfiguration & NxJsonProjectConfiguration)['targets'] => ({
+  serve: {
+    executor: 'nx-plugin-snowpack:serve',
+    options: {
+      root: projectRoot,
+      configPath: 'snowpack.config.js',
+      verbose: false,
+      clearCache: true,
+      open: 'chrome',
+    },
+  },
   build: {
     executor: 'nx-plugin-snowpack:build',
     options: {
@@ -16,16 +22,6 @@ export const pluginSpecifiedTargets = (
       clearCache: true,
       verbose: false,
       clean: true,
-    },
-  },
-  serve: {
-    executor: 'nx-plugin-snowpack:serve',
-    options: {
-      root: projectRoot,
-      configPath: 'snowpack.config.js',
-      verbose: false,
-      clearCache: true,
-      open: 'chrome',
     },
   },
 });

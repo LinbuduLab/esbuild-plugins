@@ -12,18 +12,17 @@ export const normalizeSchema = <T extends SnowpackSharedSchema>(
     projectName,
   } = context;
 
-  const { root: projectRoot, sourceRoot: projectSourceRoot } = projects[
-    projectName
-  ];
+  const { root: projectRoot, sourceRoot: projectSourceRoot } =
+    projects[projectName];
 
-  let absCwd: string = '';
+  let absoluteRoot = '';
 
   // 也就是说，当作为嵌套文件夹时，必须提供cwd
   // TODO: log tips
   if (schema.root && !path.isAbsolute(schema.root)) {
-    absCwd = path.resolve(workspaceRoot, schema.root);
+    absoluteRoot = path.resolve(workspaceRoot, schema.root);
   } else if (!schema.root) {
-    absCwd = path.resolve(workspaceRoot, projectRoot);
+    absoluteRoot = path.resolve(workspaceRoot, projectRoot);
   }
 
   if (!schema.workspaceRoot) {
@@ -33,7 +32,7 @@ export const normalizeSchema = <T extends SnowpackSharedSchema>(
   return {
     ...schema,
     root: schema.root,
-    absCwd,
+    absoluteRoot,
     workspaceRoot: schema.workspaceRoot,
     projectName,
     projectRoot,

@@ -29,7 +29,7 @@ export const defaultSnowpackOptions = (
     },
     exclude: ['**/node_modules/**'],
     workspaceRoot: options.workspaceRoot,
-    mode: 'development' as 'development',
+    mode: 'development' as const,
     devOptions: {
       secure: false,
       port: 8080,
@@ -65,7 +65,7 @@ const defaultSnowpackServeOptions = (
     // },
     // exclude: ['**/node_modules/**'],
     workspaceRoot: options.workspaceRoot,
-    mode: 'development' as 'development',
+    mode: 'development' as const,
     // devOptions: {
     //   secure: false,
     //   port: 9797,

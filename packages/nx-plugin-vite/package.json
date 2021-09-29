@@ -23,7 +23,7 @@
     "@nrwl/linter": "^12.7.2",
     "@nrwl/node": "^12.7.2",
     "@nrwl/workspace": "^12.7.2",
-    "esbuild": "^0.12.25"
+    "vite": "^2.5.4"
   },
   "executors": "./dist/executors.json",
   "generators": "./dist/generators.json"
