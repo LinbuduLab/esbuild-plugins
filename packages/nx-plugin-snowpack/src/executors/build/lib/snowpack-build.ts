@@ -13,18 +13,7 @@ export const snowpackBuild = (
     ? loadSnowpackConfig(options)
     : of(createSnowpackConfig(options));
 
-  const configLoadInfo = options.configPath
-    ? `external config file`
-    : 'internal default config';
-
   return from(configResolver).pipe(
-    tap(() => {
-      console.log(
-        chalk.blue('i'),
-        chalk.cyan('Nx-Snowpack [Serve] Starting'),
-        `(${chalk.white(configLoadInfo)}).\n`
-      );
-    }),
     switchMap((config) => {
       return new Observable<RunnerResponse>((subscriber) => {
         (options.clearCache ? clearCache() : Promise.resolve()).then(() => {

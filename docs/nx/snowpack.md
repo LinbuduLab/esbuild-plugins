@@ -28,7 +28,7 @@ Add snowpack related workspace targets to exist application.
 
 ## Executors
 
-**NOTE: In Nx-Snowpack project, it's recommended to configurate your snowpack project by `PROJECT/snowpack.config.js`(which also has a higher priority) instead of schema options.**
+**NOTE: In Nx-Snowpack project, it's recommended to configurate your snowpack project by `PROJECT/snowpack.config.js`(which also has a higher priority) instead of schema options. Schema options will be ignored when config path specified.**
 
 ### serve
 

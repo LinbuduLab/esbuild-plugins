@@ -1102,6 +1102,34 @@
         }
       }
     },
+    "snowpack-app": {
+      "root": "e2e/snowpack-app",
+      "projectType": "application",
+      "sourceRoot": "e2e/snowpack-app/src",
+      "targets": {
+        "serve": {
+          "executor": "nx-plugin-snowpack:serve",
+          "options": {
+            "root": "e2e/snowpack-app",
+            "configPath": "snowpack.config.mjs",
+            "verbose": false,
+            "clearCache": true,
+            "open": "chrome"
+          }
+        },
+        "build": {
+          "executor": "nx-plugin-snowpack:build",
+          "options": {
+            "root": "e2e/snowpack-app",
+            "configPath": "snowpack.config.mjs",
+            "watch": true,
+            "clearCache": true,
+            "verbose": false,
+            "clean": true
+          }
+        }
+      }
+    },
     "snowpack-plugin-assets": {
       "root": "packages/snowpack-plugin-assets",
       "sourceRoot": "packages/snowpack-plugin-assets/src",

@@ -132,6 +132,9 @@
     "react-playground": {
       "tags": []
     },
+    "snowpack-app": {
+      "tags": []
+    },
     "snowpack-plugin-assets": {
       "tags": []
     },

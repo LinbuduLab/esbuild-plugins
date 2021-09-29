@@ -29,5 +29,5 @@
     }
   },
   "additionalProperties": true,
-  "required": ["configPath"]
+  "required": []
 }

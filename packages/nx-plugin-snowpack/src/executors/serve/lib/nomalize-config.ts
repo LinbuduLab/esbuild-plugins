@@ -10,23 +10,23 @@ export const defaultSnowpackOptions = (
   options: NormalizedSnowpackServeSchema
 ): SnowpackUserConfig => {
   return {
-    root: options.absCwd,
+    root: options.absoluteRoot,
     // 同一键名不会覆盖，并且这里的优先级更高
     // 所以默认不会启用
-    mount: {
-      // http://localhost:9797/dist/index.js
-      src: {
-        url: '/dist',
-        static: false,
-        resolve: true,
-      },
-      // http://localhost:9797/robots.txt
-      public: {
-        url: '/',
-        static: true,
-        resolve: false,
-      },
-    },
+    // mount: {
+    //   // http://localhost:9797/dist/index.js
+    //   src: {
+    //     url: '/dist',
+    //     static: false,
+    //     resolve: true,
+    //   },
+    //   // http://localhost:9797/robots.txt
+    //   public: {
+    //     url: '/',
+    //     static: true,
+    //     resolve: false,
+    //   },
+    // },
     exclude: ['**/node_modules/**'],
     workspaceRoot: options.workspaceRoot,
     mode: 'development' as const,
@@ -46,7 +46,7 @@ const defaultSnowpackServeOptions = (
   options: NormalizedSnowpackServeSchema
 ): SnowpackUserConfig => {
   return {
-    root: options.absCwd,
+    root: options.absoluteRoot,
     // 同一键名不会覆盖，并且这里的优先级更高
     // 所以默认不会启用
     // mount: {
@@ -64,7 +64,7 @@ const defaultSnowpackServeOptions = (
     //   },
     // },
     // exclude: ['**/node_modules/**'],
-    workspaceRoot: options.workspaceRoot,
+    // workspaceRoot: options.workspaceRoot,
     mode: 'development' as const,
     // devOptions: {
     //   secure: false,
