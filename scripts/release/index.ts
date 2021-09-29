@@ -147,6 +147,21 @@ export default function useReleaseProject(cli: CAC) {
 
         pkgInfo.version = releaseVersion;
 
+        consola.info(
+          'Collecting dependencies and sync workspace packages version...'
+        );
+
+        !dryRun &&
+          (await execa(
+            'yarn',
+            ['cli', 'collect', projectToRelease, '--verbose'],
+            {
+              cwd: process.cwd(),
+              preferLocal: true,
+              stdio: 'inherit',
+            }
+          ));
+
         if (!dryRun) {
           fs.writeFileSync(
             projectPkgPath,

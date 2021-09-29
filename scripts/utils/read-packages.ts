@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import jsonfile from 'jsonfile';
 
-type ProjectWithVersion = {
+export type ProjectWithVersion = {
   project: string;
   version: string;
 };
