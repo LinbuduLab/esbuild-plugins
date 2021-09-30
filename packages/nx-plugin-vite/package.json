@@ -1,6 +1,6 @@
 {
   "name": "nx-plugin-vite",
-  "version": "0.2.3",
+  "version": "0.2.9",
   "main": "dist/src/index.js",
   "scripts": {
     "release": "release-it",
