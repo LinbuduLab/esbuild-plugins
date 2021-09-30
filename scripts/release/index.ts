@@ -12,21 +12,6 @@ import { selectSingleProject } from '../utils/select-project';
 import { allPackages } from '../utils/packages';
 import { readWorkspacePackagesWithVersion } from '../utils/read-packages';
 
-// 不需要CHANGELOG
-// yarn cli release
-// -> 选择 package
-// -> 选择 release type
-// -> bump version
-// -> collect deps
-// -> (optinal)bump dep workspace package version
-// -> nx build --with-deps
-// git add packages/PACKAGE (--dry-run --verbose)
-// git-cz --type release --scope PACKAGE --non-interactive --subject release PACKAGE Version xxx
-// git tag
-// git push
-// git push --tags
-// yarn cli release PACKAGE --minor
-
 const enum ReleaseType {
   MAJOR = 'major',
   MINOR = 'minor',
@@ -50,6 +35,25 @@ export interface ReleaseCLIOptions {
   skipGit: boolean;
 }
 
+/**
+ * yarn cli release
+ * -> choose package if not specified by `yarn cli release [name]`
+ * -> choose release type
+ * -> bump package.json version
+ * -> collect deps
+ * -> sync workspace package version
+ * -> nx build/tsc project --with-deps
+ * -> update dist/package.json
+ * -> git add packages/PACKAGE (--dry-run --verbose)
+ * -> git-cz --type release --scope PACKAGE --non-interactive --subject release PACKAGE UPDATED_VERSION
+ * -> git tag
+ * -> git push
+ * -> git push --tags
+ * -> npm publish --access=public (inside dist folder)
+ *
+ * TODO: revert on failure
+ * @param cli
+ */
 export default function useReleaseProject(cli: CAC) {
   cli
     .command('release [name]', 'Release project', {
@@ -143,6 +147,11 @@ export default function useReleaseProject(cli: CAC) {
         );
 
         const projectPkgPath = path.join(projectDir, 'package.json');
+        const builtProjectPkgPath = path.join(
+          projectDir,
+          'dist',
+          'package.json'
+        );
         const pkgInfo = jsonfile.readFileSync(projectPkgPath);
 
         pkgInfo.version = releaseVersion;
@@ -162,6 +171,13 @@ export default function useReleaseProject(cli: CAC) {
             }
           ));
 
+        !dryRun &&
+          (await execa('yarn', ['cli', 'sync', projectToRelease, '--verbose'], {
+            cwd: process.cwd(),
+            preferLocal: true,
+            stdio: 'inherit',
+          }));
+
         if (!dryRun) {
           fs.writeFileSync(
             projectPkgPath,
@@ -179,7 +195,8 @@ export default function useReleaseProject(cli: CAC) {
         !dryRun &&
           (await execa('nx', ['build', projectToRelease, '--verbose'], {
             cwd: process.cwd(),
-            preferLocal: true,
+            // enable preferLocal will cause workspace deps in dist package.json doesnot got update
+            // preferLocal: true,
             stdio: 'inherit',
           }));
 
@@ -187,6 +204,27 @@ export default function useReleaseProject(cli: CAC) {
           `Package ${projectToRelease} built successfully.`,
           dryRun
         );
+
+        consola.info('Updating necessary fields of `dist/package.json`...');
+
+        const builtPkgInfo = jsonfile.readFileSync(builtProjectPkgPath);
+
+        builtPkgInfo.main = './src/index.js';
+        builtPkgInfo.version = releaseVersion;
+        builtPkgInfo.typings = './src/index.d.ts';
+        builtPkgInfo.executors
+          ? (builtPkgInfo.executors = './executors.json')
+          : void 0;
+        builtPkgInfo.generators
+          ? (builtPkgInfo.generators = './generators.json')
+          : void 0;
+
+        if (!dryRun) {
+          fs.writeFileSync(
+            builtProjectPkgPath,
+            JSON.stringify(builtPkgInfo, null, 2) + '\n'
+          );
+        }
 
         const { stdout } = await execa('git', ['diff'], { stdio: 'pipe' });
 
@@ -280,7 +318,7 @@ export default function useReleaseProject(cli: CAC) {
           'npm',
           ['publish', '--access=public'].concat(dryRun ? ['--dry-run'] : []),
           {
-            cwd: projectDir,
+            cwd: path.resolve(projectDir, 'dist'),
             stdio: 'inherit',
             shell: true,
             preferLocal: true,
