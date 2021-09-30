@@ -1,6 +1,6 @@
 {
   "name": "nx-plugin-vite",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "dist/src/index.js",
   "scripts": {
     "release": "release-it",
@@ -13,7 +13,7 @@
     "consola": "^2.15.3",
     "dotenv": "~10.0.0",
     "execa": "^5.1.1",
-    "nx-plugin-devkit": "^0.1.0",
+    "nx-plugin-devkit": "^0.2.1",
     "rxjs": "6.6.7",
     "rxjs-for-await": "^0.0.2"
   },
