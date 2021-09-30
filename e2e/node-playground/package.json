@@ -3,7 +3,7 @@
   "version": "999.9.9",
   "dependencies": {
     "@swc/core": "^1.2.83",
-    "esbuild": "^0.12.24",
+    "esbuild": "^0.13.3",
     "nx-plugin-esbuild": "*"
   }
 }

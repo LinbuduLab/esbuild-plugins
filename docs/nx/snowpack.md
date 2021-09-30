@@ -8,6 +8,12 @@ permalink: /:slug
 
 Nx plugin integration with [Snowpack](https://www.snowpack.dev/)
 
+```bash
+yarn add nx-plugin-snowpack -D
+# some required peer deps
+yarn add @nrwl/node @nrwl/workspace @angular-devkit/schematics -D
+```
+
 ## Generators
 
 ### app

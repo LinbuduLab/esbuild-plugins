@@ -32,8 +32,6 @@ export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
   context: ExecutorContext
 ): AsyncIterableIterator<ExecutorResponse> | Promise<ExecutorResponse> {
-  console.log('111111');
-
   ensureProjectConfig(context);
 
   const { sourceRoot: projectSourceRoot, root: projectRoot } =

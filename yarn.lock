@@ -10462,15 +10462,117 @@ es6-symbol@^3.1.1, es6-symbol@~3.1.3:
     d "^1.0.1"
     ext "^1.1.2"
 
+esbuild-android-arm64@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-android-arm64/download/esbuild-android-arm64-0.13.3.tgz#ef734c76eeff42e8c53acdffe901da090164a890"
+  integrity sha1-73NMdu7/QujFOs3/6QHaCQFkqJA=
+
+esbuild-darwin-64@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-darwin-64/download/esbuild-darwin-64-0.13.3.tgz#35f29376b7451add79f0640980683ef923365385"
+  integrity sha1-NfKTdrdFGt158GQJgGg++SM2U4U=
+
+esbuild-darwin-arm64@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-darwin-arm64/download/esbuild-darwin-arm64-0.13.3.tgz#530a1326e7d18d62c9a54b6dce70f2b77ed50eec"
+  integrity sha1-UwoTJufRjWLJpUttznDyt37VDuw=
+
+esbuild-freebsd-64@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-freebsd-64/download/esbuild-freebsd-64-0.13.3.tgz#ce2896ac362e06eb82ca5dec06b2568901eb5afc"
+  integrity sha1-ziiWrDYuBuuCyl3sBrJWiQHrWvw=
+
+esbuild-freebsd-arm64@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-freebsd-arm64/download/esbuild-freebsd-arm64-0.13.3.tgz#a20454f99e060bea4e465d131556a9f0533f403f"
+  integrity sha1-ogRU+Z4GC+pORl0TFVap8FM/QD8=
+
+esbuild-linux-32@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-linux-32/download/esbuild-linux-32-0.13.3.tgz#ad56f18208ecf007cd9ab16cd39626ca0312b8ee"
+  integrity sha1-rVbxggjs8AfNmrFs05YmygMSuO4=
+
+esbuild-linux-64@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-linux-64/download/esbuild-linux-64-0.13.3.tgz#be1eabadf68d153897ed887678f7496d3949810f"
+  integrity sha1-vh6rrfaNFTiX7Yh2ePdJbTlJgQ8=
+
+esbuild-linux-arm64@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-linux-arm64/download/esbuild-linux-arm64-0.13.3.tgz#329348bb4a19cfb5e9046cc5d97ba5017d8f74ad"
+  integrity sha1-MpNIu0oZz7XpBGzF2XulAX2PdK0=
+
+esbuild-linux-arm@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-linux-arm/download/esbuild-linux-arm-0.13.3.tgz#b3b3167c9d5d3038894fbc75b194a4fbe93eaf09"
+  integrity sha1-s7MWfJ1dMDiJT7x1sZSk++k+rwk=
+
+esbuild-linux-mips64le@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-linux-mips64le/download/esbuild-linux-mips64le-0.13.3.tgz#ea1687f28ea2c85399ecc2fe23a48ab343b7b35d"
+  integrity sha1-6haH8o6iyFOZ7ML+I6SKs0O3s10=
+
+esbuild-linux-ppc64le@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-linux-ppc64le/download/esbuild-linux-ppc64le-0.13.3.tgz#a462cf42eae3d7fc29a9f277679f5adee70afa67"
+  integrity sha1-pGLPQurj1/wpqfJ3Z59a3ucK+mc=
+
+esbuild-openbsd-64@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-openbsd-64/download/esbuild-openbsd-64-0.13.3.tgz#0cb15bd86d20eb19cb548b530f1a533197532cf9"
+  integrity sha1-DLFb2G0g6xnLVItTDxpTMZdTLPk=
+
+esbuild-sunos-64@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-sunos-64/download/esbuild-sunos-64-0.13.3.tgz#53a941241f881010969cc8f1acb1ada49c4cd3c2"
+  integrity sha1-U6lBJB+IEBCWnMjxrLGtpJxM08I=
+
+esbuild-windows-32@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-windows-32/download/esbuild-windows-32-0.13.3.tgz#265dc0d0cdb5374685a851c584857055e12865a4"
+  integrity sha1-Jl3A0M21N0aFqFHFhIVwVeEoZaQ=
+
+esbuild-windows-64@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-windows-64/download/esbuild-windows-64-0.13.3.tgz#ae710c0629ec8c39c5ef1f69e86ed5592bb4128f"
+  integrity sha1-rnEMBinsjDnF7x9p6G7VWSu0Eo8=
+
+esbuild-windows-arm64@0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild-windows-arm64/download/esbuild-windows-arm64-0.13.3.tgz#a236199a26b1205573dcb571f966189326a4c953"
+  integrity sha1-ojYZmiaxIFVz3LVx+WYYkyakyVM=
+
 esbuild@^0.12.12, esbuild@^0.12.16, esbuild@^0.12.8:
   version "0.12.29"
   resolved "https://registry.nlark.com/esbuild/download/esbuild-0.12.29.tgz?cache=0&sync_timestamp=1632292706367&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fesbuild%2Fdownload%2Fesbuild-0.12.29.tgz#be602db7c4dc78944a9dbde0d1ea19d36c1f882d"
   integrity sha1-vmAtt8TceJRKnb3g0eoZ02wfiC0=
 
-esbuild@^0.12.17, esbuild@^0.12.24, esbuild@^0.12.25:
+esbuild@^0.12.17:
   version "0.12.28"
   resolved "https://registry.nlark.com/esbuild/download/esbuild-0.12.28.tgz#84da0d2a0d0dee181281545271e0d65cf6fab1ef"
   integrity sha1-hNoNKg0N7hgSgVRSceDWXPb6se8=
+
+esbuild@^0.13.3:
+  version "0.13.3"
+  resolved "https://registry.npmmirror.com/esbuild/download/esbuild-0.13.3.tgz?cache=0&sync_timestamp=1632851511306&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fesbuild%2Fdownload%2Fesbuild-0.13.3.tgz#cc9fc347fc81ff6440cdd1fdb9fe65c02eddcc97"
+  integrity sha1-zJ/DR/yB/2RAzdH9uf5lwC7dzJc=
+  optionalDependencies:
+    esbuild-android-arm64 "0.13.3"
+    esbuild-darwin-64 "0.13.3"
+    esbuild-darwin-arm64 "0.13.3"
+    esbuild-freebsd-64 "0.13.3"
+    esbuild-freebsd-arm64 "0.13.3"
+    esbuild-linux-32 "0.13.3"
+    esbuild-linux-64 "0.13.3"
+    esbuild-linux-arm "0.13.3"
+    esbuild-linux-arm64 "0.13.3"
+    esbuild-linux-mips64le "0.13.3"
+    esbuild-linux-ppc64le "0.13.3"
+    esbuild-openbsd-64 "0.13.3"
+    esbuild-sunos-64 "0.13.3"
+    esbuild-windows-32 "0.13.3"
+    esbuild-windows-64 "0.13.3"
+    esbuild-windows-arm64 "0.13.3"
 
 esbuild@~0.9.0:
   version "0.9.7"

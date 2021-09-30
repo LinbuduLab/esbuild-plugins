@@ -6,7 +6,13 @@ permalink: /:slug
 
 # Vite
 
-Nx plugin integration with [Vite](https://vitejs.dev/)
+Nx plugin integration with [Vite](https://vitejs.dev/).
+
+```bash
+yarn add nx-plugin-vite -D
+# some required peer deps
+yarn add @nrwl/node @nrwl/workspace @angular-devkit/schematics -D
+```
 
 ## Generators
 
@@ -29,6 +35,8 @@ Add vite related workspace targets to exist application.
 ## Executors
 
 **NOTE: In Nx-Vite project, it's recommended to configurate your vite project by `PROJECT/vite.config.ts`(which also has a higher priority) instead of schema options.**
+
+**NOTE: In some situations, ternimal output may display abnormally, for example, the vite serve output may disappeared and left only `Nx-Vite [Start] Starting` text. This is indeed a bug and I'm still trying to fix it, but the server has been started correctly at the specified port(`3000` by default, you can also use `--port [port]` to specify as you like.)**
 
 ### serve
 

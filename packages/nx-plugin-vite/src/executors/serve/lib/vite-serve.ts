@@ -1,7 +1,7 @@
 import type { ViteServeSchema } from '../schema';
 
 import { from, Observable } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
+import { tap, exhaustMap } from 'rxjs/operators';
 import { createServer, ViteDevServer } from 'vite';
 
 import chalk from 'chalk';
@@ -17,21 +17,21 @@ export const startViteServer = (
 ): Observable<ServeRes> => {
   const { root, configFile, port, watch } = schema;
 
-  return from(
-    createServer({
-      root,
-      configFile,
-      server: {
-        port,
-        watch: watch ? {} : null,
-      },
-    })
-  ).pipe(
+  const serverFactory = createServer({
+    root,
+    configFile,
+    server: {
+      port,
+      watch: watch ? {} : null,
+    },
+  });
+
+  return from(serverFactory).pipe(
     tap(() => {
       consola.info(chalk.cyan('Nx-Vite [Start] Starting \n'));
     }),
 
-    switchMap((server) => {
+    exhaustMap((server) => {
       return new Observable<ServeRes>((subscriber) => {
         server
           .listen(port)

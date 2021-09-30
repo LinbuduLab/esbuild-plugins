@@ -1,6 +1,6 @@
 {
   "name": "nx-plugin-devkit",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "dist/src/index.js",
   "scripts": {
     "release": "release-it",
@@ -25,6 +25,6 @@
     "@nrwl/linter": "^12.7.2",
     "@nrwl/node": "^12.7.2",
     "@nrwl/workspace": "^12.7.2",
-    "esbuild": "^0.12.25"
+    "esbuild": "^0.13.3"
   }
 }

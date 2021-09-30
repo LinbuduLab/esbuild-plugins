@@ -8,6 +8,12 @@ permalink: /:slug
 
 Nx plugin integration with [Prisma](https://www.prisma.io/)
 
+```bash
+yarn add nx-plugin-prisma -D
+# some required peer deps
+yarn add @nrwl/node @nrwl/workspace @angular-devkit/schematics -D
+```
+
 ## Generators
 
 ### init
