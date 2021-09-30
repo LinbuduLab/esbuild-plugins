@@ -79,12 +79,12 @@ export default function buildExecutor(
   // normalize ESBuild build options
   const esBuildOptions = resolveESBuildOption(normalizedExecutorOptions);
 
-  let buildCounter = 1;
+  let buildExecuteCount = 1;
 
-  const esbuildRunnerLogPrefix = () =>
-    ` ${chalk.white('ESBuild')} ${buildTimes(`[${buildCounter}]`)} ${timeStamp(
-      dayjs().format('H:mm:ss A')
-    )}`;
+  const esbuildRunnerPrefixCreator = () =>
+    `${chalk.white('ESBuild')} ${buildTimes(
+      `[${buildExecuteCount}]`
+    )} ${timeStamp(dayjs().format('H:mm:ss A'))}`;
 
   const esBuildSubscriber: Observable<RunnerSubcriber> = runESBuild({
     ...esBuildOptions,
@@ -97,7 +97,7 @@ export default function buildExecutor(
     absoulteProjectRoot: path.join(absoluteWorkspaceRoot, projectRoot),
   }).pipe(
     tap(() => {
-      buildCounter++;
+      buildExecuteCount++;
     }),
 
     map(({ buildResult, buildFailure }): RunnerSubcriber => {
@@ -106,12 +106,14 @@ export default function buildExecutor(
       collectESBuildRunnerMessages(
         { buildResult, buildFailure },
         messageFragments,
-        esbuildRunnerLogPrefix()
+        esbuildRunnerPrefixCreator
       );
 
       if (skipTypeCheck) {
         messageFragments.unshift(
-          `ESBuild Compiler Starting ${chalk.yellow('(Type Check Skipped)')}...`
+          `\n${chalk.white('ESBuild Compiler Starting')} ${chalk.yellow(
+            '(Type Check Skipped)'
+          )}...`
         );
       }
 
@@ -122,24 +124,24 @@ export default function buildExecutor(
     })
   );
 
-  if (outputPath) {
-    if (fs.existsSync(outputPath)) {
-      rimraf.sync(outputPath);
-      consola.info(`Output Path ${outputPath} Cleaned.`);
-    }
+  // TODO: control by schema options
+  if (outputPath && fs.existsSync(outputPath) && verbose) {
+    rimraf.sync(outputPath);
+    consola.info(`Output Path ${chalk.cyan(outputPath)} Cleaned. \n`);
   }
 
   const baseESBuildSubscriber = esBuildSubscriber.pipe(
     tap((buildResults: RunnerSubcriber) => {
       consola.log(buildResults.messageFragments.join('\n'));
     }),
+
     map((buildResults: RunnerSubcriber): ExecutorResponse => {
       return {
         success: buildResults?.success,
-        // Will not be used in fact.
         outfile: path.join(outputPath, 'main.js'),
       };
     }),
+
     catchError(() => {
       return of<ExecutorResponse>({
         success: false,
@@ -156,12 +158,12 @@ export default function buildExecutor(
     return eachValueFrom<ExecutorResponse>(baseESBuildSubscriber);
   }
 
-  let typeCounter = 1;
+  let typeCheckCounter = 1;
 
-  const prefixTsc = () =>
-    `${chalk.white('TypeScript')} ${buildTimes(`[${typeCounter}]`)} ${timeStamp(
-      dayjs().format('H:mm:ss A')
-    )}`;
+  const tscRunnerPrefixCreator = () =>
+    `${chalk.white('TypeScript')} ${buildTimes(
+      `[${typeCheckCounter}]`
+    )} ${timeStamp(dayjs().format('H:mm:ss A'))}`;
 
   const tscRunnerOptions: TscRunnerOptions = {
     root: absoluteWorkspaceRoot,
@@ -187,7 +189,7 @@ export default function buildExecutor(
         hasErrors = true;
       }
 
-      collectTSCRunnerMessages(res, messageFragments, prefixTsc());
+      collectTSCRunnerMessages(res, messageFragments, tscRunnerPrefixCreator);
 
       return { info, error, end, hasErrors, messageFragments };
     }),
@@ -200,7 +202,7 @@ export default function buildExecutor(
     ),
 
     tap(() => {
-      typeCounter++;
+      typeCheckCounter++;
     }),
 
     map((values) => {
@@ -225,7 +227,7 @@ export default function buildExecutor(
         startWith({
           success: true,
           messageFragments: [
-            `${chalk.white('ESBuild Compiler Starting...\n')}`,
+            `${chalk.white('ESBuild Compiler Starting...')}`,
             `${chalk.white('TypeScript Checker Starting...\n')}`,
           ],
         }),
@@ -250,7 +252,7 @@ export default function buildExecutor(
           {
             success: true,
             messageFragments: [
-              `${chalk.white('TypeScript Checker Starting...\n')}`,
+              `${chalk.white('TypeScript Checker Starting...')}`,
             ],
           },
         ]),

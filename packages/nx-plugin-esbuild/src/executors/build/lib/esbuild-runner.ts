@@ -84,7 +84,7 @@ export function runESBuild(
 
         buildWatch
           ? watcher.on('all', (eventName, path) => {
-              console.log(
+              consola.info(
                 `${chalk.white('Changes Detected:')} ${info(
                   eventName.toLocaleUpperCase()
                 )} of ${info(path)}`

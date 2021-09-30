@@ -1,4 +1,6 @@
 import type { ESBuildRunnerResponse, TscRunnerResponse } from './types';
+import consola from 'consola';
+import chalk from 'chalk';
 import {
   warning as warningTxt,
   error as errorTxt,
@@ -10,11 +12,11 @@ import {
 export function collectESBuildRunnerMessages(
   res: ESBuildRunnerResponse,
   messageFragments: string[],
-  prefix: string
+  prefixCreator: () => string
 ) {
   const { buildResult, buildFailure } = res;
   if (buildResult?.warnings?.length > 0) {
-    messageFragments.push(warningTxt(`${prefix} - Warnings:`));
+    messageFragments.push(warningTxt(`${prefixCreator()} - Warnings:`));
 
     buildResult?.warnings?.forEach((warning) => {
       const {
@@ -29,9 +31,7 @@ export function collectESBuildRunnerMessages(
 
   if (buildFailure) {
     messageFragments.push(error('\nESBuild Compilation Failed.\n'));
-
-    messageFragments.push(errorTxt(prefix));
-
+    messageFragments.push(errorTxt(prefixCreator()));
     messageFragments.push(errorTxt(buildFailure.message));
 
     buildFailure.errors?.forEach((error) => {
@@ -40,14 +40,14 @@ export function collectESBuildRunnerMessages(
   } else if (buildResult?.warnings?.length > 0) {
     messageFragments.push(
       success(
-        `${prefix} - Build Complete with ${warningTxt(
+        `${prefixCreator()} - Build Complete with ${warningTxt(
           String(buildResult?.warnings?.length)
         )} warnings. `
       )
     );
   } else {
     messageFragments.push(
-      success(`\n${prefix} - ESBuild Compilation Succeed.`)
+      success(`${prefixCreator()} - ESBuild Compilation Succeed.`)
     );
   }
 }
@@ -55,24 +55,26 @@ export function collectESBuildRunnerMessages(
 export function collectTSCRunnerMessages(
   res: TscRunnerResponse,
   messageFragments: string[],
-  prefix: string
+  prefixCreator: () => string
 ) {
   const { info, error, end } = res;
   if (error) {
-    messageFragments.push(errorTxt(`${prefix} ${error}`));
+    messageFragments.push(errorTxt(`${prefixCreator()} ${error}`));
   } else if (info) {
     if (info.match(/Found\s\d*\serror/)) {
       if (info.includes('Found 0 errors')) {
         messageFragments.push(
-          success(`${prefix} ${info.replace(/\r\n/g, '')}`)
+          success(`${prefixCreator()} ${info.replace(/\r\n/g, '')}`)
         );
       } else {
         messageFragments.push(
-          errorTxt(`${prefix} ${info.replace(/\r\n/g, '')}`)
+          errorTxt(`${prefixCreator()} ${info.replace(/\r\n/g, '')}`)
         );
       }
     } else {
-      messageFragments.push(success(`${prefix} ${info.replace(/\r\n/g, '')}`));
+      messageFragments.push(
+        success(`${prefixCreator()} ${info.replace(/\r\n/g, '')}`)
+      );
     }
   }
 }

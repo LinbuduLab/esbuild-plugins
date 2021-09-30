@@ -1,25 +1,18 @@
 import { Observable } from 'rxjs';
-import chalk from 'chalk';
 import path from 'path';
 import fs from 'fs-extra';
-import { error, info, success, plainText } from './log';
+import { error, info } from './log';
 import execa from 'execa';
 
 import type { TscRunnerOptions, TscRunnerResponse } from './types';
 
-export function runTSC({
-  tsconfigPath,
-  watch,
-  root,
-  failFast,
-}: TscRunnerOptions) {
+export function runTSC({ tsconfigPath, watch, root }: TscRunnerOptions) {
   return new Observable<TscRunnerResponse>((subscriber) => {
-    const tscBinPath = path.join(root, 'node_modules', '.bin', 'tsc');
+    const tscLocalBinPath = path.join(root, 'node_modules', '.bin', 'tsc');
 
-    // TODO: if tsc is not found in project directory, check global
-    if (!fs.existsSync(tscBinPath)) {
+    if (!fs.existsSync(tscLocalBinPath)) {
       console.log(
-        `${error(`tsc is not found in ${tscBinPath}, run`)} ${info(
+        `${error(`tsc is not found in ${tscLocalBinPath}, run`)} ${info(
           'npm intsall typescript'
         )} ${error('first to retry')}`
       );
@@ -38,7 +31,7 @@ export function runTSC({
     const errorSig = 'error TS';
 
     let errorCount = 0;
-    const childProcess = execa(tscBinPath, args, {
+    const childProcess = execa(tscLocalBinPath, args, {
       // set shell to be true, or add suffix '.cmd'/".exe"/".bat" in Windows
       shell: true,
       // child_process.stdio.pipe(sub_process)
