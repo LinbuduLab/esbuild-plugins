@@ -8,7 +8,7 @@
     "verbose": {
       "type": "boolean",
       "description": "Use verbose log output",
-      "default": true
+      "default": false
     },
     "main": {
       "type": "string",

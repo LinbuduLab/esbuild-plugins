@@ -44,6 +44,11 @@
       "description": "Decorator handler in compilayion.",
       "enum": ["tsc", "swc"],
       "default": "tsc"
+    },
+    "latestPackage": {
+      "type": "boolean",
+      "description": "Install latest ESBuild package",
+      "default": false
     }
   },
   "required": ["app"]

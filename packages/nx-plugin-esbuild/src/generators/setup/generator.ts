@@ -5,11 +5,14 @@ import {
   addDependenciesToPackageJson,
   updateProjectConfiguration,
   readProjectConfiguration,
+  GeneratorCallback,
 } from '@nrwl/devkit';
+import pacote from 'pacote';
 
 import { NormalizedESBuildSetupGeneratorSchema } from './schema';
-import { normalizeSchema } from './lib/normalize-schema';
-import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
+import { normalizeSchema } from './normalize-schema';
+import { ESBUILD_DEP_VERSION } from '../utils/constants';
+import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
 export default async function (
   host: Tree,
@@ -40,7 +43,7 @@ export default async function (
       ...(buildTargetConfig.options ?? {}),
       outputPath,
       main: entry,
-      tsConfig: tsconfigPath,
+      tsconfigPath,
       assets,
       watch,
     },
@@ -73,12 +76,43 @@ export default async function (
 
   await formatFiles(host);
 
-  const deps = composeDepsList(normalizedSchema);
-  const devDeps = composeDevDepsList(normalizedSchema);
+  let esbuildPackageVersion = ESBUILD_DEP_VERSION;
 
-  addDependenciesToPackageJson(host, deps, devDeps);
+  if (schema.latestPackage) {
+    const { version } = await pacote.manifest('esbuild');
+    esbuildPackageVersion = version;
+  }
+
+  const installDepsTask = addDependenciesToPackageJson(
+    host,
+    {
+      'esbuild-plugin-decorator': 'latest',
+      'esbuild-plugin-alias-path': 'latest',
+      'esbuild-plugin-node-externals': 'latest',
+    },
+    {
+      esbuild: esbuildPackageVersion,
+    }
+  );
+
+  const tasks: GeneratorCallback[] = [];
+
+  tasks.push(installDepsTask);
+
+  addDependenciesToPackageJson(
+    host,
+    {
+      'esbuild-plugin-decorator': 'latest',
+      'esbuild-plugin-alias-path': 'latest',
+      'esbuild-plugin-node-externals': 'latest',
+    },
+    {
+      esbuild: esbuildPackageVersion,
+    }
+  );
 
   return () => {
+    runTasksInSerial(...tasks);
     installPackagesTask(host);
   };
 }

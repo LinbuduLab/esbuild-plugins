@@ -70,7 +70,7 @@ export default async function (host: Tree, schema: PrismaSetupGeneratorSchema) {
   await formatFiles(host);
 
   return () => {
-    installPackagesTask(host);
     runTasksInSerial(...tasks);
+    installPackagesTask(host);
   };
 }

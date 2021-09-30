@@ -10532,6 +10532,33 @@ esbuild-openbsd-64@0.13.3:
   resolved "https://registry.npmmirror.com/esbuild-openbsd-64/download/esbuild-openbsd-64-0.13.3.tgz#0cb15bd86d20eb19cb548b530f1a533197532cf9"
   integrity sha1-DLFb2G0g6xnLVItTDxpTMZdTLPk=
 
+esbuild-plugin-alias-path@latest:
+  version "0.4.0"
+  resolved "https://registry.npmmirror.com/esbuild-plugin-alias-path/download/esbuild-plugin-alias-path-0.4.0.tgz#42b72d6d717330ee235c7516a3f4015f56a0c574"
+  integrity sha1-QrctbXFzMO4jXHUWo/QBX1agxXQ=
+  dependencies:
+    find-up "5.0.0"
+    jsonfile "^6.1.0"
+
+esbuild-plugin-decorator@latest:
+  version "0.2.0"
+  resolved "https://registry.npmmirror.com/esbuild-plugin-decorator/download/esbuild-plugin-decorator-0.2.0.tgz#d3ce6bf27bb71b5be830ea55a07be5f3c618f6b3"
+  integrity sha1-085r8nu3G1voMOpVoHvl88YY9rM=
+  dependencies:
+    chalk "^4.1.2"
+    fs-extra "^10.0.0"
+    jsonfile "^6.1.0"
+    lodash "^4.17.21"
+    strip-comments "^2.0.1"
+
+esbuild-plugin-node-externals@latest:
+  version "0.2.0"
+  resolved "https://registry.npmmirror.com/esbuild-plugin-node-externals/download/esbuild-plugin-node-externals-0.2.0.tgz#55444c0cfb8b998d56fbddd0082d60fb732864a8"
+  integrity sha1-VURMDPuLmY1W+93QCC1g+3MoZKg=
+  dependencies:
+    find-up "5.0.0"
+    jsonfile "^6.1.0"
+
 esbuild-sunos-64@0.13.3:
   version "0.13.3"
   resolved "https://registry.npmmirror.com/esbuild-sunos-64/download/esbuild-sunos-64-0.13.3.tgz#53a941241f881010969cc8f1acb1ada49c4cd3c2"

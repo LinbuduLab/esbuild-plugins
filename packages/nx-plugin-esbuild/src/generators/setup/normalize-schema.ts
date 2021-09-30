@@ -9,7 +9,7 @@ import { getAvailableApps } from 'nx-plugin-devkit';
 import {
   ESBuildSetupGeneratorSchema,
   NormalizedESBuildSetupGeneratorSchema,
-} from '../schema';
+} from './schema';
 
 export function normalizeSchema(
   host: Tree,
@@ -20,7 +20,7 @@ export function normalizeSchema(
   const appNames = apps.map((app) => app.appName);
 
   if (!appNames.includes(schema.app)) {
-    throw new Error(`App  ${schema.app} dose not exist!`);
+    throw new Error(`project  ${schema.app} dose not exist!`);
   }
 
   const projectName = names(schema.app).fileName;

@@ -14,6 +14,7 @@ export interface ESBuildInitGeneratorExtraSchema {
   bundle: boolean;
   platform: 'browser' | 'node' | 'neutral';
   decoratorHandler: 'tsc' | 'swc';
+  latestPackage: boolean;
 }
 
 export interface ESBuildInitGeneratorSchema

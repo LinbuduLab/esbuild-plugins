@@ -57,7 +57,7 @@ export default async function (host: Tree, options: MinimalAppGeneratorSchema) {
   await formatFiles(host);
 
   return () => {
-    installPackagesTask(host);
     runTasksInSerial(...tasks);
+    installPackagesTask(host);
   };
 }

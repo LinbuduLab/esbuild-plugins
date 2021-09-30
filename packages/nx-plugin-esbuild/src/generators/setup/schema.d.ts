@@ -10,6 +10,8 @@ export interface ESBuildSetupGeneratorSchema {
   entry?: string;
   tsconfigPath?: string;
   outputPath?: string;
+
+  latestPackage: boolean;
 }
 
 export interface NormalizedESBuildSetupGeneratorSchema

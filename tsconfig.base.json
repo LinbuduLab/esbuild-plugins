@@ -18,15 +18,6 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "nx-plugin-astro": ["packages/nx-plugin-astro/src/index.ts"],
-      "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"],
-      "nx-plugin-esbuild": ["packages/nx-plugin-esbuild/src/index.ts"],
-      "nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
-      "nx-plugin-prisma": ["packages/nx-plugin-prisma/src/index.ts"],
-      "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"],
-      "nx-plugin-swc": ["packages/nx-plugin-swc/src/index.ts"],
-      "nx-plugin-vite": ["packages/nx-plugin-vite/src/index.ts"],
-      "nx-plugin-workspace": ["packages/nx-plugin-workspace/src/index.ts"],
       "esbuild-plugin-alias-path": [
         "packages/esbuild-plugin-alias-path/src/index.ts"
       ],
@@ -49,6 +40,15 @@
         "packages/esbuild-plugin-node-externals/src/index.ts"
       ],
       "esbuild-plugin-run": ["packages/esbuild-plugin-run/src/index.ts"],
+      "nx-plugin-astro": ["packages/nx-plugin-astro/src/index.ts"],
+      "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"],
+      "nx-plugin-esbuild": ["packages/nx-plugin-esbuild/src/index.ts"],
+      "nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
+      "nx-plugin-prisma": ["packages/nx-plugin-prisma/src/index.ts"],
+      "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"],
+      "nx-plugin-swc": ["packages/nx-plugin-swc/src/index.ts"],
+      "nx-plugin-vite": ["packages/nx-plugin-vite/src/index.ts"],
+      "nx-plugin-workspace": ["packages/nx-plugin-workspace/src/index.ts"],
       "snowpack-plugin-assets": [
         "packages/snowpack-plugin-assets/src/index.ts"
       ],

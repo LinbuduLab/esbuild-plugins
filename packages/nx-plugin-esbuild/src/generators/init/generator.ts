@@ -7,8 +7,7 @@ import {
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import path from 'path';
-import { normalizeSchema } from './lib/normalize-schema';
-import { composeDepsList, composeDevDepsList } from './lib/compose-deps';
+import { normalizeSchema } from './normalize-schema';
 import { ESBuildInitGeneratorSchema } from './schema';
 import {
   createNodeInitTask,
@@ -19,8 +18,10 @@ import {
   setDefaultProject,
   setupProxy,
 } from 'nx-plugin-devkit';
+import pacote from 'pacote';
 
 import { createProductionConfiguration } from '../utils/preset-configuration';
+import { ESBUILD_DEP_VERSION } from '../utils/constants';
 
 export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
   const normalizedSchema = normalizeSchema(host, schema);
@@ -32,7 +33,7 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
     projectSourceRoot,
     entry,
     outputPath,
-    tsconfigPath: tsConfig,
+    tsconfigPath,
     assets,
     bundle,
     platform,
@@ -54,7 +55,7 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
       executor: 'nx-plugin-esbuild:build',
       options: {
         main: entry,
-        tsConfig,
+        tsconfigPath,
         outputPath,
         watch,
         assets,
@@ -94,13 +95,29 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
 
   await formatFiles(host);
 
-  const deps = composeDepsList(normalizedSchema);
-  const devDeps = composeDevDepsList(normalizedSchema);
+  let esbuildPackageVersion = ESBUILD_DEP_VERSION;
 
-  addDependenciesToPackageJson(host, deps, devDeps);
+  if (schema.latestPackage) {
+    const { version } = await pacote.manifest('esbuild');
+    esbuildPackageVersion = version;
+  }
+
+  const installDepsTask = addDependenciesToPackageJson(
+    host,
+    {
+      'esbuild-plugin-decorator': 'latest',
+      'esbuild-plugin-alias-path': 'latest',
+      'esbuild-plugin-node-externals': 'latest',
+    },
+    {
+      esbuild: esbuildPackageVersion,
+    }
+  );
+
+  tasks.push(installDepsTask);
 
   return () => {
-    installPackagesTask(host);
     runTasksInSerial(...tasks);
+    installPackagesTask(host);
   };
 }

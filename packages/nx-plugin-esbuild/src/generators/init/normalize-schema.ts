@@ -5,7 +5,7 @@ import {
   ESBuildInitGeneratorSchema,
   NormalizedESBuildInitGeneratorSchema,
   ESBuildInitGeneratorExtraSchema,
-} from '../schema';
+} from './schema';
 
 export function normalizeSchema(
   host: Tree,
@@ -48,6 +48,7 @@ export function normalizeSchema(
     bundle: schema.bundle,
     platform: schema.platform,
     decoratorHandler: schema.decoratorHandler,
+    latestPackage: schema.latestPackage,
   };
 
   return {
