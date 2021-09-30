@@ -1184,6 +1184,17 @@
             "main": "packages/snowpack-plugin-execa/src/index.ts",
             "assets": ["packages/snowpack-plugin-execa/*.md"]
           }
+        },
+        "tsc": {
+          "executor": "nx-plugin-workspace:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "main": "packages/snowpack-plugin-execa/src/index.ts",
+            "outputPath": "./packages/snowpack-plugin-execa/dist",
+            "tsConfig": "packages/snowpack-plugin-execa/tsconfig.json",
+            "packageJson": "packages/snowpack-plugin-execa/package.json",
+            "assets": ["packages/snowpack-plugin-execa/*.md"]
+          }
         }
       }
     },

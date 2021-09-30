@@ -8,7 +8,6 @@ import {
 import { getAvailableApps } from 'nx-plugin-devkit';
 import { WorkspaceSetupGeneratorSchema } from './schema';
 import { setupTargets } from './lib/targets';
-import merge from 'lodash/merge';
 
 export default async function (
   host: Tree,
