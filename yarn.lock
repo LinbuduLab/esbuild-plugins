@@ -4162,6 +4162,11 @@
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.2.22.tgz#47020d7e4cf19194d43b5202f35f75bd2ad35ce7"
   integrity sha512-tFfcE+DSTzWAgifkjik9AySNqIyNoYwmR+uecPwwD/XRNfvOjmC/FjCxpiUGDkDVDphPfCUecSQVFw+lN3M3kQ==
 
+"@types/clear@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.nlark.com/@types/clear/download/@types/clear-0.1.2.tgz#131050f8a7b429ae0e4ca390339ea9977ca977bd"
+  integrity sha1-ExBQ+Ke0Ka4OTKOQM56pl3ypd70=
+
 "@types/co-body@^6.1.0":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@types/co-body/-/co-body-6.1.0.tgz#b52625390eb0d113c9b697ea92c3ffae7740cdb9"
@@ -8061,6 +8066,11 @@ clean-stack@^2.0.0:
   version "2.2.0"
   resolved "https://registry.nlark.com/clean-stack/download/clean-stack-2.2.0.tgz?cache=0&sync_timestamp=1621915054928&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fclean-stack%2Fdownload%2Fclean-stack-2.2.0.tgz#ee8472dbb129e727b31e8a10a427dee9dfe4008b"
   integrity sha1-7oRy27Ep5yezHooQpCfe6d/kAIs=
+
+clear@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npm.taobao.org/clear/download/clear-0.1.0.tgz#b81b1e03437a716984fd7ac97c87d73bdfe7048a"
+  integrity sha1-uBseA0N6cWmE/XrJfIfXO9/nBIo=
 
 cli-boxes@^2.2.0, cli-boxes@^2.2.1:
   version "2.2.1"

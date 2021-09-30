@@ -12,19 +12,19 @@
     },
     "main": {
       "type": "string",
-      "description": "The name of the main entry-point file."
+      "description": "The name of the main entry-point file(relative to project root)."
     },
     "tsconfigPath": {
       "type": "string",
-      "description": "The name of the Typescript configuration file."
+      "description": "The name of the Typescript configuration file((relative to project root))."
     },
     "outputPath": {
       "type": "string",
-      "description": "The output path of the generated files."
+      "description": "The output path of the generated files(relative to workspace root)."
     },
     "pluginConfigPath": {
       "type": "string",
-      "description": "The path of nx-esbuild config file"
+      "description": "The path of nx-esbuild config file to extend(relative to project root)"
     },
     "useMergeCombine": {
       "type": "boolean",
@@ -38,13 +38,8 @@
     },
     "watchAssetsDir": {
       "type": "boolean",
-      "description": "Should change of assets dir trigger re-building",
+      "description": "Should watch assets dir",
       "default": false
-    },
-    "allowExtend": {
-      "type": "boolean",
-      "description": "Should extend nx-esbuild config file",
-      "default": true
     },
     "watch": {
       "type": "boolean",
@@ -67,7 +62,17 @@
       "default": false
     },
     "watchDir": {
-      "type": "string",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
       "description": "Dirs to watch, default as project source root"
     },
     "format": {
@@ -141,7 +146,7 @@
     },
     "inserts": {
       "type": "array",
-      "description": "List of content to insert into the output file.",
+      "description": "List of content to insert into the output file(banner / footer).",
       "default": [],
       "items": {
         "$ref": "#/definitions/assetPattern"

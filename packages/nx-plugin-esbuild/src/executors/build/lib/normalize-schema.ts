@@ -1,9 +1,10 @@
-import path from 'path';
-import fs from 'fs-extra';
 import type {
   ESBuildExecutorSchema,
   NormalizedESBuildExecutorSchema,
 } from '../schema';
+
+import path from 'path';
+import fs from 'fs-extra';
 
 import { normalizeESBuildExtendConfig } from './extend-config-file';
 import { normalizeAssets } from 'nx-plugin-devkit';
@@ -14,39 +15,65 @@ import {
 } from './normaliz-helper';
 import consola from 'consola';
 import chalk from 'chalk';
+import { DEFAULT_EXTEND_CONFIG_FILE } from './constants';
+import { NXESBuildConfigExport } from 'src';
+import { ensureArray } from './utils';
+
+export interface ExtraNormalizeOptions {
+  absoluteWorkspaceRoot: string;
+  projectName: string;
+  projectRoot: string;
+  projectSourceRoot: string;
+  projectLayout: string;
+}
 
 export function normalizeBuildExecutorOptions(
   options: ESBuildExecutorSchema,
-  workspaceRoot: string,
-  projectName: string,
-  projectSourceRoot: string,
-  projectRoot: string,
-  appsLayout: string
+  extraOptions: ExtraNormalizeOptions
 ): NormalizedESBuildExecutorSchema {
   const { main, tsconfigPath, verbose } = options;
-
-  const outputPath = options.outputPath ?? `dist/${appsLayout}/${projectName}`;
-
-  const formattedInserts = normalizeInserts(options.inserts ?? []);
-
-  const pluginConfigPath = path.resolve(
-    workspaceRoot,
+  const {
+    absoluteWorkspaceRoot,
+    projectName,
     projectRoot,
-    options.pluginConfigPath ?? 'nx-esbuild.ts'
+    projectSourceRoot,
+    projectLayout,
+  } = extraOptions;
+
+  const outputPath =
+    options.outputPath ?? `${projectLayout}/${projectName}/dist`;
+
+  // TODO:
+  const normalizedInserts = normalizeInserts(options.inserts ?? []);
+
+  // If extend config exist, we extend it to ESBuild config resolve
+  const pluginExtendConfigPath = path.resolve(
+    absoluteWorkspaceRoot,
+    projectRoot,
+    options.pluginConfigPath ?? DEFAULT_EXTEND_CONFIG_FILE
   );
 
-  const shouldExtendConfig = fs.existsSync(pluginConfigPath);
+  const extendConfigFileExist = fs.existsSync(pluginExtendConfigPath);
 
-  shouldExtendConfig &&
-    verbose &&
-    consola.info(
-      `Extending config file from ${chalk.cyan(pluginConfigPath)}\n`
-    );
+  verbose
+    ? extendConfigFileExist
+      ? consola.info(
+          `Extending nx-esbuild config file from ${chalk.cyan(
+            pluginExtendConfigPath
+          )} \n`
+        )
+      : consola.info(
+          `No nx-esbuild config file found in ${chalk.cyan(
+            pluginExtendConfigPath
+          )}`
+        )
+    : void 0;
 
-  const userConfigBuildOptions = shouldExtendConfig
+  const userConfigBuildOptions = extendConfigFileExist
     ? normalizeESBuildExtendConfig(
-        path.resolve(workspaceRoot, projectRoot),
-        pluginConfigPath
+        path.resolve(absoluteWorkspaceRoot, projectRoot),
+        pluginExtendConfigPath,
+        verbose
       )
     : {};
 
@@ -56,42 +83,47 @@ export function normalizeBuildExecutorOptions(
 
   const normalizedInject = normalizeInject(options.inject, projectSourceRoot);
 
-  const watchDir = options.watchDir
-    ? path.isAbsolute(options.watchDir)
-      ? options.watchDir
-      : path.join(workspaceRoot, options.watchDir)
-    : path.join(workspaceRoot, projectSourceRoot);
+  const nomalizedWatchDir: string[] = options.watchDir
+    ? ensureArray(options.watchDir)
+        .map((dir) =>
+          path.isAbsolute(dir) ? dir : path.join(absoluteWorkspaceRoot, dir)
+        )
+        .concat(path.join(absoluteWorkspaceRoot, projectSourceRoot))
+    : // watch only source directory by default
+      [path.join(absoluteWorkspaceRoot, projectSourceRoot)];
 
-  const fileReplacements = normalizeFileReplacements(
-    workspaceRoot,
+  const normalizedFileReplacements = normalizeFileReplacements(
+    absoluteWorkspaceRoot,
     options.fileReplacements
+  );
+
+  const normalizedAssets = normalizeAssets(
+    options.assets,
+    absoluteWorkspaceRoot,
+    options.outputPath
   );
 
   return {
     ...options,
     // PROJECT-NAME
     projectName,
-    // D:/PROJECT
-    workspaceRoot,
-    // apps/app1/src
+    absoluteWorkspaceRoot,
     projectSourceRoot,
-    // apps/app1
     projectRoot,
-    // D:/PROJECT/apps/app1/src/main.ts
-    main: path.resolve(workspaceRoot, main),
-    // D:/PROJECT/dist/app1
-    outputPath: path.resolve(workspaceRoot, outputPath),
-    // D:/PROJECT/apps/app1/tsconfigPath.app.json
-    tsconfigPath: path.resolve(workspaceRoot, tsconfigPath),
+    // ABSOLUTE_WORKSPACE_ROOT/PROJECT_LAYOUT/PROJECT/src/main.ts
+    main: path.resolve(absoluteWorkspaceRoot, main),
+    // WORKSPACE/PROJECT/app1
+    outputPath: path.resolve(absoluteWorkspaceRoot, outputPath),
+    // ABSOLUTE_WORKSPACE_ROOT/PROJECT_LAYOUT/PROJECT/tsconfigPath.app.json
+    tsconfigPath: path.resolve(absoluteWorkspaceRoot, tsconfigPath),
     // [{replace:"", with: ""}]
-    fileReplacements,
-    assets: normalizeAssets(options.assets, workspaceRoot, options.outputPath),
-    inserts: formattedInserts,
+    fileReplacements: normalizedFileReplacements,
+    assets: normalizedAssets,
+    // banner & footer
+    inserts: normalizedInserts,
     inject: normalizedInject,
+    watchDir: nomalizedWatchDir,
     extendBuildOptions: userConfigBuildOptions.esbuildOptions ?? {},
     extendWatchOptions: userConfigBuildOptions.watchOptions ?? {},
-    // extendBuildOptions: {},
-    // extendWatchOptions: {},
-    watchDir,
   };
 }

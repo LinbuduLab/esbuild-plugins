@@ -13,7 +13,15 @@ export type Insert = {
   content: string;
 };
 
-export type InsertFileType = 'js' | 'css';
+export enum InsertType {
+  BANNER = 'banner',
+  FOOTER = 'footer',
+}
+
+export enum InsertFileType {
+  JS = 'js',
+  CSS = 'css',
+}
 
 export interface FormattedInsert {
   banner: {
@@ -27,10 +35,11 @@ export interface FormattedInsert {
 export interface ESBuildRunnerOptions extends BuildOptions {
   assets: AssetFileInputOutput[];
   failFast: boolean;
-  watchDir: string;
+  watchDir: string[];
   watchOptions: WatchOptions;
   watchAssetsDir: boolean;
   verbose: boolean;
+  absoulteProjectRoot: string;
 }
 
 export interface ESBuildRunnerResponse {

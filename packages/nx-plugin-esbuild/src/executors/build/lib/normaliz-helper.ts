@@ -1,5 +1,11 @@
 import path from 'path';
-import { Insert, FormattedInsert, FileReplacement } from './types';
+import {
+  Insert,
+  FormattedInsert,
+  FileReplacement,
+  InsertType,
+  InsertFileType,
+} from './types';
 
 export function normalizeInserts(
   inserts: Array<Insert | string>
@@ -15,15 +21,22 @@ export function normalizeInserts(
       const content = typeof insert === 'string' ? insert : insert.content;
 
       typeof insert === 'string'
-        ? (formattedInserts['banner']['js'] = content)
-        : (formattedInserts[insert.banner ? 'banner' : 'footer'][
-            insert.applyToJSFile ? 'js' : 'css'
-          ] = content);
+        ? (formattedInserts[InsertType.BANNER][InsertFileType.JS] = content)
+        : (formattedInserts[
+            insert.banner ? InsertType.BANNER : InsertType.FOOTER
+          ][insert.applyToJSFile ? InsertFileType.JS : InsertFileType.CSS] =
+            content);
     });
 
   return formattedInserts;
 }
 
+/**
+ * Ensure injects's suffix, join with source root path.
+ * @param injects
+ * @param sourceRoot
+ * @returns
+ */
 export function normalizeInject(
   injects: string[],
   sourceRoot: string
@@ -39,6 +52,12 @@ export function normalizeInject(
   });
 }
 
+/**
+ * Update replacement.replace/with to be absolute path
+ * @param projectRoot
+ * @param fileReplacements
+ * @returns
+ */
 export function normalizeFileReplacements(
   projectRoot: string,
   fileReplacements: FileReplacement[]

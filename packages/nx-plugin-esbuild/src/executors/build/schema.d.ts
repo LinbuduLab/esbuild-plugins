@@ -48,12 +48,11 @@ export interface ESBuildExecutorSchema {
   outputPath?: string;
 
   // extend nx-esbuild BuildOptions
-  allowExtend: boolean;
   pluginConfigPath?: string;
 
   failFast: boolean;
   watchAssetsDir: boolean;
-  watchDir: string;
+  watchDir: string | string[];
   clearOutputPath: boolean;
   useMergeCombine: boolean;
 
@@ -105,13 +104,14 @@ export interface ESBuildExecutorSchema {
 
 export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {
   projectName: string;
-  workspaceRoot: string;
+  absoluteWorkspaceRoot: string;
   projectRoot: string;
   projectSourceRoot: string;
   assets: AssetFileInputOutput[];
   inserts: FormattedInsert;
   alias: Record<string, string>;
   inject: string[];
+  watchDir: string[];
   extendBuildOptions: BuildOptions;
   extendWatchOptions: WatchOptions;
 }

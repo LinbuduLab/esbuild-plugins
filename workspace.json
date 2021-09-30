@@ -1081,11 +1081,13 @@
             "failFast": false,
             "watch": true,
             "skipTypeCheck": false,
-            "write": false,
+            "write": true,
             "bundle": true,
             "decoratorHandler": "tsc",
-            "watchDir": "e2e/node-playground/src",
-            "verbose": true
+            "watchDir": ["e2e/node-playground/src"],
+            "watchAssetsDir": true,
+            "verbose": true,
+            "assets": ["e2e/node-playground/assets"]
           },
           "configurations": {
             "production": {

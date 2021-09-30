@@ -1,5 +1,5 @@
-import { ExecutorContext } from '@nrwl/devkit';
-import {
+import type { ExecutorContext } from '@nrwl/devkit';
+import type {
   TscRunnerOptions,
   RunnerSubcriber,
   ExecutorResponse,
@@ -11,7 +11,9 @@ import { bufferUntil, ensureProjectConfig } from 'nx-plugin-devkit';
 import { zip, Observable, of, merge } from 'rxjs';
 import { map, tap, startWith, catchError } from 'rxjs/operators';
 import { eachValueFrom } from 'rxjs-for-await';
+
 import dayjs from 'dayjs';
+import fs from 'fs-extra';
 import path from 'path';
 
 import { runESBuild } from './lib/esbuild-runner';
@@ -23,10 +25,11 @@ import {
 } from './lib/message-fragments';
 import { normalizeBuildExecutorOptions } from './lib/normalize-schema';
 import { resolveESBuildOption } from './lib/resolve-esbuild-option';
+
 import chalk from 'chalk';
-import fs from 'fs-extra';
 import rimraf from 'rimraf';
 import consola from 'consola';
+import { DEFAULT_APP_LAYOUT, DEFAULT_LIB_LAYOUT } from './lib/constants';
 
 export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
@@ -34,22 +37,47 @@ export default function buildExecutor(
 ): AsyncIterableIterator<ExecutorResponse> | Promise<ExecutorResponse> {
   ensureProjectConfig(context);
 
-  const { sourceRoot: projectSourceRoot, root: projectRoot } =
-    context.workspace.projects[context.projectName];
+  const { root, projectName, targetName, workspace } = context;
+
+  const {
+    root: projectRoot,
+    sourceRoot: projectSourceRoot,
+    projectType,
+    targets,
+  } = workspace.projects[projectName];
 
   // As in executor we cannot get `tree`.
-  const appsLayout = projectRoot.split('/')[0] ?? 'apps';
+  const projectLayout =
+    projectRoot.split('/')[0] ?? projectType === 'application'
+      ? DEFAULT_APP_LAYOUT
+      : DEFAULT_LIB_LAYOUT;
 
-  const options = normalizeBuildExecutorOptions(
-    rawOptions,
-    context.root,
-    context.projectName,
+  // normalize commob executor options
+  const normalizedExecutorOptions = normalizeBuildExecutorOptions(rawOptions, {
+    absoluteWorkspaceRoot: root,
+    projectName,
     projectSourceRoot,
     projectRoot,
-    appsLayout
-  );
+    projectLayout,
+  });
 
-  const esBuildOptions = resolveESBuildOption(options);
+  const {
+    extendWatchOptions: watchOptions,
+    outputPath,
+    skipTypeCheck,
+    watch,
+    absoluteWorkspaceRoot,
+    tsconfigPath,
+    failFast,
+    useMergeCombine,
+    assets,
+    watchDir,
+    watchAssetsDir,
+    verbose,
+  } = normalizedExecutorOptions;
+
+  // normalize ESBuild build options
+  const esBuildOptions = resolveESBuildOption(normalizedExecutorOptions);
 
   let buildCounter = 1;
 
@@ -60,12 +88,13 @@ export default function buildExecutor(
 
   const esBuildSubscriber: Observable<RunnerSubcriber> = runESBuild({
     ...esBuildOptions,
-    assets: options.assets,
-    failFast: options.failFast,
-    watchDir: options.watchDir,
-    watchOptions: options.extendWatchOptions,
-    watchAssetsDir: options.watchAssetsDir,
-    verbose: options.verbose,
+    assets,
+    failFast,
+    watchDir,
+    watchOptions,
+    watchAssetsDir,
+    verbose,
+    absoulteProjectRoot: path.join(absoluteWorkspaceRoot, projectRoot),
   }).pipe(
     tap(() => {
       buildCounter++;
@@ -80,7 +109,7 @@ export default function buildExecutor(
         esbuildRunnerLogPrefix()
       );
 
-      if (options.skipTypeCheck) {
+      if (skipTypeCheck) {
         messageFragments.unshift(
           `ESBuild Compiler Starting ${chalk.yellow('(Type Check Skipped)')}...`
         );
@@ -93,8 +122,7 @@ export default function buildExecutor(
     })
   );
 
-  if (options.clearOutputPath) {
-    const { outputPath } = options;
+  if (outputPath) {
     if (fs.existsSync(outputPath)) {
       rimraf.sync(outputPath);
       consola.info(`Output Path ${outputPath} Cleaned.`);
@@ -109,7 +137,7 @@ export default function buildExecutor(
       return {
         success: buildResults?.success,
         // Will not be used in fact.
-        outfile: path.join(options.outputPath, 'main.js'),
+        outfile: path.join(outputPath, 'main.js'),
       };
     }),
     catchError(() => {
@@ -120,11 +148,11 @@ export default function buildExecutor(
     })
   );
 
-  if (!options.watch && options.skipTypeCheck) {
+  if (!watch && skipTypeCheck) {
     return baseESBuildSubscriber.toPromise();
   }
 
-  if (options.watch && options.skipTypeCheck) {
+  if (watch && skipTypeCheck) {
     return eachValueFrom<ExecutorResponse>(baseESBuildSubscriber);
   }
 
@@ -136,10 +164,10 @@ export default function buildExecutor(
     )}`;
 
   const tscRunnerOptions: TscRunnerOptions = {
-    tsconfigPath: options.tsconfigPath,
-    watch: options.watch,
-    root: options.workspaceRoot,
-    failFast: options.failFast,
+    root: absoluteWorkspaceRoot,
+    tsconfigPath,
+    watch,
+    failFast,
   };
 
   const tscSubscriber: Observable<RunnerSubcriber> = runTSC(
@@ -192,7 +220,7 @@ export default function buildExecutor(
     })
   );
 
-  const baseSubscriber = options.useMergeCombine
+  const baseSubscriber = useMergeCombine
     ? merge(esBuildSubscriber, tscSubscriber).pipe(
         startWith({
           success: true,
@@ -207,7 +235,7 @@ export default function buildExecutor(
         map((res): ExecutorResponse => {
           return {
             success: res?.success ?? true,
-            outfile: path.join(options.outputPath, 'main.js'),
+            outfile: path.join(outputPath, 'main.js'),
           };
         })
       )
@@ -235,12 +263,12 @@ export default function buildExecutor(
         map(([buildResults, tscResults]): ExecutorResponse => {
           return {
             success: buildResults?.success && tscResults?.success,
-            outfile: path.join(options.outputPath, 'main.js'),
+            outfile: path.join(outputPath, 'main.js'),
           };
         })
       );
 
-  if (!options.watch) {
+  if (!watch) {
     return baseSubscriber.toPromise();
   }
 

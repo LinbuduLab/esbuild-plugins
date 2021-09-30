@@ -2,11 +2,13 @@ import type { BuildFailure } from 'esbuild';
 import type { ESBuildRunnerOptions, ESBuildRunnerResponse } from './types';
 import { Observable } from 'rxjs';
 import { build } from 'esbuild';
-import chokidar from 'chokidar';
+import chokidar, { FSWatcher } from 'chokidar';
 import { copyAssetFiles } from 'nx-plugin-devkit';
 import chalk from 'chalk';
 import consola from 'consola';
-import { error, info, success } from './log';
+import { info } from './log';
+import uniq from 'lodash/uniq';
+import clear from 'clear';
 
 export function runESBuild(
   options: ESBuildRunnerOptions
@@ -22,32 +24,39 @@ export function runESBuild(
       watchOptions,
       watchAssetsDir,
       verbose,
+      absoulteProjectRoot,
       ...esbuildBuildOptions
     } = options;
 
-    if (typeof options.write === 'boolean' && !options.write) {
-      verbose &&
-        console.log(
-          chalk.yellow('WARN'),
-          `ESBuild ${info('BuildOptions.write')} set to ${info('false')}\n`
-        );
+    if (typeof options.write === 'boolean' && !options.write && verbose) {
+      consola.warn(
+        `ESBuild ${info('BuildOptions.write')} set to ${info('false')}. \n`
+      );
     }
 
     buildWatch &&
-      consola.info(`Watching ${info(`${watchDir}`)} for changes ...\n`);
+      consola.info(
+        `Watching ${info(
+          `${uniq(
+            watchDir.map((dir) =>
+              dir.replace(`${esbuildBuildOptions.absWorkingDir}/`, '')
+            )
+          ).join(', ')}`
+        )} for changes ...\n`
+      );
 
     const { ignored = [], ...restWatchOptions } = watchOptions;
 
-    const watcher = buildWatch
+    const watcher: FSWatcher | null = buildWatch
       ? chokidar.watch(
-          [watchDir].concat(
+          [...watchDir].concat(
             watchAssetsDir ? assetsDirs.map((dir) => dir.input) : []
           ),
           {
             ignored: ['node_modules', '.git']
               .concat(watchAssetsDir ? [] : assetsDirs.map((dir) => dir.input))
               .concat(ignored),
-            cwd: watchDir,
+            cwd: absoulteProjectRoot,
             ignorePermissionErrors: false,
             depth: 99,
             ...restWatchOptions,
@@ -66,6 +75,7 @@ export function runESBuild(
       }
     };
 
+    // Copy assets for the first time
     copyAssetFiles(assetsDirs);
 
     build(esbuildBuildOptions)
@@ -77,7 +87,7 @@ export function runESBuild(
               console.log(
                 `${chalk.white('Changes Detected:')} ${info(
                   eventName.toLocaleUpperCase()
-                )} on ${info(path)}`
+                )} of ${info(path)}`
               );
 
               buildResult
