@@ -25,6 +25,7 @@ export const esbuildPluginAliasPath = (options: Options = {}): Plugin => {
   }
 
   const escapedNamespace = escapeNamespace(Object.keys(alias));
+  console.log('escapedNamespace: ', escapedNamespace);
 
   return {
     name: pluginName,
@@ -55,6 +56,8 @@ export const esbuildPluginAliasPath = (options: Options = {}): Plugin => {
           const hasMatchingPath = Object.keys(compilerOptions.paths).some(
             (path) => new RegExp(path.replace('*', '\\w*')).test(filePath)
           );
+
+          console.log('hasMatchingPath: ', hasMatchingPath);
 
           if (!hasMatchingPath) {
             return null;

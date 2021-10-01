@@ -9,8 +9,9 @@ permalink: /:slug
 Nx plugin integration with [Vite](https://vitejs.dev/).
 
 ```bash
-yarn add nx-plugin-vite -D
-# some required peer deps
+# you can also skip vite installation, which will also be installed when executing generator:app
+yarn add nx-plugin-vite vite -D
+# some required peer deps in nx workspace project
 yarn add @nrwl/node @nrwl/workspace @angular-devkit/schematics -D
 ```
 
@@ -19,24 +20,24 @@ yarn add @nrwl/node @nrwl/workspace @angular-devkit/schematics -D
 ### app
 
 ```bash
-nx g nx-plugin-vite:app  --name vite-app
+nx g nx-plugin-vite:app your-vite-app
 ```
 
-Create a Vite + React template based application(official version) and related workspace targets.
+Create a official `Vite` + `React` template and add plugin related workspace targets in `workspace.json`.
 
 ### setup
 
 ```bash
-nx g nx-plugin-vite:app --project exist-vite-app
+nx g nx-plugin-vite:setup exist-vite-app
 ```
 
-Add vite related workspace targets to exist application.
+Add plugin related workspace targets to **exist application**.
 
 ## Executors
 
-**NOTE: In Nx-Vite project, it's recommended to configurate your vite project by `PROJECT/vite.config.ts`(which also has a higher priority) instead of schema options.**
+**NOTE: In Nx-Vite project, it's recommended to configurate your vite project by `PROJECT/vite.config.ts`(which also has a higher priority) instead of schema options. When a option is defined in both ways, its resolve priority depends on Vite itself.**
 
-**NOTE: In some situations, ternimal output may display abnormally, for example, the vite serve output may disappeared and left only `Nx-Vite [Start] Starting` text. This is indeed a bug and I'm still trying to fix it, but the server has been started correctly at the specified port(`3000` by default, you can also use `--port [port]` to specify as you like.)**
+**NOTE: In some situations, ternimal output may display abnormally, for example when running `nx serve vite`, the vite serve output may disappeared and left only `Nx-Vite [Start] Starting` text. This is indeed a bug and I'm still trying to fix it, but the server has been started correctly at the specified port(`3000` by default, you can also use `--port [port]` to specify as you like.)**
 
 ### serve
 
@@ -45,6 +46,13 @@ nx serve vite-app
 ```
 
 Run `vite` command for project.
+
+Only few options are supported from schema:
+
+- `root`: specify project root, if not configurated, will use `workspace.project.root` instead.
+- `configFile`(required): specify vite config path, relative to project root(or `options.root` if it's specified).
+- `port`.
+- `host`.
 
 Find more supported schema options in [Vite.Executor.Serve](/packages/nx-plugin-vite/src/executors/serve/schema.json).
 
@@ -56,11 +64,15 @@ nx build vite-app
 
 Run `vite build` command for project.
 
-Find more supported schema options in [Vite.Executor.Build](/packages/nx-plugin-vite/src/executors/build/schema.json).
+Only few options are supported from schema:
 
-Extra schema options:
-
-- `emitAtRootLevel`(default: `false`): Specify should emit built dist file in workspace root level, and `--outDir` will still be used for path calculation. For example:
+- `root`: specify project root, if not configurated, will use `workspace.project.root` instead.
+- `configFile`(required): specify vite config path, relative to project root(or `options.root` if it's specified).
+- `outDir`
+- `watch`
+- `write`
+- `manifest`
+- `emitAtRootLevel`(default: `false`): specify should emit built dist file in workspace root level, and `--outDir` will still be used for path calculation. For example:
 
   ```json
   {
@@ -71,6 +83,8 @@ Extra schema options:
 
   Configurations above will use `WORKSPACE_ROOT/dist` as dist directory, instead it will be `WORKSPACE_ROOT/APPS_DIR/vite-app/dist` if you set `emitAtRootLevel` to be `false`.
 
+Find more supported schema options in [Vite.Executor.Build](/packages/nx-plugin-vite/src/executors/build/schema.json).
+
 ### preview
 
 ```bash
@@ -78,5 +92,9 @@ nx preview vite-app
 ```
 
 Run `vite preview` command for project.
+
+- `root`: specify project root, if not configurated, will use `workspace.project.root` instead.
+- `configFile`(required): specify vite config path, relative to project root(or `options.root` if it's specified).
+- `port`
 
 Find more supported schema options in [Vite.Executor.Preview](/packages/nx-plugin-vite/src/executors/preview/schema.json).

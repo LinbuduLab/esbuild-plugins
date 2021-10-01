@@ -45,7 +45,7 @@ export function normalizeOption(options: Options = {}): NormalizedOptions {
   // this feature is to support nx json configuration
   // const resolveModule = options?.resolveModule ?? true;
 
-  const normalizedAlias: Record<string, string> = {};
+  // const normalizedAlias: Record<string, string> = {};
 
   // for (const [from, to] of Object.entries(alias)) {
   //   if (

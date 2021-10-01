@@ -132,6 +132,7 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-workspace"]
     },
+    "prisma-app": {},
     "react-app": {
       "tags": []
     },

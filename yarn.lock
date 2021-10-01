@@ -4779,6 +4779,11 @@
   dependencies:
     "@types/jest" "*"
 
+"@types/tmp@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.nlark.com/@types/tmp/download/@types/tmp-0.2.1.tgz?cache=0&sync_timestamp=1629709495219&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Ftmp%2Fdownload%2F%40types%2Ftmp-0.2.1.tgz#83ecf4ec22a8c218c71db25f316619fe5b986011"
+  integrity sha1-g+z07CKowhjHHbJfMWYZ/luYYBE=
+
 "@types/trusted-types@^2.0.2":
   version "2.0.2"
   resolved "https://registry.nlark.com/@types/trusted-types/download/@types/trusted-types-2.0.2.tgz?cache=0&sync_timestamp=1629709492517&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Ftrusted-types%2Fdownload%2F%40types%2Ftrusted-types-2.0.2.tgz#fc25ad9943bcac11cceb8168db4f275e0e72e756"
