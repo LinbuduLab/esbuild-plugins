@@ -62,6 +62,7 @@ export interface TscRunnerOptions {
   watch: boolean;
   root: string;
   failFast: boolean;
+  projectRoot: string;
 }
 
 export interface TscRunnerResponse {

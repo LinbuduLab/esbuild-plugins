@@ -170,6 +170,7 @@ export default function buildExecutor(
     tsconfigPath,
     watch,
     failFast,
+    projectRoot,
   };
 
   const tscSubscriber: Observable<RunnerSubcriber> = runTSC(
@@ -258,7 +259,7 @@ export default function buildExecutor(
         ]),
 
         tap(([buildResults, tscResults]) => {
-          console.log(tscResults.messageFragments.join('\n'));
+          console.log(tscResults.messageFragments.join(''));
           console.log(buildResults.messageFragments.join('\n'));
         }),
 

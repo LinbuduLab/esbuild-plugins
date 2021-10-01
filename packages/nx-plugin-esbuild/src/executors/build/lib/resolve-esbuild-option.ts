@@ -6,33 +6,13 @@ import type { NormalizedESBuildExecutorSchema } from '../schema';
 export function resolveESBuildOption(
   options: NormalizedESBuildExecutorSchema
 ): BuildOptions {
-  // FIXME: doesnot seems to be good solution
-  const presetPlugins = [
-    // esbuildPluginDecorator({
-    //   tsconfigPath: options.tsconfigPath,
-    //   compiler: 'tsc',
-    //   verbose: options.verbose,
-    // }),
-    // options.externalDependencies === 'all' && esbuildPluginNodeExternals(),
-    // esbuildPluginAliasPath({
-    //   alias: options.alias,
-    //   tsconfigPath: options.tsconfigPath,
-    // }),
-  ].filter(Boolean);
-
   const external = Array.isArray(options.externalDependencies)
     ? options.externalDependencies
     : [];
 
   const userConfigPlugins = options?.extendBuildOptions?.plugins ?? [];
 
-  const dedupedPluginList = uniqBy(
-    // [...presetPlugins, ...userConfigPlugins],
-    [...presetPlugins],
-    (plugin) => plugin.name
-  );
-
-  delete options.extendBuildOptions?.plugins;
+  const dedupedPluginList = uniqBy(userConfigPlugins, (plugin) => plugin.name);
 
   const esbuildRunnerOptions: BuildOptions = {
     tsconfig: options.tsconfigPath,

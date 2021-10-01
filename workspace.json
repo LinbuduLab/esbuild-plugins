@@ -442,14 +442,18 @@
           "options": {
             "main": "e2e/node-playground/src/main.ts",
             "outputPath": "e2e/node-playground/dist",
-            "tsconfigPath": "e2e/node-playground/tsconfig.app.json",
+            "tsconfigPath": "e2e/node-playground/tsconfig.json",
+            "pluginConfigPath": "nx-esbuild.ts",
             "failFast": false,
             "watch": true,
             "skipTypeCheck": false,
             "write": true,
             "bundle": true,
             "decoratorHandler": "tsc",
-            "watchDir": ["e2e/node-playground/src"],
+            "watchDir": [
+              "e2e/node-playground/src",
+              "e2e/node-playground/nx-esbuild.ts"
+            ],
             "watchAssetsDir": true,
             "assets": ["e2e/node-playground/assets"]
           },

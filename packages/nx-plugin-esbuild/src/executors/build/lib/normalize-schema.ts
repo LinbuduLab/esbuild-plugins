@@ -112,7 +112,7 @@ export function normalizeBuildExecutorOptions(
     projectRoot,
     // ABSOLUTE_WORKSPACE_ROOT/PROJECT_LAYOUT/PROJECT/src/main.ts
     main: path.resolve(absoluteWorkspaceRoot, main),
-    // WORKSPACE/PROJECT/app1
+    // WORKSPACE/PROJECT/dist
     outputPath: path.resolve(absoluteWorkspaceRoot, outputPath),
     // ABSOLUTE_WORKSPACE_ROOT/PROJECT_LAYOUT/PROJECT/tsconfigPath.app.json
     tsconfigPath: path.resolve(absoluteWorkspaceRoot, tsconfigPath),

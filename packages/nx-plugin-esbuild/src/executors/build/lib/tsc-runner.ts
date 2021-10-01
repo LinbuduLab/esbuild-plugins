@@ -1,23 +1,16 @@
 import { Observable } from 'rxjs';
 import path from 'path';
-import fs from 'fs-extra';
-import { error, info } from './log';
 import execa from 'execa';
 
 import type { TscRunnerOptions, TscRunnerResponse } from './types';
 
-export function runTSC({ tsconfigPath, watch, root }: TscRunnerOptions) {
+export function runTSC({
+  tsconfigPath,
+  watch,
+  root,
+  projectRoot,
+}: TscRunnerOptions) {
   return new Observable<TscRunnerResponse>((subscriber) => {
-    const tscLocalBinPath = path.join(root, 'node_modules', '.bin', 'tsc');
-
-    if (!fs.existsSync(tscLocalBinPath)) {
-      console.log(
-        `${error(`tsc is not found in ${tscLocalBinPath}, run`)} ${info(
-          'npm intsall typescript'
-        )} ${error('first to retry')}`
-      );
-    }
-
     // --pretty
     const args: string[] = ['--noEmit'];
 
@@ -31,11 +24,13 @@ export function runTSC({ tsconfigPath, watch, root }: TscRunnerOptions) {
     const errorSig = 'error TS';
 
     let errorCount = 0;
-    const childProcess = execa(tscLocalBinPath, args, {
+    const childProcess = execa('tsc', args, {
       // set shell to be true, or add suffix '.cmd'/".exe"/".bat" in Windows
       shell: true,
       // child_process.stdio.pipe(sub_process)
       stdio: 'pipe',
+      preferLocal: true,
+      cwd: path.join(root, projectRoot),
     });
 
     childProcess.stdout.on('data', (data: Buffer) => {
@@ -57,8 +52,9 @@ export function runTSC({ tsconfigPath, watch, root }: TscRunnerOptions) {
 
     // TODO: check by add unknown options to tsc
     // childProcess.stderr.on('error', (tscError) => {
+    //   console.log('tscError: ', tscError);
     //   console.log('Error emit from stderr');
-    //   subscriber.next({ tscError });
+    //   // subscriber.next({ tscError });
     //   console.log('=== Data emit from stderr END ===');
     // });
 

@@ -59,6 +59,7 @@ export function runESBuild(
             cwd: absoulteProjectRoot,
             ignorePermissionErrors: false,
             depth: 99,
+            ignoreInitial: true,
             ...restWatchOptions,
           }
         )
@@ -84,10 +85,12 @@ export function runESBuild(
 
         buildWatch
           ? watcher.on('all', (eventName, path) => {
+              clear();
+
               consola.info(
                 `${chalk.white('Changes Detected:')} ${info(
                   eventName.toLocaleUpperCase()
-                )} of ${info(path)}`
+                )} of ${info(path)}, rebuilding...`
               );
 
               buildResult

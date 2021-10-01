@@ -1,11 +1,16 @@
 {
   "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": "./",
+    "rootDir": "./",
+    "paths": {
+      "@alias/*": ["./src/alias/*"]
+    }
+  },
   "files": [],
-  "include": [],
+  "include": ["src"],
   "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
     {
       "path": "./tsconfig.spec.json"
     }

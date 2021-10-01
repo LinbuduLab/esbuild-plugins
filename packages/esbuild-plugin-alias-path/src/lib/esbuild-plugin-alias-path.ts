@@ -25,7 +25,6 @@ export const esbuildPluginAliasPath = (options: Options = {}): Plugin => {
   }
 
   const escapedNamespace = escapeNamespace(Object.keys(alias));
-  console.log('escapedNamespace: ', escapedNamespace);
 
   return {
     name: pluginName,
@@ -49,6 +48,8 @@ export const esbuildPluginAliasPath = (options: Options = {}): Plugin => {
       build.onResolve(
         { filter: /.*/ },
         async ({ path: filePath, importer }) => {
+          console.log('importer: ', importer);
+          console.log('filePath: ', filePath);
           if (!compilerOptions.paths) {
             return null;
           }
