@@ -437,9 +437,6 @@
       "sourceRoot": "e2e/node-playground/src",
       "projectType": "application",
       "targets": {
-        "swc": {
-          "executor": "nx-plugin-swc:build"
-        },
         "esbuild-build": {
           "executor": "nx-plugin-esbuild:build",
           "options": {
@@ -665,75 +662,6 @@
         }
       }
     },
-    "nx-plugin-ice": {
-      "root": "packages/nx-plugin-ice",
-      "sourceRoot": "packages/nx-plugin-ice/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-ice/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-ice"],
-          "options": {
-            "jestConfig": "packages/nx-plugin-ice/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/nx-plugin-ice",
-            "tsConfig": "packages/nx-plugin-ice/tsconfig.lib.json",
-            "packageJson": "packages/nx-plugin-ice/package.json",
-            "main": "packages/nx-plugin-ice/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-ice/*.md",
-              {
-                "input": "./packages/nx-plugin-ice/src",
-                "glob": "**/!(*.ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-ice/src",
-                "glob": "**/*.d.ts",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-ice",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./packages/nx-plugin-ice",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "nx-plugin-ice-e2e": {
-      "root": "e2e/nx-plugin-ice-e2e",
-      "projectType": "application",
-      "sourceRoot": "e2e/nx-plugin-ice-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-plugin-ice:build",
-            "jestConfig": "e2e/nx-plugin-ice-e2e/jest.config.js"
-          }
-        }
-      }
-    },
     "nx-plugin-prisma": {
       "root": "packages/nx-plugin-prisma",
       "sourceRoot": "packages/nx-plugin-prisma/src",
@@ -866,74 +794,6 @@
           "options": {
             "target": "nx-plugin-snowpack:build",
             "jestConfig": "e2e/nx-plugin-snowpack-e2e/jest.config.js"
-          }
-        }
-      }
-    },
-    "nx-plugin-swc": {
-      "root": "packages/nx-plugin-swc",
-      "sourceRoot": "packages/nx-plugin-swc/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["packages/nx-plugin-swc/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/nx-plugin-swc"],
-          "options": {
-            "jestConfig": "packages/nx-plugin-swc/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "./packages/nx-plugin-swc/dist",
-            "tsConfig": "packages/nx-plugin-swc/tsconfig.json",
-            "packageJson": "packages/nx-plugin-swc/package.json",
-            "main": "packages/nx-plugin-swc/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-swc/*.md",
-              {
-                "input": "./packages/nx-plugin-swc/src",
-                "glob": "**/!(*.ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-swc/src",
-                "glob": "**/*.d.ts",
-                "output": "./src"
-              },
-              {
-                "input": "./packages/nx-plugin-swc",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./packages/nx-plugin-swc",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "nx-plugin-swc-e2e": {
-      "root": "e2e/nx-plugin-swc-e2e",
-      "projectType": "application",
-      "sourceRoot": "e2e/nx-plugin-swc-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-plugin-swc:build",
-            "jestConfig": "e2e/nx-plugin-swc-e2e/jest.config.js"
           }
         }
       }

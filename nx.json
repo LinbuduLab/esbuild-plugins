@@ -90,13 +90,6 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-esbuild"]
     },
-    "nx-plugin-ice": {
-      "tags": []
-    },
-    "nx-plugin-ice-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-ice"]
-    },
     "nx-plugin-prisma": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
@@ -111,13 +104,6 @@
     "nx-plugin-snowpack-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-snowpack"]
-    },
-    "nx-plugin-swc": {
-      "tags": []
-    },
-    "nx-plugin-swc-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-swc"]
     },
     "nx-plugin-vite": {
       "tags": []
