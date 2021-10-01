@@ -2,25 +2,22 @@ import type { BuildOptions } from 'esbuild';
 import uniqBy from 'lodash/uniqBy';
 import type { NormalizedESBuildExecutorSchema } from '../schema';
 
-import { esbuildPluginDecorator } from 'esbuild-plugin-decorator';
-import { esbuildPluginNodeExternals } from 'esbuild-plugin-node-externals';
-import { esbuildPluginAliasPath } from 'esbuild-plugin-alias-path';
-
+// remove built-in plugins
 export function resolveESBuildOption(
   options: NormalizedESBuildExecutorSchema
 ): BuildOptions {
-  // A group of built-in ESBuild plugin
+  // FIXME: doesnot seems to be good solution
   const presetPlugins = [
-    esbuildPluginDecorator({
-      tsconfigPath: options.tsconfigPath,
-      compiler: 'tsc',
-      verbose: options.verbose,
-    }),
-    options.externalDependencies === 'all' && esbuildPluginNodeExternals(),
-    esbuildPluginAliasPath({
-      alias: options.alias,
-      tsconfigPath: options.tsconfigPath,
-    }),
+    // esbuildPluginDecorator({
+    //   tsconfigPath: options.tsconfigPath,
+    //   compiler: 'tsc',
+    //   verbose: options.verbose,
+    // }),
+    // options.externalDependencies === 'all' && esbuildPluginNodeExternals(),
+    // esbuildPluginAliasPath({
+    //   alias: options.alias,
+    //   tsconfigPath: options.tsconfigPath,
+    // }),
   ].filter(Boolean);
 
   const external = Array.isArray(options.externalDependencies)
@@ -30,7 +27,8 @@ export function resolveESBuildOption(
   const userConfigPlugins = options?.extendBuildOptions?.plugins ?? [];
 
   const dedupedPluginList = uniqBy(
-    [...presetPlugins, ...userConfigPlugins],
+    // [...presetPlugins, ...userConfigPlugins],
+    [...presetPlugins],
     (plugin) => plugin.name
   );
 

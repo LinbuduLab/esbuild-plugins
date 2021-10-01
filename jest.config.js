@@ -29,7 +29,7 @@ module.exports = {
     '<rootDir>/e2e/nx-plugin-swc-e2e',
     '<rootDir>/e2e/node-playground',
     '<rootDir>/e2e/nx-plugin-ice-e2e',
-    '<rootDir>/e2e/esbuild-app',
     '<rootDir>/e2e/prisma-app',
+    '<rootDir>/e2e/esbuild-node-app',
   ],
 };

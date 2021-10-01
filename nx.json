@@ -34,8 +34,9 @@
   },
   "projects": {
     "astro-playground": {},
-    "esbuild-app": {
-      "tags": []
+    "esbuild-node-app": {
+      "tags": [],
+      "implicitDependencies": ["nx-plugin-esbuild"]
     },
     "esbuild-plugin-alias-path": {
       "tags": []

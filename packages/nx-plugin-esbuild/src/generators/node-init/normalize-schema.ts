@@ -1,4 +1,9 @@
-import { Tree, joinPathFragments, getWorkspaceLayout } from '@nrwl/devkit';
+import {
+  Tree,
+  joinPathFragments,
+  getWorkspaceLayout,
+  readWorkspaceConfiguration,
+} from '@nrwl/devkit';
 import { normalizeNodeAppSchema } from 'nx-plugin-devkit';
 
 import {
@@ -37,11 +42,15 @@ export function normalizeSchema(
       ? joinPathFragments(appsDir, schema.tsconfigPath)
       : // src/tsconfig.app.json
         joinPathFragments(projectRoot, schema.tsconfigPath)
-    : `${projectRoot}/tsconfig.app.json`;
+    : `${projectRoot}/tsconfig.json`;
 
   const extraOptions: ESBuildInitGeneratorExtraSchema = {
     entry,
-    outputPath: schema.outputPath ?? `dist/apps/${projectName}`,
+    outputPath:
+      schema.outputPath ??
+      `${
+        readWorkspaceConfiguration(host).workspaceLayout.appsDir
+      }/${projectName}/dist`,
     tsconfigPath,
     assets: schema.assets ?? [`${projectRoot}/src/assets`],
     watch: schema.watch,

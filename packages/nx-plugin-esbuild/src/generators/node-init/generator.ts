@@ -104,11 +104,7 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
 
   const installDepsTask = addDependenciesToPackageJson(
     host,
-    {
-      'esbuild-plugin-decorator': 'latest',
-      'esbuild-plugin-alias-path': 'latest',
-      'esbuild-plugin-node-externals': 'latest',
-    },
+    {},
     {
       esbuild: esbuildPackageVersion,
     }

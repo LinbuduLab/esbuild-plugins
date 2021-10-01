@@ -27,7 +27,6 @@ export function createNodeAppBuildConfig<
     options: {
       outputPath: joinPathFragments('dist', schema.projectRoot),
       main: joinPathFragments(schema.projectSourceRoot, 'main.ts'),
-      tsConfig: joinPathFragments(schema.projectRoot, 'tsconfig.app.json'),
       assets: [joinPathFragments(schema.projectSourceRoot, 'assets')],
       ...extendBuildTarget.options,
     },

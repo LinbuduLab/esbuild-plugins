@@ -20,20 +20,19 @@
         }
       }
     },
-    "esbuild-app": {
-      "root": "e2e/esbuild-app",
-      "sourceRoot": "e2e/esbuild-app/src",
+    "esbuild-node-app": {
+      "root": "e2e/esbuild-node-app",
+      "sourceRoot": "e2e/esbuild-node-app/src",
       "projectType": "application",
       "targets": {
         "build": {
           "executor": "nx-plugin-esbuild:build",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/esbuild-app",
-            "main": "e2e/esbuild-app/src/main.ts",
-            "tsConfig": "e2e/esbuild-app/tsconfig.app.json",
-            "assets": ["e2e/esbuild-app/src/assets"],
-            "tsconfigPath": "e2e/esbuild-app/tsconfig.app.json",
+            "outputPath": "e2e/esbuild-node-app/dist",
+            "main": "e2e/esbuild-node-app/src/main.ts",
+            "assets": ["e2e/esbuild-node-app/src/assets"],
+            "tsconfigPath": "e2e/esbuild-node-app/tsconfig.json",
             "watch": false,
             "bundle": true,
             "decoratorHandler": "tsc",
@@ -43,14 +42,14 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "e2e/esbuild-app/src/environments/environment.ts",
-                  "with": "e2e/esbuild-app/src/environments/environment.prod.ts"
+                  "replace": "e2e/esbuild-node-app/src/environments/environment.ts",
+                  "with": "e2e/esbuild-node-app/src/environments/environment.prod.ts"
                 }
               ],
               "aliases": [
                 {
                   "from": "./environments/environment",
-                  "to": "/Users/linbudu/Desktop/OPEN_SOURCE/nx-plugins/e2e/esbuild-app/src/environments/environment.prod.ts"
+                  "to": "/Users/linbudu/Desktop/OPEN_SOURCE/nx-plugins/e2e/esbuild-node-app/src/environments/environment.prod.ts"
                 }
               ],
               "skipTypeCheck": false,
@@ -65,11 +64,11 @@
         "serve": {
           "executor": "nx-plugin-workspace:node-serve",
           "options": {
-            "buildTarget": "esbuild-app:build"
+            "buildTarget": "esbuild-node-app:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "esbuild-app:build:production"
+              "buildTarget": "esbuild-node-app:build:production"
             }
           }
         },
@@ -77,14 +76,14 @@
           "executor": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["e2e/esbuild-app/**/*.ts"]
+            "lintFilePatterns": ["e2e/esbuild-node-app/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/e2e/esbuild-app"],
+          "outputs": ["coverage/e2e/esbuild-node-app"],
           "options": {
-            "jestConfig": "e2e/esbuild-app/jest.config.js",
+            "jestConfig": "e2e/esbuild-node-app/jest.config.js",
             "passWithNoTests": true
           }
         }

@@ -11,6 +11,7 @@
       "e2e/astro-playground",
       "e2e/vite-app",
       "e2e/snowpack-app",
+      "e2e/esbuild-node-app",
       "e2e/tmp",
       "e2e/prisma-app",
       "e2e/ice-vite-app",
