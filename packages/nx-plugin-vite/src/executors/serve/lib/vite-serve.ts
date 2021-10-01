@@ -15,7 +15,7 @@ export interface ServeRes {
 export const startViteServer = (
   schema: ViteServeSchema
 ): Observable<ServeRes> => {
-  const { root, configFile, port, watch } = schema;
+  const { root, configFile, port, watch, host, https } = schema;
 
   const serverFactory = createServer({
     root,
@@ -23,6 +23,8 @@ export const startViteServer = (
     server: {
       port,
       watch: watch ? {} : null,
+      host,
+      https,
     },
   });
 

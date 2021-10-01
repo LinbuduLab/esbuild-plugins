@@ -15,6 +15,9 @@ export const pluginSpecifiedTargets = (
       executor: 'nx-plugin-vite:serve',
       options: {
         configFile,
+        port: 3000,
+        host: false,
+        https: false,
       },
     },
     preview: {
@@ -29,6 +32,7 @@ export const pluginSpecifiedTargets = (
         outDir: 'dist',
         configFile,
         watch: false,
+        write: true,
         emitAtRootLevel: false,
         manifest: true,
       },

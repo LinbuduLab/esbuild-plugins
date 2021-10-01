@@ -20,6 +20,14 @@
     "port": {
       "type": "number",
       "default": 3000
+    },
+    "host": {
+      "type": "boolean",
+      "default": false
+    },
+    "https": {
+      "type": "boolean",
+      "default": false
     }
   },
   "required": ["configFile"]

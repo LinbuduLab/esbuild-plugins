@@ -3,4 +3,6 @@ export interface ViteServeSchema {
   configFile: string;
   port: number;
   watch: boolean;
+  host: boolean;
+  https: boolean;
 }
