@@ -4,6 +4,7 @@ import {
   installPackagesTask,
   GeneratorCallback,
   addDependenciesToPackageJson,
+  updateJson,
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import path from 'path';
@@ -45,8 +46,8 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
   const initTask = await createNodeInitTask(host);
   tasks.push(initTask);
 
-  const buildTargetName = 'build';
-  const serveTargetName = 'serve';
+  const buildTargetName = 'esbuild-build';
+  const serveTargetName = 'esbuild-serve';
 
   createNodeAppProject(
     host,
@@ -87,8 +88,10 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
   const lintTask = await createNodeLintTask(host, normalizedSchema);
   tasks.push(lintTask);
 
-  const jestTask = await createNodeJestTask(host, normalizedSchema);
-  tasks.push(jestTask);
+  // FIXME: tsconfig.spec.json must has compilerOptions.composite defined
+  // some configurarion should be overrided in tsconfig.spec.json
+  // const jestTask = await createNodeJestTask(host, normalizedSchema);
+  // tasks.push(jestTask);
 
   setupProxy(host, normalizedSchema);
   setDefaultProject(host, normalizedSchema);

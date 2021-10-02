@@ -16,7 +16,6 @@ import {
 import consola from 'consola';
 import chalk from 'chalk';
 import { DEFAULT_EXTEND_CONFIG_FILE } from './constants';
-import { NXESBuildConfigExport } from 'src';
 import { ensureArray } from './utils';
 
 export interface ExtraNormalizeOptions {

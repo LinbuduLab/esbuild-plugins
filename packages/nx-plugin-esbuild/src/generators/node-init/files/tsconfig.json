@@ -1,6 +1,12 @@
 {
   "extends": "<%= offset %>tsconfig.base.json",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": "./",
+    "rootDir": "./",
+    "paths": {}
+  },
   "files": [],
-  "include": [],
+  "include": ["src"],
   "references": []
 }

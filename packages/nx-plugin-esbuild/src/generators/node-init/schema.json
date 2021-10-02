@@ -27,7 +27,7 @@
       "type": "boolean",
       "alias": "w",
       "description": "Enable Build Watching?",
-      "default": false
+      "default": true
     },
     "bundle": {
       "type": "boolean",

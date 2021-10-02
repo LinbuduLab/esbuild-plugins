@@ -1,6 +1,4 @@
 import type { ESBuildRunnerResponse, TscRunnerResponse } from './types';
-import consola from 'consola';
-import chalk from 'chalk';
 import {
   warning as warningTxt,
   error as errorTxt,
