@@ -11,7 +11,11 @@ import pacote from 'pacote';
 
 import { NormalizedESBuildSetupGeneratorSchema } from './schema';
 import { normalizeSchema } from './normalize-schema';
-import { ESBUILD_DEP_VERSION } from '../utils/constants';
+import {
+  BUILD_TARGET_NAME,
+  ESBUILD_DEP_VERSION,
+  SERVE_TARGET_NAME,
+} from '../../utils/constants';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
 export default async function (
@@ -29,7 +33,6 @@ export default async function (
     entry,
     tsconfigPath,
     outputPath,
-    override,
     watch,
     assets,
   } = normalizedSchema;
@@ -64,13 +67,8 @@ export default async function (
     },
   };
 
-  if (override || (!buildTargetConfig && !serveTargetConfig)) {
-    projectConfig.targets['build'] = setupBuildTargetConfig;
-    projectConfig.targets['serve'] = setupServeTargetConfig;
-  } else {
-    projectConfig.targets['esbuild-build'] = setupBuildTargetConfig;
-    projectConfig.targets['esbuild-serve'] = setupServeTargetConfig;
-  }
+  projectConfig.targets[BUILD_TARGET_NAME] = setupBuildTargetConfig;
+  projectConfig.targets[SERVE_TARGET_NAME] = setupServeTargetConfig;
 
   updateProjectConfiguration(host, projectName, projectConfig);
 
@@ -86,9 +84,7 @@ export default async function (
   const installDepsTask = addDependenciesToPackageJson(
     host,
     {
-      'esbuild-plugin-decorator': 'latest',
       'esbuild-plugin-alias-path': 'latest',
-      'esbuild-plugin-node-externals': 'latest',
     },
     {
       esbuild: esbuildPackageVersion,
@@ -101,13 +97,10 @@ export default async function (
 
   addDependenciesToPackageJson(
     host,
-    {
-      'esbuild-plugin-decorator': 'latest',
-      'esbuild-plugin-alias-path': 'latest',
-      'esbuild-plugin-node-externals': 'latest',
-    },
+    {},
     {
       esbuild: esbuildPackageVersion,
+      'esbuild-plugin-alias-path': 'latest',
     }
   );
 

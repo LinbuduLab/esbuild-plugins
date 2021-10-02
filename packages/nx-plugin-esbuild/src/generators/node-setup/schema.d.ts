@@ -2,7 +2,6 @@ import { TargetConfiguration } from '@nrwl/devkit';
 
 export interface ESBuildSetupGeneratorSchema {
   app: string;
-  override: boolean;
 
   watch: boolean;
   decoratorHandler: 'tsc' | 'swc';

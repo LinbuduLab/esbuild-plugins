@@ -22,7 +22,7 @@
       "type": "string",
       "description": "The output path of the generated files(relative to workspace root)."
     },
-    "pluginConfigPath": {
+    "extendConfigPath": {
       "type": "string",
       "description": "The path of nx-esbuild config file to extend(relative to project root)"
     },
@@ -184,17 +184,13 @@
     },
     "define": {
       "type": "object",
+      "additionalProperties": true,
       "description": "ESBuild define options, support string literal replacement only",
       "default": {}
     },
     "metaFile": {
       "type": "boolean",
       "description": "Generates a 'meta.json' file by esbuild",
-      "default": false
-    },
-    "extractLicenses": {
-      "type": "boolean",
-      "description": "(Not supported yet!)Extract all licenses in a separate file, in the case of production builds only.",
       "default": false
     },
     "minify": {
@@ -255,12 +251,6 @@
       "type": "boolean",
       "description": "Generates a package.json file with the project's node_module dependencies populated for installing in a container. If a package.json exists in the project's directory, it will be reused with dependencies populated.",
       "default": false
-    },
-    "decoratorHandler": {
-      "type": "string",
-      "description": "Decorator handler in compilayion.",
-      "enum": ["tsc", "swc"],
-      "default": "tsc"
     }
   },
   "required": ["main", "tsconfigPath"],

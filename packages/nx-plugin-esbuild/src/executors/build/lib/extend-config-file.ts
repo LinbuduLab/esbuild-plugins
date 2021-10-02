@@ -16,11 +16,13 @@ export function normalizeESBuildExtendConfig(
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const resolvedModule = require(configPath);
 
+    consola.success('Successfully load extend config.\n');
+
     return resolvedModule.default as NXESBuildConfigExport;
   } catch (error) {
     verbose && consola.error(error);
     consola.warn(
-      `Reading config file ${chalk.yellow(configPath)} failed, skipped.`
+      `Reading config file ${chalk.yellow(configPath)} failed, skipped.\n`
     );
   }
 }

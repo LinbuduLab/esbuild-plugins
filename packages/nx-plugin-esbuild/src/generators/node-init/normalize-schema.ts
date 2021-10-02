@@ -21,6 +21,7 @@ export function normalizeSchema(
   const { projectName, projectRoot } = basicNormalizedAppGenSchema;
 
   const { appsDir } = getWorkspaceLayout(host);
+  console.log('appsDir: ', appsDir);
 
   const entry = schema.entry
     ? // apps/app1/src/main.ts
@@ -46,11 +47,7 @@ export function normalizeSchema(
 
   const extraOptions: ESBuildInitGeneratorExtraSchema = {
     entry,
-    outputPath:
-      schema.outputPath ??
-      `${
-        readWorkspaceConfiguration(host).workspaceLayout.appsDir
-      }/${projectName}/dist`,
+    outputPath: schema.outputPath ?? `${appsDir}/${projectName}/dist`,
     tsconfigPath,
     assets: schema.assets ?? [`${projectRoot}/src/assets`],
     watch: schema.watch,

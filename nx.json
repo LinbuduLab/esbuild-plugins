@@ -35,8 +35,7 @@
   "projects": {
     "astro-playground": {},
     "esbuild-node-app": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-esbuild"]
+      "tags": []
     },
     "esbuild-plugin-alias-path": {
       "tags": []
@@ -71,9 +70,6 @@
     "ice-vite-app": {
       "tags": [],
       "implicitDependencies": []
-    },
-    "node-playground": {
-      "tags": []
     },
     "nx-plugin-devkit": {
       "tags": []

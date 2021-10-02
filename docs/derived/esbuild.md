@@ -2,7 +2,7 @@
 
 ## alias path
 
-ESBuild plugin for alias / tsconfig-paths.
+ESBuild plugin for alias replacement.
 
 **Node: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
 
@@ -20,21 +20,18 @@ import { esbuildPluginAliasPath } from 'esbuild-plugin-alias-path';
   const res = await build({
     entryPoints: ['./src/main.ts'],
     bundle: true,
-    tsconfig: './tsconfig.json',
     outfile: './dist/main.js',
     plugins: [
       esbuildPluginAliasPath({
-        alias: { '@/foo': './src/alias/foo.ts' },
-        tsconfigPath: './tsconfig.json',
+        alias: { '@foo': './src/alias/foo.ts' },
       }),
     ],
-    platform: 'node',
-    format: 'cjs',
   });
 })();
 
 // src/main.ts
-import { FOO } from '@/foo';
+import { FOO } from '@foo';
+console.log(FOO);
 
 // src/alias/foo.ts
 export const FOO = 'foo';
@@ -46,15 +43,28 @@ export const FOO = 'foo';
 export interface Options {
   // alias pairs, default: {}
   // {"replace-key": "replace-with"}
-  // if value of k-v is absolute path, it will be used directly
-  // or the path will be resolved with process.cwd()
+  // if value of k-v pair is absolute path, it will be used directly or the path will be resolved with cwd
   alias?: Record<string, string>;
-  // tsconfig.json path
-  tsconfigPath?: string;
   // should this plugin be skipped
   skip?: boolean;
+  // default: process.cwd()
+  cwd?: string;
 }
 ```
+
+You can also use syntax `*` like `@alias/*`:
+
+```typescript
+esbuildPluginAliasPath({
+  alias: {
+    '@alias/*': path.resolve(__dirname, './src/alias'),
+  },
+});
+```
+
+**NOTE: Only files under the `alias` dir will be resolved, the nested file will be ignored instead.**
+
+**NOTE: In TypeScript project, `compilerOptions.paths` in `tsconfig.json` will be used by ESBuild automatically, so you will not need to use this plugin.**
 
 ## clean
 

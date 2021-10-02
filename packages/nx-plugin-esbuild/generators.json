@@ -8,10 +8,10 @@
       "schema": "./src/generators/node-init/schema.json",
       "description": "node init generator"
     },
-    "setup": {
-      "factory": "./src/generators/setup/generator",
-      "schema": "./src/generators/setup/schema.json",
-      "description": "setup generator"
+    "node-setup": {
+      "factory": "./src/generators/node-setup/generator",
+      "schema": "./src/generators/node-setup/schema.json",
+      "description": "node setup generator"
     }
   }
 }

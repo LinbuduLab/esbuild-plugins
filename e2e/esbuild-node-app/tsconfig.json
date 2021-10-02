@@ -1,10 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": "./",
+    "rootDir": "./",
+    "paths": {}
+  },
   "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ]
+  "include": ["src"],
+  "references": []
 }

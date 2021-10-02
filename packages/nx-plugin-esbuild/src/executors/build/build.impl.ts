@@ -25,11 +25,11 @@ import {
 } from './lib/message-fragments';
 import { normalizeBuildExecutorOptions } from './lib/normalize-schema';
 import { resolveESBuildOption } from './lib/resolve-esbuild-option';
+import { DEFAULT_APP_LAYOUT, DEFAULT_LIB_LAYOUT } from '../../utils/constants';
 
 import chalk from 'chalk';
 import rimraf from 'rimraf';
 import consola from 'consola';
-import { DEFAULT_APP_LAYOUT, DEFAULT_LIB_LAYOUT } from './lib/constants';
 
 export default function buildExecutor(
   rawOptions: ESBuildExecutorSchema,
@@ -127,7 +127,11 @@ export default function buildExecutor(
   // TODO: control by schema options
   if (outputPath && fs.existsSync(outputPath) && verbose) {
     rimraf.sync(outputPath);
-    consola.info(`Output Path ${chalk.cyan(outputPath)} Cleaned. \n`);
+    consola.info(
+      `Output Path ${chalk.cyan(
+        outputPath.replace(`${absoluteWorkspaceRoot}/`, '')
+      )} Cleaned. \n`
+    );
   }
 
   const baseESBuildSubscriber = esBuildSubscriber.pipe(

@@ -4,7 +4,10 @@
     "strict": true,
     "baseUrl": "./",
     "rootDir": "./",
-    "paths": {}
+    "paths": {},
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "files": [],
   "include": ["src"],

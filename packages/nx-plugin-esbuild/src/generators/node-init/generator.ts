@@ -4,7 +4,6 @@ import {
   installPackagesTask,
   GeneratorCallback,
   addDependenciesToPackageJson,
-  updateJson,
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import path from 'path';
@@ -21,15 +20,19 @@ import {
 } from 'nx-plugin-devkit';
 import pacote from 'pacote';
 
-import { createProductionConfiguration } from '../utils/preset-configuration';
-import { ESBUILD_DEP_VERSION } from '../utils/constants';
+import { createProductionConfiguration } from '../../utils/preset-configuration';
+import {
+  ESBUILD_DEP_VERSION,
+  DEFAULT_EXTEND_CONFIG_FILE,
+  BUILD_TARGET_NAME,
+  SERVE_TARGET_NAME,
+} from '../../utils/constants';
 
 export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
   const normalizedSchema = normalizeSchema(host, schema);
 
   const {
     projectName,
-    offsetFromRoot,
     watch,
     projectSourceRoot,
     entry,
@@ -46,9 +49,6 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
   const initTask = await createNodeInitTask(host);
   tasks.push(initTask);
 
-  const buildTargetName = 'esbuild-build';
-  const serveTargetName = 'esbuild-serve';
-
   createNodeAppProject(
     host,
     normalizedSchema,
@@ -61,8 +61,8 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
         watch,
         assets,
         bundle,
-        decoratorHandler,
         platform,
+        extendConfig: DEFAULT_EXTEND_CONFIG_FILE,
       },
       configurations: {
         production: createProductionConfiguration(projectSourceRoot),
@@ -71,16 +71,16 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
     {
       executor: 'nx-plugin-workspace:node-serve',
       options: {
-        buildTarget: `${projectName}:${buildTargetName}`,
+        buildTarget: `${projectName}:${BUILD_TARGET_NAME}`,
       },
       configurations: {
         production: {
-          buildTarget: `${projectName}:${buildTargetName}:production`,
+          buildTarget: `${projectName}:${BUILD_TARGET_NAME}:production`,
         },
       },
     },
-    buildTargetName,
-    serveTargetName
+    BUILD_TARGET_NAME,
+    SERVE_TARGET_NAME
   );
 
   createNodeAppFiles(host, normalizedSchema, path.join(__dirname, './files'));
@@ -110,6 +110,7 @@ export default async function (host: Tree, schema: ESBuildInitGeneratorSchema) {
     {},
     {
       esbuild: esbuildPackageVersion,
+      'esbuild-plugin-alias-path': 'latest',
     }
   );
 

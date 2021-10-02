@@ -25,7 +25,7 @@
       "sourceRoot": "e2e/esbuild-node-app/src",
       "projectType": "application",
       "targets": {
-        "build": {
+        "esbuild-build": {
           "executor": "nx-plugin-esbuild:build",
           "outputs": ["{options.outputPath}"],
           "options": {
@@ -33,7 +33,7 @@
             "main": "e2e/esbuild-node-app/src/main.ts",
             "assets": ["e2e/esbuild-node-app/src/assets"],
             "tsconfigPath": "e2e/esbuild-node-app/tsconfig.json",
-            "watch": false,
+            "watch": true,
             "bundle": true,
             "decoratorHandler": "tsc",
             "platform": "node"
@@ -61,14 +61,14 @@
             }
           }
         },
-        "serve": {
+        "esbuild-serve": {
           "executor": "nx-plugin-workspace:node-serve",
           "options": {
-            "buildTarget": "esbuild-node-app:build"
+            "buildTarget": "esbuild-node-app:esbuild-build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "esbuild-node-app:build:production"
+              "buildTarget": "esbuild-node-app:esbuild-build:production"
             }
           }
         },
@@ -77,14 +77,6 @@
           "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": ["e2e/esbuild-node-app/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/e2e/esbuild-node-app"],
-          "options": {
-            "jestConfig": "e2e/esbuild-node-app/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
@@ -428,103 +420,6 @@
             "useCamelCase": false,
             "useLocalPackage": true,
             "shell": true
-          }
-        }
-      }
-    },
-    "node-playground": {
-      "root": "e2e/node-playground",
-      "sourceRoot": "e2e/node-playground/src",
-      "projectType": "application",
-      "targets": {
-        "esbuild-build": {
-          "executor": "nx-plugin-esbuild:build",
-          "options": {
-            "main": "e2e/node-playground/src/main.ts",
-            "outputPath": "e2e/node-playground/dist",
-            "tsconfigPath": "e2e/node-playground/tsconfig.json",
-            "pluginConfigPath": "nx-esbuild.ts",
-            "failFast": false,
-            "watch": true,
-            "skipTypeCheck": false,
-            "write": true,
-            "bundle": true,
-            "decoratorHandler": "tsc",
-            "watchDir": [
-              "e2e/node-playground/src",
-              "e2e/node-playground/nx-esbuild.ts"
-            ],
-            "watchAssetsDir": true,
-            "assets": ["e2e/node-playground/assets"]
-          },
-          "configurations": {
-            "production": {
-              "alias": {
-                "./environments/environment": "e2e/node-playground/src/environments/environment.prod.ts"
-              }
-            }
-          }
-        },
-        "esbuild-serve": {
-          "executor": "nx-plugin-workspace:node-serve",
-          "options": {
-            "buildTarget": "node-playground:esbuild-build"
-          }
-        },
-        "esbuild-serve-prod": {
-          "executor": "nx-plugin-workspace:node-serve",
-          "options": {
-            "buildTarget": "node-playground:esbuild-build:production"
-          }
-        },
-        "esbuild-info": {
-          "executor": "nx-plugin-esbuild:info",
-          "options": {
-            "buildTarget": "node-playground:esbuild-build",
-            "serveTarget": "node-playground:esbuild-serve"
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/e2e/node-playground",
-            "main": "e2e/node-playground/src/main.ts",
-            "tsConfig": "e2e/node-playground/tsconfig.app.json",
-            "assets": ["e2e/node-playground/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "e2e/node-playground/src/environments/environment.ts",
-                  "with": "e2e/node-playground/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "executor": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "node-playground:build"
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["e2e/node-playground/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/e2e/node-playground"],
-          "options": {
-            "jestConfig": "e2e/node-playground/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }

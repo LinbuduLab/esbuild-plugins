@@ -1,7 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
+    "composite": true,
+    "baseUrl": ".",
+    "rootDir": ".",
+    "outDir": "spec-dist",
     "module": "commonjs",
     "types": ["jest", "node"]
   },

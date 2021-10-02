@@ -6,9 +6,10 @@ import chokidar, { FSWatcher } from 'chokidar';
 import { copyAssetFiles } from 'nx-plugin-devkit';
 import chalk from 'chalk';
 import consola from 'consola';
-import { info } from './log';
 import uniq from 'lodash/uniq';
 import clear from 'clear';
+
+import { info } from './log';
 
 export function runESBuild(
   options: ESBuildRunnerOptions

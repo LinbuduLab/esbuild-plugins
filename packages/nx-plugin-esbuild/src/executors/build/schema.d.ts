@@ -48,7 +48,7 @@ export interface ESBuildExecutorSchema {
   outputPath?: string;
 
   // extend nx-esbuild BuildOptions
-  pluginConfigPath?: string;
+  extendConfigPath?: string;
 
   failFast: boolean;
   watchAssetsDir: boolean;
@@ -76,7 +76,7 @@ export interface ESBuildExecutorSchema {
   target: string[];
   metaFile: boolean;
   bundle: boolean;
-  // default as "all", and will use esbuild-plugin-node-externals as handler
+  // default as "all"
   externalDependencies: 'all' | 'none' | string[];
 
   inject: string | string[];
@@ -97,9 +97,6 @@ export interface ESBuildExecutorSchema {
 
   // optimization options
   minify: boolean;
-  // TODO:
-  // https://github.com/xz64/license-webpack-plugin
-  // extractLicenses: boolean;
 }
 
 export interface NormalizedESBuildExecutorSchema extends ESBuildExecutorSchema {

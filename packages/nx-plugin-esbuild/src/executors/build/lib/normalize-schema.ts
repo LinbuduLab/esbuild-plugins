@@ -13,10 +13,11 @@ import {
   normalizeInserts,
   normalizeFileReplacements,
 } from './normaliz-helper';
+import { ensureArray } from '../../../utils/helper';
+import { DEFAULT_EXTEND_CONFIG_FILE } from '../../../utils/constants';
+
 import consola from 'consola';
 import chalk from 'chalk';
-import { DEFAULT_EXTEND_CONFIG_FILE } from './constants';
-import { ensureArray } from './utils';
 
 export interface ExtraNormalizeOptions {
   absoluteWorkspaceRoot: string;
@@ -46,24 +47,24 @@ export function normalizeBuildExecutorOptions(
   const normalizedInserts = normalizeInserts(options.inserts ?? []);
 
   // If extend config exist, we extend it to ESBuild config resolve
-  const pluginExtendConfigPath = path.resolve(
+  const extendConfigPath = path.resolve(
     absoluteWorkspaceRoot,
     projectRoot,
-    options.pluginConfigPath ?? DEFAULT_EXTEND_CONFIG_FILE
+    options.extendConfigPath ?? DEFAULT_EXTEND_CONFIG_FILE
   );
 
-  const extendConfigFileExist = fs.existsSync(pluginExtendConfigPath);
+  const extendConfigFileExist = fs.existsSync(extendConfigPath);
 
   verbose
     ? extendConfigFileExist
       ? consola.info(
           `Extending nx-esbuild config file from ${chalk.cyan(
-            pluginExtendConfigPath
-          )} \n`
+            extendConfigPath.replace(`${absoluteWorkspaceRoot}/`, '')
+          )}`
         )
       : consola.info(
           `No nx-esbuild config file found in ${chalk.cyan(
-            pluginExtendConfigPath
+            extendConfigPath.replace(`${absoluteWorkspaceRoot}/`, '')
           )}`
         )
     : void 0;
@@ -71,7 +72,7 @@ export function normalizeBuildExecutorOptions(
   const userConfigBuildOptions = extendConfigFileExist
     ? normalizeESBuildExtendConfig(
         path.resolve(absoluteWorkspaceRoot, projectRoot),
-        pluginExtendConfigPath,
+        extendConfigPath,
         verbose
       )
     : {};
@@ -122,7 +123,7 @@ export function normalizeBuildExecutorOptions(
     inserts: normalizedInserts,
     inject: normalizedInject,
     watchDir: nomalizedWatchDir,
-    extendBuildOptions: userConfigBuildOptions.esbuildOptions ?? {},
-    extendWatchOptions: userConfigBuildOptions.watchOptions ?? {},
+    extendBuildOptions: userConfigBuildOptions?.esbuildOptions ?? {},
+    extendWatchOptions: userConfigBuildOptions?.watchOptions ?? {},
   };
 }

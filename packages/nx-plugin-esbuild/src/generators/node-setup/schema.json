@@ -13,11 +13,6 @@
       },
       "x-prompt": "Which App would you like to setup ESBuild?"
     },
-    "override": {
-      "type": "boolean",
-      "alias": "r",
-      "default": false
-    },
     "entry": {
       "type": "string",
       "alias": "e",
@@ -27,7 +22,7 @@
       "type": "boolean",
       "alias": "w",
       "description": "Enable build watching?",
-      "default": false
+      "default": true
     },
     "tsconfigPath": {
       "type": "string",

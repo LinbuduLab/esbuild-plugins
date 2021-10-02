@@ -12,6 +12,7 @@
     "@adonisjs/require-ts": "^2.0.8",
     "chalk": "^4.1.2",
     "chokidar": "^3.5.1",
+    "clear": "^0.1.0",
     "consola": "^2.15.3",
     "cross-spawn": "^7.0.3",
     "dayjs": "^1.10.4",
@@ -21,6 +22,7 @@
     "fs-extra": "^9.1.0",
     "jsonfile": "^6.1.0",
     "nx-plugin-devkit": "^0.2.1",
+    "pacote": "^11.3.5",
     "rxjs": "6.6.7",
     "rxjs-for-await": "^0.0.2",
     "tree-kill": "^1.2.2"
@@ -29,7 +31,7 @@
     "@nrwl/devkit": "^12.7.2",
     "@nrwl/workspace": "^12.7.2",
     "@swc/core": "^1.2.85",
-    "esbuild": "^0.13.3",
+    "esbuild": "^0.13.2",
     "typescript": "~4.3.5"
   },
   "executors": "./dist/executors.json",

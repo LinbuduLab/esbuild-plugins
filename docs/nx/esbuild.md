@@ -8,6 +8,10 @@ permalink: /:slug
 
 Nx plugin integration with [ESBuild](https://github.com/evanw/esbuild).
 
+```bash
+
+```
+
 ## Generators
 
 ### init

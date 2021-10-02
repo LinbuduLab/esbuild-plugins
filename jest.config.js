@@ -24,8 +24,6 @@ module.exports = {
     '<rootDir>/e2e/nx-plugin-vite-e2e',
     '<rootDir>/e2e/nx-plugin-snowpack-e2e',
     '<rootDir>/e2e/nx-plugin-prisma-e2e',
-    '<rootDir>/e2e/node-playground',
     '<rootDir>/e2e/prisma-app',
-    '<rootDir>/e2e/esbuild-node-app',
   ],
 };
