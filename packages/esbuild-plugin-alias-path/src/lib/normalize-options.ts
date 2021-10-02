@@ -1,69 +1,42 @@
-import { CompilerOptions } from 'typescript';
-import { loadCompilerOptions } from './load-compiler-options';
 import fs from 'fs-extra';
+import path from 'path';
 
 export interface Options {
-  // alias default as {}
-  // {"a":"b"}
-  // for absolute path: use
-  // or connect with process.cwd() !
   alias?: Record<string, string>;
-
-  // path of tsconfig.json
-  tsconfigPath?: string;
-
   skip?: boolean;
+  cwd?: string;
 }
 
-export interface NormalizedOptions extends Options {
-  compilerOptions: CompilerOptions | null;
+export interface NormalizedOptions extends Required<Options> {
+  [key: string]: unknown;
 }
 
 export function normalizeOption(options: Options = {}): NormalizedOptions {
   const alias = options.alias ?? {};
+  const cwd = options.cwd ?? process.cwd();
 
-  const tsconfigPath = options.tsconfigPath ?? undefined;
+  for (const [k, v] of Object.entries(alias)) {
+    if (fs.statSync(v).isDirectory()) {
+      fs.readdirSync(v).forEach((file) => {
+        const replacedKey = k.replace(
+          '*',
+          file.replace(path.extname(file), '')
+        );
 
-  const tsconfigPathInexist = tsconfigPath && !fs.existsSync(tsconfigPath);
+        !alias[replacedKey]
+          ? (alias[replacedKey] = path.join(v, file))
+          : void 0;
+      });
 
-  if (tsconfigPathInexist) {
-    throw new Error(
-      `[esbuild-plugin-alias-path] tsconfig ${tsconfigPath} does not exist.`
-    );
+      delete alias[k];
+    }
   }
 
-  const compilerOptions = loadCompilerOptions(tsconfigPath) || {};
-
-  const shouldSkipThisPlugin =
-    options.skip ??
-    (!Object.keys(alias).length &&
-      !Object.keys(compilerOptions.paths ?? {}).length);
-
-  // TODO:
-  // path which is not absolute and not start with ./ or ../ will be regarded as module,
-  // and use require.resolve(module) to resolve paths
-  // this feature is to support nx json configuration
-  // const resolveModule = options?.resolveModule ?? true;
-
-  // const normalizedAlias: Record<string, string> = {};
-
-  // for (const [from, to] of Object.entries(alias)) {
-  //   if (
-  //     !path.isAbsolute(to) &&
-  //     !to.startsWith('.') &&
-  //     !to.startsWith('..') &&
-  //     resolveModule
-  //   ) {
-  //     normalizedAlias[from] = require.resolve(to);
-  //   } else {
-  //     normalizedAlias[from] = to;
-  //   }
-  // }
+  const shouldSkipThisPlugin = options.skip ?? !Object.keys(alias).length;
 
   return {
-    alias: alias,
-    tsconfigPath,
-    compilerOptions,
+    alias,
     skip: shouldSkipThisPlugin,
+    cwd,
   };
 }

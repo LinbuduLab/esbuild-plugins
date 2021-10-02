@@ -1,27 +1,14 @@
 import path from 'path';
 import { normalizeOption } from '../src/lib/normalize-options';
 import { loadCompilerOptions } from '../src/lib/load-compiler-options';
-import { escapeNamespace } from '../src/lib/escape-namespace';
-
-const tsconfigPath = path.resolve(__dirname, './fixtures/tsconfig.json');
-const tsconfigEmptyPath = path.resolve(
-  __dirname,
-  './fixtures/tsconfig.empty-path.json'
-);
+import { escapeNamespace } from '../src/lib/esbuild-plugin-alias-path';
 
 describe('should normalize options', () => {
   it('should skip only when no alias / patn configurated or set option.skip', () => {
     expect(
       normalizeOption({
-        alias: {},
-        tsconfigPath,
-      }).skip
-    ).toBeFalsy();
-
-    expect(
-      normalizeOption({
         alias: {
-          '@foo': 'bar',
+          '@alias/foo': path.join(__dirname, './fixtures/fixed_alias/foo.js'),
         },
       }).skip
     ).toBeFalsy();
@@ -29,7 +16,6 @@ describe('should normalize options', () => {
     expect(
       normalizeOption({
         alias: {},
-        tsconfigPath: tsconfigEmptyPath,
       }).skip
     ).toBeTruthy();
 
@@ -40,26 +26,29 @@ describe('should normalize options', () => {
     ).toBeTruthy();
   });
 
-  it('should load compiler options', () => {
-    expect(loadCompilerOptions(tsconfigPath).paths).toEqual({
-      '@alias/*': ['./alias/*'],
+  it('should support dir alias', () => {
+    expect(
+      normalizeOption({
+        alias: {
+          '@alias/foo': path.join(__dirname, './fixtures/fixed_alias/foo.js'),
+          '@alias/*': path.join(__dirname, './fixtures/alias'),
+        },
+      }).alias
+    ).toStrictEqual({
+      '@alias/foo': path.join(__dirname, './fixtures/fixed_alias/foo.js'),
+      '@alias/bar': path.join(__dirname, './fixtures/alias/bar.js'),
     });
-
-    expect(loadCompilerOptions(tsconfigEmptyPath).paths).toBeUndefined();
 
     expect(
       normalizeOption({
-        tsconfigPath,
-      }).compilerOptions.paths
-    ).toEqual({
-      '@alias/*': ['./alias/*'],
+        alias: {
+          '@alias/*': path.join(__dirname, './fixtures/alias'),
+        },
+      }).alias
+    ).toStrictEqual({
+      '@alias/foo': path.join(__dirname, './fixtures/alias/foo.js'),
+      '@alias/bar': path.join(__dirname, './fixtures/alias/bar.js'),
     });
-
-    expect(
-      normalizeOption({
-        tsconfigPath: tsconfigEmptyPath,
-      }).compilerOptions.paths
-    ).toBeUndefined();
   });
 
   it('should escape namespace', () => {

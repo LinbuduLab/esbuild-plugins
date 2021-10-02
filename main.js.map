@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["e2e/node-playground/src/alias/foo.ts", "e2e/node-playground/src/alias/bar.ts", "e2e/node-playground/src/main.ts"],
+  "sourcesContent": ["export const FooTypeFromAlias = 'XXXX';\n", "export const BarTypeFromAlias = 'Bar';\n", "// import { environment } from './environments/environment';\n// import { FooTypeFromAlias } from '@/foo';\nimport { FooTypeFromAlias } from './alias/foo';\nimport { BarTypeFromAlias } from '@alias/bar';\n\nconsole.log('FooTypeFromAlias: ', FooTypeFromAlias);\nconsole.log('BarTypeFromAlias: ', BarTypeFromAlias);\n\n// console.log('environment: ', environment);\n\n// const a: boolean = 'string';\n"],
+  "mappings": ";AAAO,IAAM,mBAAmB;;;ACAzB,IAAM,mBAAmB;;;ACKhC,QAAQ,IAAI,sBAAsB;AAClC,QAAQ,IAAI,sBAAsB;",
+  "names": []
+}
