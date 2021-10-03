@@ -64,7 +64,7 @@ esbuildPluginAliasPath({
 
 **NOTE: Only files under the `alias` dir will be resolved, the nested file will be ignored instead.**
 
-**NOTE: In TypeScript project, `compilerOptions.paths` in `tsconfig.json` will be used by ESBuild automatically, so you will not need to use this plugin.**
+**NOTE: In TypeScript project, `compilerOptions.paths` in `tsconfig.json` will be used by ESBuild automatically, so you will need this plugin only when you're going to replace the alias dynamically.**
 
 ## clean
 
