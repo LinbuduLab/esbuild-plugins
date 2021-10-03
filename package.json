@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "@prisma/client": "^3.0.2",
-    "@swc/core": "^1.2.85",
+    "@swc/core": "^1.2.92",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -133,6 +133,7 @@
     "@types/react-is": "17.0.0",
     "@types/rimraf": "^3.0.2",
     "@types/snowpack-env": "^2.3.4",
+    "@types/strip-comments": "^2.0.1",
     "@types/styled-components": "5.1.9",
     "@types/tmp": "^0.2.1",
     "@types/webpack-dev-server": "^3.11.2",

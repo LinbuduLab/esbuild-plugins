@@ -99,12 +99,12 @@ module.exports = {
       emoji: '💚',
     },
     ['add-test']: {
-      value: 'test',
+      value: 'add-test',
       description: 'add test cases',
       emoji: '✅',
     },
     ['fix-test']: {
-      value: 'test',
+      value: 'fix-test',
       description: 'fix test cases',
       emoji: '✅',
     },

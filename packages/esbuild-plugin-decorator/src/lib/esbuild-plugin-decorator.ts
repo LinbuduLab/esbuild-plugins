@@ -30,7 +30,6 @@ export const esbuildPluginDecorator = (
       swcrcPath,
       force,
       cwd,
-      isNxProject,
       compiler,
       verbose,
       tscCompilerOptions,
@@ -82,8 +81,10 @@ export const esbuildPluginDecorator = (
           return;
         }
 
-        const contents = tscCompiler(fileContent, parsedTsConfig.options)
-          .outputText;
+        const contents = tscCompiler(
+          fileContent,
+          parsedTsConfig.options
+        ).outputText;
 
         return { contents };
       });
@@ -100,8 +101,8 @@ export const esbuildPluginDecorator = (
         }
 
         const decoratorConfigExist =
-          parsedSwcConfig.jsc.transform.decoratorMetadata &&
-          parsedSwcConfig.jsc.parser.decorators;
+          parsedSwcConfig?.jsc?.transform?.decoratorMetadata &&
+          parsedSwcConfig?.jsc?.parser?.decorators;
 
         // force: true
         // plugin will not be skipped

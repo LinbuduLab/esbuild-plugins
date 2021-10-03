@@ -1,7 +1,7 @@
 import tmp from 'tmp';
 import path from 'path';
 import fs from 'fs-extra';
-import { build, BuildOptions } from 'esbuild';
+import { build, BuildOptions, Plugin } from 'esbuild';
 import { esbuildPluginAliasPath } from '../src/lib/esbuild-plugin-alias-path';
 import { Options } from '../src/lib/normalize-options';
 
@@ -20,7 +20,7 @@ const builder = async (
     bundle: true,
     plugins: [pluginOptions && esbuildPluginAliasPath(pluginOptions)].filter(
       Boolean
-    ),
+    ) as Plugin[],
     ...(esbuildOptions ?? {}),
   });
 };

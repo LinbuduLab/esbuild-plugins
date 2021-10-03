@@ -1,8 +1,8 @@
 import stripComments from 'strip-comments';
 
-const theFinder = new RegExp(
+const DECORATOR_MATCHER = new RegExp(
   /((?<![(\s]\s*['"])@\w*[\w\d]\s*(?![;])[((?=\s)])/
 );
 
 export const findDecorators = (fileContent: string) =>
-  fileContent ? theFinder.test(stripComments(fileContent)) : false;
+  fileContent ? DECORATOR_MATCHER.test(stripComments(fileContent)) : false;

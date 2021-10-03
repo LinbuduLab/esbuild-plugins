@@ -2,12 +2,14 @@ import path from 'path';
 import fs from 'fs-extra';
 import { CompilerOptions as TSCCompileOptions } from 'typescript';
 import { Options as SWCCompileOptions } from '@swc/core';
-import { pluginTitle, info, warn, err } from './log';
+import { pluginTitle, info, err } from './log';
+import consola from 'consola';
+import chalk from 'chalk';
 
 export interface ESBuildPluginDecoratorOptions {
   // tsconfig path (tsconfig.json)
-  // swc config path (.swcrc)
   tsconfigPath?: string;
+  // swc config path (.swcrc)
   swcrcPath?: string;
 
   // force specified compiler for all code compilation
@@ -20,11 +22,6 @@ export interface ESBuildPluginDecoratorOptions {
   // use typescript or @swc/core for decorator compilation
   compiler?: 'tsc' | 'swc';
 
-  // when innx project, will search tsconfig.base.json
-  // when tsconfigPath is not speficied
-  // there will be more customization for nx-workspace in the future
-  isNxProject?: boolean;
-
   // extra compile options
   tscCompilerOptions?: TSCCompileOptions;
   swcCompilerOptions?: SWCCompileOptions;
@@ -36,24 +33,22 @@ export interface ESBuildPluginDecoratorOptions {
 export function normalizeOption(
   options: ESBuildPluginDecoratorOptions = {}
 ): Required<ESBuildPluginDecoratorOptions> {
-  // default as workspace root
   const cwd = options.cwd ?? process.cwd();
   const force = options.force ?? false;
   const compiler = options.compiler ?? 'tsc';
-
-  const isNxProject = options.isNxProject ?? false;
-  const verbose = options.verbose ?? true;
+  const verbose = options.verbose ?? false;
 
   // if not specified, will use PROJECT_ROOT/tsconfig.json
-  // (in nx project will use PROJECT_ROOT/tsconfig.base.json)
   const tsconfigPath = options.tsconfigPath
-    ? options.tsconfigPath
-    : isNxProject
-    ? path.resolve(cwd, './tsconfig.base.json')
+    ? path.isAbsolute(options.tsconfigPath)
+      ? options.tsconfigPath
+      : path.resolve(cwd, options.tsconfigPath)
     : path.resolve(cwd, './tsconfig.json');
 
   const swcrcPath = options.swcrcPath
-    ? options.swcrcPath
+    ? path.isAbsolute(options.swcrcPath)
+      ? options.swcrcPath
+      : path.resolve(cwd, options.swcrcPath)
     : path.resolve(cwd, './.swcrc');
 
   const tsconfigExist = fs.existsSync(tsconfigPath);
@@ -67,47 +62,42 @@ export function normalizeOption(
   }
 
   verbose &&
-    console.log(
-      `${pluginTitle()} ${info('Load ts config file from')} ${tsconfigPath}`
+    consola.info(
+      `${pluginTitle()} ${info('Loading tsconfig file from:')} ${tsconfigPath}`
     );
 
   if (compiler === 'swc' && !swcrcExist) {
-    console.log(
-      verbose &&
+    verbose &&
+      consola.warn(
         `${pluginTitle()} ${err(
           `.swcrc file from ${swcrcPath} is not found, using default swc options`
-        )})`
-    );
+        )}`
+      );
   } else if (compiler === 'swc' && swcrcExist) {
     verbose &&
-      console.log(
-        `${pluginTitle()} ${info('Load swc config file from')} ${swcrcPath}`
+      consola.warn(
+        `${pluginTitle()} ${info('Loading swc config file from')} ${swcrcPath}`
       );
   }
 
   verbose &&
-    console.log(`${pluginTitle()} ${info('Current working directory')} ${cwd}`);
-
-  verbose &&
-    console.log(
-      `${pluginTitle()} ${info('Decorator Compilation by')} [${compiler}]\n`
+    consola.info(
+      `${pluginTitle()} ${info('Decorator Compilation by')} [${chalk.white(
+        compiler
+      )}]\n`
     );
 
   if (compiler === 'tsc' && options.swcCompilerOptions) {
     verbose &&
-      console.log(
-        `${pluginTitle()} ${warn(
-          "You're using tsc compiler with swc options, swc options will be ignored."
-        )}\n`
+      consola.info(
+        `${pluginTitle()} ${"You're using tsc compiler with swc options, swc options will be ignored."}\n`
       );
   }
 
   if (compiler === 'swc' && options.tscCompilerOptions) {
     verbose &&
-      console.log(
-        `${pluginTitle()} ${warn(
-          "You're using swc compiler with tsc options, tsc options will be ignored."
-        )}\n`
+      consola.info(
+        `${pluginTitle()} ${"You're using swc compiler with tsc options, tsc options will be ignored."}\n`
       );
   }
 
@@ -115,10 +105,8 @@ export function normalizeOption(
   const swcCompilerOptions = options.swcCompilerOptions ?? {};
 
   if (swcCompilerOptions?.jsc?.externalHelpers) {
-    console.log(
-      `${pluginTitle()} ${warn(
-        'You are use SWC jsc.externalHelpers option, which requires you to add @swc/helpers to ESBuild externals'
-      )}\n`
+    consola.warn(
+      `${pluginTitle()} ${'You are using SWC jsc.externalHelpers option, which requires you to add @swc/helpers to ESBuild externals'}\n`
     );
   }
 
@@ -127,7 +115,6 @@ export function normalizeOption(
     swcrcPath,
     force,
     cwd,
-    isNxProject,
     compiler,
     tscCompilerOptions,
     swcCompilerOptions,
