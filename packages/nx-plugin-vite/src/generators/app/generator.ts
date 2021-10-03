@@ -3,29 +3,43 @@ import {
   addProjectConfiguration,
   formatFiles,
   GeneratorCallback,
-  installPackagesTask,
   Tree,
 } from '@nrwl/devkit';
 import {
   minimalNormalizeOptions,
   minimalAddFiles,
   MinimalAppGeneratorSchema,
+  MinimalNormalizedSchema,
   minimalProjectConfiguration,
+  installPackagesTask,
 } from 'nx-plugin-devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
 import path from 'path';
 import { pluginSpecifiedTargets } from '../utils';
+import { VUE_DEPS, REACT_DEPS } from '../utils';
 
-export default async function (host: Tree, options: MinimalAppGeneratorSchema) {
+interface ViteAppGeneratorSchema extends MinimalAppGeneratorSchema {
+  framework: 'react' | 'vue';
+}
+
+interface NormalizedViteAppGeneratorSchema extends MinimalNormalizedSchema {
+  framework: 'react' | 'vue';
+}
+
+export default async function (host: Tree, options: ViteAppGeneratorSchema) {
   const tasks: GeneratorCallback[] = [];
 
-  const normalizedOptions = minimalNormalizeOptions(host, {
+  const normalizedOptions = minimalNormalizeOptions<
+    ViteAppGeneratorSchema,
+    NormalizedViteAppGeneratorSchema
+  >(host, {
     ...options,
     projectType: 'application',
   });
 
-  const { projectName, projectRoot } = normalizedOptions;
+  const { projectName, projectRoot, forceInstall, framework } =
+    normalizedOptions;
 
   const baseProjectConfiguration =
     minimalProjectConfiguration(normalizedOptions);
@@ -35,21 +49,17 @@ export default async function (host: Tree, options: MinimalAppGeneratorSchema) {
     targets: pluginSpecifiedTargets(projectRoot),
   });
 
-  minimalAddFiles(host, path.join(__dirname, './files'), normalizedOptions);
+  minimalAddFiles(
+    host,
+    path.join(__dirname, './files', framework),
+
+    normalizedOptions
+  );
 
   const addDepsTask = addDependenciesToPackageJson(
     host,
-    {
-      react: '^17.0.0',
-      'react-dom': '^17.0.0',
-    },
-    {
-      '@types/react': '^17.0.0',
-      '@types/react-dom': '^17.0.0',
-      '@vitejs/plugin-react-refresh': '^1.3.1',
-      typescript: '^4.3.2',
-      vite: '^2.5.4',
-    }
+    (framework === 'react' ? REACT_DEPS : VUE_DEPS)['dependencies'],
+    (framework === 'react' ? REACT_DEPS : VUE_DEPS)['devDependencies']
   );
 
   tasks.push(addDepsTask);
@@ -58,6 +68,6 @@ export default async function (host: Tree, options: MinimalAppGeneratorSchema) {
 
   return () => {
     runTasksInSerial(...tasks);
-    installPackagesTask(host);
+    installPackagesTask(host, forceInstall);
   };
 }

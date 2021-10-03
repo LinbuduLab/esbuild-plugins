@@ -1,6 +1,5 @@
 import execa, { Options, SyncOptions } from 'execa';
 import { Observable } from 'rxjs';
-// import {} from 'rxjs/operators';
 
 export function executeFromCLICommand(
   command: string,

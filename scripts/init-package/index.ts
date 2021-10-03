@@ -17,6 +17,7 @@ import { getPluginDir } from '../utils/constants';
 import sortPackageJson from 'sort-package-json';
 import ow from 'ow';
 
+
 export default function useInitPackage(cli: CAC) {
   cli
     .command('init [name]', 'Init package configuration', {

@@ -14,14 +14,14 @@ export interface MinimalAppGeneratorSchema {
   tags?: string;
   directory?: string;
   projectType?: ProjectType;
+  forceInstall: boolean;
 }
 
-interface MinimalNormalizedSchema extends MinimalAppGeneratorSchema {
+export interface MinimalNormalizedSchema extends MinimalAppGeneratorSchema {
   projectName: string;
   projectRoot: string;
   projectDirectory: string;
   parsedTags: string[];
-
   projectType: ProjectType;
 }
 
@@ -31,10 +31,10 @@ interface MinimalNormalizedSchema extends MinimalAppGeneratorSchema {
  * @param options
  * @returns
  */
-export function minimalNormalizeOptions(
-  host: Tree,
-  options: MinimalAppGeneratorSchema
-): MinimalNormalizedSchema {
+export function minimalNormalizeOptions<
+  TSchema extends MinimalAppGeneratorSchema,
+  NSchema extends MinimalNormalizedSchema
+>(host: Tree, options: TSchema): NSchema {
   const name = names(options.name).fileName;
 
   const projectDirectory = options.directory
@@ -61,7 +61,7 @@ export function minimalNormalizeOptions(
     projectDirectory,
     parsedTags,
     projectType,
-  };
+  } as unknown as NSchema;
 }
 
 /**
@@ -70,10 +70,10 @@ export function minimalNormalizeOptions(
  * @param templatePath
  * @param options
  */
-export function minimalAddFiles(
+export function minimalAddFiles<TSchema extends MinimalNormalizedSchema>(
   host: Tree,
   templatePath: string,
-  options: MinimalNormalizedSchema
+  options: TSchema
 ) {
   const templateOptions = {
     ...options,
@@ -90,8 +90,10 @@ export function minimalAddFiles(
  * @param normalizedOptions
  * @returns
  */
-export function minimalProjectConfiguration(
-  normalizedOptions: MinimalNormalizedSchema
+export function minimalProjectConfiguration<
+  TSchema extends MinimalNormalizedSchema
+>(
+  normalizedOptions: TSchema
 ): ProjectConfiguration & NxJsonProjectConfiguration {
   return {
     root: normalizedOptions.projectRoot,
