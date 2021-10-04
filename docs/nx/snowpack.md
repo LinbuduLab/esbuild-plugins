@@ -12,7 +12,7 @@ Nx plugin integration with [Snowpack](https://www.snowpack.dev/)
 # you can also skip snowpack installation, which will also be installed when executing generator:app
 yarn add nx-plugin-snowpack snowpack -D
 # some required peer deps in nx workspace project
-yarn add @nrwl/node @nrwl/workspace @angular-devkit/schematics -D
+yarn add @nrwl/node @nrwl/workspace @nrwl/tao @angular-devkit/schematics -D
 ```
 
 ## Generators

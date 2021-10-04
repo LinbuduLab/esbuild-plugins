@@ -21,7 +21,7 @@
     "find-up": "5.0.0",
     "fs-extra": "^9.1.0",
     "jsonfile": "^6.1.0",
-    "nx-plugin-devkit": "^0.2.1",
+    "nx-plugin-devkit": "^0.3.0",
     "pacote": "^11.3.5",
     "rxjs": "6.6.7",
     "rxjs-for-await": "^0.0.2",

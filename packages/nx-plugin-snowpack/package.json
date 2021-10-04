@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "chalk": "^4.1.2",
-    "nx-plugin-devkit": "^0.2.1",
+    "nx-plugin-devkit": "^0.3.0",
     "rxjs": "6.6.7",
     "rxjs-for-await": "^0.0.2"
   },

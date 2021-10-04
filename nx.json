@@ -1,14 +1,9 @@
 {
   "npmScope": "nps",
-  "affected": {
-    "defaultBase": "main"
-  },
+  "affected": { "defaultBase": "main" },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "nx.json": "*",
     ".eslintrc.json": "*"
@@ -25,63 +20,15 @@
     }
   },
   "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
+    "build": [{ "target": "build", "projects": "dependencies" }]
   },
   "projects": {
-    "astro-playground": {},
-    "esbuild-node-app": {
-      "tags": []
-    },
-    "esbuild-plugin-alias-path": {
-      "tags": []
-    },
-    "esbuild-plugin-clean": {
-      "tags": []
-    },
-    "esbuild-plugin-compress": {
-      "tags": []
-    },
-    "esbuild-plugin-copy": {
-      "tags": []
-    },
-    "esbuild-plugin-decorator": {
-      "tags": []
-    },
-    "esbuild-plugin-filesize": {
-      "tags": []
-    },
-    "esbuild-plugin-ignore": {
-      "tags": []
-    },
-    "esbuild-plugin-markdown-import": {
-      "tags": []
-    },
-    "esbuild-plugin-node-externals": {
-      "tags": []
-    },
-    "esbuild-plugin-run": {
-      "tags": []
-    },
-    "ice-vite-app": {
-      "tags": [],
-      "implicitDependencies": []
-    },
-    "nx-plugin-devkit": {
-      "tags": []
-    },
+    "nx-plugin-devkit": { "tags": [] },
     "nx-plugin-devkit-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-devkit"]
     },
-    "nx-plugin-esbuild": {
-      "tags": [],
-      "implicitDependencies": []
-    },
+    "nx-plugin-esbuild": { "tags": [], "implicitDependencies": [] },
     "nx-plugin-esbuild-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-esbuild"]
@@ -94,59 +41,44 @@
       "tags": [],
       "implicitDependencies": ["nx-plugin-prisma"]
     },
-    "nx-plugin-snowpack": {
-      "tags": []
-    },
+    "nx-plugin-snowpack": { "tags": [] },
     "nx-plugin-snowpack-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-snowpack"]
     },
-    "nx-plugin-vite": {
-      "tags": []
-    },
+    "nx-plugin-vite": { "tags": [] },
     "nx-plugin-vite-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-vite"]
     },
-    "nx-plugin-workspace": {
-      "tags": []
-    },
+    "nx-plugin-workspace": { "tags": [] },
     "nx-plugin-workspace-e2e": {
       "tags": [],
       "implicitDependencies": ["nx-plugin-workspace"]
     },
+    "esbuild-plugin-alias-path": { "tags": [] },
+    "esbuild-plugin-clean": { "tags": [] },
+    "esbuild-plugin-compress": { "tags": [] },
+    "esbuild-plugin-copy": { "tags": [] },
+    "esbuild-plugin-decorator": { "tags": [] },
+    "esbuild-plugin-filesize": { "tags": [] },
+    "esbuild-plugin-ignore": { "tags": [] },
+    "esbuild-plugin-markdown-import": { "tags": [] },
+    "esbuild-plugin-node-externals": { "tags": [] },
+    "esbuild-plugin-run": { "tags": [] },
+    "snowpack-plugin-assets": { "tags": [] },
+    "snowpack-plugin-compress": { "tags": [] },
+    "snowpack-plugin-execa": { "tags": [] },
+    "snowpack-plugin-markdown-import": { "tags": [] },
+    "snowpack-plugin-serve": { "tags": [] },
+    "astro-playground": {},
+    "esbuild-node-app": { "tags": [] },
+    "ice-vite-app": { "tags": [], "implicitDependencies": [] },
     "prisma-app": {},
-    "react-app": {
-      "tags": []
-    },
-    "snowpack-app": {
-      "tags": []
-    },
-    "snowpack-plugin-assets": {
-      "tags": []
-    },
-    "snowpack-plugin-compress": {
-      "tags": []
-    },
-    "snowpack-plugin-execa": {
-      "tags": []
-    },
-    "snowpack-plugin-markdown-import": {
-      "tags": []
-    },
-    "snowpack-plugin-serve": {
-      "tags": []
-    },
-    "tmp": {
-      "tags": [],
-      "implicitDependencies": []
-    },
-    "vite-app": {
-      "tags": []
-    }
+    "react-app": { "tags": [] },
+    "snowpack-app": { "tags": [] },
+    "vite-app": { "tags": [] },
+    "tmp": { "tags": [], "implicitDependencies": [] }
   },
-  "workspaceLayout": {
-    "appsDir": "e2e",
-    "libsDir": "packages"
-  }
+  "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }
 }

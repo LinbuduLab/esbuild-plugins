@@ -16,7 +16,7 @@
     "friendly-errors-webpack-plugin": "^1.7.0",
     "lodash": "^4.17.21",
     "npm-run-path": "^4.0.1",
-    "nx-plugin-devkit": "^0.2.1",
+    "nx-plugin-devkit": "^0.3.0",
     "rxjs": "6.6.7",
     "rxjs-for-await": "^0.0.2",
     "speed-measure-webpack-plugin": "^1.5.0",

@@ -23,6 +23,17 @@
       "type": "string",
       "description": "A directory where the project is placed",
       "alias": "d"
+    },
+    "framework": {
+      "type": "string",
+      "description": "Which framework to use?",
+      "enum": ["react", "vue", "svelte"],
+      "default": "react"
+    },
+    "forceInstall": {
+      "type": "boolean",
+      "description": "Run install even package.json has no changes",
+      "default": false
     }
   },
   "required": ["name"]

@@ -11,7 +11,7 @@ Nx plugin integration with [ESBuild](https://github.com/evanw/esbuild).
 ```bash
 yarn add nx-plugin-esbuild esbuild --save-dev
 # some required peer deps in nx workspace project
-yarn add @nrwl/node @nrwl/workspace @angular-devkit/schematics -D
+yarn add @nrwl/node @nrwl/workspace @nrwl/tao @angular-devkit/schematics -D
 ```
 
 ## Generators

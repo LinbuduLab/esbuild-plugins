@@ -11,7 +11,7 @@
   "dependencies": {
     "consola": "^2.15.3",
     "execa": "^5.1.1",
-    "nx-plugin-devkit": "^0.2.1",
+    "nx-plugin-devkit": "^0.3.0",
     "pacote": "^11.3.5"
   },
   "peerDependencies": {
