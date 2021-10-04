@@ -20,15 +20,17 @@ yarn add @nrwl/node @nrwl/workspace @nrwl/tao @angular-devkit/schematics -D
 ### app
 
 ```bash
-nx g nx-plugin-vite:app your-vite-app
+nx g nx-plugin-vite:app your-vite-app --framework=react
 ```
 
-Create a official `Vite` + `React` template and add plugin related workspace targets in `workspace.json`.
+Create a official `Vite` template and add plugin related workspace targets in `workspace.json`.
+
+Supported framework: `React`(default), `Vue`
 
 ### setup
 
 ```bash
-nx g nx-plugin-vite:setup exist-vite-app
+nx g nx-plugin-vite:setup exist-app
 ```
 
 Add plugin related workspace targets to **exist application**.

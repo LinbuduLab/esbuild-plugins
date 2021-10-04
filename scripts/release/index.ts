@@ -201,11 +201,11 @@ export default function useReleaseProject(cli: CAC) {
           }));
 
         dryRunSuccessLogger(
-          `Package ${projectToRelease} built successfully.`,
+          `Package ${projectToRelease} built successfully.\n`,
           dryRun
         );
 
-        consola.info('Updating necessary fields of `dist/package.json`...');
+        consola.info('Updating necessary fields of `dist/package.json`...\n');
 
         const builtPkgInfo = jsonfile.readFileSync(builtProjectPkgPath);
 
@@ -288,7 +288,7 @@ export default function useReleaseProject(cli: CAC) {
             }
           );
 
-          console.log('');
+          console.log('\n');
 
           await execa(
             'git',
@@ -302,6 +302,8 @@ export default function useReleaseProject(cli: CAC) {
         } else {
           consola.warn('Remember you have skipped git process.');
         }
+
+        console.log('\n');
 
         dryRunInfoLogger('Pubishing package...', dryRun);
 

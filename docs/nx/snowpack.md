@@ -20,10 +20,12 @@ yarn add @nrwl/node @nrwl/workspace @nrwl/tao @angular-devkit/schematics -D
 ### app
 
 ```bash
-nx g nx-plugin-snowpack:app snowpack-app
+nx g nx-plugin-snowpack:app snowpack-app --framework=react
 ```
 
-Create official `Snowpack` + `React` template and add plugin related workspace targets.
+Create official `Snowpack` template and add plugin related workspace targets.
+
+Supported framework: `React`(default), `Vue`, `Svelte`
 
 ### setup
 
@@ -35,7 +37,7 @@ Add plugin related workspace targets to exist application.
 
 ## Executors
 
-**NOTE: In Nx-Snowpack project, it's recommended to configurate your snowpack project by `PROJECT/snowpack.config.cjs`(which also has a higher priority) instead of schema options. Schema options will be ignored totally when config path specified.**
+**NOTE: In Nx-Snowpack project, it's recommended to configurate your snowpack project by `PROJECT/snowpack.config.mjs`(which also has a higher priority) instead of schema options. Schema options will be ignored totally when config path specified.**
 
 ### serve
 

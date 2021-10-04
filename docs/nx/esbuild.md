@@ -52,9 +52,9 @@ create a node application project with esbuild-based workspace configuration, fo
 }
 ```
 
-Most of `ESBuild.BuildOptions` are supported in schema options, but it's recommended to use extend config file for programmatic configuration.
+- By default, we use `outputPath` inside project dir instead of hoist to workspace root. You can change this behavior by modifying the `outputPath` field.
 
-In initial generated application, there'll be a `nx-esbuild.ts` file exist in project root:
+Most of `ESBuild.BuildOptions` are supported in schema options, but it's recommended to use extend config file for programmatic configuration, so in initial generated application, there'll be a `nx-esbuild.ts` config file exist in project root:
 
 ```typescript
 import { NXESBuildConfigExport } from 'nx-plugin-esbuild';
@@ -88,7 +88,7 @@ You can configurate `buildOptions` and `watchOptions` here, which makes configur
 **NOTE: To load `.ts` config file by `require`(use [@adonisjs/require-ts](https://www.npmjs.com/package/@adonisjs/require-ts) under the hood), you will need `compilerOptions.module` to be set as `CommonJS`.
 Failure to load does not cause the program to exit but to skip loading config file.**
 
-**NOTE: Make sure to have `extendConfig: 'config-path.ext'`(relative to project root) in workspace config(`project.targets.esbuild-build.options`).**
+**NOTE: Make sure to have `extendConfig: 'config-path.ext'`(relative to project root) in workspace config(`project.targets.esbuild-build.options`) when you wants to use extend config file.**
 
 More supported schema options can be found in [ESBuild.Generator.NodeInit](/packages/nx-plugin-esbuild/src/generators/node-init/schema.json).
 
@@ -98,7 +98,7 @@ More supported schema options can be found in [ESBuild.Generator.NodeInit](/pack
 nx g nx-plugin-esbuild:node-setup exist-node-app
 ```
 
-Similar to `init` generator, but `setup` generator should be applied in exist node application, and create related target configurations in `workspace.json`.
+Similar to `node-init` generator, but `node-setup` generator should be applied in exist node application, and create related target configurations in `workspace.json`.
 
 You can find more supported schema options in [ESBuild.Generator.Setup](/packages/nx-plugin-esbuild/src/generators/setup/schema.json).
 

@@ -13,7 +13,7 @@ Nx plugin integration with [Prisma](https://www.prisma.io/)
 yarn add @prisma/client
 yarn add nx-plugin-prisma prisma -D
 # some required peer deps in nx workspace
-yarn add @nrwl/node @nrwl/workspace @angular-devkit/schematics -D
+yarn add @nrwl/node @nrwl/workspace @nrwl/tao @angular-devkit/schematics -D
 ```
 
 ## Generators

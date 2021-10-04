@@ -1,5 +1,4 @@
 import type { Tree } from '@nrwl/tao/src/shared/tree';
-import { execSync } from 'child_process';
 import { join } from 'path';
 import {
   detectPackageManager,
