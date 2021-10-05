@@ -5,16 +5,16 @@ export const setupTargets = (
   schema: WorkspaceSetupGeneratorSchema,
   appName: string,
   projectRoot: string,
-  sourceRoot: string
+  projectSourceRoot: string
 ) => {
   const nodeBuildTarget: TargetConfiguration = {
     executor: 'nx-plugin-workspace:node-build',
     outputs: ['{options.outputPath}'],
     options: {
-      outputPath: `dist/${projectRoot}`,
-      main: `${sourceRoot}/main.ts`,
-      tsConfig: `${projectRoot}/tsconfig.app.json`,
-      assets: [`${sourceRoot}/assets`],
+      outputPath: `${projectRoot}/dist`,
+      main: `${projectSourceRoot}/main.ts`,
+      tsConfig: `${projectRoot}/tsconfig.json`,
+      assets: [`${projectSourceRoot}/assets`],
       progress: true,
       verbose: true,
       enableAnalytics: true,
@@ -26,8 +26,8 @@ export const setupTargets = (
         inspect: false,
         fileReplacements: [
           {
-            replace: `${sourceRoot}/environments/environment.ts`,
-            with: `${sourceRoot}/environments/environment.prod.ts`,
+            replace: `${projectSourceRoot}/environments/environment.ts`,
+            with: `${projectSourceRoot}/environments/environment.prod.ts`,
           },
         ],
       },
@@ -44,15 +44,6 @@ export const setupTargets = (
     },
   };
 
-  const devTarget = {
-    executor: 'nx-plugin-workspace:light-node-serve',
-    outputs: ['{options.outputPath}'],
-    options: {
-      main: `${sourceRoot}/main.ts`,
-      tsConfig: `${projectRoot}/tsconfig.app.json`,
-    },
-  };
-
   const execTarget = {
     executor: 'nx-plugin-workspace:exec',
     options: {
@@ -60,9 +51,25 @@ export const setupTargets = (
       cwd: projectRoot,
       parallel: false,
       color: true,
-      outputPath: `dist/${projectRoot}`,
+      outputPath: `${projectRoot}/dist`,
       useCamelCase: false,
       useLocalPackage: true,
+    },
+  };
+
+  const devTarget = {
+    executor: 'nx-plugin-workspace:exec',
+    options: {
+      command: 'ts-node-dev',
+      cwd: projectRoot,
+      parallel: false,
+      color: true,
+      outputPath: `${projectRoot}`,
+      useCamelCase: false,
+      useLocalPackage: true,
+      shell: true,
+      respawn: true,
+      debounce: 200,
     },
   };
 

@@ -4,6 +4,7 @@ import {
   updateProjectConfiguration,
   readProjectConfiguration,
   normalizePath,
+  TargetConfiguration,
 } from '@nrwl/devkit';
 import { getAvailableApps } from 'nx-plugin-devkit';
 import { WorkspaceSetupGeneratorSchema } from './schema';
@@ -32,16 +33,15 @@ export default async function (
     normalizePath(originProjectConfiguration.sourceRoot)
   );
 
-  // TODO:
-  const { build, serve, dev, exec } = targets;
+  const { build, serve, exec, dev } = targets;
 
   // not use merge here, because we want to override origin targets entirely
-  const updatedTargets = {
+  const updatedTargets: Record<string, TargetConfiguration> = {
     ...originProjectConfiguration.targets,
     build,
     serve,
-    dev,
     exec,
+    dev,
   };
 
   originProjectConfiguration.targets = updatedTargets;
