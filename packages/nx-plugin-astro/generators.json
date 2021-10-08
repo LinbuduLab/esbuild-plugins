@@ -7,11 +7,6 @@
       "factory": "./src/generators/app/generator",
       "schema": "./src/generators/app/schema.json",
       "description": "app generator"
-    },
-    "setup": {
-      "factory": "./src/generators/setup/generator",
-      "schema": "./src/generators/setup/schema.json",
-      "description": "setup generator"
     }
   }
 }
