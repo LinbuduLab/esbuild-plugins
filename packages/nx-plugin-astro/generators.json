@@ -3,11 +3,6 @@
   "name": "nx-plugin-astro",
   "version": "0.0.1",
   "generators": {
-    "nx-plugin-astro": {
-      "factory": "./src/generators/nx-plugin-astro/generator",
-      "schema": "./src/generators/nx-plugin-astro/schema.json",
-      "description": "nx-plugin-astro generator"
-    },
     "app": {
       "factory": "./src/generators/app/generator",
       "schema": "./src/generators/app/schema.json",

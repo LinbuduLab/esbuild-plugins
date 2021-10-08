@@ -177,7 +177,7 @@
     preact "^10.5.13"
     preact-render-to-string "^5.1.18"
 
-"@astrojs/renderer-preact@0.2.2", "@astrojs/renderer-preact@^0.2.0", "@astrojs/renderer-preact@^0.2.2":
+"@astrojs/renderer-preact@0.2.2", "@astrojs/renderer-preact@^0.2.2":
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@astrojs/renderer-preact/-/renderer-preact-0.2.2.tgz#ff31d801e5b31638ed128762c3fb9b921e550b22"
   integrity sha512-viF5jON0Dk1Oq/FCV2O2ijXImg37Lx+KI1cXAR40WPtvypFoq8nht/BTj385fpWW5mDN0vgrk69L/WySt95yLA==
@@ -10107,11 +10107,6 @@ deprecation@^2.0.0, deprecation@^2.3.1:
   resolved "https://registry.npm.taobao.org/deprecation/download/deprecation-2.3.1.tgz#6368cbdb40abf3373b525ac87e4a260c3a700919"
   integrity sha1-Y2jL20Cr8zc7UlrIfkomDDpwCRk=
 
-dequal@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/dequal/-/dequal-2.0.2.tgz#85ca22025e3a87e65ef75a7a437b35284a7e319d"
-  integrity sha512-q9K8BlJVxK7hQYqa6XISGmBZbtQQWVXSrRrWreHC94rMt1QL/Impruc+7p2CYSYuVIUr+YCt6hjrs1kkdJRTug==
-
 des.js@^1.0.0:
   version "1.0.1"
   resolved "https://registry.nlark.com/des.js/download/des.js-1.0.1.tgz#5382142e1bdc53f85d86d53e5f4aa7deb91e0843"
@@ -16231,11 +16226,6 @@ koa@^2.13.0:
     statuses "^1.5.0"
     type-is "^1.6.16"
     vary "^1.1.2"
-
-ky@^0.28.5:
-  version "0.28.5"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.28.5.tgz#4b7ada24fb0440c3898406f3a4986abe60ba213e"
-  integrity sha512-O5gg9kF4MeyfSw+YkgPAafOPwEUU6xcdGEJKUJmKpIPbLzk3oxUtY4OdBNekG7mawofzkyZ/ZHuR9ev5uZZdAA==
 
 language-subtag-registry@~0.3.2:
   version "0.3.21"
@@ -23990,13 +23980,6 @@ swc-webpack-plugin@^1.0.0:
   dependencies:
     type-fest "^1.1.3"
     webpack-sources "^2.2.0"
-
-swr@^0.5.6:
-  version "0.5.7"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-0.5.7.tgz#bb6a56ad1c61da719d182c1137198554d5a78aac"
-  integrity sha512-Jh1Efgu8nWZV9rU4VLUMzBzcwaZgi4znqbVXvAtUy/0JzSiN6bNjLaJK8vhY/Rtp7a83dosz5YuehfBNwC/ZoQ==
-  dependencies:
-    dequal "2.0.2"
 
 symbol-tree@^3.2.4:
   version "3.2.4"

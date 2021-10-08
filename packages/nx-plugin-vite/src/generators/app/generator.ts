@@ -16,8 +16,7 @@ import {
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
 import path from 'path';
-import { pluginSpecifiedTargets } from '../utils';
-import { VUE_DEPS, REACT_DEPS } from '../utils';
+import { pluginSpecifiedTargets, VUE_DEPS, REACT_DEPS } from '../utils';
 
 interface ViteAppGeneratorSchema extends MinimalAppGeneratorSchema {
   framework: 'react' | 'vue';

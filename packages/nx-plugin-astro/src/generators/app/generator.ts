@@ -1,69 +1,59 @@
 import {
+  addDependenciesToPackageJson,
   addProjectConfiguration,
   formatFiles,
-  generateFiles,
-  getWorkspaceLayout,
-  names,
-  offsetFromRoot,
+  GeneratorCallback,
   Tree,
 } from '@nrwl/devkit';
-import * as path from 'path';
-import { AppGeneratorSchema } from './schema';
+import {
+  minimalNormalizeOptions,
+  minimalAddFiles,
+  MinimalAppGeneratorSchema,
+  minimalProjectConfiguration,
+  installPackagesTask,
+} from 'nx-plugin-devkit';
+import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
-interface NormalizedSchema extends AppGeneratorSchema {
-  projectName: string;
-  projectRoot: string;
-  projectDirectory: string;
-  parsedTags: string[]
-}
+import path from 'path';
+import { pluginSpecifiedTargets, DEPS } from '../utils';
 
-function normalizeOptions(tree: Tree, options: AppGeneratorSchema): NormalizedSchema {
-  const name = names(options.name).fileName;
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name;
-  const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-  const projectRoot = `${getWorkspaceLayout(tree).libsDir}/${projectDirectory}`;
-  const parsedTags = options.tags
-    ? options.tags.split(',').map((s) => s.trim())
-    : [];
+export default async function (host: Tree, options: MinimalAppGeneratorSchema) {
+  const tasks: GeneratorCallback[] = [];
 
-  return {
+  const normalizedOptions = minimalNormalizeOptions(host, {
     ...options,
-    projectName,
-    projectRoot,
-    projectDirectory,
-    parsedTags,
-  };
-}
+    projectType: 'application',
+  });
 
-function addFiles(tree: Tree, options: NormalizedSchema) {
-    const templateOptions = {
-      ...options,
-      ...names(options.name),
-      offsetFromRoot: offsetFromRoot(options.projectRoot),
-      template: ''
-    };
-    generateFiles(tree, path.join(__dirname, 'files'), options.projectRoot, templateOptions);
-}
+  const { projectName, projectRoot } = normalizedOptions;
 
-export default async function (tree: Tree, options: AppGeneratorSchema) {
-  const normalizedOptions = normalizeOptions(tree, options);
-  addProjectConfiguration(
-    tree,
-    normalizedOptions.projectName,
-    {
-      root: normalizedOptions.projectRoot,
-      projectType: 'library',
-      sourceRoot: `${normalizedOptions.projectRoot}/src`,
-      targets: {
-        build: {
-          executor: "@nps/nx-plugin-astro:build",
-        },
-      },
-      tags: normalizedOptions.parsedTags,
-    }
+  const baseProjectConfiguration =
+    minimalProjectConfiguration(normalizedOptions);
+
+  addProjectConfiguration(host, projectName, {
+    ...baseProjectConfiguration,
+    targets: pluginSpecifiedTargets(projectRoot),
+  });
+
+  minimalAddFiles(
+    host,
+    path.join(__dirname, './files'),
+
+    normalizedOptions
   );
-  addFiles(tree, normalizedOptions);
-  await formatFiles(tree);
+
+  const addDepsTask = addDependenciesToPackageJson(
+    host,
+    DEPS['dependencies'],
+    DEPS['devDependencies']
+  );
+
+  tasks.push(addDepsTask);
+
+  await formatFiles(host);
+
+  return () => {
+    runTasksInSerial(...tasks);
+    installPackagesTask(host, true);
+  };
 }

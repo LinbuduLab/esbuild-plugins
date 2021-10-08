@@ -3,15 +3,25 @@
   "projects": {
     "astro-app": {
       "root": "e2e/astro-app",
-      "sourceRoot": "e2e/astro-app/src",
       "projectType": "application",
+      "sourceRoot": "e2e/astro-app/src",
       "targets": {
         "dev": {
           "executor": "nx-plugin-workspace:exec",
           "options": {
-            "commands": [
-              "astro dev"
-            ],
+            "command": "astro dev",
+            "cwd": "e2e/astro-app",
+            "parallel": false,
+            "color": true,
+            "useCamelCase": false,
+            "useLocalPackage": true,
+            "shell": true
+          }
+        },
+        "build": {
+          "executor": "nx-plugin-workspace:exec",
+          "options": {
+            "command": "astro build",
             "cwd": "e2e/astro-app",
             "parallel": false,
             "color": true,
@@ -29,15 +39,11 @@
       "targets": {
         "esbuild-build": {
           "executor": "nx-plugin-esbuild:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "e2e/esbuild-node-app/dist",
             "main": "e2e/esbuild-node-app/src/main.ts",
-            "assets": [
-              "e2e/esbuild-node-app/src/assets"
-            ],
+            "assets": ["e2e/esbuild-node-app/src/assets"],
             "tsconfigPath": "e2e/esbuild-node-app/tsconfig.json",
             "watch": true,
             "bundle": true,
@@ -80,13 +86,9 @@
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "e2e/esbuild-node-app/**/*.ts"
-            ]
+            "lintFilePatterns": ["e2e/esbuild-node-app/**/*.ts"]
           }
         }
       }
@@ -99,16 +101,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/esbuild-plugin-alias-path/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/esbuild-plugin-alias-path/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/esbuild-plugin-alias-path"
-          ],
+          "outputs": ["coverage/packages/esbuild-plugin-alias-path"],
           "options": {
             "jestConfig": "packages/esbuild-plugin-alias-path/jest.config.js",
             "passWithNoTests": true
@@ -116,17 +114,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/esbuild-plugin-alias-path/dist",
             "tsConfig": "packages/esbuild-plugin-alias-path/tsconfig.json",
             "packageJson": "packages/esbuild-plugin-alias-path/package.json",
             "main": "packages/esbuild-plugin-alias-path/src/index.ts",
-            "assets": [
-              "packages/esbuild-plugin-alias-path/*.md"
-            ]
+            "assets": ["packages/esbuild-plugin-alias-path/*.md"]
           }
         }
       }
@@ -139,16 +133,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/esbuild-plugin-clean/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/esbuild-plugin-clean/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/esbuild-plugin-clean"
-          ],
+          "outputs": ["coverage/packages/esbuild-plugin-clean"],
           "options": {
             "jestConfig": "packages/esbuild-plugin-clean/jest.config.js",
             "passWithNoTests": true
@@ -156,17 +146,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/esbuild-plugin-clean/dist",
             "tsConfig": "packages/esbuild-plugin-clean/tsconfig.json",
             "packageJson": "packages/esbuild-plugin-clean/package.json",
             "main": "packages/esbuild-plugin-clean/src/index.ts",
-            "assets": [
-              "packages/esbuild-plugin-clean/*.md"
-            ]
+            "assets": ["packages/esbuild-plugin-clean/*.md"]
           }
         }
       }
@@ -179,16 +165,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/esbuild-plugin-compress/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/esbuild-plugin-compress/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/esbuild-plugin-compress"
-          ],
+          "outputs": ["coverage/packages/esbuild-plugin-compress"],
           "options": {
             "jestConfig": "packages/esbuild-plugin-compress/jest.config.js",
             "passWithNoTests": true
@@ -196,17 +178,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/esbuild-plugin-compress/dist",
             "tsConfig": "packages/esbuild-plugin-compress/tsconfig.json",
             "packageJson": "packages/esbuild-plugin-compress/package.json",
             "main": "packages/esbuild-plugin-compress/src/index.ts",
-            "assets": [
-              "packages/esbuild-plugin-compress/*.md"
-            ]
+            "assets": ["packages/esbuild-plugin-compress/*.md"]
           }
         }
       }
@@ -219,16 +197,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/esbuild-plugin-copy/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/esbuild-plugin-copy/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/esbuild-plugin-copy"
-          ],
+          "outputs": ["coverage/packages/esbuild-plugin-copy"],
           "options": {
             "jestConfig": "packages/esbuild-plugin-copy/jest.config.js",
             "passWithNoTests": true
@@ -236,17 +210,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/esbuild-plugin-copy/dist",
             "tsConfig": "packages/esbuild-plugin-copy/tsconfig.json",
             "packageJson": "packages/esbuild-plugin-copy/package.json",
             "main": "packages/esbuild-plugin-copy/src/index.ts",
-            "assets": [
-              "packages/esbuild-plugin-copy/*.md"
-            ]
+            "assets": ["packages/esbuild-plugin-copy/*.md"]
           }
         }
       }
@@ -259,16 +229,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/esbuild-plugin-decorator/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/esbuild-plugin-decorator/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/esbuild-plugin-decorator"
-          ],
+          "outputs": ["coverage/packages/esbuild-plugin-decorator"],
           "options": {
             "jestConfig": "packages/esbuild-plugin-decorator/jest.config.js",
             "passWithNoTests": true
@@ -276,17 +242,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/esbuild-plugin-decorator/dist",
             "tsConfig": "packages/esbuild-plugin-decorator/tsconfig.json",
             "packageJson": "packages/esbuild-plugin-decorator/package.json",
             "main": "packages/esbuild-plugin-decorator/src/index.ts",
-            "assets": [
-              "packages/esbuild-plugin-decorator/*.md"
-            ]
+            "assets": ["packages/esbuild-plugin-decorator/*.md"]
           }
         }
       }
@@ -299,16 +261,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/esbuild-plugin-filesize/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/esbuild-plugin-filesize/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/esbuild-plugin-filesize"
-          ],
+          "outputs": ["coverage/packages/esbuild-plugin-filesize"],
           "options": {
             "jestConfig": "packages/esbuild-plugin-filesize/jest.config.js",
             "passWithNoTests": true
@@ -316,17 +274,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/esbuild-plugin-filesize/dist",
             "tsConfig": "packages/esbuild-plugin-filesize/tsconfig.json",
             "packageJson": "packages/esbuild-plugin-filesize/package.json",
             "main": "packages/esbuild-plugin-filesize/src/index.ts",
-            "assets": [
-              "packages/esbuild-plugin-filesize/*.md"
-            ]
+            "assets": ["packages/esbuild-plugin-filesize/*.md"]
           }
         }
       }
@@ -339,16 +293,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/esbuild-plugin-ignore/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/esbuild-plugin-ignore/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/esbuild-plugin-ignore"
-          ],
+          "outputs": ["coverage/packages/esbuild-plugin-ignore"],
           "options": {
             "jestConfig": "packages/esbuild-plugin-ignore/jest.config.js",
             "passWithNoTests": true
@@ -356,17 +306,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/esbuild-plugin-ignore/dist",
             "tsConfig": "packages/esbuild-plugin-ignore/tsconfig.json",
             "packageJson": "packages/esbuild-plugin-ignore/package.json",
             "main": "packages/esbuild-plugin-ignore/src/index.ts",
-            "assets": [
-              "packages/esbuild-plugin-ignore/*.md"
-            ]
+            "assets": ["packages/esbuild-plugin-ignore/*.md"]
           }
         }
       }
@@ -386,9 +332,7 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/esbuild-plugin-markdown-import"
-          ],
+          "outputs": ["coverage/packages/esbuild-plugin-markdown-import"],
           "options": {
             "jestConfig": "packages/esbuild-plugin-markdown-import/jest.config.js",
             "passWithNoTests": true
@@ -396,17 +340,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/esbuild-plugin-markdown-import/dist",
             "tsConfig": "packages/esbuild-plugin-markdown-import/tsconfig.json",
             "packageJson": "packages/esbuild-plugin-markdown-import/package.json",
             "main": "packages/esbuild-plugin-markdown-import/src/index.ts",
-            "assets": [
-              "packages/esbuild-plugin-markdown-import/*.md"
-            ]
+            "assets": ["packages/esbuild-plugin-markdown-import/*.md"]
           }
         }
       }
@@ -426,9 +366,7 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/esbuild-plugin-node-externals"
-          ],
+          "outputs": ["coverage/packages/esbuild-plugin-node-externals"],
           "options": {
             "jestConfig": "packages/esbuild-plugin-node-externals/jest.config.js",
             "passWithNoTests": true
@@ -436,17 +374,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/esbuild-plugin-node-externals/dist",
             "tsConfig": "packages/esbuild-plugin-node-externals/tsconfig.json",
             "packageJson": "packages/esbuild-plugin-node-externals/package.json",
             "main": "packages/esbuild-plugin-node-externals/src/index.ts",
-            "assets": [
-              "packages/esbuild-plugin-node-externals/*.md"
-            ]
+            "assets": ["packages/esbuild-plugin-node-externals/*.md"]
           }
         }
       }
@@ -459,16 +393,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/esbuild-plugin-run/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/esbuild-plugin-run/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/esbuild-plugin-run"
-          ],
+          "outputs": ["coverage/packages/esbuild-plugin-run"],
           "options": {
             "jestConfig": "packages/esbuild-plugin-run/jest.config.js",
             "passWithNoTests": true
@@ -476,17 +406,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/esbuild-plugin-run/dist",
             "tsConfig": "packages/esbuild-plugin-run/tsconfig.json",
             "packageJson": "packages/esbuild-plugin-run/package.json",
             "main": "packages/esbuild-plugin-run/src/index.ts",
-            "assets": [
-              "packages/esbuild-plugin-run/*.md"
-            ]
+            "assets": ["packages/esbuild-plugin-run/*.md"]
           }
         }
       }
@@ -499,9 +425,7 @@
         "start": {
           "executor": "nx-plugin-workspace:exec",
           "options": {
-            "commands": [
-              "icejs start"
-            ],
+            "commands": ["icejs start"],
             "cwd": "e2e/ice-vite-app",
             "parallel": false,
             "color": true,
@@ -519,20 +443,14 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "packages/nx-plugin-astro/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/nx-plugin-astro/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/nx-plugin-astro"
-          ],
+          "outputs": ["coverage/packages/nx-plugin-astro"],
           "options": {
             "jestConfig": "packages/nx-plugin-astro/jest.config.js",
             "passWithNoTests": true
@@ -540,9 +458,7 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/nx-plugin-astro/dist",
             "tsConfig": "packages/nx-plugin-astro/tsconfig.json",
@@ -597,16 +513,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/nx-plugin-devkit/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/nx-plugin-devkit/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/nx-plugin-devkit"
-          ],
+          "outputs": ["coverage/packages/nx-plugin-devkit"],
           "options": {
             "jestConfig": "packages/nx-plugin-devkit/jest.config.js",
             "passWithNoTests": true
@@ -614,9 +526,7 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "dependsOn": [
             {
               "target": "build",
@@ -628,16 +538,12 @@
             "tsConfig": "packages/nx-plugin-devkit/tsconfig.json",
             "packageJson": "packages/nx-plugin-devkit/package.json",
             "main": "packages/nx-plugin-devkit/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-devkit/*.md"
-            ]
+            "assets": ["packages/nx-plugin-devkit/*.md"]
           }
         },
         "tsc": {
           "executor": "@nrwl/workspace:tsc",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "dependsOn": [
             {
               "target": "build",
@@ -649,9 +555,7 @@
             "tsConfig": "packages/nx-plugin-devkit/tsconfig.json",
             "packageJson": "packages/nx-plugin-devkit/package.json",
             "main": "packages/nx-plugin-devkit/src/index.ts",
-            "assets": [
-              "packages/nx-plugin-devkit/*.md"
-            ]
+            "assets": ["packages/nx-plugin-devkit/*.md"]
           }
         }
       }
@@ -678,16 +582,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/nx-plugin-esbuild/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/nx-plugin-esbuild/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/nx-plugin-esbuild"
-          ],
+          "outputs": ["coverage/packages/nx-plugin-esbuild"],
           "options": {
             "jestConfig": "packages/nx-plugin-esbuild/jest.config.js",
             "passWithNoTests": true
@@ -695,9 +595,7 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/nx-plugin-esbuild/dist",
             "tsConfig": "packages/nx-plugin-esbuild/tsconfig.json",
@@ -752,16 +650,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/nx-plugin-prisma/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/nx-plugin-prisma/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/nx-plugin-prisma"
-          ],
+          "outputs": ["coverage/packages/nx-plugin-prisma"],
           "options": {
             "jestConfig": "packages/nx-plugin-prisma/jest.config.js",
             "passWithNoTests": true
@@ -769,9 +663,7 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/nx-plugin-prisma/dist",
             "tsConfig": "packages/nx-plugin-prisma/tsconfig.json",
@@ -826,16 +718,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/nx-plugin-snowpack/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/nx-plugin-snowpack/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/nx-plugin-snowpack"
-          ],
+          "outputs": ["coverage/packages/nx-plugin-snowpack"],
           "options": {
             "jestConfig": "packages/nx-plugin-snowpack/jest.config.js",
             "passWithNoTests": true
@@ -843,9 +731,7 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/nx-plugin-snowpack/dist",
             "tsConfig": "packages/nx-plugin-snowpack/tsconfig.json",
@@ -900,16 +786,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/nx-plugin-vite/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/nx-plugin-vite/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/nx-plugin-vite"
-          ],
+          "outputs": ["coverage/packages/nx-plugin-vite"],
           "options": {
             "jestConfig": "packages/nx-plugin-vite/jest.config.js",
             "passWithNoTests": true
@@ -917,9 +799,7 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/nx-plugin-vite/dist",
             "tsConfig": "packages/nx-plugin-vite/tsconfig.json",
@@ -974,16 +854,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/nx-plugin-workspace/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/nx-plugin-workspace/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/nx-plugin-workspace"
-          ],
+          "outputs": ["coverage/packages/nx-plugin-workspace"],
           "options": {
             "jestConfig": "packages/nx-plugin-workspace/jest.config.js",
             "passWithNoTests": true
@@ -991,9 +867,7 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/nx-plugin-workspace/dist",
             "tsConfig": "packages/nx-plugin-workspace/tsconfig.json",
@@ -1220,20 +1094,14 @@
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "e2e/prisma-app/**/*.ts"
-            ]
+            "lintFilePatterns": ["e2e/prisma-app/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/e2e/prisma-app"
-          ],
+          "outputs": ["coverage/e2e/prisma-app"],
           "options": {
             "jestConfig": "e2e/prisma-app/jest.config.js",
             "passWithNoTests": true
@@ -1249,9 +1117,7 @@
         "start": {
           "executor": "nx-plugin-workspace:exec",
           "options": {
-            "commands": [
-              "react-scripts start"
-            ],
+            "commands": ["react-scripts start"],
             "cwd": "e2e/react-app",
             "parallel": false,
             "useLocalPackage": true,
@@ -1261,9 +1127,7 @@
         "build": {
           "executor": "nx-plugin-workspace:exec",
           "options": {
-            "commands": [
-              "react-scripts build"
-            ],
+            "commands": ["react-scripts build"],
             "cwd": "e2e/react-app",
             "parallel": false,
             "useLocalPackage": true,
@@ -1273,9 +1137,7 @@
         "eject": {
           "executor": "nx-plugin-workspace:exec",
           "options": {
-            "commands": [
-              "react-scripts eject"
-            ],
+            "commands": ["react-scripts eject"],
             "cwd": "e2e/react-app",
             "parallel": false,
             "useLocalPackage": true,
@@ -1320,16 +1182,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/snowpack-plugin-assets/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/snowpack-plugin-assets/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/snowpack-plugin-assets"
-          ],
+          "outputs": ["coverage/packages/snowpack-plugin-assets"],
           "options": {
             "jestConfig": "packages/snowpack-plugin-assets/jest.config.js",
             "passWithNoTests": true
@@ -1337,17 +1195,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/snowpack-plugin-assets/dist",
             "tsConfig": "packages/snowpack-plugin-assets/tsconfig.json",
             "packageJson": "packages/snowpack-plugin-assets/package.json",
             "main": "packages/snowpack-plugin-assets/src/index.ts",
-            "assets": [
-              "packages/snowpack-plugin-assets/*.md"
-            ]
+            "assets": ["packages/snowpack-plugin-assets/*.md"]
           }
         }
       }
@@ -1360,16 +1214,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/snowpack-plugin-compress/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/snowpack-plugin-compress/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/snowpack-plugin-compress"
-          ],
+          "outputs": ["coverage/packages/snowpack-plugin-compress"],
           "options": {
             "jestConfig": "packages/snowpack-plugin-compress/jest.config.js",
             "passWithNoTests": true
@@ -1377,17 +1227,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/snowpack-plugin-compress/dist",
             "tsConfig": "packages/snowpack-plugin-compress/tsconfig.json",
             "packageJson": "packages/snowpack-plugin-compress/package.json",
             "main": "packages/snowpack-plugin-compress/src/index.ts",
-            "assets": [
-              "packages/snowpack-plugin-compress/*.md"
-            ]
+            "assets": ["packages/snowpack-plugin-compress/*.md"]
           }
         }
       }
@@ -1400,16 +1246,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/snowpack-plugin-execa/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/snowpack-plugin-execa/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/snowpack-plugin-execa"
-          ],
+          "outputs": ["coverage/packages/snowpack-plugin-execa"],
           "options": {
             "jestConfig": "packages/snowpack-plugin-execa/jest.config.js",
             "passWithNoTests": true
@@ -1417,32 +1259,24 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/snowpack-plugin-execa/dist",
             "tsConfig": "packages/snowpack-plugin-execa/tsconfig.json",
             "packageJson": "packages/snowpack-plugin-execa/package.json",
             "main": "packages/snowpack-plugin-execa/src/index.ts",
-            "assets": [
-              "packages/snowpack-plugin-execa/*.md"
-            ]
+            "assets": ["packages/snowpack-plugin-execa/*.md"]
           }
         },
         "tsc": {
           "executor": "nx-plugin-workspace:tsc",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "main": "packages/snowpack-plugin-execa/src/index.ts",
             "outputPath": "./packages/snowpack-plugin-execa/dist",
             "tsConfig": "packages/snowpack-plugin-execa/tsconfig.json",
             "packageJson": "packages/snowpack-plugin-execa/package.json",
-            "assets": [
-              "packages/snowpack-plugin-execa/*.md"
-            ]
+            "assets": ["packages/snowpack-plugin-execa/*.md"]
           }
         }
       }
@@ -1462,9 +1296,7 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/snowpack-plugin-markdown-import"
-          ],
+          "outputs": ["coverage/packages/snowpack-plugin-markdown-import"],
           "options": {
             "jestConfig": "packages/snowpack-plugin-markdown-import/jest.config.js",
             "passWithNoTests": true
@@ -1472,17 +1304,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/snowpack-plugin-markdown-import/dist",
             "tsConfig": "packages/snowpack-plugin-markdown-import/tsconfig.json",
             "packageJson": "packages/snowpack-plugin-markdown-import/package.json",
             "main": "packages/snowpack-plugin-markdown-import/src/index.ts",
-            "assets": [
-              "packages/snowpack-plugin-markdown-import/*.md"
-            ]
+            "assets": ["packages/snowpack-plugin-markdown-import/*.md"]
           }
         }
       }
@@ -1495,16 +1323,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/snowpack-plugin-serve/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/snowpack-plugin-serve/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/snowpack-plugin-serve"
-          ],
+          "outputs": ["coverage/packages/snowpack-plugin-serve"],
           "options": {
             "jestConfig": "packages/snowpack-plugin-serve/jest.config.js",
             "passWithNoTests": true
@@ -1512,17 +1336,13 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "./packages/snowpack-plugin-serve/dist",
             "tsConfig": "packages/snowpack-plugin-serve/tsconfig.json",
             "packageJson": "packages/snowpack-plugin-serve/package.json",
             "main": "packages/snowpack-plugin-serve/src/index.ts",
-            "assets": [
-              "packages/snowpack-plugin-serve/*.md"
-            ]
+            "assets": ["packages/snowpack-plugin-serve/*.md"]
           }
         }
       }

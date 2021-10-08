@@ -30,7 +30,7 @@
     "chalk": "^4.1.2"
   },
   "peerDependencies": {
-    "esbuild": "^0.12.25"
+    "esbuild": "^0.13.2"
   },
   "executors": "./dist/executors.json",
   "generators": "./dist/generators.json"

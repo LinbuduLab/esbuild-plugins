@@ -29,7 +29,7 @@
     "fs-extra": "^10.0.0"
   },
   "peerDependencies": {
-    "esbuild": "^0.12.25",
+    "esbuild": "^0.13.2",
     "marked": "^3.0.2"
   },
   "executors": "./dist/executors.json",

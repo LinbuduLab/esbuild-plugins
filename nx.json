@@ -34,8 +34,7 @@
   },
   "projects": {
     "astro-app": {
-      "tags": [],
-      "implicitDependencies": []
+      "tags": []
     },
     "esbuild-node-app": {
       "tags": []
