@@ -1,0 +1,17 @@
+{
+  "name": "nx-plugin-astro",
+  "version": "0.0.1",
+  "homepage": "\n      https://github.com/LinbuduLab/nx-plugins/tree/main/packages/nx-plugin-astro#readme,\n    ",
+  "bugs": {
+    "url": "https://github.com/LinbuduLab/nx-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LinbuduLab/nx-plugins.git"
+  },
+  "license": "MIT",
+  "main": "dist/src/index.js",
+  "scripts": {},
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
+}
