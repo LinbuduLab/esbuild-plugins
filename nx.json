@@ -71,13 +71,13 @@
     "snowpack-plugin-execa": { "tags": [] },
     "snowpack-plugin-markdown-import": { "tags": [] },
     "snowpack-plugin-serve": { "tags": [] },
-    "astro-playground": {},
     "esbuild-node-app": { "tags": [] },
     "ice-vite-app": { "tags": [], "implicitDependencies": [] },
     "prisma-app": {},
     "react-app": { "tags": [] },
     "snowpack-app": { "tags": [] },
     "vite-app": { "tags": [] },
+    "astro-app": { "tags": [], "implicitDependencies": [] },
     "tmp": { "tags": [], "implicitDependencies": [] }
   },
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" }

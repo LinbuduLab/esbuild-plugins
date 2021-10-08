@@ -8,7 +8,7 @@ export default function SolidCounter() {
   return (
     <div id="solid" class="counter">
       <button onClick={subtract}>-</button>
-      <pre>{count()}</pre>
+      <pre>Solid Counter: {count()}</pre>
       <button onClick={add}>+</button>
     </div>
   );

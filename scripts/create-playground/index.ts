@@ -20,9 +20,9 @@ export default function useCreatePlayground(cli: CAC) {
     .command('playground [name]', 'Create playground', {
       allowUnknownOptions: true,
     })
+    .alias('p')
     .option('--init [init]', 'Create initial configuration')
     .option('--no-init', 'Donot create initial configuration')
-    .alias('p')
     .action(async (name: string, options: { init: boolean }) => {
       const playgroundDir = path.join(process.cwd(), 'e2e', name);
       fs.ensureDirSync(playgroundDir);
@@ -84,11 +84,15 @@ export default function useCreatePlayground(cli: CAC) {
         targets: options.init
           ? {
               dev: {
-                executor: 'nx-plugin-workspace:light-node-serve',
-                outputs: ['{options.outputPath}'],
+                executor: 'nx-plugin-workspace:exec',
                 options: {
-                  main: `e2e/${name}/src/main.ts`,
-                  tsConfig: `e2e/${name}/tsconfig.json`,
+                  commands: ["echo 'Hi!'"],
+                  cwd: `e2e/${name}`,
+                  parallel: false,
+                  color: true,
+                  useCamelCase: false,
+                  useLocalPackage: true,
+                  shell: true,
                 },
               },
             }

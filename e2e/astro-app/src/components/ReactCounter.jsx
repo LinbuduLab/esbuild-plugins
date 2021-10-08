@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function ReactCounter() {
   const [count, setCount] = useState(0);
@@ -8,7 +8,7 @@ export default function ReactCounter() {
   return (
     <div id="react" className="counter">
       <button onClick={subtract}>-</button>
-      <pre>{count}</pre>
+      <pre>React Counter: {count}</pre>
       <button onClick={add}>+</button>
     </div>
   );

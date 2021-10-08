@@ -12,6 +12,6 @@
 
 <div id="svelte" class="counter">
   <button on:click={subtract}>-</button>
-  <pre>{ count }</pre>
+  <pre>Svelte Counter: { count }</pre>
   <button on:click={add}>+</button>
 </div>

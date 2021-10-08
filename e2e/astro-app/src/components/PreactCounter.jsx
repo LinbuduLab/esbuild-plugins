@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState } from "preact/hooks";
 
 export default function PreactCounter() {
   const [count, setCount] = useState(0);
@@ -8,7 +8,7 @@ export default function PreactCounter() {
   return (
     <div id="preact" class="counter">
       <button onClick={subtract}>-</button>
-      <pre>{count}</pre>
+      <pre>Preact Counter: {count}</pre>
       <button onClick={add}>+</button>
     </div>
   );

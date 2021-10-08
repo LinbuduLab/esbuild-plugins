@@ -1,13 +1,13 @@
 import type { ExecutorContext } from '@nrwl/devkit';
 import type { ViteServeSchema } from './schema';
 
+import { of } from 'rxjs';
 import { eachValueFrom } from 'rxjs-for-await';
 import { catchError, map } from 'rxjs/operators';
 import consola from 'consola';
 
 import { startViteServer } from './lib/vite-serve';
 import { preflightCheck } from '../utils/preflight-check';
-import { of } from 'rxjs';
 
 export default function runExecutor(
   schema: ViteServeSchema,

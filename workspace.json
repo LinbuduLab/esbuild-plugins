@@ -895,25 +895,6 @@
         }
       }
     },
-    "astro-playground": {
-      "root": "e2e/astro-playground",
-      "sourceRoot": "e2e/astro-playground/src",
-      "projectType": "application",
-      "targets": {
-        "dev": {
-          "executor": "nx-plugin-workspace:exec",
-          "options": {
-            "commands": ["astro dev"],
-            "cwd": "e2e/astro-playground",
-            "parallel": false,
-            "color": true,
-            "useCamelCase": false,
-            "useLocalPackage": true,
-            "shell": true
-          }
-        }
-      }
-    },
     "esbuild-node-app": {
       "root": "e2e/esbuild-node-app",
       "sourceRoot": "e2e/esbuild-node-app/src",
@@ -1272,6 +1253,25 @@
             "write": true,
             "emitAtRootLevel": false,
             "manifest": true
+          }
+        }
+      }
+    },
+    "astro-app": {
+      "root": "e2e/astro-app",
+      "sourceRoot": "e2e/astro-app/src",
+      "projectType": "application",
+      "targets": {
+        "dev": {
+          "executor": "nx-plugin-workspace:exec",
+          "options": {
+            "commands": ["astro dev"],
+            "cwd": "e2e/astro-app",
+            "parallel": false,
+            "color": true,
+            "useCamelCase": false,
+            "useLocalPackage": true,
+            "shell": true
           }
         }
       }

@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /media/logo.jpeg
+# heroImage: /media/logo.jpeg
 heroText: Nx Plugins
 tagline: Nx + Bundler / Library / Framework.
 actionText: Get Started →

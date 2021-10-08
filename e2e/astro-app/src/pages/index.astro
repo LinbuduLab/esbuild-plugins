@@ -2,17 +2,21 @@
 // Component Imports
 import Tour from '../components/Tour.astro';
 // You can import components from any supported Framework here!
-import PreactCounter from '../components/PreactCounter.jsx';
+// Angular
 import ReactCounter from '../components/ReactCounter.jsx';
 import SolidCounter from '../components/SolidCounter.jsx';
 import SvelteCounter from '../components/SvelteCounter.svelte';
 import VueCounter from '../components/VueCounter.vue';
+
+import ReactRequest from '../components/ReactRequest.tsx'
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
 // It will run during the build, but never in the browser.
 // All variables are available to use in the HTML template below.
 let title = 'My Astro Site';
+
+let bool: boolean = true
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
@@ -44,7 +48,8 @@ let title = 'My Astro Site';
             </div>
         </header>
 
-        <Tour />
+        <!-- <Tour /> -->
+        <ReactRequest client:visible />
 
         <!--
            - You can also use imported framework components directly in your markup!
@@ -52,9 +57,8 @@ let title = 'My Astro Site';
            - Note: by default, these components are NOT interactive on the client.
            - The `:visible` directive tells Astro to make it interactive.
            -
-           - See https://docs.astro.build/core-concepts/component-hydration/ 
+           - See https://docs.astro.build/core-concepts/component-hydration/
            -->
-        <PreactCounter client:visible />
         <ReactCounter client:visible />
         <SolidCounter client:visible />
         <SvelteCounter client:visible />
