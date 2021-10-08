@@ -12,6 +12,7 @@ permalink: /:slug
 - [nx-plugin-snowpack](snowpack.md)
 - [nx-plugin-vite](vite.md)
 - [nx-plugin-prisma](prisma.md)
+- [nx-plugin-astro](astro.md)
 
 ## Nx Plugin Helper
 
