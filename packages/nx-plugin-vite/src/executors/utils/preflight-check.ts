@@ -5,6 +5,11 @@ import path from 'path';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 
+/**
+ * Ensure project config and vite config file exists.
+ * @param context
+ * @param configFile
+ */
 export function preflightCheck(context: ExecutorContext, configFile: string) {
   ensureProjectConfig(context);
 
