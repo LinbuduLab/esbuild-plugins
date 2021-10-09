@@ -1,37 +1,6 @@
 {
   "version": 2,
   "projects": {
-    "astro-app": {
-      "root": "e2e/astro-app",
-      "projectType": "application",
-      "sourceRoot": "e2e/astro-app/src",
-      "targets": {
-        "dev": {
-          "executor": "nx-plugin-workspace:exec",
-          "options": {
-            "command": "astro dev",
-            "cwd": "e2e/astro-app",
-            "parallel": false,
-            "color": true,
-            "useCamelCase": false,
-            "useLocalPackage": true,
-            "shell": true
-          }
-        },
-        "build": {
-          "executor": "nx-plugin-workspace:exec",
-          "options": {
-            "command": "astro build",
-            "cwd": "e2e/astro-app",
-            "parallel": false,
-            "color": true,
-            "useCamelCase": false,
-            "useLocalPackage": true,
-            "shell": true
-          }
-        }
-      }
-    },
     "esbuild-node-app": {
       "root": "e2e/esbuild-node-app",
       "sourceRoot": "e2e/esbuild-node-app/src",

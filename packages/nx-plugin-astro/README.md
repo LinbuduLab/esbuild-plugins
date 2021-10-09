@@ -1,7 +1,7 @@
 # nx-plugin-astro
 
-This library was generated with [Nx](https://nx.dev).
+Nx plugin integration with [Astro](https://astro.build/).
 
-## Running unit tests
-
-Run `nx test nx-plugin-astro` to execute the unit tests via [Jest](https://jestjs.io).
+- [Documentation](https://nx-plugins.netlify.app/astro/)
+- [GitHub Repo](https://github.com/LinbuduLab/nx-plugins)
+- [Author](https://github.com/linbudu599)

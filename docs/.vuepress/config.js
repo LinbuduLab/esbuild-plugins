@@ -15,6 +15,10 @@ const NX_PLUGIN_LIST = [
     path: 'vite',
   },
   {
+    title: 'Astro',
+    path: 'astro',
+  },
+  {
     title: 'Snowpack',
     path: 'snowpack',
   },
@@ -22,10 +26,10 @@ const NX_PLUGIN_LIST = [
     title: 'Prisma',
     path: 'prisma',
   },
-  {
-    title: 'TypeGraphQL',
-    path: 'type-graphql',
-  },
+  // {
+  //   title: 'TypeGraphQL',
+  //   path: 'type-graphql',
+  // },
   {
     title: 'Devkit',
     path: 'devkit',

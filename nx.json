@@ -33,9 +33,6 @@
     ]
   },
   "projects": {
-    "astro-app": {
-      "tags": []
-    },
     "esbuild-node-app": {
       "tags": []
     },

@@ -16,8 +16,7 @@
       "e2e/ice-vite-app",
       "e2e/nx-plugin-vite-e2e",
       "e2e/nx-plugin-prisma-e2e",
-      "e2e/nx-plugin-snowpack-e2e",
-      "e2e/astro-app"
+      "e2e/nx-plugin-snowpack-e2e"
     ],
     "nohoist": [
       "**/prisma",
@@ -97,11 +96,6 @@
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
-    "@astrojs/renderer-preact": "^0.2.2",
-    "@astrojs/renderer-react": "^0.2.2",
-    "@astrojs/renderer-solid": "^0.1.1",
-    "@astrojs/renderer-svelte": "^0.1.2",
-    "@astrojs/renderer-vue": "^0.1.8",
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "@nrwl/cli": "12.7.2",
