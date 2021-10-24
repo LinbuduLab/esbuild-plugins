@@ -39,6 +39,8 @@ Add plugin related workspace targets to **exist application**.
 
 **NOTE: In Nx-Vite project, it's recommended to configurate your vite project by `PROJECT/vite.config.ts`(which also has a higher priority) instead of schema options. When a option is defined in both ways, its resolve priority depends on Vite itself.**
 
+**NOTE: In some situations, ternimal output may display abnormally, for example when running `nx serve vite`, the vite serve output may disappeared and left only `Nx-Vite [Start] Starting` text. So as a tmp solution, we use a simple ready log. This is indeed a bug and I'm still trying to fix it.**
+
 ### serve
 
 ```bash
