@@ -30,6 +30,12 @@ export const startViteAsync = async (schema: ViteServeSchema) => {
 
   const devServer = await serverFactory.listen(port);
 
+  consola.success(
+    `Vite server ready at ${chalk.green(
+      `${https ? 'https:' : 'http:'}//localhost:${port}`
+    )}`
+  );
+
   try {
     await new Promise<void>((resolve, reject) => {
       devServer.watcher.on('event', (event: RollupWatcherEvent) => {
