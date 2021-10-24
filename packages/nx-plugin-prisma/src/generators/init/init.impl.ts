@@ -5,6 +5,7 @@ import {
   GeneratorCallback,
   Tree,
   addDependenciesToPackageJson,
+  updateJson,
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import {
@@ -16,6 +17,7 @@ import {
   createPackageJSON,
 } from 'nx-plugin-devkit';
 import pacote from 'pacote';
+import path from 'path';
 import consola from 'consola';
 
 import { PrismaInitGeneratorSchema } from './schema';
@@ -104,5 +106,6 @@ export default async function (host: Tree, schema: PrismaInitGeneratorSchema) {
   return () => {
     runTasksInSerial(...tasks);
     installPackagesTask(host);
+
   };
 }
