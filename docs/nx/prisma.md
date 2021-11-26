@@ -11,10 +11,29 @@ Nx plugin integration with [Prisma](https://www.prisma.io/)
 ```bash
 # you can also skip prisma related installation, which will also be installed when executing generator:app
 yarn add @prisma/client
-yarn add nx-plugin-prisma prisma -D
+yarn add nx-plugin-prisma prisma nx-plugin-devkit nx-plugin-workspace -D
 # some required peer deps in nx workspace
 yarn add @nrwl/node @nrwl/workspace @nrwl/tao @angular-devkit/schematics -D
 ```
+
+## Getting Started
+
+- Install dependencies above.
+- Run `nx g nx-plugin-prisma:init --app prisma-app`.
+- If your `tsconfig.base.json` does not contain the following `compilerOptions`, add it to `prisma-app/tsconfig.json`.
+  
+  ```json
+  {
+    "compilerOptions": {
+      "allowSyntheticDefaultImports": true,
+      "module": "CommonJS",
+      "esModuleInterop": true,
+    }
+  }
+  ```
+
+- Run `nx prisma-db-push prisma-app` to create SQLite database and generate Prisma client. (Or if you want to use `prisma generate` for client creation, you can also execute `nx prisma-db-push prisma-app --skip-generate` and `nx prisma-generate prisma-app`)
+- Run `nx dev prisma-app`.
 
 ## Generators
 

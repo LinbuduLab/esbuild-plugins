@@ -16,7 +16,7 @@ export const REACT_DEPS = {
     '@types/react-dom': '^17.0.0',
     '@vitejs/plugin-react-refresh': '^1.3.1',
     typescript: '^4.3.2',
-    vite: '^2.6.0',
+    vite: '^2.6.10',
   },
 };
 
