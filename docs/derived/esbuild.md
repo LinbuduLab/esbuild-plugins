@@ -4,7 +4,7 @@
 
 ESBuild plugin for alias replacement.
 
-**Node: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
+**Note: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
 
 ```bash
 npm install esbuild-plugin-alias-path --save-dev
@@ -70,7 +70,7 @@ esbuildPluginAliasPath({
 
 ESBuild plugin for cleaning up output/assets before building.
 
-**Node: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
+**Note: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
 
 ```bash
 npm install esbuild-plugin-clean --save-dev
@@ -125,7 +125,7 @@ export interface CleanOptions {
 
 ESBuild plugin for output compression (`gzip`/`brotli`).
 
-**Node: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
+**Note: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
 
 ```bash
 npm install esbuild-plugin-compress --save-dev
@@ -181,7 +181,7 @@ export interface CompressOptions {
 
 ESBuild plugin for assets copy handle.
 
-**Node: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
+**Note: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
 
 ```bash
 npm install esbuild-plugin-copy --save-dev
@@ -217,7 +217,9 @@ type MaybeArray<T> = T | T[];
 
 // file / folder / globs
 export interface AssetPair {
+  // from path is resolved based on cwd
   from: MaybeArray<string>;
+  // to path is resolved based on outdir or outfile in your ESBuild options
   to: MaybeArray<string>;
 }
 
@@ -313,7 +315,7 @@ export interface ESBuildPluginDecoratorOptions {
 
 ESBuild plugin for displaying output file size info.
 
-**Node: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
+**Note: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
 
 ```bash
 npm install esbuild-plugin-filesize --save-dev
@@ -597,7 +599,7 @@ export interface Options {
 
 ESBuild plugin that execute output file after build completed.
 
-**Node: this plugin require ESBuild version ^0.11.19 for the `onEnd` hooks.**
+**Note: this plugin require ESBuild version ^0.11.19 for the `onEnd` hooks.**
 
 **This plugin support only single-output(outfile) mode.**
 
