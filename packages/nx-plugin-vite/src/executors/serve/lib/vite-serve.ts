@@ -13,12 +13,7 @@ export interface ServeRes {
 }
 
 export const startViteAsync = async (schema: ViteServeSchema) => {
-  const { root, configFile } = schema;
-
-  const serverFactory = await createServer({
-    root,
-    configFile,
-  });
+  const serverFactory = await createServer(schema);
 
   consola.info(chalk.cyan('Nx-Vite [Start] Starting \n'));
 
@@ -49,12 +44,8 @@ export const startViteAsync = async (schema: ViteServeSchema) => {
 export const startViteServer = (
   schema: ViteServeSchema
 ): Observable<ServeRes> => {
-  const { root, configFile } = schema;
 
-  const serverFactory = createServer({
-    root,
-    configFile,
-  });
+  const serverFactory = createServer(schema);
 
   return from(serverFactory).pipe(
     tap(() => {
