@@ -12,23 +12,9 @@
     "configFile": {
       "type": "string",
       "description": "vite config file path"
-    },
-    "watch": {
-      "type": "boolean",
-      "default": false
-    },
-    "port": {
-      "type": "number",
-      "default": 3000
-    },
-    "host": {
-      "type": "boolean",
-      "default": false
-    },
-    "https": {
-      "type": "boolean",
-      "default": false
     }
   },
-  "required": ["configFile"]
+  "required": [
+    "configFile"
+  ]
 }

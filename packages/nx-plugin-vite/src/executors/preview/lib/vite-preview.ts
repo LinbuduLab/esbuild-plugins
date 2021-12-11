@@ -10,10 +10,6 @@ export function startVitePreview(schema: VitePreviewSchema): Observable<Res> {
   const previewCommandArgs = (): string[] => {
     const args = ['preview', schema.root];
 
-    if (schema.port) {
-      args.push('--port', `${schema.port}`);
-    }
-
     return args;
   };
 

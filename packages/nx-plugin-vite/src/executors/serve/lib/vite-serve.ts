@@ -13,22 +13,12 @@ export interface ServeRes {
 }
 
 export const startViteAsync = async (schema: ViteServeSchema) => {
-  const { root, configFile, port, watch, host, https } = schema;
-
-  const serverFactory = await createServer({
-    root,
-    configFile,
-    server: {
-      port,
-      watch: watch ? {} : null,
-      host,
-      https,
-    },
-  });
+  const serverFactory = await createServer(schema);
 
   consola.info(chalk.cyan('Nx-Vite [Start] Starting \n'));
 
-  const devServer = await serverFactory.listen(port);
+  const devServer = await serverFactory.listen();
+  const {https = false, port} = devServer.config.server
 
   consola.success(
     `Vite server ready at ${chalk.green(
@@ -54,18 +44,8 @@ export const startViteAsync = async (schema: ViteServeSchema) => {
 export const startViteServer = (
   schema: ViteServeSchema
 ): Observable<ServeRes> => {
-  const { root, configFile, port, watch, host, https } = schema;
 
-  const serverFactory = createServer({
-    root,
-    configFile,
-    server: {
-      port,
-      watch: watch ? {} : null,
-      host,
-      https,
-    },
-  });
+  const serverFactory = createServer(schema);
 
   return from(serverFactory).pipe(
     tap(() => {
@@ -75,7 +55,7 @@ export const startViteServer = (
     exhaustMap((server) => {
       return new Observable<ServeRes>((subscriber) => {
         server
-          .listen(port)
+          .listen()
           .then((devServer) => {
             devServer.watcher.addListener('error', (error) => {
               subscriber.error({ error });
