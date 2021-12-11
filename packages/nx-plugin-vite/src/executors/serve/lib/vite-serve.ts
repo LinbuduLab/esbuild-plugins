@@ -18,7 +18,7 @@ export const startViteAsync = async (schema: ViteServeSchema) => {
   consola.info(chalk.cyan('Nx-Vite [Start] Starting \n'));
 
   const devServer = await serverFactory.listen();
-  const {https = false, port} = devServer.config.server
+  const { https = false, port } = devServer.config.server
 
   consola.success(
     `Vite server ready at ${chalk.green(
