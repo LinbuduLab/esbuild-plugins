@@ -15,6 +15,10 @@ yarn add nx-plugin-vite vite -D
 yarn add @nrwl/node @nrwl/workspace @nrwl/tao @angular-devkit/schematics -D
 ```
 
+## Breaking Changes
+
+- Since **1.2.0**, executor `serve` / `preview` can only be configured with Vite config file.
+
 ## Generators
 
 ### app
@@ -53,8 +57,6 @@ Only few options are supported from schema:
 
 - `root`: specify project root, if not configurated, will use `workspace.project.root` instead.
 - `configFile`(required): specify vite config path, relative to project root(or `options.root` if it's specified).
-- `port`.
-- `host`.
 
 Find more supported schema options in [Vite.Executor.Serve](/packages/nx-plugin-vite/src/executors/serve/schema.json).
 
@@ -97,6 +99,5 @@ Run `vite preview` command for project.
 
 - `root`: specify project root, if not configurated, will use `workspace.project.root` instead.
 - `configFile`(required): specify vite config path, relative to project root(or `options.root` if it's specified).
-- `port`
 
 Find more supported schema options in [Vite.Executor.Preview](/packages/nx-plugin-vite/src/executors/preview/schema.json).
