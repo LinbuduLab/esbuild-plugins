@@ -7,7 +7,8 @@ export const PLUGIN_DIR = path.resolve(
   '../../',
   nx.workspaceLayout.libsDir
 );
-export const PROJECT_LIST = Object.keys(nx.projects);
+
+export const PROJECT_LIST = fs.readdirSync(PLUGIN_DIR);
 
 export const getPluginList = () => {
   return fs.readdirSync(PLUGIN_DIR);
