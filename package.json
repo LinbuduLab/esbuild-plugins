@@ -13,7 +13,6 @@
       "e2e/esbuild-node-app",
       "e2e/tmp",
       "e2e/prisma-app",
-      "e2e/ice-vite-app",
       "e2e/nx-plugin-vite-e2e",
       "e2e/nx-plugin-prisma-e2e",
       "e2e/nx-plugin-snowpack-e2e"
@@ -27,7 +26,6 @@
       "**/@snowpack/**",
       "**/react",
       "**/react-dom",
-      "**/ice.js",
       "**/build-plugin-fusion",
       "**/build-plugin-moment-locales"
     ]
@@ -98,19 +96,19 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "@nrwl/cli": "12.7.2",
-    "@nrwl/devkit": "^12.7.2",
-    "@nrwl/eslint-plugin-nx": "^12.7.2",
-    "@nrwl/jest": "^12.7.2",
-    "@nrwl/linter": "^12.7.2",
-    "@nrwl/nest": "^12.8.0",
-    "@nrwl/node": "^12.7.2",
+    "@nrwl/cli": "^13.4.4",
+    "@nrwl/devkit": "^13.4.4",
+    "@nrwl/eslint-plugin-nx": "^13.4.4",
+    "@nrwl/jest": "^13.4.4",
+    "@nrwl/linter": "^13.4.4",
+    "@nrwl/nest": "^13.4.4",
+    "@nrwl/node": "^13.4.4",
     "@nrwl/nx-cloud": "latest",
-    "@nrwl/nx-plugin": "^12.7.2",
-    "@nrwl/react": "^12.8.0",
-    "@nrwl/tao": "12.7.2",
-    "@nrwl/web": "12.8.0",
-    "@nrwl/workspace": "^12.7.2",
+    "@nrwl/nx-plugin": "^13.4.4",
+    "@nrwl/react": "^13.4.4",
+    "@nrwl/tao": "^13.4.4",
+    "@nrwl/web": "^13.4.4",
+    "@nrwl/workspace": "^13.4.4",
     "@release-it/conventional-changelog": "^3.3.0",
     "@snowpack/plugin-dotenv": "^2.2.0",
     "@snowpack/plugin-postcss": "^1.4.3",
@@ -184,7 +182,7 @@
     "ts-node-dev": "^1.1.8",
     "tslib": "^2.0.0",
     "typescript": "~4.3.5",
-    "vite": "^2.6.10",
+    "vite": "^2.7.10",
     "vuepress": "1.5.2"
   }
 }

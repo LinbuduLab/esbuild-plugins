@@ -1,0 +1,56 @@
+{
+  "root": "packages/nx-plugin-esbuild",
+  "sourceRoot": "packages/nx-plugin-esbuild/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/nx-plugin-esbuild/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/nx-plugin-esbuild"],
+      "options": {
+        "jestConfig": "packages/nx-plugin-esbuild/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "./packages/nx-plugin-esbuild/dist",
+        "tsConfig": "packages/nx-plugin-esbuild/tsconfig.json",
+        "packageJson": "packages/nx-plugin-esbuild/package.json",
+        "main": "packages/nx-plugin-esbuild/src/index.ts",
+        "assets": [
+          "packages/nx-plugin-esbuild/*.md",
+          {
+            "input": "./packages/nx-plugin-esbuild/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-plugin-esbuild/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-plugin-esbuild",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-plugin-esbuild",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": []
+}

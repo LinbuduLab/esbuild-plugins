@@ -1,0 +1,56 @@
+{
+  "root": "packages/nx-plugin-prisma",
+  "sourceRoot": "packages/nx-plugin-prisma/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/nx-plugin-prisma/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/nx-plugin-prisma"],
+      "options": {
+        "jestConfig": "packages/nx-plugin-prisma/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "./packages/nx-plugin-prisma/dist",
+        "tsConfig": "packages/nx-plugin-prisma/tsconfig.json",
+        "packageJson": "packages/nx-plugin-prisma/package.json",
+        "main": "packages/nx-plugin-prisma/src/index.ts",
+        "assets": [
+          "packages/nx-plugin-prisma/*.md",
+          {
+            "input": "./packages/nx-plugin-prisma/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-plugin-prisma/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-plugin-prisma",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-plugin-prisma",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
+}

@@ -16,8 +16,8 @@
     "nx-plugin-devkit": "^0.3.0"
   },
   "peerDependencies": {
-    "@nrwl/devkit": "^12.7.2",
-    "@nrwl/workspace": "^12.7.2"
+    "@nrwl/devkit": "^13.4.4",
+    "@nrwl/workspace": "^13.4.4"
   },
   "executors": "./dist/executors.json",
   "generators": "./dist/generators.json"

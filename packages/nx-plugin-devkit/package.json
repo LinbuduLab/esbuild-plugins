@@ -23,12 +23,12 @@
     "yargs-parser": "^20.2.7"
   },
   "peerDependencies": {
-    "@nrwl/devkit": "^12.7.2",
-    "@nrwl/jest": "^12.7.2",
-    "@nrwl/linter": "^12.7.2",
-    "@nrwl/node": "^12.7.2",
-    "@nrwl/tao": "12.7.2",
-    "@nrwl/workspace": "^12.7.2",
+    "@nrwl/devkit": "^13.4.4",
+    "@nrwl/jest": "^13.4.4",
+    "@nrwl/linter": "^13.4.4",
+    "@nrwl/node": "^13.4.4",
+    "@nrwl/tao": "^13.4.4",
+    "@nrwl/workspace": "^13.4.4",
     "esbuild": "^0.13.2"
   }
 }

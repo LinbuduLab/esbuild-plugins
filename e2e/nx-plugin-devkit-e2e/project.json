@@ -1,0 +1,16 @@
+{
+  "root": "e2e/nx-plugin-devkit-e2e",
+  "projectType": "application",
+  "sourceRoot": "e2e/nx-plugin-devkit-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/nx-plugin:e2e",
+      "options": {
+        "target": "nx-plugin-devkit:build",
+        "jestConfig": "e2e/nx-plugin-devkit-e2e/jest.config.js"
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["nx-plugin-devkit"]
+}

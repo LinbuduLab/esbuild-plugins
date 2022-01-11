@@ -18,12 +18,12 @@
     "rxjs-for-await": "^0.0.2"
   },
   "peerDependencies": {
-    "@nrwl/devkit": "^12.7.2",
-    "@nrwl/jest": "^12.7.2",
-    "@nrwl/linter": "^12.7.2",
-    "@nrwl/node": "^12.7.2",
-    "@nrwl/workspace": "^12.7.2",
-    "vite": "^2.5.4"
+    "@nrwl/devkit": "^13.4.4",
+    "@nrwl/jest": "^13.4.4",
+    "@nrwl/linter": "^13.4.4",
+    "@nrwl/node": "^13.4.4",
+    "@nrwl/workspace": "^13.4.4",
+    "vite": "^2.7.10"
   },
   "executors": "./dist/executors.json",
   "generators": "./dist/generators.json"

@@ -1,0 +1,38 @@
+{
+  "root": "e2e/react-app",
+  "projectType": "application",
+  "sourceRoot": "e2e/react-app/src",
+  "targets": {
+    "start": {
+      "executor": "nx-plugin-workspace:exec",
+      "options": {
+        "commands": ["react-scripts start"],
+        "cwd": "e2e/react-app",
+        "parallel": false,
+        "useLocalPackage": true,
+        "shell": true
+      }
+    },
+    "build": {
+      "executor": "nx-plugin-workspace:exec",
+      "options": {
+        "commands": ["react-scripts build"],
+        "cwd": "e2e/react-app",
+        "parallel": false,
+        "useLocalPackage": true,
+        "shell": true
+      }
+    },
+    "eject": {
+      "executor": "nx-plugin-workspace:exec",
+      "options": {
+        "commands": ["react-scripts eject"],
+        "cwd": "e2e/react-app",
+        "parallel": false,
+        "useLocalPackage": true,
+        "shell": true
+      }
+    }
+  },
+  "tags": []
+}

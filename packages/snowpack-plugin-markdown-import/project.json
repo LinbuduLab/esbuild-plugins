@@ -1,0 +1,33 @@
+{
+  "root": "packages/snowpack-plugin-markdown-import",
+  "sourceRoot": "packages/snowpack-plugin-markdown-import/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/snowpack-plugin-markdown-import/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/snowpack-plugin-markdown-import"],
+      "options": {
+        "jestConfig": "packages/snowpack-plugin-markdown-import/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "./packages/snowpack-plugin-markdown-import/dist",
+        "tsConfig": "packages/snowpack-plugin-markdown-import/tsconfig.json",
+        "packageJson": "packages/snowpack-plugin-markdown-import/package.json",
+        "main": "packages/snowpack-plugin-markdown-import/src/index.ts",
+        "assets": ["packages/snowpack-plugin-markdown-import/*.md"]
+      }
+    }
+  },
+  "tags": []
+}

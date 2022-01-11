@@ -1,0 +1,33 @@
+{
+  "root": "packages/snowpack-plugin-compress",
+  "sourceRoot": "packages/snowpack-plugin-compress/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/snowpack-plugin-compress/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/snowpack-plugin-compress"],
+      "options": {
+        "jestConfig": "packages/snowpack-plugin-compress/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "./packages/snowpack-plugin-compress/dist",
+        "tsConfig": "packages/snowpack-plugin-compress/tsconfig.json",
+        "packageJson": "packages/snowpack-plugin-compress/package.json",
+        "main": "packages/snowpack-plugin-compress/src/index.ts",
+        "assets": ["packages/snowpack-plugin-compress/*.md"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -10,10 +10,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "CommonJS",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "resolveJsonModule": true,
@@ -24,79 +21,46 @@
       "esbuild-plugin-alias-path": [
         "packages/esbuild-plugin-alias-path/src/index.ts"
       ],
-      "esbuild-plugin-clean": [
-        "packages/esbuild-plugin-clean/src/index.ts"
-      ],
+      "esbuild-plugin-clean": ["packages/esbuild-plugin-clean/src/index.ts"],
       "esbuild-plugin-compress": [
         "packages/esbuild-plugin-compress/src/index.ts"
       ],
-      "esbuild-plugin-copy": [
-        "packages/esbuild-plugin-copy/src/index.ts"
-      ],
+      "esbuild-plugin-copy": ["packages/esbuild-plugin-copy/src/index.ts"],
       "esbuild-plugin-decorator": [
         "packages/esbuild-plugin-decorator/src/index.ts"
       ],
       "esbuild-plugin-filesize": [
         "packages/esbuild-plugin-filesize/src/index.ts"
       ],
-      "esbuild-plugin-ignore": [
-        "packages/esbuild-plugin-ignore/src/index.ts"
-      ],
+      "esbuild-plugin-ignore": ["packages/esbuild-plugin-ignore/src/index.ts"],
       "esbuild-plugin-markdown-import": [
         "packages/esbuild-plugin-markdown-import/src/index.ts"
       ],
       "esbuild-plugin-node-externals": [
         "packages/esbuild-plugin-node-externals/src/index.ts"
       ],
-      "esbuild-plugin-run": [
-        "packages/esbuild-plugin-run/src/index.ts"
-      ],
-      "nx-plugin-astro": [
-        "packages/nx-plugin-astro/src/index.ts"
-      ],
-      "nx-plugin-devkit": [
-        "packages/nx-plugin-devkit/src/index.ts"
-      ],
-      "nx-plugin-esbuild": [
-        "packages/nx-plugin-esbuild/src/index.ts"
-      ],
-      "nx-plugin-ice": [
-        "packages/nx-plugin-ice/src/index.ts"
-      ],
-      "nx-plugin-prisma": [
-        "packages/nx-plugin-prisma/src/index.ts"
-      ],
-      "nx-plugin-snowpack": [
-        "packages/nx-plugin-snowpack/src/index.ts"
-      ],
-      "nx-plugin-swc": [
-        "packages/nx-plugin-swc/src/index.ts"
-      ],
-      "nx-plugin-vite": [
-        "packages/nx-plugin-vite/src/index.ts"
-      ],
-      "nx-plugin-workspace": [
-        "packages/nx-plugin-workspace/src/index.ts"
-      ],
+      "esbuild-plugin-run": ["packages/esbuild-plugin-run/src/index.ts"],
+      "nx-plugin-astro": ["packages/nx-plugin-astro/src/index.ts"],
+      "nx-plugin-devkit": ["packages/nx-plugin-devkit/src/index.ts"],
+      "nx-plugin-esbuild": ["packages/nx-plugin-esbuild/src/index.ts"],
+      "nx-plugin-ice": ["packages/nx-plugin-ice/src/index.ts"],
+      "nx-plugin-prisma": ["packages/nx-plugin-prisma/src/index.ts"],
+      "nx-plugin-snowpack": ["packages/nx-plugin-snowpack/src/index.ts"],
+      "nx-plugin-swc": ["packages/nx-plugin-swc/src/index.ts"],
+      "nx-plugin-vite": ["packages/nx-plugin-vite/src/index.ts"],
+      "nx-plugin-workspace": ["packages/nx-plugin-workspace/src/index.ts"],
       "snowpack-plugin-assets": [
         "packages/snowpack-plugin-assets/src/index.ts"
       ],
       "snowpack-plugin-compress": [
         "packages/snowpack-plugin-compress/src/index.ts"
       ],
-      "snowpack-plugin-execa": [
-        "packages/snowpack-plugin-execa/src/index.ts"
-      ],
+      "snowpack-plugin-execa": ["packages/snowpack-plugin-execa/src/index.ts"],
       "snowpack-plugin-markdown-import": [
         "packages/snowpack-plugin-markdown-import/src/index.ts"
       ],
-      "snowpack-plugin-serve": [
-        "packages/snowpack-plugin-serve/src/index.ts"
-      ]
+      "snowpack-plugin-serve": ["packages/snowpack-plugin-serve/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

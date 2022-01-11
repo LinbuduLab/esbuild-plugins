@@ -32,127 +32,28 @@
       }
     ]
   },
-  "projects": {
-    "esbuild-node-app": {
-      "tags": []
-    },
-    "esbuild-plugin-alias-path": {
-      "tags": []
-    },
-    "esbuild-plugin-clean": {
-      "tags": []
-    },
-    "esbuild-plugin-compress": {
-      "tags": []
-    },
-    "esbuild-plugin-copy": {
-      "tags": []
-    },
-    "esbuild-plugin-decorator": {
-      "tags": []
-    },
-    "esbuild-plugin-filesize": {
-      "tags": []
-    },
-    "esbuild-plugin-ignore": {
-      "tags": []
-    },
-    "esbuild-plugin-markdown-import": {
-      "tags": []
-    },
-    "esbuild-plugin-node-externals": {
-      "tags": []
-    },
-    "esbuild-plugin-run": {
-      "tags": []
-    },
-    "ice-vite-app": {
-      "tags": [],
-      "implicitDependencies": []
-    },
-    "nx-plugin-astro": {
-      "tags": []
-    },
-    "nx-plugin-astro-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-astro"]
-    },
-    "nx-plugin-devkit": {
-      "tags": []
-    },
-    "nx-plugin-devkit-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-devkit"]
-    },
-    "nx-plugin-esbuild": {
-      "tags": [],
-      "implicitDependencies": []
-    },
-    "nx-plugin-esbuild-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-esbuild"]
-    },
-    "nx-plugin-prisma": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-devkit", "nx-plugin-workspace"]
-    },
-    "nx-plugin-prisma-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-prisma"]
-    },
-    "nx-plugin-snowpack": {
-      "tags": []
-    },
-    "nx-plugin-snowpack-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-snowpack"]
-    },
-    "nx-plugin-vite": {
-      "tags": []
-    },
-    "nx-plugin-vite-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-vite"]
-    },
-    "nx-plugin-workspace": {
-      "tags": []
-    },
-    "nx-plugin-workspace-e2e": {
-      "tags": [],
-      "implicitDependencies": ["nx-plugin-workspace"]
-    },
-    "prisma-app": {},
-    "react-app": {
-      "tags": []
-    },
-    "snowpack-app": {
-      "tags": []
-    },
-    "snowpack-plugin-assets": {
-      "tags": []
-    },
-    "snowpack-plugin-compress": {
-      "tags": []
-    },
-    "snowpack-plugin-execa": {
-      "tags": []
-    },
-    "snowpack-plugin-markdown-import": {
-      "tags": []
-    },
-    "snowpack-plugin-serve": {
-      "tags": []
-    },
-    "tmp": {
-      "tags": [],
-      "implicitDependencies": []
-    },
-    "vite-app": {
-      "tags": []
-    }
-  },
   "workspaceLayout": {
     "appsDir": "e2e",
     "libsDir": "packages"
-  }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/node"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "e2e/prisma-app"
 }
