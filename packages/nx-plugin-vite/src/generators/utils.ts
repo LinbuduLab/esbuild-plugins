@@ -6,8 +6,6 @@ import {
 
 export const VITE_CONFIG_FILE = 'vite.config.ts';
 
-console.log(11111);
-
 export const REACT_DEPS = {
   dependencies: {
     react: '^17.0.0',

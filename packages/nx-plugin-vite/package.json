@@ -1,6 +1,6 @@
 {
   "name": "nx-plugin-vite",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "main": "dist/src/index.js",
   "scripts": {
     "release": "release-it",
@@ -26,5 +26,6 @@
     "vite": "^2.7.10"
   },
   "executors": "./dist/executors.json",
-  "generators": "./dist/generators.json"
+  "generators": "./dist/generators.json",
+  "license": "MIT"
 }
