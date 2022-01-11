@@ -6,6 +6,8 @@ import {
 
 export const VITE_CONFIG_FILE = 'vite.config.ts';
 
+console.log(11111);
+
 export const REACT_DEPS = {
   dependencies: {
     react: '^17.0.0',
@@ -14,9 +16,9 @@ export const REACT_DEPS = {
   devDependencies: {
     '@types/react': '^17.0.0',
     '@types/react-dom': '^17.0.0',
-    '@vitejs/plugin-react-refresh': '^1.3.1',
+    '@vitejs/plugin-react-refresh': '^1.3.6',
     typescript: '^4.3.2',
-    vite: '^2.6.10',
+    vite: '^2.7.10',
   },
 };
 
@@ -25,10 +27,10 @@ export const VUE_DEPS = {
     vue: '^3.2.16',
   },
   devDependencies: {
-    '@vitejs/plugin-vue': '^1.9.2',
+    '@vitejs/plugin-vue': '^2.0.1',
     typescript: '^4.4.3',
-    vite: '^2.6.0',
-    'vue-tsc': '^0.3.0',
+    vite: '^2.7.10',
+    'vue-tsc': '^0.30.2',
   },
 };
 

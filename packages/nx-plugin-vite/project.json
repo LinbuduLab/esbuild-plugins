@@ -21,11 +21,10 @@
       "executor": "@nrwl/node:package",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "./packages/nx-plugin-vite/dist",
+        "outputPath": "packages/nx-plugin-vite/dist",
         "tsConfig": "packages/nx-plugin-vite/tsconfig.json",
         "packageJson": "packages/nx-plugin-vite/package.json",
         "main": "packages/nx-plugin-vite/src/index.ts",
-        "verbose": true,
         "assets": [
           "packages/nx-plugin-vite/*.md",
           {
