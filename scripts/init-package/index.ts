@@ -9,14 +9,12 @@ import {
   ModuleResolutionKind,
   ScriptTarget,
 } from 'typescript';
+import { ProjectConfiguration } from '@nrwl/devkit';
 import execa from 'execa';
-import workspace from '../../workspace.json';
 import tsconfigBase from '../../tsconfig.base.json';
-import { selectSingleProject } from '../utils/select-project';
 import { getPluginDir } from '../utils/constants';
 import sortPackageJson from 'sort-package-json';
 import ow from 'ow';
-
 
 export default function useInitPackage(cli: CAC) {
   cli
@@ -37,6 +35,7 @@ export default function useInitPackage(cli: CAC) {
             ? `nx-plugin-${name}`
             : name;
 
+        // create first for inexist plugin
         !options.exist &&
           (await execa(
             `nx g @nrwl/nx-plugin:plugin`,
@@ -56,8 +55,9 @@ export default function useInitPackage(cli: CAC) {
           JSON.stringify(npmIgnoreFile().trim())
         );
 
-        fs.rmSync(path.resolve(dir, 'tsconfig.lib.json'), { force: true });
-        fs.rmSync(path.resolve(dir, 'tsconfig.json'), { force: true });
+        // tsconfig.json
+        fs.removeSync(path.resolve(dir, 'tsconfig.lib.json'));
+        fs.removeSync(path.resolve(dir, 'tsconfig.json'));
 
         fs.writeFileSync(
           path.resolve(dir, 'tsconfig.json'),
@@ -70,6 +70,7 @@ export default function useInitPackage(cli: CAC) {
           path.resolve(dir, 'package.json')
         );
 
+        // update package.json fields
         originPkg.name = pluginName;
         originPkg.version = options.exist ? originPkg.version : '0.0.1';
         originPkg.main = 'dist/src/index.js';
@@ -91,24 +92,32 @@ export default function useInitPackage(cli: CAC) {
           })
         );
 
-        const originWorkspace: typeof workspace = jsonfile.readFileSync(
-          path.resolve(__dirname, '../../workspace.json')
+        // As nx 13 uses separated project config
+
+        const projectOwnedConfigPath = path.resolve(
+          __dirname,
+          dir,
+          'project.json'
         );
 
-        originWorkspace.projects[pluginName].targets.build.options.outputPath =
+        const projectOwnedConfig: ProjectConfiguration = jsonfile.readFileSync(
+          projectOwnedConfigPath
+        );
+
+        projectOwnedConfig.targets!.build.options.outputPath =
           workspaceJSON(pluginName)['build.options.outputPath'];
 
-        originWorkspace.projects[pluginName].targets.build.options.tsConfig =
+        projectOwnedConfig.targets!.build.options.tsConfig =
           workspaceJSON(pluginName)['build.options.tsConfig'];
 
         fs.writeFileSync(
-          path.resolve(__dirname, '../../workspace.json'),
-          prettier.format(JSON.stringify(originWorkspace), {
+          projectOwnedConfigPath,
+          prettier.format(JSON.stringify(projectOwnedConfig), {
             parser: 'json-stringify',
           })
         );
 
-        // tsconfig.json
+        // tsconfig.base.json
         const originTSConfig: typeof tsconfigBase = jsonfile.readFileSync(
           path.resolve(__dirname, '../../tsconfig.base.json')
         );
