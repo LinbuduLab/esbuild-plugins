@@ -2,6 +2,12 @@
   "name": "nx-plugin-vite",
   "version": "1.3.1",
   "main": "dist/src/index.js",
+  "keywords": [
+    "Monorepo",
+    "Vite",
+    "React",
+    "Nx"
+  ],
   "scripts": {
     "release": "release-it",
     "release:dry": "release-it --dry-run",
