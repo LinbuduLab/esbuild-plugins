@@ -1,6 +1,6 @@
 # TODOs
 
-## Workspace
+## Project Workspace
 
 - Use pnpm workspace
 - Playground integration

@@ -9,16 +9,11 @@
     "moduleResolution": "node",
     "target": "es2015",
     "module": "CommonJS",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"],
     "esModuleInterop": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": "."
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

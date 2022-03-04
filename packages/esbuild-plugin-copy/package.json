@@ -34,5 +34,8 @@
     "esbuild": "^0.13.2"
   },
   "executors": "./dist/executors.json",
-  "generators": "./dist/generators.json"
+  "generators": "./dist/generators.json",
+  "devDependencies": {
+    "@schematics/angular": "^12.2.0"
+  }
 }
