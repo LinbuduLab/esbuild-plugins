@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
     "sourceMap": false,
+    "target": "es2018",
+    "module": "CommonJS",
     "outDir": "dist",
     "declaration": true,
     "importHelpers": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "target": "es2015",
-    "module": "CommonJS",
     "lib": ["esnext", "dom"],
     "esModuleInterop": true,
     "skipLibCheck": true,

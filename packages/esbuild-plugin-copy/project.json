@@ -3,31 +3,13 @@
   "sourceRoot": "packages/esbuild-plugin-copy/src",
   "projectType": "library",
   "targets": {
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["packages/esbuild-plugin-copy/**/*.ts"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/esbuild-plugin-copy"],
-      "options": {
-        "jestConfig": "packages/esbuild-plugin-copy/jest.config.js",
-        "passWithNoTests": true
-      }
-    },
     "build": {
-      "executor": "@nrwl/webpack:package",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "outputPath": "./packages/esbuild-plugin-copy/dist",
-        "tsConfig": "packages/esbuild-plugin-copy/tsconfig.json",
-        "packageJson": "packages/esbuild-plugin-copy/package.json",
-        "main": "packages/esbuild-plugin-copy/src/index.ts",
-        "assets": ["packages/esbuild-plugin-copy/*.md"]
+        "command": "tsc -P tsconfig.json",
+        "color": true,
+        "cwd": "packages/esbuild-plugin-copy"
       }
     }
-  },
-  "tags": []
+  }
 }
