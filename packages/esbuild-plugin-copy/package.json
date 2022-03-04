@@ -18,7 +18,7 @@
   },
   "license": "MIT",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "release": "release-it",
     "release:dry": "release-it --dry-run",
