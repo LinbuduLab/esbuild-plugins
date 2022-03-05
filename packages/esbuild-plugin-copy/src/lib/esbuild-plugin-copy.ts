@@ -77,7 +77,7 @@ export default (options: Partial<Options> = {}): Plugin => {
 
           const outDir =
             build.initialOptions.outdir ??
-            path.dirname(build.initialOptions.outfile);
+            path.dirname(build.initialOptions.outfile!);
 
           if (!outDir) {
             verboseLog(

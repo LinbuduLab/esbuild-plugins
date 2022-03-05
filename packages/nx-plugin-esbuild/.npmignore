@@ -1,6 +1,0 @@
-.babelrc
-.eslintrc.json
-.release-it.json
-jest.config.js
-tsconfig.spec.json
-yarn-error.log

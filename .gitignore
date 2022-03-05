@@ -1,21 +1,14 @@
-
-    
-    
-    # See http://help.github.com/ignore-files/ for more about ignoring files.
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-dist
+/dist
 /tmp
 /out-tsc
 
-.yarn/cache
+dist
 
 # dependencies
-node_modules
-
-drafts
-draft
-backup
+/node_modules
 
 # IDEs and editors
 /.idea
@@ -46,9 +39,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-e2e/prisma-app/src/app/prisma/node_modules/.prisma/client
-
-e2e/prisma-app/src/app/prisma/client
-
-e2e/prisma-app1/src/app/prisma/client

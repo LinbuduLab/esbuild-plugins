@@ -4,12 +4,30 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "command": "tsc -P tsconfig.json",
-        "color": true,
-        "cwd": "packages/esbuild-plugin-copy"
+        "outputPath": "packages/esbuild-plugin-copy/dist",
+        "main": "packages/esbuild-plugin-copy/src/index.ts",
+        "tsConfig": "packages/esbuild-plugin-copy/tsconfig.lib.json",
+        "assets": ["packages/esbuild-plugin-copy/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/esbuild-plugin-copy/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/esbuild-plugin-copy"],
+      "options": {
+        "jestConfig": "packages/esbuild-plugin-copy/jest.config.js",
+        "passWithNoTests": true
       }
     }
-  }
+  },
+  "tags": []
 }
