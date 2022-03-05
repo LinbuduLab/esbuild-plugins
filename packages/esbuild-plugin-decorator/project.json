@@ -1,0 +1,34 @@
+{
+  "root": "packages/esbuild-plugin-decorator",
+  "sourceRoot": "packages/esbuild-plugin-decorator/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/esbuild-plugin-decorator/dist",
+        "main": "packages/esbuild-plugin-decorator/src/index.ts",
+        "tsConfig": "packages/esbuild-plugin-decorator/tsconfig.lib.json",
+        "assets": ["packages/esbuild-plugin-decorator/*.md"]
+      }
+    },
+
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/esbuild-plugin-decorator/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/esbuild-plugin-decorator"],
+      "options": {
+        "jestConfig": "packages/esbuild-plugin-decorator/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
