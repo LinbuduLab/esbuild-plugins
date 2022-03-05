@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Exec executor",
+  "description": "nx-plugin-workspace:exec",
+  "type": "object",
+  "outputCapture": "pipe",
+  "properties": {
+    "commands": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "command": {
+                "type": "string",
+                "description": "Command to run in child process"
+              },
+              "forwardAllArgs": {
+                "type": "boolean",
+                "description": "Whether arguments should be forwarded when interpolation is not present",
+                "default": true
+              }
+            },
+            "additionalProperties": false,
+            "required": ["command"]
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "command": {
+      "type": "string",
+      "description": "Command to run in child process"
+    },
+    "parallel": {
+      "type": "boolean",
+      "description": "Run commands in parallel",
+      "default": true
+    },
+    "args": {
+      "type": "string",
+      "description": "Extra arguments. You can pass them as follows: nx run project:target --args='--wait=100'. You can then use {args.wait} syntax to interpolate them in the workspace config file. See example [above](#chaining-commands-interpolating-args-and-setting-the-cwd)"
+    },
+    "envFile": {
+      "type": "string",
+      "description": "You may specify a custom .env file path"
+    },
+    "shell": {
+      "type": "boolean",
+      "description": "Enable shell mode of execa",
+      "default": false
+    },
+    "color": {
+      "type": "boolean",
+      "description": "Use colors when showing output of command",
+      "default": false
+    },
+    "useLocalPackage": {
+      "type": "boolean",
+      "description": "Use package installed locally (like npm-scripts)",
+      "default": true
+    },
+    "useCamelCase": {
+      "type": "boolean",
+      "description": "Force args to be converted to camel case",
+      "default": true
+    },
+    "ignoreFalsy": {
+      "type": "boolean",
+      "description": "Ignore false value in args like `--watch=false`",
+      "default": false
+    },
+    "outputPath": {
+      "description": "Allows you to specify where the build artifacts are stored. This allows Nx Cloud to pick them up correctly, in the case that the build artifacts are placed somewhere other than the top level dist folder.",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "default": []
+    },
+    "cwd": {
+      "type": "string",
+      "description": "Current working directory of the commands. If it's not specified the commands will run in the workspace root, if a relative path is specified the commands will run in that path relative to the workspace root and if it's an absolute path the commands will run in that path."
+    }
+  },
+  "additionalProperties": true,
+  "required": []
+}
