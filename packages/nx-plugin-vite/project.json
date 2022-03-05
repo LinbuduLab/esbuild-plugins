@@ -1,0 +1,55 @@
+{
+  "root": "packages/nx-plugin-vite",
+  "sourceRoot": "packages/nx-plugin-vite/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/nx-plugin-vite/dist",
+        "main": "packages/nx-plugin-vite/src/index.ts",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "tsConfig": "packages/nx-plugin-vite/tsconfig.lib.json",
+        "assets": [
+          "packages/nx-plugin-vite/*.md",
+          {
+            "input": "./packages/nx-plugin-vite/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-plugin-vite/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-plugin-vite",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-plugin-vite",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/nx-plugin-vite/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/nx-plugin-vite"],
+      "options": {
+        "jestConfig": "packages/nx-plugin-vite/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

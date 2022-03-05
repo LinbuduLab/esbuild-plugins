@@ -1,0 +1,47 @@
+{
+  "name": "nx-plugin-vite",
+  "version": "1.4.1",
+  "description": "nx plugin for vite",
+  "keywords": [
+    "Monorepo",
+    "Vite",
+    "React",
+    "Nx"
+  ],
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-copy#readme",
+  "bugs": {
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "publishConfig": {
+    "main": "src/index.js",
+    "typings": "src/index.d.ts"
+  },
+  "dependencies": {
+    "@angular-devkit/schematics": "^13.2.5",
+    "chalk": "^4.1.2",
+    "consola": "^2.15.3",
+    "dotenv": "~10.0.0",
+    "execa": "^5.1.1",
+    "nx-plugin-devkit": "workspace:^0.5.0",
+    "rxjs": "6.6.7",
+    "rxjs-for-await": "^0.0.2"
+  },
+  "peerDependencies": {
+    "@nrwl/devkit": "^13.4.4",
+    "@nrwl/jest": "^13.4.4",
+    "@nrwl/linter": "^13.4.4",
+    "@nrwl/node": "^13.4.4",
+    "@nrwl/workspace": "^13.4.4",
+    "vite": "^2.7.10"
+  },
+  "executors": "./dist/executors.json",
+  "generators": "./dist/generators.json"
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Serve executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "root": {
+      "type": "string",
+      "description": "vite project root"
+    },
+    "configFile": {
+      "type": "string",
+      "description": "vite config file path"
+    }
+  },
+  "required": [
+    "configFile"
+  ]
+}
