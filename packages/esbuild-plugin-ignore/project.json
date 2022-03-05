@@ -1,0 +1,34 @@
+{
+  "root": "packages/esbuild-plugin-ignore",
+  "sourceRoot": "packages/esbuild-plugin-ignore/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/esbuild-plugin-ignore/dist",
+        "main": "packages/esbuild-plugin-ignore/src/index.ts",
+        "tsConfig": "packages/esbuild-plugin-ignore/tsconfig.lib.json",
+        "assets": ["packages/esbuild-plugin-ignore/*.md"]
+      }
+    },
+
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/esbuild-plugin-ignore/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/esbuild-plugin-ignore"],
+      "options": {
+        "jestConfig": "packages/esbuild-plugin-ignore/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
