@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-alias-path",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "ESBuild plugin for alias path.",
   "keywords": [
     "ESBuild",
