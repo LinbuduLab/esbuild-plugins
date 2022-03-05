@@ -1,0 +1,35 @@
+{
+  "name": "esbuild-plugin-compress",
+  "version": "0.3.0",
+  "description": "ESBuild plugin for output compression",
+  "keywords": [
+    "esbuild",
+    "ESBuild",
+    "compress",
+    "plugin"
+  ],
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-compress#readme",
+  "bugs": {
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "publishConfig": {
+    "main": "src/index.js",
+    "typings": "src/index.d.ts"
+  },
+  "scripts": {},
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "fs-extra": "^10.0.0"
+  },
+  "peerDependencies": {
+    "esbuild": "^0.14.0"
+  }
+}
