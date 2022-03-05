@@ -1,0 +1,34 @@
+{
+  "root": "packages/nx-plugin-devkit",
+  "sourceRoot": "packages/nx-plugin-devkit/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/nx-plugin-devkit/dist",
+        "main": "packages/nx-plugin-devkit/src/index.ts",
+        "tsConfig": "packages/nx-plugin-devkit/tsconfig.lib.json",
+        "assets": ["packages/nx-plugin-devkit/*.md"]
+      }
+    },
+
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/nx-plugin-devkit/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/nx-plugin-devkit"],
+      "options": {
+        "jestConfig": "packages/nx-plugin-devkit/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
