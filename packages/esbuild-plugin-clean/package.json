@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-clean",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "ESBuild plugin for cleaning up assets before building.",
   "keywords": [
     "esbuild",
@@ -30,6 +30,6 @@
     "del": "^6.0.0"
   },
   "peerDependencies": {
-    "esbuild": "^0.13.2"
+    "esbuild": "^0.14.0"
   }
 }
