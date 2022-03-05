@@ -1,6 +1,6 @@
 {
   "name": "nx-plugin-workspace",
-  "version": "0.5.1",
+  "version": "0.5.3",
   "description": "nx plugin for extra workspace executor/generator",
   "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-copy#readme",
   "bugs": {
