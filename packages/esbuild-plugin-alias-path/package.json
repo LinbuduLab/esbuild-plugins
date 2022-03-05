@@ -22,6 +22,7 @@
     "main": "src/index.js",
     "typings": "src/index.d.ts"
   },
+  "scripts": {},
   "dependencies": {
     "find-up": "5.0.0",
     "jsonfile": "^6.1.0"

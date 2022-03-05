@@ -1,7 +1,16 @@
 {
   "version": 2,
   "projects": {
+    "esbuild-plugin-alias-path": "packages/esbuild-plugin-alias-path",
+    "esbuild-plugin-clean": "packages/esbuild-plugin-clean",
+    "esbuild-plugin-compress": "packages/esbuild-plugin-compress",
     "esbuild-plugin-copy": "packages/esbuild-plugin-copy",
+    "esbuild-plugin-decorator": "packages/esbuild-plugin-decorator",
+    "esbuild-plugin-filesize": "packages/esbuild-plugin-filesize",
+    "esbuild-plugin-ignore": "packages/esbuild-plugin-ignore",
+    "esbuild-plugin-markdown-import": "packages/esbuild-plugin-markdown-import",
+    "esbuild-plugin-node-externals": "packages/esbuild-plugin-node-externals",
+    "esbuild-plugin-run": "packages/esbuild-plugin-run",
     "nx-plugin-demo": "packages/nx-plugin-demo",
     "nx-plugin-demo-e2e": "packages/nx-plugin-demo-e2e"
   }

@@ -179,13 +179,12 @@ export default function useReleaseProject(cli: CAC) {
 
         consola.info('Building packages...');
 
-        !dryRun &&
-          (await execa('nx', ['build', projectToRelease, '--verbose'], {
-            cwd: process.cwd(),
-            // enable preferLocal will cause workspace deps in dist package.json doesnot got update
-            // preferLocal: true,
-            stdio: 'inherit',
-          }));
+        await execa('nx', ['build', projectToRelease, '--verbose'], {
+          cwd: process.cwd(),
+          // enable preferLocal will cause workspace deps in dist package.json doesnot got update
+          // preferLocal: true,
+          stdio: 'inherit',
+        });
 
         dryRunSuccessLogger(
           `Package ${projectToRelease} built successfully.\n`,
