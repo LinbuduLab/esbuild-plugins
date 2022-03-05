@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-copy",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "ESBuild plugin for assets copy.",
   "keywords": [
     "esbuild",
