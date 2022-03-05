@@ -1,7 +1,7 @@
 # esbuild-plugin-copy
 
-This library was generated with [Nx](https://nx.dev).
+ESBuild plugin for assets copy.
 
-## Running unit tests
-
-Run `nx test esbuild-plugin-copy` to execute the unit tests via [Jest](https://jestjs.io).
+- [Documentation](https://nx-plugins.netlify.app/derived/esbuild.html#copy).
+- [GitHub Repo](https://github.com/LinbuduLab/nx-plugins)
+- [Author](https://github.com/linbudu599)

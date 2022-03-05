@@ -3,7 +3,7 @@
   "sourceRoot": "packages/esbuild-plugin-copy/src",
   "projectType": "library",
   "targets": {
-    "t": {
+    "build:all": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "commands": [
