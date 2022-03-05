@@ -1,3 +1,10 @@
 workspace:
 package:
-github:
+  - github:
+      - baseUrl: https://github.com/LinbuduLab/nx-plugins
+  - fields:
+      - homepage: true
+      - bugs: true
+      - repository: true
+      - license: MIT
+      - author: Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)

@@ -10,7 +10,8 @@
         "outputPath": "packages/esbuild-plugin-copy/dist",
         "main": "packages/esbuild-plugin-copy/src/index.ts",
         "tsConfig": "packages/esbuild-plugin-copy/tsconfig.lib.json",
-        "assets": ["packages/esbuild-plugin-copy/*.md"]
+        "assets": ["packages/esbuild-plugin-copy/*.md"],
+        "watch": true
       }
     },
     "lint": {
