@@ -1,5 +1,6 @@
 packages:
   - 'packages/**'
+  - 'packages/nx-plugin-workspace/dist'
   - '!**/dist'
 # 设置为 false 时，workspace: 协议仍然有效
 link-workspace-packages: true

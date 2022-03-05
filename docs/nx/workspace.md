@@ -2,6 +2,8 @@
 
 Some extra enhancements on offical `@nrwl/workspace`:
 
+**Outdated! Please use official `@nrwl/workspace` package.**
+
 ## Executors
 
 - `nx-plugin-workspace:exec`
@@ -11,11 +13,6 @@ Some extra enhancements on offical `@nrwl/workspace`:
   - Use [`execa`](https://www.npmjs.com/package/execa) under the hood, support `preferLocal` `shell` and more options.
   - Support `ignoreFalsy`: will not append falsy value into command to execute, like `--watch=false`, which is useful in `Prisma` cli.
   - Support `useCamelCase`: control how args are transformed, kebab-case or camel-case?
-
-- `nx-plugin-workspace:node-build`: `@nrwl/node:build`
-- `nx-plugin-workspace:node-serve`: `@nrwl/node:serve`
-- `nx-plugin-workspace:node-package`: `@nrwl/node:package`
-- `nx-plugin-workspace:tsc`: `@nrwl/workspace:tsc`
 
 ## Generators
 

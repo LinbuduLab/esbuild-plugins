@@ -85,7 +85,18 @@ export default function useReleaseProject(cli: CAC) {
           process.exit(1);
         }
 
-        const useNxReleaseWorkflow = projectToRelease.startsWith('nx-plugin');
+        /**
+         * Nx plugin specified release flow:
+         *
+         * - publish dist dir
+         * - modify package.json fields to suit prod
+         * - sync workspace dependencies(nx-plugin-devkit) as dist dir is not regarded as workspace package
+         */
+        const useNxReleaseWorkflow =
+          projectToRelease.startsWith('nx-plugin') &&
+          !projectToRelease.endsWith('devkit');
+
+        consola.info('useNxReleaseWorkflow: ', useNxReleaseWorkflow);
 
         const { dry: dryRun, version, skipGit } = options;
 
@@ -143,28 +154,6 @@ export default function useReleaseProject(cli: CAC) {
 
         pkgInfo.version = releaseVersion;
 
-        // consola.info(
-        //   'Collecting dependencies and synchronizing workspace packages version...'
-        // );
-
-        // !dryRun &&
-        //   (await execa(
-        //     'pnpm',
-        //     ['cli', 'collect', projectToRelease, '--verbose'],
-        //     {
-        //       cwd: process.cwd(),
-        //       preferLocal: true,
-        //       stdio: 'inherit',
-        //     }
-        //   ));
-
-        // !dryRun &&
-        //   (await execa('pnpm', ['cli', 'sync', projectToRelease, '--verbose'], {
-        //     cwd: process.cwd(),
-        //     preferLocal: true,
-        //     stdio: 'inherit',
-        //   }));
-
         if (!dryRun) {
           fs.writeFileSync(
             projectPkgPath,
@@ -193,7 +182,7 @@ export default function useReleaseProject(cli: CAC) {
 
         if (useNxReleaseWorkflow) {
           const builtProjectPkgPath = path.join(
-            projectPkgPath,
+            projectDir,
             'dist',
             'package.json'
           );
@@ -202,15 +191,20 @@ export default function useReleaseProject(cli: CAC) {
 
           const builtPkgInfo = jsonfile.readFileSync(builtProjectPkgPath);
 
-          builtPkgInfo.main = './src/index.js';
-          builtPkgInfo.version = releaseVersion;
-          builtPkgInfo.typings = './src/index.d.ts';
           builtPkgInfo.executors
             ? (builtPkgInfo.executors = './executors.json')
             : void 0;
           builtPkgInfo.generators
             ? (builtPkgInfo.generators = './generators.json')
             : void 0;
+
+          const devkitWorkspaceVersion = packagesInfo.find(
+            (info) => info.project === 'nx-plugin-devkit'
+          ).version;
+
+          builtPkgInfo.dependencies[
+            'nx-plugin-devkit'
+          ] = `^${devkitWorkspaceVersion}`;
 
           if (!dryRun) {
             fs.writeFileSync(
@@ -308,16 +302,11 @@ export default function useReleaseProject(cli: CAC) {
 
         await execa(
           'pnpm',
-          [
-            'publish',
-            useNxReleaseWorkflow ? '' : 'dist',
-            '--access=public',
-            '--no-git-checks',
-          ].concat(dryRun ? ['--dry-run'] : []),
+          ['publish', 'dist', '--access=public', '--no-git-checks'].concat(
+            dryRun ? ['--dry-run'] : []
+          ),
           {
-            cwd: useNxReleaseWorkflow
-              ? path.resolve(projectDir, 'dist')
-              : projectDir,
+            cwd: projectDir,
             stdio: 'inherit',
             shell: true,
             preferLocal: true,

@@ -11,6 +11,10 @@
     "esbuild-plugin-markdown-import": "packages/esbuild-plugin-markdown-import",
     "esbuild-plugin-node-externals": "packages/esbuild-plugin-node-externals",
     "esbuild-plugin-run": "packages/esbuild-plugin-run",
+    "nx-plugin-devkit": "packages/nx-plugin-devkit",
+    "nx-plugin-workspace": "packages/nx-plugin-workspace",
+    "nx-plugin-vite": "packages/nx-plugin-vite",
+
     "nx-plugin-demo": "packages/nx-plugin-demo",
     "nx-plugin-demo-e2e": "packages/nx-plugin-demo-e2e"
   }
