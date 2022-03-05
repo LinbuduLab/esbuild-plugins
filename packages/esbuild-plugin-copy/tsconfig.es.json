@@ -1,9 +1,9 @@
 {
-  "composite": true,
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "declaration": true,
     "outDir": "dist/es",
+    "module": "es6",
     "baseUrl": "src",
     "rootDir": "src",
     "types": []

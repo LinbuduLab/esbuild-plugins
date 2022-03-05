@@ -1,4 +1,4 @@
-import copy from './lib/esbuild-plugin-copy';
+import { copy } from './lib/esbuild-plugin-copy';
 
 export default copy;
 

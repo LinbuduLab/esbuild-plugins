@@ -1,11 +1,8 @@
 {
-  "composite": true,
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.lib-base.json",
   "compilerOptions": {
-    "declaration": true,
     "outDir": "dist",
-    "types": []
+    "baseUrl": "."
   },
-  "include": ["**/*.ts"],
-  "exclude": ["**/*.spec.ts"]
+  "include": ["src"]
 }

@@ -2,14 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "files": [],
   "include": ["src"],
-  "references": [
-    {
-      "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ],
+  "references": [],
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "strict": true,

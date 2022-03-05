@@ -45,7 +45,7 @@ function formatAssets(assets: MaybeArray<AssetPair>) {
     }));
 }
 
-export default (options: Partial<Options> = {}): Plugin => {
+export const copy = (options: Partial<Options> = {}): Plugin => {
   const {
     assets = [],
     copyOnStart = false,
