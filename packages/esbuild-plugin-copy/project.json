@@ -3,6 +3,16 @@
   "sourceRoot": "packages/esbuild-plugin-copy/src",
   "projectType": "library",
   "targets": {
+    "t": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "nx build esbuild-plugin-copy",
+          "nx build:es esbuild-plugin-copy"
+        ],
+        "parallel": false
+      }
+    },
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
@@ -10,8 +20,16 @@
         "outputPath": "packages/esbuild-plugin-copy/dist",
         "main": "packages/esbuild-plugin-copy/src/index.ts",
         "tsConfig": "packages/esbuild-plugin-copy/tsconfig.lib.json",
-        "assets": ["packages/esbuild-plugin-copy/*.md"],
-        "watch": true
+        "assets": ["packages/esbuild-plugin-copy/*.md"]
+      }
+    },
+    "build:es": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/esbuild-plugin-copy/dist/es",
+        "cwd": "packages/esbuild-plugin-copy",
+        "command": "tsc -P tsconfig.es.json"
       }
     },
     "lint": {

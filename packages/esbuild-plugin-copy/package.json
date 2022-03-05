@@ -20,9 +20,19 @@
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
+  "exports": {
+    "import": "./dist/es/index.js",
+    "require": "./dist/src/index.js",
+    "default": "./dist/src/index.js"
+  },
   "publishConfig": {
     "main": "src/index.js",
-    "typings": "src/index.d.ts"
+    "typings": "src/index.d.ts",
+    "exports": {
+      "import": "./es/index.js",
+      "require": "./src/index.js",
+      "default": "./src/index.js"
+    }
   },
   "scripts": {
     "release": "release-it",
