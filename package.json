@@ -2,7 +2,9 @@
   "name": "nx-plugins",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "cli": "ts-node --transpile-only ./scripts/cli.ts"
+  },
   "private": true,
   "devDependencies": {
     "@nrwl/cli": "13.8.4",
