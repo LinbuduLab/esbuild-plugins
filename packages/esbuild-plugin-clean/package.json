@@ -1,0 +1,35 @@
+{
+  "name": "esbuild-plugin-clean",
+  "version": "0.6.0",
+  "description": "ESBuild plugin for cleaning up assets before building.",
+  "keywords": [
+    "esbuild",
+    "ESBuild",
+    "clean",
+    "plugin"
+  ],
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-clean#readme",
+  "bugs": {
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "publishConfig": {
+    "main": "src/index.js",
+    "typings": "src/index.d.ts"
+  },
+  "scripts": {},
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "del": "^6.0.0"
+  },
+  "peerDependencies": {
+    "esbuild": "^0.13.2"
+  }
+}
