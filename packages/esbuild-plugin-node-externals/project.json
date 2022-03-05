@@ -3,8 +3,20 @@
   "sourceRoot": "packages/esbuild-plugin-node-externals/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/esbuild-plugin-node-externals/dist",
+        "main": "packages/esbuild-plugin-node-externals/src/index.ts",
+        "tsConfig": "packages/esbuild-plugin-node-externals/tsconfig.lib.json",
+        "assets": ["packages/esbuild-plugin-node-externals/*.md"]
+      }
+    },
+
     "lint": {
       "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/esbuild-plugin-node-externals/**/*.ts"]
       }
@@ -15,17 +27,6 @@
       "options": {
         "jestConfig": "packages/esbuild-plugin-node-externals/jest.config.js",
         "passWithNoTests": true
-      }
-    },
-    "build": {
-      "executor": "@nrwl/node:package",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "./packages/esbuild-plugin-node-externals/dist",
-        "tsConfig": "packages/esbuild-plugin-node-externals/tsconfig.json",
-        "packageJson": "packages/esbuild-plugin-node-externals/package.json",
-        "main": "packages/esbuild-plugin-node-externals/src/index.ts",
-        "assets": ["packages/esbuild-plugin-node-externals/*.md"]
       }
     }
   },

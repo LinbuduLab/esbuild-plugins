@@ -15,13 +15,13 @@ export interface Options {
   transformRawAfterParse?: (raw: string) => string;
 }
 
-type AsyncMarked = (
+export type AsyncMarked = (
   src: string,
   options: marked.MarkedOptions,
   callback: (error: any | undefined, parseResult: string) => void
 ) => void;
 
-export default (options: Options = {}): Plugin => ({
+export const markdown = (options: Options = {}): Plugin => ({
   name: 'markdown',
   setup(build) {
     const sync = options.sync ?? true;

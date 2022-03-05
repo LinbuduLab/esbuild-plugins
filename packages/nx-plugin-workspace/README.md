@@ -1,7 +1,7 @@
 # nx-plugin-workspace
 
-This library was generated with [Nx](https://nx.dev).
+Nx plugin for extra workspace executor/generator.
 
-## Running unit tests
-
-Run `nx test nx-plugin-workspace` to execute the unit tests via [Jest](https://jestjs.io).
+- [Documentation](https://nx-plugins.netlify.app/nx/workspace.html)
+- [GitHub Repo](https://github.com/LinbuduLab/nx-plugins)
+- [Author](https://github.com/linbudu599)

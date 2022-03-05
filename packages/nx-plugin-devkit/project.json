@@ -3,8 +3,20 @@
   "sourceRoot": "packages/nx-plugin-devkit/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/nx-plugin-devkit/dist",
+        "main": "packages/nx-plugin-devkit/src/index.ts",
+        "tsConfig": "packages/nx-plugin-devkit/tsconfig.lib.json",
+        "assets": ["packages/nx-plugin-devkit/*.md"]
+      }
+    },
+
     "lint": {
       "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/nx-plugin-devkit/**/*.ts"]
       }
@@ -15,23 +27,6 @@
       "options": {
         "jestConfig": "packages/nx-plugin-devkit/jest.config.js",
         "passWithNoTests": true
-      }
-    },
-    "build": {
-      "executor": "@nrwl/node:package",
-      "outputs": ["{options.outputPath}"],
-      "dependsOn": [
-        {
-          "target": "build",
-          "projects": "dependencies"
-        }
-      ],
-      "options": {
-        "outputPath": "./packages/nx-plugin-devkit/dist",
-        "tsConfig": "packages/nx-plugin-devkit/tsconfig.json",
-        "packageJson": "packages/nx-plugin-devkit/package.json",
-        "main": "packages/nx-plugin-devkit/src/index.ts",
-        "assets": ["packages/nx-plugin-devkit/*.md"]
       }
     }
   },

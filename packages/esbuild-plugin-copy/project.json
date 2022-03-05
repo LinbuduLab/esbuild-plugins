@@ -3,8 +3,38 @@
   "sourceRoot": "packages/esbuild-plugin-copy/src",
   "projectType": "library",
   "targets": {
+    "build:all": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "nx build esbuild-plugin-copy",
+          "nx build:es esbuild-plugin-copy"
+        ],
+        "parallel": false
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/esbuild-plugin-copy/dist",
+        "main": "packages/esbuild-plugin-copy/src/index.ts",
+        "tsConfig": "packages/esbuild-plugin-copy/tsconfig.lib.json",
+        "assets": ["packages/esbuild-plugin-copy/*.md"]
+      }
+    },
+    "build:es": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/esbuild-plugin-copy/dist/es",
+        "cwd": "packages/esbuild-plugin-copy",
+        "command": "tsc -P tsconfig.es.json"
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/esbuild-plugin-copy/**/*.ts"]
       }
@@ -15,17 +45,6 @@
       "options": {
         "jestConfig": "packages/esbuild-plugin-copy/jest.config.js",
         "passWithNoTests": true
-      }
-    },
-    "build": {
-      "executor": "@nrwl/node:package",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "./packages/esbuild-plugin-copy/dist",
-        "tsConfig": "packages/esbuild-plugin-copy/tsconfig.json",
-        "packageJson": "packages/esbuild-plugin-copy/package.json",
-        "main": "packages/esbuild-plugin-copy/src/index.ts",
-        "assets": ["packages/esbuild-plugin-copy/*.md"]
       }
     }
   },

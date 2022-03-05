@@ -3,8 +3,20 @@
   "sourceRoot": "packages/esbuild-plugin-markdown-import/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/esbuild-plugin-markdown-import/dist",
+        "main": "packages/esbuild-plugin-markdown-import/src/index.ts",
+        "tsConfig": "packages/esbuild-plugin-markdown-import/tsconfig.lib.json",
+        "assets": ["packages/esbuild-plugin-markdown-import/*.md"]
+      }
+    },
+
     "lint": {
       "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/esbuild-plugin-markdown-import/**/*.ts"]
       }
@@ -15,17 +27,6 @@
       "options": {
         "jestConfig": "packages/esbuild-plugin-markdown-import/jest.config.js",
         "passWithNoTests": true
-      }
-    },
-    "build": {
-      "executor": "@nrwl/node:package",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "./packages/esbuild-plugin-markdown-import/dist",
-        "tsConfig": "packages/esbuild-plugin-markdown-import/tsconfig.json",
-        "packageJson": "packages/esbuild-plugin-markdown-import/package.json",
-        "main": "packages/esbuild-plugin-markdown-import/src/index.ts",
-        "assets": ["packages/esbuild-plugin-markdown-import/*.md"]
       }
     }
   },

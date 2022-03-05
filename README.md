@@ -1,65 +1,94 @@
-# Nx Plugins
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/cc796664-9625-4023-9390-0ef495e314ec/deploy-status)](https://app.netlify.com/sites/nx-plugins/deploys)
-![npm](https://img.shields.io/npm/v/nx?label=nx%20version)
-![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/LinbuduLab/nx-plugins)
 
-**WARNING: This project is still under heavy & active developings..., documentations are far from ready.**
+# NxPlugins
 
-## Quick Start
+This project was generated using [Nx](https://nx.dev).
 
-- [Docs Site](https://nx-plugins.netlify.app/)
-- [Learn about Nx](https://nx.dev/)
+<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 
-## Packages
+🔎 **Smart, Fast and Extensible Build System**
 
-### Nx Plugins
+## Adding capabilities to your workspace
 
-| Package                                             | Version                                                                                     |
-| --------------------------------------------------- | :------------------------------------------------------------------------------------------ |
-| [ESBuild](packages/nx-plugin-esbuild)               | ![plugin esbuild version](https://img.shields.io/npm/v/nx-plugin-esbuild.svg?label=%20)     |
-| [Prisma](packages/nx-plugin-prisma)                 | ![plugin-prisma version](https://img.shields.io/npm/v/nx-plugin-prisma.svg?label=%20)       |
-| [Vite](packages/nx-plugin-vite)                     | ![plugin-vite version](https://img.shields.io/npm/v/nx-plugin-vite.svg?label=%20)           |
-| [Snowpack](packages/nx-plugin-snowpack)             | ![plugin-snowpack version](https://img.shields.io/npm/v/nx-plugin-snowpack.svg?label=%20)   |
-| [nx-plugin-astro](packages/nx-plugin-workspace)     | ![plugin-astro version](https://img.shields.io/npm/v/nx-plugin-astro.svg?label=%20)         |
-| [nx-plugin-devkit](packages/nx-plugin-devkit)       | ![plugin-devkit version](https://img.shields.io/npm/v/nx-plugin-devkit.svg?label=%20)       |
-| [nx-plugin-workspace](packages/nx-plugin-workspace) | ![plugin-workspace version](https://img.shields.io/npm/v/nx-plugin-workspace.svg?label=%20) |
+Nx supports many plugins which add capabilities for developing different types of applications and different tools.
 
-### Derived Plugins
+These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
 
-#### ESBuild Plugins
+Below are our core plugins:
 
-See [Derived ESBuild Plugin](https://nx-plugins.netlify.app/derived/esbuild.html) for more information.
+- [React](https://reactjs.org)
+  - `npm install --save-dev @nrwl/react`
+- Web (no framework frontends)
+  - `npm install --save-dev @nrwl/web`
+- [Angular](https://angular.io)
+  - `npm install --save-dev @nrwl/angular`
+- [Nest](https://nestjs.com)
+  - `npm install --save-dev @nrwl/nest`
+- [Express](https://expressjs.com)
+  - `npm install --save-dev @nrwl/express`
+- [Node](https://nodejs.org)
+  - `npm install --save-dev @nrwl/node`
 
-| Package                                                    | Version                                                                                             |
-| ---------------------------------------------------------- | :-------------------------------------------------------------------------------------------------- |
-| [alias-path](packages/esbuild-plugin-alias-path)           | ![alias-path version](https://img.shields.io/npm/v/esbuild-plugin-alias-path.svg?label=%20)         |
-| [clean](packages/esbuild-plugin-clean)                     | ![clean version](https://img.shields.io/npm/v/esbuild-plugin-clean.svg?label=%20)                   |
-| [compress](packages/esbuild-plugin-compress)               | ![compress version](https://img.shields.io/npm/v/esbuild-plugin-compress.svg?label=%20)             |
-| [copy](packages/esbuild-plugin-copy)                       | ![copy version](https://img.shields.io/npm/v/esbuild-plugin-copy.svg?label=%20)                     |
-| [decorator](packages/esbuild-plugin-decorator)             | ![decorator version](https://img.shields.io/npm/v/esbuild-plugin-decorator.svg?label=%20)           |
-| [filesize](packages/esbuild-plugin-filesize)               | ![filesize version](https://img.shields.io/npm/v/esbuild-plugin-filesize.svg?label=%20)             |
-| [ignore](packages/esbuild-plugin-ignore)                   | ![ignore version](https://img.shields.io/npm/v/esbuild-plugin-ignore.svg?label=%20)                 |
-| [markdown-import](packages/esbuild-plugin-markdown-import) | ![markdown version](https://img.shields.io/npm/v/esbuild-plugin-markdown-import.svg?label=%20)      |
-| [node-externals](packages/esbuild-plugin-node-externals)   | ![node-externals version](https://img.shields.io/npm/v/esbuild-plugin-node-externals.svg?label=%20) |
-| [run](packages/esbuild-plugin-run)                         | ![run version](https://img.shields.io/npm/v/esbuild-plugin-run.svg?label=%20)                       |
+There are also many [community plugins](https://nx.dev/community) you could add.
 
-#### Snowpack Plugins
+## Generate an application
 
-See [Derived Snowpack Plugin](https://nx-plugins.netlify.app/derived/snowpack.html) for more information.
+Run `nx g @nrwl/react:app my-app` to generate an application.
 
-| Package                                                     | Version                                                                                                |
-| ----------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| [assets](packages/snowpack-plugin-assets)                   | ![assets version](https://img.shields.io/npm/v/snowpack-plugin-assets.svg?label=%20)                   |
-| [compress](packages/snowpack-plugin-compress)               | ![compress version](https://img.shields.io/npm/v/snowpack-plugin-compress.svg?label=%20)               |
-| [execa](packages/snowpack-plugin-execa)                     | ![execa version](https://img.shields.io/npm/v/snowpack-plugin-execa.svg?label=%20)                     |
-| [markdown-import](packages/snowpack-plugin-markdown-import) | ![markdown-import version](https://img.shields.io/npm/v/snowpack-plugin-markdown-import.svg?label=%20) |
-| [serve](packages/snowpack-plugin-serve)                     | ![serve version](https://img.shields.io/npm/v/snowpack-plugin-serve.svg?label=%20)                     |
+> You can use any of the plugins above to generate applications as well.
 
-## Contribution
+When using Nx, you can create multiple applications and libraries in the same workspace.
 
-See [Contributing Guide](CONTRIBUTING.md) for a development guide or in [Guding(Incomplete...)](https://nx-plugins.netlify.app/guiding/).
+## Generate a library
 
-## License
+Run `nx g @nrwl/react:lib my-lib` to generate a library.
 
-MIT
+> You can also use any of the plugins above to generate libraries as well.
+
+Libraries are shareable across libraries and applications. They can be imported from `@nx-plugins/mylib`.
+
+## Development server
+
+Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+
+## Build
+
+Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+
+Run `nx affected:test` to execute the unit tests affected by a change.
+
+## Running end-to-end tests
+
+Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+
+Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+
+## Understand your workspace
+
+Run `nx graph` to see a diagram of the dependencies of your projects.
+
+## Further help
+
+Visit the [Nx Documentation](https://nx.dev) to learn more.
+
+
+
+## ☁ Nx Cloud
+
+### Distributed Computation Caching & Distributed Task Execution
+
+<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
+
+Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
+
+Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
+
+Visit [Nx Cloud](https://nx.app/) to learn more.

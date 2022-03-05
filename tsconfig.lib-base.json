@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "sourceMap": false,
+    "target": "es2018",
+    "module": "CommonJS",
+    "declaration": true,
+    "importHelpers": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "lib": ["esnext", "dom"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
+  }
+}

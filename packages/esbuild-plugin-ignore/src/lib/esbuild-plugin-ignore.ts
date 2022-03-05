@@ -17,12 +17,13 @@ export interface ESBuildPluginIgnoreOption {
   verbose?: boolean;
 }
 
-export default (options: ESBuildPluginIgnoreOption = {}): Plugin => {
-  const ignorePatterns = (options.ignore
-    ? Array.isArray(options.ignore)
-      ? options.ignore
-      : [options.ignore]
-    : []
+export const ignore = (options: ESBuildPluginIgnoreOption = {}): Plugin => {
+  const ignorePatterns = (
+    options.ignore
+      ? Array.isArray(options.ignore)
+        ? options.ignore
+        : [options.ignore]
+      : []
   ).filter((pattern) => pattern.resourceRegExp);
 
   const verbose = options.verbose ?? true;

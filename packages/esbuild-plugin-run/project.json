@@ -3,8 +3,20 @@
   "sourceRoot": "packages/esbuild-plugin-run/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/esbuild-plugin-run/dist",
+        "main": "packages/esbuild-plugin-run/src/index.ts",
+        "tsConfig": "packages/esbuild-plugin-run/tsconfig.lib.json",
+        "assets": ["packages/esbuild-plugin-run/*.md"]
+      }
+    },
+
     "lint": {
       "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/esbuild-plugin-run/**/*.ts"]
       }
@@ -15,17 +27,6 @@
       "options": {
         "jestConfig": "packages/esbuild-plugin-run/jest.config.js",
         "passWithNoTests": true
-      }
-    },
-    "build": {
-      "executor": "@nrwl/node:package",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "./packages/esbuild-plugin-run/dist",
-        "tsConfig": "packages/esbuild-plugin-run/tsconfig.json",
-        "packageJson": "packages/esbuild-plugin-run/package.json",
-        "main": "packages/esbuild-plugin-run/src/index.ts",
-        "assets": ["packages/esbuild-plugin-run/*.md"]
       }
     }
   },

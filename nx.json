@@ -1,59 +1,23 @@
 {
-  "npmScope": "nps",
+  "extends": "@nrwl/workspace/presets/core.json",
+  "npmScope": "nx-plugins",
   "affected": {
     "defaultBase": "main"
   },
-  "implicitDependencies": {
-    "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
-    "tsconfig.base.json": "*",
-    "nx.json": "*",
-    ".eslintrc.json": "*"
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
   },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "parallel": true,
-        "maxParallel": 8,
-        "skipNxCache": true
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
       }
     }
-  },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
-  },
-  "workspaceLayout": {
-    "appsDir": "e2e",
-    "libsDir": "packages"
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/node"
-  },
-  "generators": {
-    "@nrwl/react": {
-      "application": {
-        "style": "styled-components",
-        "linter": "eslint",
-        "babel": true
-      },
-      "component": {
-        "style": "styled-components"
-      },
-      "library": {
-        "style": "styled-components",
-        "linter": "eslint"
-      }
-    }
-  },
-  "defaultProject": "e2e/prisma-app"
+  }
 }

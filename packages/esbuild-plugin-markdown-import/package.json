@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-markdown-import",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "ESBuild plugin for markdown import. ",
   "keywords": [
     "esbuild",
@@ -19,19 +19,17 @@
   "license": "MIT",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
   "main": "dist/src/index.js",
-  "scripts": {
-    "release": "release-it",
-    "release:dry": "release-it --dry-run",
-    "release:minor": "release-it minor",
-    "release:major": "release-it major"
+  "typings": "dist/src/index.d.ts",
+  "publishConfig": {
+    "main": "src/index.js",
+    "typings": "src/index.d.ts"
   },
+  "scripts": {},
   "dependencies": {
-    "fs-extra": "^10.0.0"
+    "fs-extra": "^10.0.0",
+    "marked": "^4.0.12"
   },
   "peerDependencies": {
-    "esbuild": "^0.13.2",
-    "marked": "^3.0.2"
-  },
-  "executors": "./dist/executors.json",
-  "generators": "./dist/generators.json"
+    "esbuild": "^0.14.0"
+  }
 }

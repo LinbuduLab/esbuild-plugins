@@ -39,7 +39,7 @@ const writeBrotliCompress = (
   fs.writeFileSync(`${path}.br`, gzipped);
 };
 
-export default (options: CompressOptions = {}): Plugin => {
+export const compress = (options: CompressOptions = {}): Plugin => {
   const gzip = options.gzip ?? true;
   const brotli = options.brotli ?? true;
   const removeOrigin = options.removeOrigin ?? false;

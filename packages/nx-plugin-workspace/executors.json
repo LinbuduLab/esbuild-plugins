@@ -5,31 +5,6 @@
       "implementation": "./src/executors/exec/exec.impl",
       "schema": "./src/executors/exec/schema.json",
       "description": "exec executor"
-    },
-    "node-build": {
-      "implementation": "./src/executors/node-build/build.impl",
-      "schema": "./src/executors/node-build/schema.json",
-      "description": "node-build executor"
-    },
-    "node-serve": {
-      "implementation": "./src/executors/node-serve/serve.impl",
-      "schema": "./src/executors/node-serve/schema.json",
-      "description": "serve executor"
-    },
-    "light-node-serve": {
-      "implementation": "./src/executors/light-node-serve/serve.impl",
-      "schema": "./src/executors/light-node-serve/schema.json",
-      "description": "light-node-serve executor"
-    },
-    "node-package": {
-      "implementation": "./src/executors/node-package/package.impl",
-      "schema": "./src/executors/node-package/schema.json",
-      "description": "node-package executor"
-    },
-    "tsc": {
-      "implementation": "./src/executors/tsc/tsc.impl",
-      "schema": "./src/executors/tsc/schema.json",
-      "description": "tsc executor"
     }
   }
 }

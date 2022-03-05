@@ -11,7 +11,6 @@ import {
   ProjectWithVersion,
   readWorkspacePackagesWithVersion,
 } from '../utils/read-packages';
-import consolaGlobalInstance from 'consola';
 
 const ALL_FLAG = 'all';
 

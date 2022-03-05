@@ -1,10 +1,12 @@
 # ESBuild
 
+## Note
+
+**Note: All plugins require ESBuild version ^0.14.0 as peerDependencies.**
+
 ## alias path
 
 ESBuild plugin for alias replacement.
-
-**Note: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
 
 ```bash
 npm install esbuild-plugin-alias-path --save-dev
@@ -70,8 +72,6 @@ esbuildPluginAliasPath({
 
 ESBuild plugin for cleaning up output/assets before building.
 
-**Note: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
-
 ```bash
 npm install esbuild-plugin-clean --save-dev
 pnpm install esbuild-plugin-clean --save-dev
@@ -80,7 +80,7 @@ yarn add esbuild-plugin-clean --save-dev
 
 ```typescript
 import { build } from 'esbuild';
-import clean from 'esbuild-plugin-clean';
+import { clean } from 'esbuild-plugin-clean';
 
 (async () => {
   const res = await build({
@@ -125,8 +125,6 @@ export interface CleanOptions {
 
 ESBuild plugin for output compression (`gzip`/`brotli`).
 
-**Note: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
-
 ```bash
 npm install esbuild-plugin-compress --save-dev
 pnpm install esbuild-plugin-compress --save-dev
@@ -135,7 +133,7 @@ yarn add esbuild-plugin-compress --save-dev
 
 ```typescript
 import { build } from 'esbuild';
-import compress from 'esbuild-plugin-compress';
+import { compress } from 'esbuild-plugin-compress';
 
 (async () => {
   const res = await build({
@@ -181,8 +179,6 @@ export interface CompressOptions {
 
 ESBuild plugin for assets copy handle.
 
-**Note: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
-
 ```bash
 npm install esbuild-plugin-copy --save-dev
 pnpm install esbuild-plugin-copy --save-dev
@@ -191,7 +187,7 @@ yarn add esbuild-plugin-copy --save-dev
 
 ```typescript
 import { build } from 'esbuild';
-import copy from 'esbuild-plugin-copy';
+import { copy } from 'esbuild-plugin-copy';
 
 (async () => {
   const res = await build({
@@ -315,8 +311,6 @@ export interface ESBuildPluginDecoratorOptions {
 
 ESBuild plugin for displaying output file size info.
 
-**Note: this plugin require ESBuild version ^0.11.19 for the `onStart`/`onEnd` hooks.**
-
 ```bash
 npm install esbuild-plugin-filesize --save-dev
 pnpm install esbuild-plugin-filesize --save-dev
@@ -374,7 +368,7 @@ yarn add esbuild-plugin-ignore-module --save-dev
 
 ```typescript
 import { build } from 'esbuild';
-import ignore from 'esbuild-plugin-ignore-module';
+import { ignore } from 'esbuild-plugin-ignore-module';
 
 (async () => {
   const res = await build({
@@ -471,7 +465,7 @@ yarn add esbuild-plugin-markdown-import --save-dev
 
 ```typescript
 import { build } from 'esbuild';
-import markdown from 'esbuild-plugin-markdown-import';
+import { markdown } from 'esbuild-plugin-markdown-import';
 
 (async () => {
   const res = await build({
@@ -611,7 +605,7 @@ yarn add esbuild-plugin-run --save-dev
 
 ```typescript
 import { build } from 'esbuild';
-import run from 'esbuild-plugin-run';
+import { run } from 'esbuild-plugin-run';
 
 (async () => {
   const res = await build({

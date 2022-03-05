@@ -12,7 +12,7 @@ Nx plugin integration with [Vite](https://vitejs.dev/).
 # you can also skip vite installation, which will also be installed when executing generator:app
 yarn add nx-plugin-vite vite -D
 # some required peer deps in nx workspace project
-yarn add @nrwl/node @nrwl/workspace @nrwl/tao @angular-devkit/schematics -D
+yarn add @nrwl/devkit @nrwl/node @nrwl/workspace @nrwl/tao -D
 ```
 
 ## Breaking Changes

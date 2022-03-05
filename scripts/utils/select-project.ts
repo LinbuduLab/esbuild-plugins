@@ -1,7 +1,4 @@
-import jsonfile from 'jsonfile';
-import fs from 'fs-extra';
 import enquirer from 'enquirer';
-import path from 'path';
 import { readWorkspacePackagesWithVersion } from './read-packages';
 import uniq from 'lodash/uniq';
 

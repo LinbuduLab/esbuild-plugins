@@ -12,7 +12,7 @@ export interface RunOptions {
   ) => ChildProcess | ExecaChildProcess<string> | any;
 }
 
-export default (options: RunOptions = {}): Plugin => {
+export const run = (options: RunOptions = {}): Plugin => {
   let execaProcess: ChildProcess | ExecaChildProcess<string> | any;
 
   return {

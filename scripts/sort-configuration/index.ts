@@ -40,12 +40,9 @@ export default function useSortConfiguration(cli: CAC) {
 }
 
 function sortPluginInNxJson() {
-  const nxJsonContent: typeof nxJSON = jsonfile.readFileSync(
-    nxJsonPath,
-    'utf8'
-  );
+  const workspaceJsonContent = workspaceJSON;
 
-  const projects: Record<string, NxJsonProjectItem> = nxJsonContent.projects;
+  const projects: Record<string, string> = workspaceJsonContent.projects;
 
   const projectMap: Record<string, string[]> = {
     playground: [],
@@ -79,15 +76,15 @@ function sortPluginInNxJson() {
   for (const [k, v] of Object.entries(sortedProjectMap)) {
     v &&
       v.forEach((projectName) => {
-        tmpProjects[projectName] = nxJsonContent.projects[projectName];
+        tmpProjects[projectName] = workspaceJsonContent.projects[projectName];
       });
   }
 
-  nxJsonContent.projects = tmpProjects as any;
+  workspaceJsonContent.projects = tmpProjects as any;
 
   fs.writeFileSync(
     nxJsonPath,
-    prettier.format(JSON.stringify(nxJsonContent), { parser: 'json' })
+    prettier.format(JSON.stringify(workspaceJsonContent), { parser: 'json' })
   );
 }
 

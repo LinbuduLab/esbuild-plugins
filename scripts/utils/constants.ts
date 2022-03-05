@@ -1,16 +1,19 @@
 import fs from 'fs-extra';
 import path from 'path';
-import nx from '../../nx.json';
+import { buildWorkspaceConfigurationFromGlobs } from '@nrwl/tao/src/shared/workspace';
+import { workspaceLayout } from '@nrwl/workspace/src/core/file-utils';
 
-export const PLUGIN_DIR = path.resolve(
+export const PLUGIN_DIR = workspaceLayout().libsDir ?? 'packages';
+
+export const ABSOLUTE_PLUGIN_DIR = path.resolve(
   __dirname,
   '../../',
-  nx.workspaceLayout.libsDir
+  PLUGIN_DIR
 );
 
 export const PROJECT_LIST = fs.readdirSync(PLUGIN_DIR);
 
-export const getPluginList = () => {
+export const getPluginList = (): string[] => {
   return fs.readdirSync(PLUGIN_DIR);
 };
 

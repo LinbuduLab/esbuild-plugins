@@ -1,13 +1,28 @@
 {
   "name": "nx-plugin-devkit",
-  "version": "0.4.0",
-  "main": "dist/src/index.js",
-  "scripts": {
-    "release": "release-it",
-    "release:dry": "release-it --dry-run",
-    "release:minor": "release-it minor",
-    "release:major": "release-it major"
+  "version": "0.5.0",
+  "description": "nx plugin for devkit.",
+  "keywords": [
+    "Nx",
+    "devkit"
+  ],
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-copy#readme",
+  "bugs": {
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "publishConfig": {
+    "main": "src/index.js",
+    "typings": "src/index.d.ts"
+  },
+  "scripts": {},
   "dependencies": {
     "chalk": "^4.1.2",
     "consola": "^2.15.3",
@@ -29,6 +44,6 @@
     "@nrwl/node": "^13.4.4",
     "@nrwl/tao": "^13.4.4",
     "@nrwl/workspace": "^13.4.4",
-    "esbuild": "^0.13.2"
+    "esbuild": "^0.14.0"
   }
 }

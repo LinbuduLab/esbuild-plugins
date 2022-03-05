@@ -11,6 +11,7 @@ import chalk from 'chalk';
 import { selectSingleProject } from '../utils/select-project';
 import { allPackages } from '../utils/packages';
 import { readWorkspacePackagesWithVersion } from '../utils/read-packages';
+import { PLUGIN_DIR } from '../utils/constants';
 
 const enum ReleaseType {
   MAJOR = 'major',
@@ -29,15 +30,15 @@ const RELEASE_TYPES: ReleaseType[] = [
 
 export interface ReleaseCLIOptions {
   type: ReleaseType;
-  dryRun: boolean;
+  dry: boolean;
   version?: string;
   yes: boolean;
   skipGit: boolean;
 }
 
 /**
- * yarn cli release
- * -> choose package if not specified by `yarn cli release [name]`
+ * pnpm cli release
+ * -> choose package if not specified by `pnpm cli release [name]`
  * -> choose release type
  * -> bump package.json version
  * -> collect deps
@@ -62,18 +63,12 @@ export default function useReleaseProject(cli: CAC) {
     .option('--type', 'Choose release type', {
       default: ReleaseType.PATCH,
     })
-    .option('--version [version]', 'Use custom version instead semver bump')
+    .option('--version [version]', 'Use custom version instead by semver bump')
     .option('--skip-git', 'Skip git add & commit & push', {
       default: false,
     })
-    // .option('--yes', 'Skip confirm prompt', {
-    //   default: false,
-    // })
-    // .option('--no-yes', 'Donnot skip confirm prompt')
-    .option('--dry-run', 'Use dry run mode', {
-      default: false,
-    })
-
+    .option('--no-dry', 'Donot use dry run mode')
+    .option('--dry', 'Use dry run mode')
     .alias('r')
     .action(async (name: string, options: ReleaseCLIOptions) => {
       try {
@@ -90,30 +85,37 @@ export default function useReleaseProject(cli: CAC) {
           process.exit(1);
         }
 
-        const { dryRun, version, skipGit } = options;
+        /**
+         * Nx plugin specified release flow:
+         *
+         * - publish dist dir
+         * - modify package.json fields to suit prod
+         * - sync workspace dependencies(nx-plugin-devkit) as dist dir is not regarded as workspace package
+         */
+        const useNxReleaseWorkflow =
+          projectToRelease.startsWith('nx-plugin') &&
+          !projectToRelease.endsWith('devkit');
+
+        consola.info('useNxReleaseWorkflow: ', useNxReleaseWorkflow);
+
+        const { dry: dryRun, version, skipGit } = options;
 
         const packagesInfo = readWorkspacePackagesWithVersion();
 
         const projectCurrentVersion = packagesInfo.find(
           (info) => info.project === projectToRelease
-        )!.version;
+        ).version;
 
         const releaseVersion =
-          version ??
-          (
-            (await enquirer.prompt({
-              type: 'select',
-              name: 'version',
-              message: 'Select release type',
-              choices: RELEASE_TYPES.map(
-                (incType) =>
-                  `${incType} (${incredVersion(
-                    projectCurrentVersion,
-                    incType
-                  )})`
-              ),
-            })) as { version: string }
-          ).version.match(/\((.*)\)/)![1];
+          version ?? (<{ version: string }>await enquirer.prompt({
+            type: 'select',
+            name: 'version',
+            message: 'Select release type',
+            choices: RELEASE_TYPES.map(
+              (incType) =>
+                `${incType} (${incredVersion(projectCurrentVersion, incType)})`
+            ),
+          })).version.match(/\((.*)\)/)![1];
 
         if (!semver.valid(releaseVersion)) {
           consola.error(
@@ -142,41 +144,15 @@ export default function useReleaseProject(cli: CAC) {
 
         const projectDir = path.join(
           process.cwd(),
-          'packages',
+          PLUGIN_DIR,
           projectToRelease
         );
 
         const projectPkgPath = path.join(projectDir, 'package.json');
-        const builtProjectPkgPath = path.join(
-          projectDir,
-          'dist',
-          'package.json'
-        );
+
         const pkgInfo = jsonfile.readFileSync(projectPkgPath);
 
         pkgInfo.version = releaseVersion;
-
-        consola.info(
-          'Collecting dependencies and sync workspace packages version...'
-        );
-
-        !dryRun &&
-          (await execa(
-            'yarn',
-            ['cli', 'collect', projectToRelease, '--verbose'],
-            {
-              cwd: process.cwd(),
-              preferLocal: true,
-              stdio: 'inherit',
-            }
-          ));
-
-        !dryRun &&
-          (await execa('yarn', ['cli', 'sync', projectToRelease, '--verbose'], {
-            cwd: process.cwd(),
-            preferLocal: true,
-            stdio: 'inherit',
-          }));
 
         if (!dryRun) {
           fs.writeFileSync(
@@ -192,38 +168,50 @@ export default function useReleaseProject(cli: CAC) {
 
         consola.info('Building packages...');
 
-        !dryRun &&
-          (await execa('nx', ['build', projectToRelease, '--verbose'], {
-            cwd: process.cwd(),
-            // enable preferLocal will cause workspace deps in dist package.json doesnot got update
-            // preferLocal: true,
-            stdio: 'inherit',
-          }));
+        await execa('nx', ['build', projectToRelease, '--verbose'], {
+          cwd: process.cwd(),
+          // enable preferLocal will cause workspace deps in dist package.json doesnot got update
+          // preferLocal: true,
+          stdio: 'inherit',
+        });
 
         dryRunSuccessLogger(
           `Package ${projectToRelease} built successfully.\n`,
           dryRun
         );
 
-        consola.info('Updating necessary fields of `dist/package.json`...\n');
-
-        const builtPkgInfo = jsonfile.readFileSync(builtProjectPkgPath);
-
-        builtPkgInfo.main = './src/index.js';
-        builtPkgInfo.version = releaseVersion;
-        builtPkgInfo.typings = './src/index.d.ts';
-        builtPkgInfo.executors
-          ? (builtPkgInfo.executors = './executors.json')
-          : void 0;
-        builtPkgInfo.generators
-          ? (builtPkgInfo.generators = './generators.json')
-          : void 0;
-
-        if (!dryRun) {
-          fs.writeFileSync(
-            builtProjectPkgPath,
-            JSON.stringify(builtPkgInfo, null, 2) + '\n'
+        if (useNxReleaseWorkflow) {
+          const builtProjectPkgPath = path.join(
+            projectDir,
+            'dist',
+            'package.json'
           );
+
+          consola.info('Updating necessary fields of `dist/package.json`...\n');
+
+          const builtPkgInfo = jsonfile.readFileSync(builtProjectPkgPath);
+
+          builtPkgInfo.executors
+            ? (builtPkgInfo.executors = './executors.json')
+            : void 0;
+          builtPkgInfo.generators
+            ? (builtPkgInfo.generators = './generators.json')
+            : void 0;
+
+          const devkitWorkspaceVersion = packagesInfo.find(
+            (info) => info.project === 'nx-plugin-devkit'
+          ).version;
+
+          builtPkgInfo.dependencies[
+            'nx-plugin-devkit'
+          ] = `^${devkitWorkspaceVersion}`;
+
+          if (!dryRun) {
+            fs.writeFileSync(
+              builtProjectPkgPath,
+              JSON.stringify(builtPkgInfo, null, 2) + '\n'
+            );
+          }
         }
 
         const { stdout } = await execa('git', ['diff'], { stdio: 'pipe' });
@@ -238,7 +226,7 @@ export default function useReleaseProject(cli: CAC) {
 
           await execa(
             'git',
-            ['add', `packages/${projectToRelease}`, '--verbose'].concat(
+            ['add', `${PLUGIN_DIR}/${projectToRelease}`, '--verbose'].concat(
               dryRun ? ['--dry-run'] : []
             ),
             {
@@ -253,52 +241,48 @@ export default function useReleaseProject(cli: CAC) {
             '--non-interactive',
           ];
 
-          !dryRun
-            ? await execa('git-cz', gitCZCommandArgs, {
-                stdio: 'inherit',
-                preferLocal: true,
-              })
-            : consola.info(
+          dryRun
+            ? consola.info(
                 `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
                   `git-cz ${gitCZCommandArgs.join(' ')}`
                 )}`
-              );
-
-          !dryRun
-            ? await execa('git', ['tag', releaseTag], {
+              )
+            : await execa('git-cz', gitCZCommandArgs, {
                 stdio: 'inherit',
-              })
-            : consola.info(
+                preferLocal: true,
+              });
+
+          dryRun
+            ? consola.info(
                 `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
                   `git tag ${releaseTag}`
                 )}`
+              )
+            : await execa('git', ['tag', releaseTag], {
+                stdio: 'inherit',
+              });
+
+          dryRun
+            ? consola.info(
+                `${chalk.white('DRY RUN MODE')}: Executing >>> ${chalk.cyan(
+                  `git push origin refs/tags/${releaseTag} --verbose --progress`
+                )}`
+              )
+            : await execa(
+                'git',
+                [
+                  'push',
+                  'origin',
+                  `refs/tags/${releaseTag}`,
+                  '--verbose',
+                  '--progress',
+                ],
+                {
+                  stdio: 'inherit',
+                }
               );
 
-          await execa(
-            'git',
-            [
-              'push',
-              'origin',
-              `refs/tags/${releaseTag}`,
-              '--verbose',
-              '--progress',
-            ].concat(dryRun ? ['--dry-run'] : []),
-            {
-              stdio: 'inherit',
-            }
-          );
-
           console.log('\n');
-
-          await execa(
-            'git',
-            ['push', '--verbose', '--progress'].concat(
-              dryRun ? ['--dry-run'] : []
-            ),
-            {
-              stdio: 'inherit',
-            }
-          );
         } else {
           consola.warn('Remember you have skipped git process.');
         }
@@ -317,10 +301,12 @@ export default function useReleaseProject(cli: CAC) {
         consola.info(`You're now logged as ${chalk.bold(chalk.white(logAs))}`);
 
         await execa(
-          'npm',
-          ['publish', '--access=public'].concat(dryRun ? ['--dry-run'] : []),
+          'pnpm',
+          ['publish', 'dist', '--access=public', '--no-git-checks'].concat(
+            dryRun ? ['--dry-run'] : []
+          ),
           {
-            cwd: path.resolve(projectDir, 'dist'),
+            cwd: projectDir,
             stdio: 'inherit',
             shell: true,
             preferLocal: true,

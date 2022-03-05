@@ -12,7 +12,7 @@ export interface CleanOptions {
   cleanOn?: 'start' | 'end' | 'both';
 }
 
-export default (options: CleanOptions = {}): Plugin => {
+export const clean = (options: CleanOptions = {}): Plugin => {
   const patterns = options.patterns ?? [];
   const dryRun = options.dryRun ?? false;
   const delOptions = options.options ?? {};
