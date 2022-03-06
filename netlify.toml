@@ -1,4 +1,4 @@
 [build]
   base="./docs"
   build="yarn docs:build"
-  publish="./docs/.vuepress/dist"
+  publish=".vuepress/dist"
