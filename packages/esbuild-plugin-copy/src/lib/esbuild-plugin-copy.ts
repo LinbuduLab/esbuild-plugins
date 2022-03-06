@@ -12,44 +12,109 @@ export interface AssetPair {
   from: MaybeArray<string>;
   // to path is resolved based on outdir or outfile in your ESBuild options
   to: MaybeArray<string>;
+
+  keepStructure?: boolean;
 }
 
 export interface Options {
+  /**
+   * @default []
+   */
   assets: MaybeArray<AssetPair>;
+  /**
+   * @default true
+   */
   copyOnStart: boolean;
+  /**
+   * we set this option to be true by default because it outputs
+   * from-path and to-path used by `fs.copyFileSync`
+   * @default true
+   */
   verbose: boolean;
+  /**
+   * options passed to `globby` when we 're globbing for files to copy
+   * @default {}
+   */
   globbyOptions: GlobbyOptions;
+  /**
+   * only execute copy operation once
+   * useful when you're using ESBuild.build watching mode
+   * @default false
+   */
   once: boolean;
+  /**
+   * keep raw assets dir structure for all assets pairs
+   * @default true
+   */
+  keepStructure: boolean;
 }
 
-/**
- * 存在的几种情况
- *
- * dir
- * dir/*
- * file.ext
- *
- * @param outDir
- * @param from
- * @param to
- */
-function copyHandler(outDir: string, from: string, to: string, verbose = true) {
-  // console.log('start=====');
+function keepStructureCopyHandler(
+  outDir: string,
+  rawFromPath: string[],
+  globbedFromPath: string,
+  baseToPath: string,
+  verbose = true
+) {
+  // we keep structure only when input from path ends with /**/*(.ext)
+  // for \/* only, we use simple merge copy handler
+  // we only support /**/* now
+  // and /**/*.js?
+
+  for (const rawFrom of rawFromPath) {
+    const { dir } = path.parse(rawFrom);
+
+    // be default, when ends with /*, glob doesnot expand directories
+    // avoid use override option `expandDirectories` and use `/*`
+    if (!dir.endsWith('/**')) {
+      verboseLog(
+        `You're using ${chalk.white(
+          'Keep-Structure'
+        )} mode for the assets paire which its ${chalk.white(
+          'from'
+        )} path doesnot ends with ${chalk.white(
+          '/**/*(.ext)'
+        )}, fallback to ${chalk.white('Merge-Structure')} mode`,
+        verbose
+      );
+      mergeCopyHandler(outDir, globbedFromPath, baseToPath, verbose);
+    }
+
+    const startFragment = dir.replace(`/**`, '');
+
+    const [, preservedDirStructure] = globbedFromPath.split(startFragment);
+
+    const sourcePath = path.resolve(globbedFromPath);
+
+    const composedDistDirPath = path.resolve(
+      outDir,
+      baseToPath,
+      preservedDirStructure.slice(1)
+    );
+
+    fs.ensureDirSync(path.dirname(composedDistDirPath));
+    fs.copyFileSync(sourcePath, composedDistDirPath);
+
+    verboseLog(
+      `File copied: ${chalk.white(sourcePath)} -> ${chalk.white(
+        composedDistDirPath
+      )}`,
+      verbose
+    );
+  }
+}
+
+function mergeCopyHandler(
+  outDir: string,
+  from: string,
+  to: string,
+  verbose = true
+) {
   // absolute file path for each pair's from
   const sourcePath = path.resolve(from);
 
-  // console.log(sourceDirPath, distDirPath, '\n');
-
-  // console.log(outDir, from, to);
-
   const parsedFromPath = path.parse(from);
-  // console.log('parsedFromPath: ', parsedFromPath);
   const parsedToPath = path.parse(to);
-  // console.log('parsedToPath: ', parsedToPath);
-
-  // fs.copyFileSync(path.resolve(from), path.resolve(outDir, to, fromPathBase));
-
-  // from path 是一定会有 ext 的，因为会用 glob 扫一下
 
   // if we specified file name in to path, we use its basename
   // or, we make the from path base as default
@@ -85,14 +150,13 @@ function verboseLog(msg: string, verbose: boolean) {
   console.log(chalk.blue('i'), msg);
 }
 
-function formatAssets(
-  assets: MaybeArray<AssetPair>
-): Record<'from' | 'to', string[]>[] {
+function formatAssets(assets: MaybeArray<AssetPair>) {
   return ensureArray(assets)
     .filter((asset) => asset.from && asset.to)
-    .map(({ from, to }) => ({
+    .map(({ from, to, keepStructure = false }) => ({
       from: ensureArray(from),
       to: ensureArray(to),
+      keepStructure,
     }));
 }
 
@@ -105,6 +169,7 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
     globbyOptions = {},
     verbose = true,
     once = false,
+    keepStructure: globalKeepStructure = false,
   } = options;
 
   const formattedAssets = formatAssets(assets);
@@ -127,7 +192,11 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
           return;
         }
 
-        for (const { from, to } of formattedAssets) {
+        for (const {
+          from,
+          to,
+          keepStructure: pairKeepStructure,
+        } of formattedAssets) {
           const pathsCopyFrom = await globby(from, {
             expandDirectories: false,
             onlyFiles: true,
@@ -155,8 +224,32 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
             return;
           }
 
-          for (const fromPath of pathsCopyFrom) {
-            to.forEach((toPath) => copyHandler(outDir, fromPath, toPath));
+          const keep = globalKeepStructure || pairKeepStructure;
+
+          console.log(
+            `\nUse ${chalk.white(
+              keep ? 'Keep-Structure' : 'Merge-Structure'
+            )} for current assets pair.`
+          );
+
+          const deduplicatedPaths = [...new Set(pathsCopyFrom)];
+
+          if (!deduplicatedPaths.length) {
+            console.log(
+              `No files matched using current glob pattern: ${chalk.white(
+                from
+              )}, maybe you need to configure globby by ${chalk.white(
+                'options.globbyOptions'
+              )}?`
+            );
+          }
+
+          for (const fromPath of deduplicatedPaths) {
+            to.forEach((toPath) => {
+              keep
+                ? keepStructureCopyHandler(outDir, from, fromPath, toPath)
+                : mergeCopyHandler(outDir, fromPath, toPath);
+            });
           }
           process.env[PLUGIN_EXECUTED_FLAG] = 'true';
         }
