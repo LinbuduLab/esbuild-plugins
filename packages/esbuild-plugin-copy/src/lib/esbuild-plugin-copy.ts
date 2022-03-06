@@ -57,7 +57,7 @@ export interface Options {
    */
   once: boolean;
   /**
-   * use `Keep-Structure` mode for current assets pair
+   * use `Keep-Structure` mode for all assets pairs
    *
    * this option takes higher priority than `assets.keepStructure` option
    * @default false
