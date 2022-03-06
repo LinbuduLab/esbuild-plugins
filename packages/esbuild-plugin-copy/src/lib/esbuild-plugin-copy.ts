@@ -17,6 +17,7 @@ export interface Options {
   copyOnStart: boolean;
   verbose: boolean;
   globbyOptions: GlobbyOptions;
+  once: boolean;
 }
 
 function copyHandler(outDir: string, from: string, to: string) {
@@ -45,12 +46,15 @@ function formatAssets(assets: MaybeArray<AssetPair>) {
     }));
 }
 
+const PLUGIN_EXECUTED_FLAG = 'esbuild_copy_executed';
+
 export const copy = (options: Partial<Options> = {}): Plugin => {
   const {
     assets = [],
     copyOnStart = false,
     globbyOptions = {},
     verbose = true,
+    once = false,
   } = options;
 
   const formattedAssets = formatAssets(assets);
@@ -59,6 +63,14 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
     name: 'plugin:copy',
     setup(build) {
       build[copyOnStart ? 'onStart' : 'onEnd'](async () => {
+        if (once && process.env[PLUGIN_EXECUTED_FLAG] === 'true') {
+          verboseLog(
+            `Copy plugin skipped as option ${chalk.white('once')} set to true`,
+            verbose
+          );
+          return;
+        }
+
         if (!formattedAssets.length) {
           return;
         }
@@ -93,6 +105,7 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
           for (const fromPath of pathsCopyFrom) {
             to.forEach((toPath) => copyHandler(outDir, fromPath, toPath));
           }
+          process.env[PLUGIN_EXECUTED_FLAG] = 'true';
         }
       });
     },
