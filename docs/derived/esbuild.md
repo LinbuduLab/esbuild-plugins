@@ -227,11 +227,9 @@ import { build } from 'esbuild';
         assets: [
           {
             from: ['./node_modules/tinymce/skins/**/*'],
-            to: [
-              './preserved-structure/skins',
-            ],
+            to: ['./preserved-structure/skins'],
             keepStructure: true,
-          }
+          },
         ],
       }),
     ],
@@ -240,24 +238,34 @@ import { build } from 'esbuild';
 ```
 
 - When you set root option `keepStructure: true`, it means keep structure for all asset pairs, but if some of your asset pairs use `./path/*` which ends with `/*`, default `globby` will not expand sub-dircetories like `./path/foo`. **So it's not recommended to use this in root-level.**
-- When you set `AssetPair.keepStructure`, it means keep structure for current assets pair. Example above will produce following structure:
-  - （Input Structure）node_modules/tinymce/skins
-    - content
-      - dark
-      - default
-      - document
-    - ui  
-      - oxide
-      - oxide-dark
-  - (Output Structure)dist
-    - preserved-structure/skins
-      - content
-        - dark
-        - default
-        - document
-      - ui
-        - oxide
-        - oxide-dark
+
+- When you set `AssetPair.keepStructure`, it means keep structure for current assets pair. 
+  
+- The final performance of the above configuration is as follows:
+  
+  ```text
+  |-node_modules/tinymce/skins
+  |--- content
+  |----- dark
+  |----- default
+  |----- document
+  |--- ui
+  |----- oxide
+  |----- oxide-dark
+  ```
+  
+  ```text
+  |- dist/preserved-structure/skins
+  |--- content
+  |----- dark
+  |----- default
+  |----- document
+  |--- ui
+  |----- oxide
+  |----- oxide-dark
+  ```
+  
+  
 
 You can also use patterns with extension names like `./path/**/*.js`
 
@@ -316,9 +324,9 @@ export interface Options {
    */
   once: boolean;
   /**
-   * use `Keep-Structure` mode for current assets pair
+   * use `Keep-Structure` mode for all assets pairs
    *
-   * this option takes higher priority than `assets.keepStructure` option
+   * NOTE: this option takes higher priority than `assets.keepStructure` option
    * @default false
    */
   keepStructure: boolean;
