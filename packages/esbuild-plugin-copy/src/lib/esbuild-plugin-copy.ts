@@ -6,9 +6,11 @@ import globby, { GlobbyOptions } from 'globby';
 
 type MaybeArray<T> = T | T[];
 
+// file/folder/globs
 export interface AssetPair {
-  // file/folder/globs
+  // from path is resolved based on cwd
   from: MaybeArray<string>;
+  // to path is resolved based on outdir or outfile in your ESBuild options
   to: MaybeArray<string>;
 }
 
@@ -20,13 +22,59 @@ export interface Options {
   once: boolean;
 }
 
-function copyHandler(outDir: string, from: string, to: string) {
-  const { base: fromPathBase } = path.parse(from);
-  fs.ensureDirSync(path.resolve(outDir, to));
-  fs.copyFileSync(path.resolve(from), path.resolve(outDir, to, fromPathBase));
+/**
+ * 存在的几种情况
+ *
+ * dir
+ * dir/*
+ * file.ext
+ *
+ * @param outDir
+ * @param from
+ * @param to
+ */
+function copyHandler(outDir: string, from: string, to: string, verbose = true) {
+  // console.log('start=====');
+  // absolute file path for each pair's from
+  const sourcePath = path.resolve(from);
+
+  // console.log(sourceDirPath, distDirPath, '\n');
+
+  // console.log(outDir, from, to);
+
+  const parsedFromPath = path.parse(from);
+  // console.log('parsedFromPath: ', parsedFromPath);
+  const parsedToPath = path.parse(to);
+  // console.log('parsedToPath: ', parsedToPath);
+
+  // fs.copyFileSync(path.resolve(from), path.resolve(outDir, to, fromPathBase));
+
+  // from path 是一定会有 ext 的，因为会用 glob 扫一下
+
+  // if we specified file name in to path, we use its basename
+  // or, we make the from path base as default
+  const distBaseName = parsedToPath.ext.length
+    ? parsedToPath.base
+    : parsedFromPath.base;
+
+  // if we specified file name in to path, the parsed dir will be '.'
+  // so we need to use its base as alternative
+  // or we can just use its dir
+  const distDir =
+    parsedToPath.dir === '.' ? parsedToPath.base : parsedToPath.dir;
+
+  const distPath = path.resolve(outDir, distDir, distBaseName);
+
+  fs.ensureDirSync(path.dirname(distPath));
+  fs.copyFileSync(sourcePath, distPath);
+
+  verboseLog(
+    `File copied: ${chalk.white(sourcePath)} -> ${chalk.white(distPath)}`,
+    verbose
+  );
 }
 
-function toArray<T>(item: MaybeArray<T>): Array<T> {
+function ensureArray<T>(item: MaybeArray<T>): Array<T> {
   return Array.isArray(item) ? item : [item];
 }
 
@@ -37,12 +85,14 @@ function verboseLog(msg: string, verbose: boolean) {
   console.log(chalk.blue('i'), msg);
 }
 
-function formatAssets(assets: MaybeArray<AssetPair>) {
-  return toArray(assets)
+function formatAssets(
+  assets: MaybeArray<AssetPair>
+): Record<'from' | 'to', string[]>[] {
+  return ensureArray(assets)
     .filter((asset) => asset.from && asset.to)
     .map(({ from, to }) => ({
-      from: toArray(from),
-      to: toArray(to),
+      from: ensureArray(from),
+      to: ensureArray(to),
     }));
 }
 
@@ -59,10 +109,12 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
 
   const formattedAssets = formatAssets(assets);
 
+  const applyHook = copyOnStart ? 'onStart' : 'onEnd';
+
   return {
     name: 'plugin:copy',
     setup(build) {
-      build[copyOnStart ? 'onStart' : 'onEnd'](async () => {
+      build[applyHook](async () => {
         if (once && process.env[PLUGIN_EXECUTED_FLAG] === 'true') {
           verboseLog(
             `Copy plugin skipped as option ${chalk.white('once')} set to true`,
@@ -82,11 +134,6 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
             ...globbyOptions,
           });
 
-          verboseLog(
-            `Files will be copied: \n${pathsCopyFrom.join('\n')}`,
-            verbose
-          );
-
           const outDir =
             build.initialOptions.outdir ??
             path.dirname(build.initialOptions.outfile!);
@@ -94,7 +141,13 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
           if (!outDir) {
             verboseLog(
               chalk.red(
-                `You should provide valid outdir or outfile for assets copy. received outdir:${build.initialOptions.outdir}, received outfile:${build.initialOptions.outfile}`
+                `You should provide valid ${chalk.white(
+                  'outdir'
+                )} or ${chalk.white(
+                  'outfile'
+                )} for assets copy. received outdir:${
+                  build.initialOptions.outdir
+                }, received outfile:${build.initialOptions.outfile}`
               ),
               verbose
             );
