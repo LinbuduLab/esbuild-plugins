@@ -1,7 +1,5 @@
 const fs = require('fs-extra');
 const path = require('path');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 
 const NX_PLUGIN_LIST = [
   {
@@ -88,7 +86,6 @@ module.exports = {
     // repo: 'LinbuduLab/nx-plugins',
     // repoLabel: 'Contribute!',
     docsRepo: 'LinbuduLab/nx-plugins',
-    docsDir: 'docs',
     docsBranch: 'main',
     editLinks: true,
     editLinkText: 'Help me improve this page!',

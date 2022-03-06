@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
-    "docs:serve": "vuepress serve docs"
+    "docs:dev": "vuepress dev ./",
+    "docs:build": "vuepress build ./",
+    "docs:serve": "vuepress serve ./"
   },
   "keywords": [],
   "author": "",
