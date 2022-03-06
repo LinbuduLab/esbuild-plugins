@@ -1,5 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 
 const NX_PLUGIN_LIST = [
   {
@@ -100,4 +102,5 @@ module.exports = {
       },
     ],
   ],
+
 };
