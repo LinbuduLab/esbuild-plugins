@@ -8,26 +8,39 @@ type MaybeArray<T> = T | T[];
 
 // file/folder/globs
 export interface AssetPair {
-  // from path is resolved based on cwd
+  /**
+   * from path is resolved based on `cwd`
+   */
   from: MaybeArray<string>;
-  // to path is resolved based on outdir or outfile in your ESBuild options
+  /**
+   * to path is resolved based on `outdir` or `outfile` in your ESBuild options
+   */
   to: MaybeArray<string>;
-
+  /**
+   * use Keep-Structure mode for current assets pair
+   * @default false
+   */
   keepStructure?: boolean;
 }
 
 export interface Options {
   /**
+   * assets pair to copy
    * @default []
    */
   assets: MaybeArray<AssetPair>;
   /**
-   * @default true
+   * execute copy in `ESBuild.onEnd` hook(recommended)
+   *
+   * set to true if you want to execute in onStart hook
+   * @default false
    */
   copyOnStart: boolean;
   /**
+   * enable verbose logging
+   *
    * we set this option to be true by default because it outputs
-   * from-path and to-path used by `fs.copyFileSync`
+   * from-path and to-path finally passed to `fs.copyFileSync`
    * @default true
    */
   verbose: boolean;
@@ -38,13 +51,16 @@ export interface Options {
   globbyOptions: GlobbyOptions;
   /**
    * only execute copy operation once
+   *
    * useful when you're using ESBuild.build watching mode
    * @default false
    */
   once: boolean;
   /**
-   * keep raw assets dir structure for all assets pairs
-   * @default true
+   * use `Keep-Structure` mode for current assets pair
+   *
+   * this option takes higher priority than `assets.keepStructure` option
+   * @default false
    */
   keepStructure: boolean;
 }

@@ -206,30 +206,122 @@ import { copy } from 'esbuild-plugin-copy';
 })();
 ```
 
+### Preserve file structure
+
+Since version `1.0.1`, option `keepStructure` is supported in both `Option` level and `AssetPair` level:
+
+```typescript
+import { copy } from 'esbuild-plugin-copy';
+import { build } from 'esbuild';
+
+(async () => {
+  const res = await build({
+    entryPoints: ['./src/index.ts'],
+    bundle: true,
+    outfile: './dist/main.js',
+    watch: true,
+    plugins: [
+      copy({
+        // Not Recommended!
+        // keepStructure: true,
+        assets: [
+          {
+            from: ['./node_modules/tinymce/skins/**/*'],
+            to: [
+              './preserved-structure/skins',
+            ],
+            keepStructure: true,
+          }
+        ],
+      }),
+    ],
+  });
+})();
+```
+
+- When you set root option `keepStructure: true`, it means keep structure for all asset pairs, but if some of your asset pairs use `./path/*` which ends with `/*`, default `globby` will not expand sub-dircetories like `./path/foo`. **So it's not recommended to use this in root-level.**
+- When you set `AssetPair.keepStructure`, it means keep structure for current assets pair. Example above will produce following structure:
+  - （Input Structure）node_modules/tinymce/skins
+    - content
+      - dark
+      - default
+      - document
+    - ui  
+      - oxide
+      - oxide-dark
+  - (Output Structure)dist
+    - preserved-structure/skins
+      - content
+        - dark
+        - default
+        - document
+      - ui
+        - oxide
+        - oxide-dark
+
+You can also use patterns with extension names like `./path/**/*.js`
+
 ### Configuration
 
 ```typescript
 type MaybeArray<T> = T | T[];
 
-// file / folder / globs
 export interface AssetPair {
-  // from path is resolved based on cwd
+  /**
+   * from path is resolved based on `cwd`
+   */
   from: MaybeArray<string>;
-  // to path is resolved based on outdir or outfile in your ESBuild options
+  /**
+   * to path is resolved based on `outdir` or `outfile` in your ESBuild options
+   */
   to: MaybeArray<string>;
+  /**
+   * use Keep-Structure mode for current assets pair
+   * @default false
+   */
+  keepStructure?: boolean;
 }
 
 export interface Options {
-  // assets pair to copy
+  /**
+   * assets pair to copy
+   * @default []
+   */
   assets: MaybeArray<AssetPair>;
-  // start copy on onStart hooks instead of onEnd
-  // default: false
+  /**
+   * execute copy in `ESBuild.onEnd` hook(recommended)
+   *
+   * set to true if you want to execute in onStart hook
+   * @default false
+   */
   copyOnStart: boolean;
-  // verbose logging
-  // default: true
+  /**
+   * enable verbose logging
+   *
+   * we set this option to be true by default because it outputs
+   * from-path and to-path finally passed to `fs.copyFileSync`
+   * @default true
+   */
   verbose: boolean;
-  // extra globby options for paths matching, will be passed to globby directly
+  /**
+   * options passed to `globby` when we 're globbing for files to copy
+   * @default {}
+   */
   globbyOptions: GlobbyOptions;
+  /**
+   * only execute copy operation once
+   *
+   * useful when you're using ESBuild.build watching mode
+   * @default false
+   */
+  once: boolean;
+  /**
+   * use `Keep-Structure` mode for current assets pair
+   *
+   * this option takes higher priority than `assets.keepStructure` option
+   * @default false
+   */
+  keepStructure: boolean;
 }
 ```
 
