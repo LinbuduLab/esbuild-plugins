@@ -263,8 +263,8 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
           for (const fromPath of deduplicatedPaths) {
             to.forEach((toPath) => {
               keep
-                ? keepStructureCopyHandler(outDir, from, fromPath, toPath)
-                : mergeCopyHandler(outDir, fromPath, toPath);
+                ? keepStructureCopyHandler(outDir, from, fromPath, toPath, verbose)
+                : mergeCopyHandler(outDir, fromPath, toPath, verbose);
             });
           }
           process.env[PLUGIN_EXECUTED_FLAG] = 'true';
