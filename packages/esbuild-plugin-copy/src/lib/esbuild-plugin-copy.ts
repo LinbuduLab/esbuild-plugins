@@ -13,7 +13,7 @@ export interface AssetPair {
    */
   from: MaybeArray<string>;
   /**
-   * to path is resolved based on `outdir` or `outfile` in your ESBuild options
+   * to path is resolved based on `outdir` or `outfile` in your ESBuild options by default
    */
   to: MaybeArray<string>;
   /**
@@ -63,6 +63,15 @@ export interface Options {
    * @default false
    */
   keepStructure: boolean;
+
+  /**
+   * base path resolve `assets.to` path from
+   * by default this plugin use outdir` or `outfile` in your ESBuild options
+   * you can specify "cwd" or process.cwd() to resolve from current working directory,
+   * also, you can specify somewhere else to resolve from.
+   * @default "out"
+   */
+  resolveFrom: 'cwd' | 'out' | string;
 }
 
 function keepStructureCopyHandler(
@@ -186,6 +195,7 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
     verbose = true,
     once = false,
     keepStructure: globalKeepStructure = false,
+    resolveFrom = 'out',
   } = options;
 
   const formattedAssets = formatAssets(assets);
@@ -219,52 +229,70 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
             ...globbyOptions,
           });
 
-          const outDir =
-            build.initialOptions.outdir ??
-            path.dirname(build.initialOptions.outfile!);
+          let outDirResolve: string;
 
-          if (!outDir) {
-            verboseLog(
-              chalk.red(
-                `You should provide valid ${chalk.white(
-                  'outdir'
-                )} or ${chalk.white(
-                  'outfile'
-                )} for assets copy. received outdir:${
-                  build.initialOptions.outdir
-                }, received outfile:${build.initialOptions.outfile}`
-              ),
-              verbose
-            );
+          if (resolveFrom === 'cwd') {
+            outDirResolve = process.cwd();
+          } else if (resolveFrom === 'out') {
+            const outDir =
+              build.initialOptions.outdir ??
+              path.dirname(build.initialOptions.outfile!);
 
-            return;
+            if (!outDir) {
+              verboseLog(
+                chalk.red(
+                  `You should provide valid ${chalk.white(
+                    'outdir'
+                  )} or ${chalk.white(
+                    'outfile'
+                  )} for assets copy. received outdir:${
+                    build.initialOptions.outdir
+                  }, received outfile:${build.initialOptions.outfile}`
+                ),
+                verbose
+              );
+
+              return;
+            }
+
+            outDirResolve = outDir;
+          } else {
+            outDirResolve = path.dirname(resolveFrom);
           }
 
           const keep = globalKeepStructure || pairKeepStructure;
 
-          console.log(
+          verboseLog(
             `\nUse ${chalk.white(
               keep ? 'Keep-Structure' : 'Merge-Structure'
-            )} for current assets pair.`
+            )} for current assets pair.`,
+            verbose
           );
 
           const deduplicatedPaths = [...new Set(pathsCopyFrom)];
 
           if (!deduplicatedPaths.length) {
-            console.log(
+            verboseLog(
               `No files matched using current glob pattern: ${chalk.white(
                 from
               )}, maybe you need to configure globby by ${chalk.white(
                 'options.globbyOptions'
-              )}?`
+              )}?`,
+              verbose
             );
           }
 
           for (const fromPath of deduplicatedPaths) {
             to.forEach((toPath) => {
               keep
-                ? keepStructureCopyHandler(outDir, from, fromPath, toPath, verbose)
-                : mergeCopyHandler(outDir, fromPath, toPath, verbose);
+                ? keepStructureCopyHandler(
+                    outDirResolve,
+                    from,
+                    fromPath,
+                    toPath,
+                    verbose
+                  )
+                : mergeCopyHandler(outDirResolve, fromPath, toPath, verbose);
             });
           }
           process.env[PLUGIN_EXECUTED_FLAG] = 'true';
