@@ -15,6 +15,48 @@ yarn add nx-plugin-vite vite -D
 yarn add @nrwl/devkit @nrwl/node @nrwl/workspace @nrwl/tao -D
 ```
 
+## Note
+
+As this plugin doesnot handle things more than start vite server, you will need to use Vite plugins for some common cases, for example using `compilerOptions.paths`:
+
+```typescript
+import React, { useState } from 'react';
+// some-lib is located in libs/some-lib
+import * as someLib from 'some-lib';
+
+console.log(someLib);
+
+function App() {}
+
+export default App;
+```
+
+Nx defines package alias in `tsconig.base.json`:
+
+```json
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "paths": {
+      "some-lib": ["libs/some-lib/src/index.ts"]
+    }
+  }
+}
+```
+
+To use this feature in Vite app, you will need [vite-tsconfig-paths](https://www.npmjs.com/package/vite-tsconfig-paths) to make `compilerOptions.paths` avaliable in Vite app:
+
+```typescript
+import { defineConfig } from 'vite';
+import reactRefresh from '@vitejs/plugin-react-refresh';
+import tsconfigPaths from 'vite-tsconfig-paths';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [tsconfigPaths(), reactRefresh()],
+});
+```
+
 ## Breaking Changes
 
 - Since **1.2.0**, executor `serve` / `preview` can only be configured with Vite config file.
