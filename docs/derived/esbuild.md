@@ -179,6 +179,8 @@ export interface CompressOptions {
 
 ESBuild plugin for assets copy handle.
 
+Since `1.1.0`, this plugin supports use `resolveFrom` option to control base path which is used to caclute the destination of copied file.
+
 ```bash
 npm install esbuild-plugin-copy --save-dev
 pnpm install esbuild-plugin-copy --save-dev
@@ -222,6 +224,8 @@ import { build } from 'esbuild';
     watch: true,
     plugins: [
       copy({
+        // this is equal to process.cwd(), which means we use cwd path as base path, if not specified, this plugin uses ESBuild.build outdir/outfile options as base path.
+        resolveFrom: "cwd",
         // Not Recommended!
         // keepStructure: true,
         assets: [
@@ -330,6 +334,16 @@ export interface Options {
    * @default false
    */
   keepStructure: boolean;
+  
+  /**
+   * base path used to resolve relative `assets.to` path
+   * by default this plugin use `outdir` or `outfile` in your ESBuild options
+   * you can specify "cwd" or process.cwd() to resolve from current working directory,
+   * also, you can specify somewhere else to resolve from.
+   *
+   * @default "out"
+   */
+  resolveFrom: 'cwd' | 'out' | string;
 }
 ```
 
