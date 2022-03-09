@@ -65,8 +65,8 @@ export interface Options {
   keepStructure: boolean;
 
   /**
-   * base path resolve `assets.to` path from
-   * by default this plugin use outdir` or `outfile` in your ESBuild options
+   * base path used to resolve relative `assets.to` path
+   * by default this plugin use `outdir` or `outfile` in your ESBuild options
    * you can specify "cwd" or process.cwd() to resolve from current working directory,
    * also, you can specify somewhere else to resolve from.
    * @default "out"
@@ -168,11 +168,11 @@ function ensureArray<T>(item: MaybeArray<T>): Array<T> {
   return Array.isArray(item) ? item : [item];
 }
 
-function verboseLog(msg: string, verbose: boolean) {
+function verboseLog(msg: string, verbose: boolean, lineBefore = false) {
   if (!verbose) {
     return;
   }
-  console.log(chalk.blue('i'), msg);
+  console.log(chalk.blue(lineBefore ? '\ni' : 'i'), msg);
 }
 
 function formatAssets(assets: MaybeArray<AssetPair>) {
@@ -218,6 +218,42 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
           return;
         }
 
+        let outDirResolve: string;
+
+        if (resolveFrom === 'cwd') {
+          outDirResolve = process.cwd();
+        } else if (resolveFrom === 'out') {
+          const outDir =
+            build.initialOptions.outdir ??
+            path.dirname(build.initialOptions.outfile!);
+
+          if (!outDir) {
+            verboseLog(
+              chalk.red(
+                `You should provide valid ${chalk.white(
+                  'outdir'
+                )} or ${chalk.white(
+                  'outfile'
+                )} for assets copy. received outdir:${
+                  build.initialOptions.outdir
+                }, received outfile:${build.initialOptions.outfile}`
+              ),
+              verbose
+            );
+
+            return;
+          }
+
+          outDirResolve = outDir;
+        } else {
+          outDirResolve = resolveFrom;
+        }
+
+        verboseLog(
+          `Resolve assert pair to path from: ${path.resolve(outDirResolve)}`,
+          verbose
+        );
+
         for (const {
           from,
           to,
@@ -229,44 +265,14 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
             ...globbyOptions,
           });
 
-          let outDirResolve: string;
-
-          if (resolveFrom === 'cwd') {
-            outDirResolve = process.cwd();
-          } else if (resolveFrom === 'out') {
-            const outDir =
-              build.initialOptions.outdir ??
-              path.dirname(build.initialOptions.outfile!);
-
-            if (!outDir) {
-              verboseLog(
-                chalk.red(
-                  `You should provide valid ${chalk.white(
-                    'outdir'
-                  )} or ${chalk.white(
-                    'outfile'
-                  )} for assets copy. received outdir:${
-                    build.initialOptions.outdir
-                  }, received outfile:${build.initialOptions.outfile}`
-                ),
-                verbose
-              );
-
-              return;
-            }
-
-            outDirResolve = outDir;
-          } else {
-            outDirResolve = path.dirname(resolveFrom);
-          }
-
           const keep = globalKeepStructure || pairKeepStructure;
 
           verboseLog(
-            `\nUse ${chalk.white(
+            `Use ${chalk.white(
               keep ? 'Keep-Structure' : 'Merge-Structure'
             )} for current assets pair.`,
-            verbose
+            verbose,
+            true
           );
 
           const deduplicatedPaths = [...new Set(pathsCopyFrom)];
