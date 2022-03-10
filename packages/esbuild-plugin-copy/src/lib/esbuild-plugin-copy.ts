@@ -18,6 +18,11 @@ export interface AssetPair {
   to: MaybeArray<string>;
   /**
    * use Keep-Structure mode for current assets pair
+   *
+   * Keep-Structure mode will used for current assets
+   * when one of the root-level keepStructure or asset-level keepSructure
+   * is true
+   *
    * @default false
    */
   keepStructure?: boolean;
@@ -59,7 +64,6 @@ export interface Options {
   /**
    * use `Keep-Structure` mode for all assets pairs
    *
-   * this option takes higher priority than `assets.keepStructure` option
    * @default false
    */
   keepStructure: boolean;
