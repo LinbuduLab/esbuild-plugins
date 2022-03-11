@@ -15,16 +15,12 @@ export interface ServeRes {
 export const startViteAsync = async (schema: ViteServeSchema) => {
   const serverFactory = await createServer(schema);
 
-  consola.info(chalk.cyan('Nx-Vite [Start] Starting \n'));
+  // consola.info(chalk.cyan('Nx-Vite [Start] Starting \n'));
 
   const devServer = await serverFactory.listen();
-  const { https = false, port } = devServer.config.server
+  const { https = false, port } = devServer.config.server;
 
-  consola.success(
-    `Vite server ready at ${chalk.green(
-      `${https ? 'https:' : 'http:'}//localhost:${port}`
-    )}`
-  );
+  devServer.printUrls();
 
   try {
     await new Promise<void>((resolve, reject) => {
@@ -44,7 +40,6 @@ export const startViteAsync = async (schema: ViteServeSchema) => {
 export const startViteServer = (
   schema: ViteServeSchema
 ): Observable<ServeRes> => {
-
   const serverFactory = createServer(schema);
 
   return from(serverFactory).pipe(
