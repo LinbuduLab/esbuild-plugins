@@ -1,0 +1,33 @@
+{
+  "name": "snowpack-plugin-markdown-import",
+  "version": "0.2.0",
+  "description": "snowpack plugin for markdown import",
+  "keywords": [
+    "markdown",
+    "snowpack"
+  ],
+  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-ignore#readme",
+  "bugs": {
+    "url": "https://github.com/linbudu599/nx-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linbudu599/nx-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "publishConfig": {
+    "main": "src/index.js",
+    "typings": "src/index.d.ts"
+  },
+  "scripts": {},
+  "dependencies": {
+    "dompurify": "^2.3.1"
+  },
+  "peerDependencies": {
+    "marked": "^3.0.2",
+    "snowpack": "^3.8.8"
+  }
+}
