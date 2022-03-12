@@ -1,0 +1,9 @@
+generator client {
+  provider = "<%= ClientProvider %>"
+  output   = "./client"
+}
+<%# use unescaped tag to get env('DATABASE_URL') %>
+datasource db {
+  provider = "<%= DatasourceProvider _%>"
+  url = <%- DatasourceURL %>
+}

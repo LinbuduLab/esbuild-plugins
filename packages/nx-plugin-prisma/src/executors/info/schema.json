@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "title": "Info executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "showPrismaTargets": {
+      "type": "boolean",
+      "description": "Display all information about Prisma basic schema",
+      "default": true
+    }
+  },
+  "required": []
+}
