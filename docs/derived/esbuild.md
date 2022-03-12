@@ -89,7 +89,7 @@ import { clean } from 'esbuild-plugin-clean';
     outfile: './dist/main.js',
     plugins: [
       clean({
-        patterns: ['./dist/*'],
+        patterns: ['./dist/*','./dist/assets/*.map.js'],
       }),
     ],
   });
@@ -102,22 +102,45 @@ This plugin use [del](https://www.npmjs.com/package/del) under the hood, so you 
 
 ```typescript
 export interface CleanOptions {
-  // del patterns
-  // default: []
+  /**
+   * file clean patterns (passed to `del`)
+   *
+   * @default: []
+   */
   patterns?: string | string[];
-  // use dry-run mode to see what's going to happen
-  // default: false
+  /**
+   * use dry-run mode to see what's going to happen
+   *
+   * remember to set `verbose: true`
+   *
+   * @default: false
+   */
   dryRun?: boolean;
-  // del options
-  // default: {}
+  /**
+   * extra options passed to `del`
+   *
+   * @default {}
+   */
   options?: DelOptions;
-  // use del or del.sync for cleaning up
-  // default: true
+  /**
+   * execute clean sync or async (use `del` or `del.sync` for cleaning up)
+   *
+   * @default: true
+   */
   sync?: boolean;
-  // do cleaning in start/end/both
-  // maybe in some strange cases you will need it ? :)
-  // default: "start"
+  /**
+   * do cleaning in start / end / both
+   * maybe in some strange cases you will need it ? :P
+   *
+   * @default: "start"
+   */
   cleanOn?: 'start' | 'end' | 'both';
+  /**
+   * enable verbose logging
+   *
+   * @default false
+   */
+  verbose?: boolean;
 }
 ```
 
