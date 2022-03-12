@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-clean",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "ESBuild plugin for cleaning up assets before building.",
   "keywords": [
     "esbuild",
