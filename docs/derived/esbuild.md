@@ -294,6 +294,16 @@ import { build } from 'esbuild';
 
 You can also use patterns with extension names like `./path/**/*.js`
 
+### File Glob
+
+Note: This plugin doesnot expand directories by default, which means when you're using pattern `dir/*` or `dir/*.*` , you will only get the file inside `dir/`  like `dir/index.md`. If you want to match the nested files like `dir/path/to/index.md`, you will need to use pattern like `dir/**/*`.
+
+If you're using `dir/*` and there are no files under this directory, you will got an warning:
+
+```bash
+i No files matched using current glob pattern: ./node_modules/tinymce/skins/*, maybe you need to configure globby by options.globbyOptions?
+```
+
 ### Configuration
 
 ```typescript
