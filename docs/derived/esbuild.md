@@ -377,6 +377,15 @@ export interface Options {
    * @default "out"
    */
   resolveFrom: 'cwd' | 'out' | string;
+  
+  /**
+   * use dry run mode to see what's happening.
+   *
+   * remember to keep `verbose` open to see the output.
+   *
+   * @default false
+   */
+  dryRun?: boolean;
 }
 ```
 
