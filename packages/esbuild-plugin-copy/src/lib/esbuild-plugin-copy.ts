@@ -76,6 +76,15 @@ export interface Options {
    * @default "out"
    */
   resolveFrom: 'cwd' | 'out' | string;
+
+  /**
+   * use dry run mode to see what's happening.
+   *
+   * remember to keep `verbose` open to see the output.
+   *
+   * @default false
+   */
+  dryRun?: boolean;
 }
 
 function keepStructureCopyHandler(
@@ -83,7 +92,8 @@ function keepStructureCopyHandler(
   rawFromPath: string[],
   globbedFromPath: string,
   baseToPath: string,
-  verbose = true
+  verbose = true,
+  dryRun = false
 ) {
   // we keep structure only when input from path ends with /**/*(.ext)
   // for \/* only, we use simple merge copy handler
@@ -121,13 +131,13 @@ function keepStructureCopyHandler(
       preservedDirStructure.slice(1)
     );
 
-    fs.ensureDirSync(path.dirname(composedDistDirPath));
-    fs.copyFileSync(sourcePath, composedDistDirPath);
+    !dryRun && fs.ensureDirSync(path.dirname(composedDistDirPath));
+    !dryRun && fs.copyFileSync(sourcePath, composedDistDirPath);
 
     verboseLog(
-      `File copied: ${chalk.white(sourcePath)} -> ${chalk.white(
-        composedDistDirPath
-      )}`,
+      `${dryRun ? chalk.white('[DryRun] ') : ''}File copied: ${chalk.white(
+        sourcePath
+      )} -> ${chalk.white(composedDistDirPath)}`,
       verbose
     );
   }
@@ -137,7 +147,8 @@ function mergeCopyHandler(
   outDir: string,
   from: string,
   to: string,
-  verbose = true
+  verbose = true,
+  dryRun = false
 ) {
   // absolute file path for each pair's from
   const sourcePath = path.resolve(from);
@@ -151,19 +162,21 @@ function mergeCopyHandler(
     ? parsedToPath.base
     : parsedFromPath.base;
 
-  // if we specified file name in to path, the parsed dir will be '.'
-  // so we need to use its base as alternative
-  // or we can just use its dir
-  const distDir =
-    parsedToPath.dir === '.' ? parsedToPath.base : parsedToPath.dir;
+  // if user specified file name in `to` path:
+  // case: ./file.ext, the parsed.dir will be '.' we need to use empty dist dir: ''
+  // case: ./dir/file.ext, the parsed.dir will be './dir' and we need to use './dir'
+
+  const distDir = parsedToPath.dir === '.' ? '' : parsedToPath.dir;
 
   const distPath = path.resolve(outDir, distDir, distBaseName);
 
-  fs.ensureDirSync(path.dirname(distPath));
-  fs.copyFileSync(sourcePath, distPath);
+  !dryRun && fs.ensureDirSync(path.dirname(distPath));
+  !dryRun && fs.copyFileSync(sourcePath, distPath);
 
   verboseLog(
-    `File copied: ${chalk.white(sourcePath)} -> ${chalk.white(distPath)}`,
+    `${dryRun ? chalk.white('[DryRun] ') : ''}File copied: ${chalk.white(
+      sourcePath
+    )} -> ${chalk.white(distPath)}`,
     verbose
   );
 }
@@ -200,6 +213,7 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
     once = false,
     keepStructure: globalKeepStructure = false,
     resolveFrom = 'out',
+    dryRun = false,
   } = options;
 
   const formattedAssets = formatAssets(assets);
@@ -300,9 +314,16 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
                     from,
                     fromPath,
                     toPath,
-                    verbose
+                    verbose,
+                    dryRun
                   )
-                : mergeCopyHandler(outDirResolve, fromPath, toPath, verbose);
+                : mergeCopyHandler(
+                    outDirResolve,
+                    fromPath,
+                    toPath,
+                    verbose,
+                    dryRun
+                  );
             });
           }
           process.env[PLUGIN_EXECUTED_FLAG] = 'true';
