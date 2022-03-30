@@ -5,6 +5,7 @@
     "esbuild-plugin-clean": "packages/esbuild-plugin-clean",
     "esbuild-plugin-compress": "packages/esbuild-plugin-compress",
     "esbuild-plugin-copy": "packages/esbuild-plugin-copy",
+
     "esbuild-plugin-decorator": "packages/esbuild-plugin-decorator",
     "esbuild-plugin-filesize": "packages/esbuild-plugin-filesize",
     "esbuild-plugin-ignore": "packages/esbuild-plugin-ignore",
