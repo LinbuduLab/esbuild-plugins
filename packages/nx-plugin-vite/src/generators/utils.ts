@@ -4,7 +4,7 @@ import {
   ProjectConfiguration,
 } from '@nrwl/devkit';
 
-export type SupportedFramework = 'react' | 'vue' | 'svelte';
+export type SupportedFramework = 'react' | 'vue' | 'svelte' | 'lit';
 
 export function correspondingDeps(framework: SupportedFramework) {
   switch (framework) {
@@ -14,12 +14,24 @@ export function correspondingDeps(framework: SupportedFramework) {
       return VUE_DEPS;
     case 'svelte':
       return SVELTE_DEPS;
+    case 'lit':
+      return LIT_DEPS;
     default:
       return REACT_DEPS;
   }
 }
 
 export const VITE_CONFIG_FILE = 'vite.config.ts';
+
+export const LIT_DEPS = {
+  dependencies: {
+    lit: '^2.0.2',
+  },
+  devDependencies: {
+    vite: '^2.7.2',
+    typescript: '^4.4.4',
+  },
+};
 
 export const SVELTE_DEPS = {
   dependencies: {},

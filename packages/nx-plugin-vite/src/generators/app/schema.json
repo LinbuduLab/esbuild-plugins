@@ -28,6 +28,11 @@
       "type": "boolean",
       "description": "Run install even package.json has no changes",
       "default": false
+    },
+    "framework": {
+      "type": "string",
+      "description": "Framework to use",
+      "default": "react"
     }
   },
   "required": ["name"]
