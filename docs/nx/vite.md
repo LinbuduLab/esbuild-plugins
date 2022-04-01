@@ -96,7 +96,7 @@ nx g nx-plugin-vite:app your-vite-app --framework=react
 
 Create a official `Vite` template and add plugin related workspace targets in `workspace.json`.
 
-Supported framework: `React`(default), `Vue`
+Supported framework: `React`(default), `Vue`, `Svelte`,`Lit`.
 
 ### setup
 
