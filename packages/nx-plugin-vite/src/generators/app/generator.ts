@@ -16,14 +16,18 @@ import {
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 
 import path from 'path';
-import { pluginSpecifiedTargets, VUE_DEPS, REACT_DEPS } from '../utils';
+import {
+  pluginSpecifiedTargets,
+  SupportedFramework,
+  correspondingDeps,
+} from '../utils';
 
 interface ViteAppGeneratorSchema extends MinimalAppGeneratorSchema {
-  framework: 'react' | 'vue';
+  framework: SupportedFramework;
 }
 
 interface NormalizedViteAppGeneratorSchema extends MinimalNormalizedSchema {
-  framework: 'react' | 'vue';
+  framework: SupportedFramework;
 }
 
 export default async function (host: Tree, options: ViteAppGeneratorSchema) {
@@ -51,14 +55,15 @@ export default async function (host: Tree, options: ViteAppGeneratorSchema) {
   minimalAddFiles(
     host,
     path.join(__dirname, './files', framework),
-
     normalizedOptions
   );
 
+  const { dependencies, devDependencies } = correspondingDeps(framework);
+
   const addDepsTask = addDependenciesToPackageJson(
     host,
-    (framework === 'react' ? REACT_DEPS : VUE_DEPS)['dependencies'],
-    (framework === 'react' ? REACT_DEPS : VUE_DEPS)['devDependencies']
+    dependencies,
+    devDependencies
   );
 
   tasks.push(addDepsTask);
