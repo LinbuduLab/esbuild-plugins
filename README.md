@@ -2,9 +2,6 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/cc796664-9625-4023-9390-0ef495e314ec/deploy-status)](https://app.netlify.com/sites/nx-plugins/deploys)
 ![npm](https://img.shields.io/npm/v/nx?label=nx%20version)
-![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/LinbuduLab/nx-plugins)
-
-**WARNING: This project is still under heavy & active developings..., documentations are far from ready.**
 
 ## Quick Start
 
@@ -15,14 +12,14 @@
 
 ### Nx Plugins
 
-| Package                                             | Version                                                                                     |
-| --------------------------------------------------- | :------------------------------------------------------------------------------------------ |
-| [ESBuild](packages/nx-plugin-esbuild)               | ![plugin esbuild version](https://img.shields.io/npm/v/nx-plugin-esbuild.svg?label=%20)     |
-| [Prisma](packages/nx-plugin-prisma)                 | ![plugin-prisma version](https://img.shields.io/npm/v/nx-plugin-prisma.svg?label=%20)       |
-| [Vite](packages/nx-plugin-vite)                     | ![plugin-vite version](https://img.shields.io/npm/v/nx-plugin-vite.svg?label=%20)           |
-| [Snowpack](packages/nx-plugin-snowpack)             | ![plugin-snowpack version](https://img.shields.io/npm/v/nx-plugin-snowpack.svg?label=%20)   |
-| [nx-plugin-astro](packages/nx-plugin-workspace)     | ![plugin-astro version](https://img.shields.io/npm/v/nx-plugin-astro.svg?label=%20)         |
-| [nx-plugin-devkit](packages/nx-plugin-devkit)       | ![plugin-devkit version](https://img.shields.io/npm/v/nx-plugin-devkit.svg?label=%20)       |
+| Package                                             | Version                                                      |
+| --------------------------------------------------- | :----------------------------------------------------------- |
+| [ESBuild](packages/nx-plugin-esbuild)               | ![plugin esbuild version](https://img.shields.io/npm/v/nx-plugin-esbuild.svg?label=%20) |
+| [Prisma](packages/nx-plugin-prisma)                 | ![plugin-prisma version](https://img.shields.io/npm/v/nx-plugin-prisma.svg?label=%20) |
+| [Vite](packages/nx-plugin-vite)                     | ![plugin-vite version](https://img.shields.io/npm/v/nx-plugin-vite.svg?label=%20) |
+| [Snowpack](packages/nx-plugin-snowpack)             | ![plugin-snowpack version](https://img.shields.io/npm/v/nx-plugin-snowpack.svg?label=%20) |
+| [nx-plugin-astro](packages/nx-plugin-workspace)     | ![plugin-astro version](https://img.shields.io/npm/v/nx-plugin-astro.svg?label=%20) |
+| [nx-plugin-devkit](packages/nx-plugin-devkit)       | ![plugin-devkit version](https://img.shields.io/npm/v/nx-plugin-devkit.svg?label=%20) |
 | [nx-plugin-workspace](packages/nx-plugin-workspace) | ![plugin-workspace version](https://img.shields.io/npm/v/nx-plugin-workspace.svg?label=%20) |
 
 ### Derived Plugins
@@ -46,6 +43,8 @@ See [Derived ESBuild Plugin](https://nx-plugins.netlify.app/derived/esbuild.html
 
 #### Snowpack Plugins
 
+> These plugins are no longer maintained.
+
 See [Derived Snowpack Plugin](https://nx-plugins.netlify.app/derived/snowpack.html) for more information.
 
 | Package                                                     | Version                                                                                                |
@@ -55,10 +54,6 @@ See [Derived Snowpack Plugin](https://nx-plugins.netlify.app/derived/snowpack.ht
 | [execa](packages/snowpack-plugin-execa)                     | ![execa version](https://img.shields.io/npm/v/snowpack-plugin-execa.svg?label=%20)                     |
 | [markdown-import](packages/snowpack-plugin-markdown-import) | ![markdown-import version](https://img.shields.io/npm/v/snowpack-plugin-markdown-import.svg?label=%20) |
 | [serve](packages/snowpack-plugin-serve)                     | ![serve version](https://img.shields.io/npm/v/snowpack-plugin-serve.svg?label=%20)                     |
-
-## Contribution
-
-See [Contributing Guide](CONTRIBUTING.md) for a development guide or in [Guding(Incomplete...)](https://nx-plugins.netlify.app/guiding/).
 
 ## License
 
