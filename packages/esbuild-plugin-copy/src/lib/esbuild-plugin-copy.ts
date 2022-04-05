@@ -44,9 +44,8 @@ export interface Options {
   /**
    * enable verbose logging
    *
-   * we set this option to be true by default because it outputs
-   * from-path and to-path finally passed to `fs.copyFileSync`
-   * @default true
+   * outputs from-path and to-path finally passed to `fs.copyFileSync` method
+   * @default false
    */
   verbose: boolean;
   /**
@@ -92,7 +91,7 @@ function keepStructureCopyHandler(
   rawFromPath: string[],
   globbedFromPath: string,
   baseToPath: string,
-  verbose = true,
+  verbose = false,
   dryRun = false
 ) {
   // we keep structure only when input from path ends with /**/*(.ext)
@@ -147,7 +146,7 @@ function mergeCopyHandler(
   outDir: string,
   from: string,
   to: string,
-  verbose = true,
+  verbose = false,
   dryRun = false
 ) {
   // absolute file path for each pair's from
@@ -209,7 +208,7 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
     assets = [],
     copyOnStart = false,
     globbyOptions = {},
-    verbose = true,
+    verbose = false,
     once = false,
     keepStructure: globalKeepStructure = false,
     resolveFrom = 'out',
