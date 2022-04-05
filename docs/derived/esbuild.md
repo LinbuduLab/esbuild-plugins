@@ -89,7 +89,7 @@ import { clean } from 'esbuild-plugin-clean';
     outfile: './dist/main.js',
     plugins: [
       clean({
-        patterns: ['./dist/*','./dist/assets/*.map.js'],
+        patterns: ['./dist/*', './dist/assets/*.map.js'],
       }),
     ],
   });
@@ -296,7 +296,7 @@ You can also use patterns with extension names like `./path/**/*.js`
 
 ### File Glob
 
-Note: This plugin doesnot expand directories by default, which means when you're using pattern `dir/*` or `dir/*.*` , you will only get the file inside `dir/`  like `dir/index.md`. If you want to match the nested files like `dir/path/to/index.md`, you will need to use pattern like `dir/**/*`.
+Note: This plugin doesnot expand directories by default, which means when you're using pattern `dir/*` or `dir/*.*` , you will only get the file inside `dir/` like `dir/index.md`. If you want to match the nested files like `dir/path/to/index.md`, you will need to use pattern like `dir/**/*`.
 
 If you're using `dir/*` and there are no files under this directory, you will got an warning:
 
@@ -318,7 +318,7 @@ export interface AssetPair {
    * to path is resolved based on `outdir` or `outfile` in your ESBuild options
    */
   to: MaybeArray<string>;
-/**
+  /**
    * use Keep-Structure mode for current assets pair
    *
    * Keep-Structure mode will used for current assets when one of the root-level keepStructure or asset-level keepSructure is true
@@ -335,18 +335,17 @@ export interface Options {
    */
   assets: MaybeArray<AssetPair>;
   /**
-   * execute copy in `ESBuild.onEnd` hook(recommended)
+   * execute copy in `ESBuild.onStart` hook(not recommended)
    *
-   * set to true if you want to execute in onStart hook
+   * set to true if you want to execute in onStart hook, by default this plugin works in onEnd hook
    * @default false
    */
   copyOnStart: boolean;
   /**
    * enable verbose logging
    *
-   * we set this option to be true by default because it outputs
-   * from-path and to-path finally passed to `fs.copyFileSync`
-   * @default true
+   * outputs from-path and to-path finally passed to `fs.copyFileSync` method
+   * @default false
    */
   verbose: boolean;
   /**
@@ -363,7 +362,7 @@ export interface Options {
   once: boolean;
   /**
    * use `Keep-Structure` mode for all assets pairs
-   * 
+   *
    * @default false
    */
   keepStructure: boolean;
@@ -377,7 +376,7 @@ export interface Options {
    * @default "out"
    */
   resolveFrom: 'cwd' | 'out' | string;
-  
+
   /**
    * use dry run mode to see what's happening.
    *
