@@ -11,7 +11,7 @@
     },
     "configFile": {
       "type": "string",
-      "description": "vite config fil epath"
+      "description": "vite config file path"
     },
     "outDir": {
       "type": "string",
