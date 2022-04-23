@@ -1,6 +1,7 @@
 import { ExecutorContext } from '@nrwl/devkit';
 import { PrismaInfoExecutorSchema } from './schema';
-import { nxReportHandler, envInfo } from 'nx-plugin-devkit';
+import { envInfo } from 'nx-plugin-devkit';
+import { reportHandler } from 'nx/src/command-line/report';
 import execa from 'execa';
 import npmRunPath from 'npm-run-path';
 
@@ -29,7 +30,7 @@ export default async function infoExecutor(
 
   console.log(stdout);
 
-  nxReportHandler();
+  reportHandler();
 
   const envInfos = await envInfo([
     'prisma',

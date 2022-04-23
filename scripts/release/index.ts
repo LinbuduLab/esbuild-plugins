@@ -34,6 +34,7 @@ export interface ReleaseCLIOptions {
   version?: string;
   yes: boolean;
   skipGit: boolean;
+  publishTag: string;
 }
 
 /**
@@ -64,6 +65,7 @@ export default function useReleaseProject(cli: CAC) {
       default: ReleaseType.PATCH,
     })
     .option('--version [version]', 'Use custom version instead by semver bump')
+    .option('--publish-tag [publishTag]', 'Use custom publish tag')
     .option('--skip-git', 'Skip git add & commit & push', {
       default: false,
     })
@@ -165,6 +167,14 @@ export default function useReleaseProject(cli: CAC) {
           `${projectToRelease} version updated to ${releaseVersion}`,
           dryRun
         );
+
+        consola.info('Romoving dist folder...');
+
+        await execa(`rm -rf ${path.resolve(projectDir, 'dist')}`, {
+          cwd: process.cwd(),
+          stdio: 'inherit',
+          shell: true,
+        });
 
         consola.info('Building packages...');
 
@@ -302,9 +312,13 @@ export default function useReleaseProject(cli: CAC) {
 
         await execa(
           'pnpm',
-          ['publish', 'dist', '--access=public', '--no-git-checks'].concat(
-            dryRun ? ['--dry-run'] : []
-          ),
+          [
+            'publish',
+            'dist',
+            '--access=public',
+            '--no-git-checks',
+            `--tag ${options.publishTag ?? 'latest'}`,
+          ].concat(dryRun ? ['--dry-run'] : []),
           {
             cwd: projectDir,
             stdio: 'inherit',
