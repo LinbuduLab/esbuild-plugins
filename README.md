@@ -12,14 +12,13 @@
 
 ### Nx Plugins
 
-| Package                                             | Version                                                      |
-| --------------------------------------------------- | :----------------------------------------------------------- |
-| [ESBuild](packages/nx-plugin-esbuild)               | ![plugin esbuild version](https://img.shields.io/npm/v/nx-plugin-esbuild.svg?label=%20) |
-| [Prisma](packages/nx-plugin-prisma)                 | ![plugin-prisma version](https://img.shields.io/npm/v/nx-plugin-prisma.svg?label=%20) |
-| [Vite](packages/nx-plugin-vite)                     | ![plugin-vite version](https://img.shields.io/npm/v/nx-plugin-vite.svg?label=%20) |
-| [Snowpack](packages/nx-plugin-snowpack)             | ![plugin-snowpack version](https://img.shields.io/npm/v/nx-plugin-snowpack.svg?label=%20) |
-| [nx-plugin-astro](packages/nx-plugin-workspace)     | ![plugin-astro version](https://img.shields.io/npm/v/nx-plugin-astro.svg?label=%20) |
-| [nx-plugin-devkit](packages/nx-plugin-devkit)       | ![plugin-devkit version](https://img.shields.io/npm/v/nx-plugin-devkit.svg?label=%20) |
+For nx workspace v14, use 2.x version of plugin.
+
+| Package                                             | Version                                                                                     |
+| --------------------------------------------------- | :------------------------------------------------------------------------------------------ |
+| [ESBuild](packages/nx-plugin-esbuild)               | ![plugin esbuild version](https://img.shields.io/npm/v/nx-plugin-esbuild.svg?label=%20)     |
+| [Vite](packages/nx-plugin-vite)                     | ![plugin-vite version](https://img.shields.io/npm/v/nx-plugin-vite.svg?label=%20)           |
+| [nx-plugin-devkit](packages/nx-plugin-devkit)       | ![plugin-devkit version](https://img.shields.io/npm/v/nx-plugin-devkit.svg?label=%20)       |
 | [nx-plugin-workspace](packages/nx-plugin-workspace) | ![plugin-workspace version](https://img.shields.io/npm/v/nx-plugin-workspace.svg?label=%20) |
 
 ### Derived Plugins
