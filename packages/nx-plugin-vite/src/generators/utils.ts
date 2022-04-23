@@ -55,7 +55,7 @@ export const REACT_DEPS = {
   devDependencies: {
     '@types/react': '^17.0.33',
     '@types/react-dom': '^17.0.10',
-    '@vitejs/plugin-react': '^1.0.7',
+    '@vitejs/plugin-react-refresh': '^1.0.7',
     typescript: '^4.4.4',
     vite: '^2.7.2',
   },
