@@ -1,6 +1,6 @@
 {
   "name": "nx-plugin-devkit",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "nx plugin for devkit.",
   "keywords": [
     "Nx",
