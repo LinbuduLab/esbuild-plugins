@@ -1,8 +1,8 @@
-import { reportHandler } from 'nx/src/command-line/report';
+import { report } from '@nrwl/workspace/src/command-line/report';
 import envinfo, { Options } from 'envinfo';
 import execa, { Options as ExecaOptions } from 'execa';
 
-export const nxReportHandler: () => void = reportHandler;
+export const nxReportHandler: () => void = report.handler;
 
 /**
  * Report system environment informations

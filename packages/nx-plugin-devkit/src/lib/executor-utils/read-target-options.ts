@@ -1,7 +1,8 @@
-import type { Target, ExecutorContext } from '@nrwl/devkit';
+import type { Target } from '@nrwl/tao/src/commands/run';
+import type { ExecutorContext } from '@nrwl/tao/src/shared/workspace';
 
 import { Workspaces } from '@nrwl/tao/src/shared/workspace';
-import { combineOptionsForExecutor } from 'nx/src/utils/params';
+import { combineOptionsForExecutor } from '@nrwl/tao/src/shared/params';
 
 /**
  * forked from @nrwl/devkit

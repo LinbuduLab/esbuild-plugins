@@ -35,11 +35,6 @@
     "rxjs-for-await": "^0.0.2"
   },
   "peerDependencies": {
-    "@nrwl/devkit": "^13.4.4",
-    "@nrwl/jest": "^13.4.4",
-    "@nrwl/linter": "^13.4.4",
-    "@nrwl/node": "^13.4.4",
-    "@nrwl/workspace": "^13.4.4",
     "vite": "^2.7.10"
   },
   "executors": "./dist/executors.json",
