@@ -1,6 +1,6 @@
 {
   "name": "nx-plugin-devkit",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "nx plugin for devkit.",
   "keywords": [
     "Nx",
@@ -38,12 +38,6 @@
     "yargs-parser": "^20.2.7"
   },
   "peerDependencies": {
-    "@nrwl/devkit": "^13.4.4",
-    "@nrwl/jest": "^13.4.4",
-    "@nrwl/linter": "^13.4.4",
-    "@nrwl/node": "^13.4.4",
-    "@nrwl/tao": "^13.4.4",
-    "@nrwl/workspace": "^13.4.4",
     "esbuild": "^0.14.0"
   }
 }
