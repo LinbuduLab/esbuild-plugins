@@ -15,10 +15,6 @@ const NX_PLUGIN_LIST = [
     path: 'vite',
   },
   {
-    title: 'Astro',
-    path: 'astro',
-  },
-  {
     title: 'Snowpack',
     path: 'snowpack',
   },
