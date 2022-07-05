@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'esbuild-plugin-node-externals',
+/* eslint-disable */
+export default {
+  displayName: 'nx-plugin-workspace',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +12,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/esbuild-plugin-node-externals',
+  coverageDirectory: '../../coverage/packages/nx-plugin-workspace',
 };

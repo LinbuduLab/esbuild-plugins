@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'esbuild-plugin-alias-path',
+/* eslint-disable */
+export default {
+  displayName: 'nx-plugin-devkit',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +12,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/esbuild-plugin-alias-path',
+  coverageDirectory: '../../coverage/packages/nx-plugin-devkit',
 };

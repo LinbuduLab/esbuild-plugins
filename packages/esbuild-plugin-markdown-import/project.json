@@ -1,5 +1,5 @@
 {
-  "root": "packages/esbuild-plugin-markdown-import",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/esbuild-plugin-markdown-import/src",
   "projectType": "library",
   "targets": {
@@ -13,7 +13,6 @@
         "assets": ["packages/esbuild-plugin-markdown-import/*.md"]
       }
     },
-
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
@@ -25,7 +24,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/esbuild-plugin-markdown-import"],
       "options": {
-        "jestConfig": "packages/esbuild-plugin-markdown-import/jest.config.js",
+        "jestConfig": "packages/esbuild-plugin-markdown-import/jest.config.ts",
         "passWithNoTests": true
       }
     }

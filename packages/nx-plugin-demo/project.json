@@ -1,5 +1,5 @@
 {
-  "root": "packages/nx-plugin-demo",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/nx-plugin-demo/src",
   "targets": {
     "build": {
@@ -45,7 +45,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/nx-plugin-demo"],
       "options": {
-        "jestConfig": "packages/nx-plugin-demo/jest.config.js",
+        "jestConfig": "packages/nx-plugin-demo/jest.config.ts",
         "passWithNoTests": true
       }
     }

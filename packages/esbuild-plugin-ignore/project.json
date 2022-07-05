@@ -1,5 +1,5 @@
 {
-  "root": "packages/esbuild-plugin-ignore",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/esbuild-plugin-ignore/src",
   "projectType": "library",
   "targets": {
@@ -13,7 +13,6 @@
         "assets": ["packages/esbuild-plugin-ignore/*.md"]
       }
     },
-
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
@@ -25,7 +24,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/esbuild-plugin-ignore"],
       "options": {
-        "jestConfig": "packages/esbuild-plugin-ignore/jest.config.js",
+        "jestConfig": "packages/esbuild-plugin-ignore/jest.config.ts",
         "passWithNoTests": true
       }
     }

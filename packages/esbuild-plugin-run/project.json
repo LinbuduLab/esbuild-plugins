@@ -1,5 +1,5 @@
 {
-  "root": "packages/esbuild-plugin-run",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/esbuild-plugin-run/src",
   "projectType": "library",
   "targets": {
@@ -13,7 +13,6 @@
         "assets": ["packages/esbuild-plugin-run/*.md"]
       }
     },
-
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
@@ -25,7 +24,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/esbuild-plugin-run"],
       "options": {
-        "jestConfig": "packages/esbuild-plugin-run/jest.config.js",
+        "jestConfig": "packages/esbuild-plugin-run/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -1,8 +1,8 @@
-import { NxJsonProjectConfiguration, ProjectConfiguration } from '@nrwl/devkit';
+import { ProjectConfiguration } from '@nrwl/devkit';
 
 export const pluginSpecifiedTargets = (
   projectRoot: string
-): (ProjectConfiguration & NxJsonProjectConfiguration)['targets'] => {
+): ProjectConfiguration['targets'] => {
   return {
     start: {
       executor: 'nx-plugin-workspace:exec',

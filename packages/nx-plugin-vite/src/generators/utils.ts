@@ -1,8 +1,4 @@
-import {
-  joinPathFragments,
-  NxJsonProjectConfiguration,
-  ProjectConfiguration,
-} from '@nrwl/devkit';
+import { ProjectConfiguration, joinPathFragments } from '@nrwl/devkit';
 
 export type SupportedFramework = 'react' | 'vue' | 'svelte' | 'lit';
 
@@ -75,7 +71,7 @@ export const VUE_DEPS = {
 
 export const pluginSpecifiedTargets = (
   projectRoot: string
-): (ProjectConfiguration & NxJsonProjectConfiguration)['targets'] => {
+): ProjectConfiguration['targets'] => {
   const configFile = joinPathFragments(projectRoot, VITE_CONFIG_FILE);
   return {
     serve: {

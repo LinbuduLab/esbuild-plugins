@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'esbuild-plugin-filesize',
+/* eslint-disable */
+export default {
+  displayName: 'esbuild-plugin-ignore',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -10,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/esbuild-plugin-filesize',
+  coverageDirectory: '../../coverage/packages/esbuild-plugin-ignore',
 };

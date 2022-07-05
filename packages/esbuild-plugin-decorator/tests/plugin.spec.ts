@@ -1,9 +1,10 @@
-import { esbuildPluginDecorator } from '../src/lib/esbuild-plugin-decorator';
-import { build, BuildOptions, Plugin } from 'esbuild';
+import { BuildOptions, Plugin, build } from 'esbuild';
+
 import { ESBuildPluginDecoratorOptions } from '../src/lib/normalize-option';
-import tmp from 'tmp';
-import path from 'path';
+import { esbuildPluginDecorator } from '../src/lib/esbuild-plugin-decorator';
 import fs from 'fs-extra';
+import path from 'path';
+import tmp from 'tmp';
 
 const builder = async (
   out: string,

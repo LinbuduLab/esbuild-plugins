@@ -1,26 +1,26 @@
 import {
+  ProjectConfiguration,
+  TargetConfiguration,
   Tree,
+  addDependenciesToPackageJson,
   addProjectConfiguration,
   generateFiles,
-  addDependenciesToPackageJson,
-  offsetFromRoot,
   joinPathFragments,
-  ProjectConfiguration,
-  NxJsonProjectConfiguration,
-  updateJson,
+  offsetFromRoot,
   readProjectConfiguration,
+  updateJson,
   updateProjectConfiguration,
-  TargetConfiguration,
 } from '@nrwl/devkit';
-import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
-
-import { nxVersion } from '@nrwl/node/src/utils/versions';
-import type { BasicNormalizedAppGenSchema } from '../schema/shared-schema';
 import {
   createNodeAppBuildConfig,
   createNodeAppServeConfig,
 } from './node-app-config';
+
+import type { BasicNormalizedAppGenSchema } from '../schema/shared-schema';
+import { nxVersion } from '@nrwl/node/src/utils/versions';
+import { setDefaultCollection } from '@nrwl/workspace/src/utilities/set-default-collection';
 import { setDefaultProject } from '../workspace-utils/set-default-project';
+
 // import { setDefaultProject } from '../workspace-utils/check-project';
 
 /**
@@ -131,7 +131,7 @@ export function createNodeAppProject<
   const projectBuildTargetName = buildTargetName ?? 'build';
   const projectServeTargetName = serveTargetName ?? 'serve';
 
-  const project: ProjectConfiguration & NxJsonProjectConfiguration = {
+  const project: ProjectConfiguration = {
     root: schema.projectRoot,
     sourceRoot: joinPathFragments(schema.projectRoot, 'src'),
     projectType: 'application',

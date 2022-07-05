@@ -1,5 +1,5 @@
 {
-  "root": "packages/nx-plugin-vite",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/nx-plugin-vite/src",
   "targets": {
     "build": {
@@ -46,7 +46,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/nx-plugin-vite"],
       "options": {
-        "jestConfig": "packages/nx-plugin-vite/jest.config.js",
+        "jestConfig": "packages/nx-plugin-vite/jest.config.ts",
         "passWithNoTests": true
       }
     }

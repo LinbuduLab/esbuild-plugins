@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'nx-plugin-vite',
+/* eslint-disable */
+export default {
+  displayName: 'esbuild-plugin-alias-path',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +12,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/nx-plugin-vite',
+  coverageDirectory: '../../coverage/packages/esbuild-plugin-alias-path',
 };

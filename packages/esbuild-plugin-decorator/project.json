@@ -1,5 +1,5 @@
 {
-  "root": "packages/esbuild-plugin-decorator",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/esbuild-plugin-decorator/src",
   "projectType": "library",
   "targets": {
@@ -13,7 +13,6 @@
         "assets": ["packages/esbuild-plugin-decorator/*.md"]
       }
     },
-
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
@@ -25,7 +24,8 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/esbuild-plugin-decorator"],
       "options": {
-        "jestConfig": "packages/esbuild-plugin-decorator/jest.config.js",
+        "jestConfig": "packages/esbuild-plugin-decorator/jest.config.ts",
+        "tsconfigPath": "packages/esbuild-plugin-decorator/tsconfig.json",
         "passWithNoTests": true
       }
     }

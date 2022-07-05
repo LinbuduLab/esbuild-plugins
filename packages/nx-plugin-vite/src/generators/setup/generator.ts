@@ -1,11 +1,11 @@
 import {
-  formatFiles,
-  Tree,
-  readProjectConfiguration,
-  NxJsonProjectConfiguration,
   ProjectConfiguration,
+  Tree,
+  formatFiles,
+  readProjectConfiguration,
   updateProjectConfiguration,
 } from '@nrwl/devkit';
+
 import { checkProjectExist } from 'nx-plugin-devkit';
 import { pluginSpecifiedTargets } from '../utils';
 
@@ -25,8 +25,7 @@ export default async function (host: Tree, options: SetupGeneratorSchema) {
     options.project
   );
 
-  const updatedProjectConfiguration: ProjectConfiguration &
-    NxJsonProjectConfiguration = {
+  const updatedProjectConfiguration: ProjectConfiguration = {
     ...currentProjectConfiguration,
     targets: {
       ...currentProjectConfiguration.targets,
