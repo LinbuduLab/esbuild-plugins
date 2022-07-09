@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'esbuild-plugin-compress',
+/* eslint-disable */
+export default {
+  displayName: 'esbuild-plugin-run',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -10,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/esbuild-plugin-compress',
+  coverageDirectory: '../../coverage/packages/esbuild-plugin-run',
 };

@@ -1,5 +1,5 @@
 {
-  "root": "packages/nx-plugin-workspace",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/nx-plugin-workspace/src",
   "targets": {
     "build": {
@@ -46,7 +46,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/nx-plugin-workspace"],
       "options": {
-        "jestConfig": "packages/nx-plugin-workspace/jest.config.js",
+        "jestConfig": "packages/nx-plugin-workspace/jest.config.ts",
         "passWithNoTests": true
       }
     }

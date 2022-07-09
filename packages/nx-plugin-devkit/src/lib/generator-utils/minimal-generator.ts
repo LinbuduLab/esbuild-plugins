@@ -1,12 +1,11 @@
 import {
+  ProjectConfiguration,
+  ProjectType,
+  Tree,
   generateFiles,
   getWorkspaceLayout,
   names,
   offsetFromRoot,
-  Tree,
-  ProjectType,
-  NxJsonProjectConfiguration,
-  ProjectConfiguration,
 } from '@nrwl/devkit';
 
 export interface MinimalAppGeneratorSchema {
@@ -92,9 +91,7 @@ export function minimalAddFiles<TSchema extends MinimalNormalizedSchema>(
  */
 export function minimalProjectConfiguration<
   TSchema extends MinimalNormalizedSchema
->(
-  normalizedOptions: TSchema
-): ProjectConfiguration & NxJsonProjectConfiguration {
+>(normalizedOptions: TSchema): ProjectConfiguration {
   return {
     root: normalizedOptions.projectRoot,
     projectType: normalizedOptions.projectType,

@@ -1,5 +1,5 @@
 {
-  "root": "packages/esbuild-plugin-filesize",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/esbuild-plugin-filesize/src",
   "projectType": "library",
   "targets": {
@@ -13,7 +13,6 @@
         "assets": ["packages/esbuild-plugin-filesize/*.md"]
       }
     },
-
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
@@ -25,7 +24,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/esbuild-plugin-filesize"],
       "options": {
-        "jestConfig": "packages/esbuild-plugin-filesize/jest.config.js",
+        "jestConfig": "packages/esbuild-plugin-filesize/jest.config.ts",
         "passWithNoTests": true
       }
     }

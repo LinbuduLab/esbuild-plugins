@@ -8,15 +8,22 @@ import {
 describe('nx-plugin-demo e2e', () => {
   it('should create nx-plugin-demo', async () => {
     const plugin = uniq('nx-plugin-demo');
+    console.log('plugin', plugin);
     ensureNxProject(
       '@nx-plugins/nx-plugin-demo',
       'dist/packages/nx-plugin-demo'
     );
+    console.log('ensureNxProject ---->>>>');
     await runNxCommandAsync(
       `generate @nx-plugins/nx-plugin-demo:nx-plugin-demo ${plugin}`
     );
 
+    console.log('runNxCommandAsync ---->>>>');
+
     const result = await runNxCommandAsync(`build ${plugin}`);
+
+    console.log('runNxCommandAsync ---->>>>', result);
+
     expect(result.stdout).toContain('Executor ran');
   }, 120000);
 

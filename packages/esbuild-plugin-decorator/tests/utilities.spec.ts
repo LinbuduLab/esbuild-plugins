@@ -1,8 +1,9 @@
-import { findDecorators } from '../src/lib/find-decorator';
 import {
   ESBuildPluginDecoratorOptions,
   normalizeOption,
 } from '../src/lib/normalize-option';
+
+import { findDecorators } from '../src/lib/find-decorator';
 import path from 'path';
 
 describe('should find decorators', () => {

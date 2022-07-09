@@ -1,5 +1,5 @@
 {
-  "root": "packages/esbuild-plugin-copy",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/esbuild-plugin-copy/src",
   "projectType": "library",
   "targets": {
@@ -43,7 +43,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/esbuild-plugin-copy"],
       "options": {
-        "jestConfig": "packages/esbuild-plugin-copy/jest.config.js",
+        "jestConfig": "packages/esbuild-plugin-copy/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -1,8 +1,7 @@
-import type { Target } from '@nrwl/tao/src/commands/run';
-import type { ExecutorContext } from '@nrwl/tao/src/shared/workspace';
-
+import type { ExecutorContext } from 'nx/src/config/misc-interfaces';
+import type { Target } from 'nx/src/command-line/run';
 import { Workspaces } from '@nrwl/tao/src/shared/workspace';
-import { combineOptionsForExecutor } from '@nrwl/tao/src/shared/params';
+import { combineOptionsForExecutor } from 'nx/src/utils/params';
 
 /**
  * forked from @nrwl/devkit

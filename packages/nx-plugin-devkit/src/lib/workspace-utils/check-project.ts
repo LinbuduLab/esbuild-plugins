@@ -1,5 +1,5 @@
-import { Tree } from '@nrwl/devkit';
-import { readNxJsonInTree, readWorkspaceJson } from '@nrwl/workspace';
+import { readWorkspaceConfig } from 'nx/src/project-graph/file-utils';
+import { workspaceRoot } from '@nrwl/devkit';
 
 /**
  * Check does project exist in current workspace
@@ -7,7 +7,10 @@ import { readNxJsonInTree, readWorkspaceJson } from '@nrwl/workspace';
  * @returns
  */
 export function checkProjectExist(project: string) {
-  const workspaceConfig = readWorkspaceJson();
+  const workspaceConfig = readWorkspaceConfig({
+    format: 'nx',
+    path: workspaceRoot,
+  });
 
   const currentProjects = Object.keys(workspaceConfig.projects);
 

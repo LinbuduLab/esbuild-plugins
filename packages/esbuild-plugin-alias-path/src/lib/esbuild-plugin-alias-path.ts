@@ -1,6 +1,5 @@
-import type { Plugin } from 'esbuild';
 import type { Options } from './normalize-options';
-
+import type { Plugin } from 'esbuild';
 import { normalizeOption } from './normalize-options';
 
 const pluginName = 'esbuild:alias-path';

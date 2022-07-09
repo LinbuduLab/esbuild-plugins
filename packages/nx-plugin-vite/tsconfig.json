@@ -15,5 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": "."
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["jest.config.ts"]
 }

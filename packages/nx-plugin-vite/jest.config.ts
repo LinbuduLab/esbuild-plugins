@@ -1,14 +1,16 @@
-module.exports = {
-  displayName: 'esbuild-plugin-copy',
+/* eslint-disable */
+export default {
+  displayName: 'nx-plugin-vite',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
+  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/esbuild-plugin-copy',
+  coverageDirectory: '../../coverage/packages/nx-plugin-vite',
 };

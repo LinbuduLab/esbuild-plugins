@@ -1,15 +1,15 @@
-module.exports = {
-  displayName: 'esbuild-plugin-clean',
+/* eslint-disable */
+export default {
+  displayName: 'esbuild-plugin-markdown-import',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/esbuild-plugin-clean',
+  coverageDirectory: '../../coverage/packages/esbuild-plugin-markdown-import',
 };

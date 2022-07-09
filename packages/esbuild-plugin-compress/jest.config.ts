@@ -1,15 +1,15 @@
-module.exports = {
-  displayName: 'nx-plugin-workspace',
+/* eslint-disable */
+export default {
+  displayName: 'esbuild-plugin-compress',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/nx-plugin-workspace',
+  coverageDirectory: '../../coverage/packages/esbuild-plugin-compress',
 };
