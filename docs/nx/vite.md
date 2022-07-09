@@ -15,7 +15,7 @@ yarn add nx-plugin-vite vite -D
 yarn add @nrwl/devkit @nrwl/node @nrwl/workspace @nrwl/tao -D
 ```
 
-For Nx workspace V14, please use 2.x version of vite plugin:
+**For Nx workspace V14, please use version ^2.2.1 version of vite plugin:**
 
 ```bash
 yarn add nx-plugin-vite@latest vite -D
