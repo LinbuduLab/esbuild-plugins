@@ -1,6 +1,6 @@
 {
   "name": "nx-plugin-vite",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "nx plugin for vite",
   "keywords": [
     "Monorepo",
