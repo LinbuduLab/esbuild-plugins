@@ -1,6 +1,6 @@
 {
   "name": "nx-plugin-vite",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "nx plugin for vite",
   "keywords": [
     "Monorepo",
@@ -30,7 +30,7 @@
     "consola": "^2.15.3",
     "dotenv": "~10.0.0",
     "execa": "^5.1.1",
-    "nx-plugin-devkit": "^0.5.0",
+    "nx-plugin-devkit": "^1.2.0",
     "rxjs": "6.6.7",
     "rxjs-for-await": "^0.0.2"
   },
