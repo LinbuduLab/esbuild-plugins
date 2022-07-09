@@ -21,7 +21,7 @@
     "update": "nx migrate latest",
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
-    "cli": "ts-node --transpile-only ./scripts/cli.ts",
+    "cli": "ts-node --project tsconfig.script.json --transpile-only ./scripts/cli.ts",
     "commit": "git-cz"
   },
   "private": true,

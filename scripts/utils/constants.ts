@@ -1,9 +1,8 @@
 import fs from 'fs-extra';
 import path from 'path';
 import { buildWorkspaceConfigurationFromGlobs } from '@nrwl/tao/src/shared/workspace';
-import { workspaceLayout } from '@nrwl/workspace/src/core/file-utils';
 
-export const PLUGIN_DIR = workspaceLayout().libsDir ?? 'packages';
+export const PLUGIN_DIR = 'packages';
 
 export const ABSOLUTE_PLUGIN_DIR = path.resolve(
   __dirname,
