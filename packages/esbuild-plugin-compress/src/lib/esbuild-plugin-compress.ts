@@ -56,7 +56,7 @@ export const compress = (options: CompressOptions = {}): Plugin => {
       if (write) {
         console.log(
           chalk.yellow('WARN'),
-          ' Set write option as true to use compress plugin.'
+          ' Set write option as false to use compress plugin.'
         );
         return;
       }
@@ -74,7 +74,7 @@ export const compress = (options: CompressOptions = {}): Plugin => {
 
       onEnd(async ({ outputFiles }) => {
         for (const { path: originOutputPath, contents } of outputFiles) {
-          const writrPath = outputDir
+          const writePath = outputDir
             ? path.resolve(outputDir, path.basename(originOutputPath))
             : originOutputPath;
 
@@ -88,12 +88,12 @@ export const compress = (options: CompressOptions = {}): Plugin => {
               ' Set at least one compression as true to use compress plugin.'
             );
           } else {
-            fs.ensureDirSync(path.dirname(writrPath));
+            fs.ensureDirSync(path.dirname(writePath));
           }
 
-          gzip ? writeGzipCompress(writrPath, contents, gzipOpts) : void 0;
+          gzip ? writeGzipCompress(writePath, contents, gzipOpts) : void 0;
           brotli
-            ? writeBrotliCompress(writrPath, contents, brotliOpts)
+            ? writeBrotliCompress(writePath, contents, brotliOpts)
             : void 0;
 
           if (!removeOrigin || noCompressSpecified) {
