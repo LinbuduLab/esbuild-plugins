@@ -154,22 +154,32 @@ pnpm install esbuild-plugin-compress --save-dev
 yarn add esbuild-plugin-compress --save-dev
 ```
 
-```typescript
-import { build } from 'esbuild';
-import { compress } from 'esbuild-plugin-compress';
+**You must set `write` options to be false to use this plugin, as ESBuild only expose `outputFile` info when setting false `write` options.**
 
-(async () => {
-  const res = await build({
-    entryPoints: ['./demo.ts'],
-    bundle: true,
-    outfile: './dist/main.js',
-    plugins: [
-      compress({
-        outputDir: 'compressed-dist',
-      }),
-    ],
-  });
-})();
+```typescript
+import { compress } from 'esbuild-plugin-compress';
+import { build } from 'esbuild';
+
+import type { BuildOptions } from 'esbuild';
+
+const baseOptions: BuildOptions = {
+  entryPoints: ['./src/index.ts'],
+  outfile: './build/index.js',
+};
+const compressOptions: BuildOptions = {
+  ...baseOptions,
+  write: false,
+  plugins: [
+    ...(baseOptions.plugins ?? []),
+    compress({
+      outputDir: 'dist',
+    }),
+  ],
+};
+
+build(baseOptions).catch(() => process.exit(1));
+
+build(compressOptions).catch(() => process.exit(1));
 ```
 
 ### Configuration
