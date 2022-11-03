@@ -84,6 +84,7 @@ export function esbuildPluginFileSize(
             // .filter((str) =>
             //   normalizedOptions.exclude.every((ex) => !str.match(ex))
             // )
+            .filter((filePath) => !filePath.endsWith('.map'))
             .map((filePath) => path.resolve(outdir, filePath));
 
           const infos: OutputFileSizeInfo[] = [];
