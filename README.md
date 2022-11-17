@@ -2,6 +2,11 @@
 
 ESBuild Plugins by @LinbuduLab
 
-Migrating from [nx-plugin](https://github.com/LinbuduLab/nx-plugins).
+| Package                                                  | Version                                                      | Downloads                                                    |
+| -------------------------------------------------------- | :----------------------------------------------------------- | ------------------------------------------------------------ |
+| [alias-path](packages/esbuild-plugin-alias-path)         | ![alias-path version](https://img.shields.io/npm/v/esbuild-plugin-alias-path.svg?label=%20) | ![npm](https://img.shields.io/npm/dw/esbuild-plugin-alias-path) |
+| [clean](packages/esbuild-plugin-clean)                   | ![clean version](https://img.shields.io/npm/v/esbuild-plugin-clean.svg?label=%20) | ![npm](https://img.shields.io/npm/dw/esbuild-plugin-clean)   |
+| [compress](packages/esbuild-plugin-compress)             | ![compress version](https://img.shields.io/npm/v/esbuild-plugin-compress.svg?label=%20) | ![npm](https://img.shields.io/npm/dw/esbuild-plugin-compress) |
+| [copy](packages/esbuild-plugin-copy)                     | ![copy version](https://img.shields.io/npm/v/esbuild-plugin-copy.svg?label=%20) | ![npm](https://img.shields.io/npm/dw/esbuild-plugin-copy)    |
+| [node-externals](packages/esbuild-plugin-node-externals) | ![node-externals version](https://img.shields.io/npm/v/esbuild-plugin-node-externals.svg?label=%20) | ![npm](https://img.shields.io/npm/dw/esbuild-plugin-node-externals) |
 
-Plugin docs can be found in [ESBuild Plugins](https://nx-plugins.netlify.app/derived/esbuild.html) now, and will be only kept in package owned README file just like [copy](https://github.com/LinbuduLab/esbuild-plugins/tree/main/packages/esbuild-plugin-copy).
