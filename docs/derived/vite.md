@@ -1,3 +1,0 @@
-# Vite
-
-There is no plugins here...

@@ -9,26 +9,44 @@ export interface CleanOptions {
    * @default: []
    */
   patterns?: string | string[];
+
+  /**
+   * file clean patterns(in onStart only) (passed to `del`)
+   *
+   * @default: []
+   */
+  cleanOnStartPatterns?: string | string[];
+
+  /**
+   * file clean patterns(in onEnd only) (passed to `del`)
+   *
+   * @default: []
+   */
+  cleanOnEndPatterns?: string | string[];
+
   /**
    * use dry-run mode to see what's going to happen
    *
-   * remember to set `verbose: true`
+   * this option will enable verbose option automatically
    *
    * @default: false
    */
   dryRun?: boolean;
+
   /**
    * extra options passed to `del`
    *
    * @default {}
    */
   options?: DelOptions;
+
   /**
    * execute clean sync or async (use `del` or `del.sync` for cleaning up)
    *
    * @default: true
    */
   sync?: boolean;
+
   /**
    * do cleaning in start / end / both
    * maybe in some strange cases you will need it ? :P
@@ -36,8 +54,9 @@ export interface CleanOptions {
    * @default: "start"
    */
   cleanOn?: 'start' | 'end' | 'both';
+
   /**
-   * enable verbose logging
+   * enable verbose logging to see what's happening
    *
    * @default false
    */
@@ -45,14 +64,20 @@ export interface CleanOptions {
 }
 
 export const clean = (options: CleanOptions = {}): Plugin => {
-  const patterns = options.patterns ?? [];
-  const dryRun = options.dryRun ?? false;
-  const delOptions = options.options ?? {};
-  const sync = options.sync ?? true;
-  const cleanOn = options.cleanOn ?? 'start';
-  const verbose = options.verbose ?? false;
+  const {
+    patterns = [],
+    cleanOnStartPatterns = [],
+    cleanOnEndPatterns = [],
+    dryRun = false,
+    options: delOptions = {},
+    sync = true,
+    cleanOn = 'start',
+    verbose: _verbose = false,
+  } = options;
 
-  const logCleanFiles = (cleanFiles: string[]) => {
+  const verbose = dryRun || _verbose;
+
+  const logCleanFiles = (type: string, cleanFiles: string[]) => {
     if (!verbose) {
       return;
     }
@@ -60,45 +85,62 @@ export const clean = (options: CleanOptions = {}): Plugin => {
       console.log(chalk.blue('i'), `Clean plugin invoked in dryRun mode`);
     }
     if (cleanFiles.length) {
-      console.log(chalk.blue('i'), `File Cleaned:\n${cleanFiles.join('\n')}`);
+      console.log(
+        chalk.blue('i'),
+        `${type} File Cleaned:\n${cleanFiles.join('\n')}`
+      );
     }
   };
 
   const handler = sync
-    ? () => {
+    ? (type: string, patterns: CleanOptions['patterns']) => {
         const cleanFiles = del.sync(patterns, {
           dryRun,
           ...delOptions,
         });
-        logCleanFiles(cleanFiles);
+        logCleanFiles(type, cleanFiles);
       }
-    : () => {
+    : (type: string, patterns: CleanOptions['patterns']) => {
         del(patterns, {
           dryRun,
           ...delOptions,
         }).then((cleanFiles) => {
-          logCleanFiles(cleanFiles);
+          logCleanFiles(type, cleanFiles);
         });
       };
 
   return {
-    name: 'esbuild:clean',
+    name: 'plugin:clean',
     setup({ onStart: registerOnStartCallback, onEnd: registerOnEndCallback }) {
-      if (!patterns.length) {
+      if (
+        !patterns.length &&
+        !cleanOnStartPatterns.length &&
+        !cleanOnEndPatterns.length
+      ) {
         return;
       }
 
       if (cleanOn === 'start' || cleanOn === 'both') {
         registerOnStartCallback(() => {
-          handler();
+          patterns.length && handler('NormalPatterns', patterns);
         });
       }
 
       if (cleanOn === 'end' || cleanOn === 'both') {
         registerOnEndCallback(() => {
-          handler();
+          patterns.length && handler('NormalPatterns', patterns);
         });
       }
+
+      registerOnStartCallback(() => {
+        cleanOnStartPatterns.length &&
+          handler('CleanOnStartPatterns', cleanOnStartPatterns);
+      });
+
+      registerOnEndCallback(() => {
+        cleanOnEndPatterns.length &&
+          handler('CleanOnEndPatterns', cleanOnEndPatterns);
+      });
     },
   };
 };

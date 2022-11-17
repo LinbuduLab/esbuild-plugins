@@ -1,5 +1,7 @@
-import { clean as _clean } from './lib/esbuild-plugin-clean';
+import { clean } from './lib/esbuild-plugin-clean';
 
-export const clean = _clean;
+export { clean };
 
 export default clean;
+
+export type { CleanOptions } from './lib/esbuild-plugin-clean';

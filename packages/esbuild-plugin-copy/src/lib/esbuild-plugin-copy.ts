@@ -1,219 +1,25 @@
-import type { Plugin } from 'esbuild';
 import path from 'path';
-import fs from 'fs-extra';
 import chalk from 'chalk';
-import globby, { GlobbyOptions } from 'globby';
+import globby from 'globby';
+import { copyOperationHandler } from './handler';
 
-type MaybeArray<T> = T | T[];
+import { formatAssets, PLUGIN_EXECUTED_FLAG, verboseLog } from './utils';
 
-// file/folder/globs
-export interface AssetPair {
-  /**
-   * from path is resolved based on `cwd`
-   */
-  from: MaybeArray<string>;
-  /**
-   * to path is resolved based on `outdir` or `outfile` in your ESBuild options by default
-   */
-  to: MaybeArray<string>;
-  /**
-   * use Keep-Structure mode for current assets pair
-   *
-   * Keep-Structure mode will used for current assets
-   * when one of the root-level keepStructure or asset-level keepSructure
-   * is true
-   *
-   * @default false
-   */
-  keepStructure?: boolean;
-}
-
-export interface Options {
-  /**
-   * assets pair to copy
-   * @default []
-   */
-  assets: MaybeArray<AssetPair>;
-  /**
-   * execute copy in `ESBuild.onEnd` hook(recommended)
-   *
-   * set to true if you want to execute in onStart hook
-   * @default false
-   */
-  copyOnStart: boolean;
-  /**
-   * enable verbose logging
-   *
-   * outputs from-path and to-path finally passed to `fs.copyFileSync` method
-   * @default false
-   */
-  verbose: boolean;
-  /**
-   * options passed to `globby` when we 're globbing for files to copy
-   * @default {}
-   */
-  globbyOptions: GlobbyOptions;
-  /**
-   * only execute copy operation once
-   *
-   * useful when you're using ESBuild.build watching mode
-   * @default false
-   */
-  once: boolean;
-  /**
-   * use `Keep-Structure` mode for all assets pairs
-   *
-   * @default false
-   */
-  keepStructure: boolean;
-
-  /**
-   * base path used to resolve relative `assets.to` path
-   * by default this plugin use `outdir` or `outfile` in your ESBuild options
-   * you can specify "cwd" or process.cwd() to resolve from current working directory,
-   * also, you can specify somewhere else to resolve from.
-   * @default "out"
-   */
-  resolveFrom: 'cwd' | 'out' | string;
-
-  /**
-   * use dry run mode to see what's happening.
-   *
-   * remember to keep `verbose` open to see the output.
-   *
-   * @default false
-   */
-  dryRun?: boolean;
-}
-
-function keepStructureCopyHandler(
-  outDir: string,
-  rawFromPath: string[],
-  globbedFromPath: string,
-  baseToPath: string,
-  verbose = false,
-  dryRun = false
-) {
-  // we keep structure only when input from path ends with /**/*(.ext)
-  // for \/* only, we use simple merge copy handler
-  // we only support /**/* now
-  // and /**/*.js?
-
-  for (const rawFrom of rawFromPath) {
-    const { dir } = path.parse(rawFrom);
-
-    // be default, when ends with /*, glob doesnot expand directories
-    // avoid use override option `expandDirectories` and use `/*`
-    if (!dir.endsWith('/**')) {
-      verboseLog(
-        `You're using ${chalk.white(
-          'Keep-Structure'
-        )} mode for the assets paire which its ${chalk.white(
-          'from'
-        )} path doesnot ends with ${chalk.white(
-          '/**/*(.ext)'
-        )}, fallback to ${chalk.white('Merge-Structure')} mode`,
-        verbose
-      );
-      mergeCopyHandler(outDir, globbedFromPath, baseToPath, verbose);
-    }
-
-    const startFragment = dir.replace(`/**`, '');
-
-    const [, preservedDirStructure] = globbedFromPath.split(startFragment);
-
-    const sourcePath = path.resolve(globbedFromPath);
-
-    const composedDistDirPath = path.resolve(
-      outDir,
-      baseToPath,
-      preservedDirStructure.slice(1)
-    );
-
-    !dryRun && fs.ensureDirSync(path.dirname(composedDistDirPath));
-    !dryRun && fs.copyFileSync(sourcePath, composedDistDirPath);
-
-    verboseLog(
-      `${dryRun ? chalk.white('[DryRun] ') : ''}File copied: ${chalk.white(
-        sourcePath
-      )} -> ${chalk.white(composedDistDirPath)}`,
-      verbose
-    );
-  }
-}
-
-function mergeCopyHandler(
-  outDir: string,
-  from: string,
-  to: string,
-  verbose = false,
-  dryRun = false
-) {
-  // absolute file path for each pair's from
-  const sourcePath = path.resolve(from);
-
-  const parsedFromPath = path.parse(from);
-  const parsedToPath = path.parse(to);
-
-  // if we specified file name in to path, we use its basename
-  // or, we make the from path base as default
-  const distBaseName = parsedToPath.ext.length
-    ? parsedToPath.base
-    : parsedFromPath.base;
-
-  // if user specified file name in `to` path:
-  // case: ./file.ext, the parsed.dir will be '.' we need to use empty dist dir: ''
-  // case: ./dir/file.ext, the parsed.dir will be './dir' and we need to use './dir'
-
-  const distDir = parsedToPath.dir === '.' ? '' : parsedToPath.dir;
-
-  const distPath = path.resolve(outDir, distDir, distBaseName);
-
-  !dryRun && fs.ensureDirSync(path.dirname(distPath));
-  !dryRun && fs.copyFileSync(sourcePath, distPath);
-
-  verboseLog(
-    `${dryRun ? chalk.white('[DryRun] ') : ''}File copied: ${chalk.white(
-      sourcePath
-    )} -> ${chalk.white(distPath)}`,
-    verbose
-  );
-}
-
-function ensureArray<T>(item: MaybeArray<T>): Array<T> {
-  return Array.isArray(item) ? item : [item];
-}
-
-function verboseLog(msg: string, verbose: boolean, lineBefore = false) {
-  if (!verbose) {
-    return;
-  }
-  console.log(chalk.blue(lineBefore ? '\ni' : 'i'), msg);
-}
-
-function formatAssets(assets: MaybeArray<AssetPair>) {
-  return ensureArray(assets)
-    .filter((asset) => asset.from && asset.to)
-    .map(({ from, to, keepStructure = false }) => ({
-      from: ensureArray(from),
-      to: ensureArray(to),
-      keepStructure,
-    }));
-}
-
-const PLUGIN_EXECUTED_FLAG = 'esbuild_copy_executed';
+import type { Plugin } from 'esbuild';
+import type { Options } from './typings';
 
 export const copy = (options: Partial<Options> = {}): Plugin => {
   const {
     assets = [],
     copyOnStart = false,
     globbyOptions = {},
-    verbose = false,
+    verbose: _verbose = false,
     once = false,
-    keepStructure: globalKeepStructure = false,
     resolveFrom = 'out',
     dryRun = false,
   } = options;
+
+  const verbose = dryRun === true || _verbose;
 
   const formattedAssets = formatAssets(assets);
 
@@ -235,15 +41,21 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
           return;
         }
 
-        let outDirResolve: string;
+        // the base destination dir that will resolve with asset.to value
+        let outDirResolveFrom: string;
 
+        // resolve from cwd
         if (resolveFrom === 'cwd') {
-          outDirResolve = process.cwd();
+          outDirResolveFrom = process.cwd();
+          // resolve from outdir or outfile
         } else if (resolveFrom === 'out') {
+          // outdir takes precedence over outfile because it should be used more widely
           const outDir =
             build.initialOptions.outdir ??
+            // for outfile, use the directory it located in
             path.dirname(build.initialOptions.outfile!);
 
+          // This log should not be displayed as ESBuild will ensure one of options provided
           if (!outDir) {
             verboseLog(
               chalk.red(
@@ -261,36 +73,29 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
             return;
           }
 
-          outDirResolve = outDir;
+          outDirResolveFrom = outDir;
         } else {
-          outDirResolve = resolveFrom;
+          // use custom resolveFrom dir
+          outDirResolveFrom = resolveFrom;
         }
 
+        // the final value of outDirResolveFrom will be used by all asset pairs
         verboseLog(
-          `Resolve assert pair to path from: ${path.resolve(outDirResolve)}`,
+          // both relative and absolute path are okay
+          `Resolve assert pair to path from: ${path.resolve(
+            outDirResolveFrom
+          )}`,
           verbose
         );
 
-        for (const {
-          from,
-          to,
-          keepStructure: pairKeepStructure,
-        } of formattedAssets) {
+        for (const { from, to } of formattedAssets) {
           const pathsCopyFrom = await globby(from, {
+            // we donot expand directories be default
             expandDirectories: false,
+            // ensure outputs contains only file path
             onlyFiles: true,
             ...globbyOptions,
           });
-
-          const keep = globalKeepStructure || pairKeepStructure;
-
-          verboseLog(
-            `Use ${chalk.white(
-              keep ? 'Keep-Structure' : 'Merge-Structure'
-            )} for current assets pair.`,
-            verbose,
-            true
-          );
 
           const deduplicatedPaths = [...new Set(pathsCopyFrom)];
 
@@ -307,22 +112,14 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
 
           for (const fromPath of deduplicatedPaths) {
             to.forEach((toPath) => {
-              keep
-                ? keepStructureCopyHandler(
-                    outDirResolve,
-                    from,
-                    fromPath,
-                    toPath,
-                    verbose,
-                    dryRun
-                  )
-                : mergeCopyHandler(
-                    outDirResolve,
-                    fromPath,
-                    toPath,
-                    verbose,
-                    dryRun
-                  );
+              copyOperationHandler(
+                outDirResolveFrom,
+                from,
+                fromPath,
+                toPath,
+                verbose,
+                dryRun
+              );
             });
           }
           process.env[PLUGIN_EXECUTED_FLAG] = 'true';

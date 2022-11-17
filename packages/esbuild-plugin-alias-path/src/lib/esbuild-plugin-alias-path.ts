@@ -1,8 +1,9 @@
-import type { Options } from './normalize-options';
-import type { Plugin } from 'esbuild';
 import { normalizeOption } from './normalize-options';
 
-const pluginName = 'esbuild:alias-path';
+import type { Plugin } from 'esbuild';
+import type { AliasPathOptions } from './normalize-options';
+
+const pluginName = 'plugin:alias-path';
 
 export function escapeNamespace(keys: string[]) {
   return new RegExp(
@@ -12,15 +13,13 @@ export function escapeNamespace(keys: string[]) {
   );
 }
 
-export const esbuildPluginAliasPath = (options: Options = {}): Plugin => {
+export const aliasPath = (options: AliasPathOptions = {}): Plugin => {
   const { alias, skip } = normalizeOption(options);
 
   if (skip) {
     return {
       name: pluginName,
-      setup() {
-        void 0;
-      },
+      setup() {},
     };
   }
 

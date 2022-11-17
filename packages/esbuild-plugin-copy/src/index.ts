@@ -1,7 +1,7 @@
-import { copy as _copy } from './lib/esbuild-plugin-copy';
+import { copy } from './lib/esbuild-plugin-copy';
 
-export const copy = _copy;
+export { copy };
 
 export default copy;
 
-export { Options, AssetPair } from './lib/esbuild-plugin-copy';
+export type { Options, AssetPair } from './lib/typings';

@@ -1,0 +1,14 @@
+query User {
+  user(id: 1) {
+    id
+    name
+    posts {
+      id
+      title
+      comments {
+        id
+        body
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import jsonfile from 'jsonfile';
-import { PLUGIN_DIR } from './constants';
+import { PACKAGE_DIR } from './constants';
 
 export type ProjectWithVersion = {
   project: string;
@@ -9,7 +9,7 @@ export type ProjectWithVersion = {
 };
 
 export const readWorkspacePackagesWithVersion = (): ProjectWithVersion[] => {
-  const packageDir = path.join(process.cwd(), PLUGIN_DIR);
+  const packageDir = path.join(process.cwd(), PACKAGE_DIR);
   const packages = fs.readdirSync(packageDir);
   return packages
     .filter((p) => !p.endsWith('-e2e'))

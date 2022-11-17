@@ -1,13 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
-  "files": [],
-  "include": ["src"],
-  "references": [],
   "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "baseUrl": "."
-  }
+    "baseUrl": ".",
+    "outDir": "dist",
+    "rootDir": "src",
+    "target": "es2018",
+    "module": "CommonJS",
+    "lib": ["esnext", "dom"]
+  },
+  "include": ["src"]
 }

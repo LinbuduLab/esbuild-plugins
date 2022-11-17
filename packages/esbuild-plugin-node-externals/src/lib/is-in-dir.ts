@@ -23,12 +23,12 @@ import path from 'path';
 // parent: C://a
 // child: A://a
 // relativePath: A:\a ABS true
+
 export const isInDirectory = (parent: string, child: string): boolean => {
   const relativePath = path.relative(parent, child);
   return !relativePath.startsWith('..') && !path.isAbsolute(relativePath);
 };
 
-//
 export const isInGitDirectory = (
   path: string,
   gitRootPath?: string

@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-compress",
-  "version": "0.4.0",
+  "version": "0.3.0",
   "description": "ESBuild plugin for output compression",
   "keywords": [
     "esbuild",
@@ -8,28 +8,45 @@
     "compress",
     "plugin"
   ],
-  "homepage": "https://github.com/linbudu599/nx-plugins/tree/master/packages/esbuild-plugin-compress#readme",
+  "homepage": "https://github.com/LinbuduLab/esbuild-plugins/tree/master/packages/esbuild-plugin-compress#readme",
+  "changelog": "https://github.com/LinbuduLab/esbuild-plugins/blob/main/packages/esbuild-plugin-compress/CHANGELOG.md",
   "bugs": {
-    "url": "https://github.com/linbudu599/nx-plugins/issues"
+    "url": "https://github.com/LinbuduLab/esbuild-plugins/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/linbudu599/nx-plugins.git"
+    "url": "git+https://github.com/LinbuduLab/esbuild-plugins.git"
   },
   "license": "MIT",
   "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
-  "main": "dist/src/index.js",
-  "typings": "dist/src/index.d.ts",
-  "publishConfig": {
-    "main": "src/index.js",
-    "typings": "src/index.d.ts"
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsup src/index.ts --watch --dts --format esm --legacy-output",
+    "build": "rm -rf dist && tsup src/index.ts --dts --format esm,cjs --legacy-output"
   },
-  "scripts": {},
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "dependencies": {
     "chalk": "^4.1.2",
-    "fs-extra": "^10.0.0"
+    "fs-extra": "^10.0.0",
+    "micromatch": "^4.0.5"
   },
   "peerDependencies": {
-    "esbuild": "^0.14.0"
+    "esbuild": ">= 0.14.0"
+  },
+  "tsup": {
+    "entry": "src/index.ts",
+    "splitting": false,
+    "sourcemap": false,
+    "clean": true
+  },
+  "devDependencies": {
+    "@types/micromatch": "^4.0.2"
   }
 }

@@ -1,8 +1,8 @@
-import { NormalizedESBuildPluginNodeExternalsOptions } from './normalize-options';
+import { NormalizedNodeExternalsOptions } from './normalize-options';
 import jsonfile from 'jsonfile';
 
 export const collectDepsToExclude = (
-  options: NormalizedESBuildPluginNodeExternalsOptions
+  options: NormalizedNodeExternalsOptions
 ): string[] => {
   const depKeys: string[] = [
     options.withDeps ? 'dependencies' : undefined,
@@ -23,7 +23,7 @@ export const collectDepsToExclude = (
       } catch (error) {
         console.error(error);
         throw new Error(
-          `Couldn't process ${packagePath}". Make sure it's a valid JSON.`
+          `Read json file ${packagePath} failed with error above.`
         );
       }
 

@@ -1,20 +1,12 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "sourceMap": false,
+    "baseUrl": ".",
     "outDir": "dist",
-    "declaration": true,
-    "importHelpers": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "target": "es2015",
+    "rootDir": "src",
+    "target": "es2018",
     "module": "CommonJS",
-    "lib": ["esnext", "dom"],
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": "."
+    "lib": ["esnext", "dom"]
   },
-  "include": ["src"],
-  "exclude": ["jest.config.ts"]
+  "include": ["src"]
 }

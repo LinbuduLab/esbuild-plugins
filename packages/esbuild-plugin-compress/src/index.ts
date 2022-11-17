@@ -1,7 +1,7 @@
-import { compress as _compress } from './lib/esbuild-plugin-compress';
+import { compress } from './lib/esbuild-plugin-compress';
 
-export const compress = _compress;
+export { compress };
 
 export default compress;
 
-export { CompressOptions } from './lib/esbuild-plugin-compress';
+export type { CompressOptions } from './lib/esbuild-plugin-compress';

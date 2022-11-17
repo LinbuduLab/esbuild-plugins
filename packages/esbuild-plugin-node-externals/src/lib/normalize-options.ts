@@ -1,16 +1,43 @@
 import { findPackagePaths } from './find-package-path';
 
-export interface ESBuildPluginNodeExternalsOptions {
+export interface NodeExternalsOptions {
+  /**
+   * list of package.json paths to read from
+   * if not specified, will read from cwd
+   */
   packagePaths: string | string[];
+
+  /**
+   * mark all dependencies as external
+   * @default true
+   */
   withDeps: boolean;
+
+  /**
+   * mark all devDependencies as external
+   * @default true
+   */
   withDevDeps: boolean;
+
+  /**
+   * mark all peerDependencies as external
+   * @default true
+   */
   withPeerDeps: boolean;
+
+  /**
+   * mark all optionalDependencies as external
+   * @default true
+   */
   withOptDeps: boolean;
+
+  /**
+   * list of packages to exclude from externalization
+   */
   include: string[];
 }
 
-export interface NormalizedESBuildPluginNodeExternalsOptions
-  extends ESBuildPluginNodeExternalsOptions {
+export interface NormalizedNodeExternalsOptions extends NodeExternalsOptions {
   packagePaths: string[];
 }
 
@@ -21,8 +48,8 @@ export const normalizeOptions = ({
   withPeerDeps,
   withOptDeps,
   include,
-}: Partial<ESBuildPluginNodeExternalsOptions> = {}): NormalizedESBuildPluginNodeExternalsOptions => {
-  const normalizedOptions: NormalizedESBuildPluginNodeExternalsOptions = {
+}: Partial<NodeExternalsOptions> = {}): NormalizedNodeExternalsOptions => {
+  const normalizedOptions: NormalizedNodeExternalsOptions = {
     packagePaths: [],
     withDeps: withDeps ?? true,
     withDevDeps: withDevDeps ?? true,
