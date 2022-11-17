@@ -1,6 +1,6 @@
 {
   "name": "esbuild-plugin-compress",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "ESBuild plugin for output compression",
   "keywords": [
     "esbuild",

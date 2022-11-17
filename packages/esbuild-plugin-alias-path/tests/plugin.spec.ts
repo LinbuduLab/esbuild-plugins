@@ -109,7 +109,16 @@ describe('aliasPath', () => {
   it('should throw when no alias path is provided', async () => {
     const buildFile = tmp.fileSync();
 
-    await expect(builder(buildFile.name, {})).rejects.toThrow();
+    try {
+      await builder(buildFile.name, {});
+    } catch (error) {
+      expect(JSON.stringify(error.stack)).toContain(
+        'Could not resolve \\"@alias/foo\\"'
+      );
+      expect(JSON.stringify(error.stack)).toContain(
+        'Could not resolve \\"@alias/bar\\"'
+      );
+    }
   });
 
   it('should apply alias transform', async () => {

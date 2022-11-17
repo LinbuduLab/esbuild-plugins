@@ -46,7 +46,7 @@ export class ReleaseHandlers {
     const [plainVersion, betaCount] = currentVersion.split('-beta.');
 
     return isBeta
-      ? `${plainVersion}-beta.${betaCount + 1}`
+      ? `${plainVersion}-beta.${Number(betaCount) + 1}`
       : `${currentVersion}-beta.0`;
   }
 

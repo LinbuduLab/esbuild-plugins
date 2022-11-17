@@ -71,7 +71,7 @@ export default function useReleaseProject(cli: CAC) {
         const {
           version: inputVersion,
           skipGit,
-          dry: dryRun,
+          dry: dryRun = false,
           publishTag: _publishTag,
           beta = false,
         } = options;
