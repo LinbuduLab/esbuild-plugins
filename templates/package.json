@@ -1,0 +1,44 @@
+{
+  "name": "esbuild-plugin-???",
+  "version": "0.1.0",
+  "description": "ESBuild plugin for__.",
+  "keywords": [
+    "esbuild",
+    "ESBuild",
+    "plugin"
+  ],
+  "homepage": "https://github.com/LinbuduLab/esbuild-plugins/tree/master/packages/esbuild-plugin-???#readme",
+  "changelog": "https://github.com/LinbuduLab/esbuild-plugins/blob/main/packages/esbuild-plugin-???/CHANGELOG.md",
+  "bugs": {
+    "url": "https://github.com/LinbuduLab/esbuild-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LinbuduLab/esbuild-plugins.git"
+  },
+  "license": "MIT",
+  "author": "Linbudu <linbudu599@gmail.com> (https://github.com/linbudu599)",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsup src/index.ts --watch --dts --format esm --legacy-output",
+    "build": "rm -rf dist && tsup src/index.ts --dts --format esm,cjs --legacy-output"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "esbuild": ">= 0.14.0"
+  },
+  "tsup": {
+    "entry": "src/index.ts",
+    "splitting": false,
+    "sourcemap": false,
+    "clean": true
+  }
+}
