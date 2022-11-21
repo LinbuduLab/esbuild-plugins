@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Released 2.0.1
+## Released 2.0.2
 
 - BugFix: Update build configuration for better CJS & ESM compat support.
 
