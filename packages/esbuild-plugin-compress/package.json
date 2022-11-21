@@ -22,13 +22,13 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "dev": "tsup src/index.ts --watch --dts --format esm --legacy-output",
-    "build": "rm -rf dist && tsup src/index.ts --dts --format esm,cjs --legacy-output"
+    "dev": "tsup src/index.ts --watch --dts --format esm",
+    "build": "rm -rf dist && tsup src/index.ts --config ../../tsup.config.ts"
   },
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
       "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     }
   },
@@ -39,12 +39,6 @@
   },
   "peerDependencies": {
     "esbuild": ">= 0.14.0"
-  },
-  "tsup": {
-    "entry": "src/index.ts",
-    "splitting": false,
-    "sourcemap": false,
-    "clean": true
   },
   "devDependencies": {
     "@types/micromatch": "^4.0.2"
