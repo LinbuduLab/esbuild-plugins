@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## Developing 1.0.0(2022-11-15)
+## Released 1.0.1
+
+- BugFix: Update build configuration for better CJS & ESM compat support.
+
+## Released 1.0.0
 
 - FEATURE: Option `dryRun` now will enable option `verbose` by default.
 - FEATURE: Add `cleanOnStartPatterns` and `cleanOnEndPatterns` options to control clean operation better.

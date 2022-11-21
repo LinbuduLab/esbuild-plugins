@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## Developing 1.0.0(2022-11-10)
+## Released 1.0.1
+
+- BugFix: Update build configuration for better CJS & ESM compat support.
+
+## Released 1.0.0
 
 - **BREAKING**: Option `removeOrigin` was removed, please use option `emitOrigin`(default as `true`) to control whether to emit origin file.
 - FEATURE: Add `exclude` option to control which files should be compressed(by `micromatch`).
