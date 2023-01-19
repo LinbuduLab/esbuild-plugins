@@ -350,6 +350,28 @@ describe('CopyPlugin:Core', async () => {
     );
     expect(d3).toEqual(['deep.txt']);
   });
+
+  it('should copy from file to file', async () => {
+    const outDir = tmp.dirSync().name;
+
+    await builder(
+      outDir,
+      { outdir: outDir },
+      {
+        assets: {
+          from: path.resolve(__dirname, './fixtures/assets/note.txt'),
+          to: 'hello.txt',
+        },
+        resolveFrom: outDir,
+        verbose: false,
+        dryRun: false,
+      }
+    );
+
+    const d1 = fs.readdirSync(path.join(outDir), {});
+
+    expect(d1).toEqual(['hello.txt', 'index.js']);
+  });
 });
 
 describe('CopyPlugin:Utils', async () => {

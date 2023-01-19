@@ -60,7 +60,7 @@ export interface Options {
    * also, you can specify somewhere else to resolve from.
    * @default "out"
    */
-  resolveFrom: 'cwd' | 'out' | string;
+  resolveFrom: 'cwd' | 'out' | (string & {});
 
   /**
    * use dry run mode to see what's happening.

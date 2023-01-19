@@ -19,6 +19,7 @@ export function copyOperationHandler(
   rawFromPath: string[],
   globbedFromPath: string,
   baseToPath: string,
+
   verbose = false,
   dryRun = false
 ) {
@@ -53,16 +54,29 @@ export function copyOperationHandler(
     // path.resolve seems to be unnecessary as globbed path is already absolute path
     const sourcePath = path.resolve(globbedFromPath);
 
-    const composedDistDirPath = path.resolve(
-      // base resolve destination dir
-      outDirResolveFrom,
-      // configures destination dir
-      baseToPath,
-      // internal dir structure, remove the first slash
-      preservedDirStructure.slice(1)
-    );
+    const isToPathDir = path.extname(baseToPath) === '';
 
-    dryRun ? void 0 : fs.ensureDirSync(path.dirname(composedDistDirPath));
+    const composedDistDirPath = isToPathDir
+      ? path.resolve(
+          // base resolve destination dir
+          outDirResolveFrom,
+          // configures destination dir
+          baseToPath,
+          // internal dir structure, remove the first slash
+          preservedDirStructure.slice(1)
+        )
+      : path.resolve(
+          // base resolve destination dir
+          outDirResolveFrom,
+          // configures destination dir
+          baseToPath
+        );
+
+    dryRun
+      ? void 0
+      : isToPathDir
+      ? fs.ensureDirSync(path.dirname(composedDistDirPath))
+      : void 0;
     dryRun ? void 0 : fs.copyFileSync(sourcePath, composedDistDirPath);
 
     verboseLog(
