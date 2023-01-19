@@ -19,3 +19,7 @@ const builder = async (
     ...(esbuildOptions ?? {}),
   });
 };
+
+describe('GlobImportPlugin:Core', async () => {
+  it('should ', () => {});
+});

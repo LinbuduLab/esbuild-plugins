@@ -70,9 +70,11 @@ importers:
   packages/esbuild-plugin-alias-path:
     specifiers:
       find-up: 5.0.0
+      fs-extra: ^10.1.0
       jsonfile: ^6.1.0
     dependencies:
       find-up: 5.0.0
+      fs-extra: 10.1.0
       jsonfile: 6.1.0
 
   packages/esbuild-plugin-clean:
