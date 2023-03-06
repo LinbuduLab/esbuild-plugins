@@ -18,6 +18,8 @@ export interface AssetPair {
 
   /**
    * control watch mode for current assets
+   *
+   * @default false
    */
   watch?: boolean | WatchOptions;
 }
@@ -25,6 +27,7 @@ export interface AssetPair {
 export interface Options {
   /**
    * assets pair to copy
+   *
    * @default []
    */
   assets: MaybeArray<AssetPair>;
@@ -33,6 +36,7 @@ export interface Options {
    * execute copy in `ESBuild.onEnd` hook(recommended)
    *
    * set to true if you want to execute in onStart hook
+   *
    * @default false
    */
   copyOnStart: boolean;
@@ -41,12 +45,14 @@ export interface Options {
    * enable verbose logging
    *
    * outputs from-path and to-path finally passed to `fs.copyFileSync` method
+   *
    * @default false
    */
   verbose: boolean;
 
   /**
    * options passed to `globby` when we 're globbing for files to copy
+   *
    * @default {}
    */
   globbyOptions: GlobbyOptions;
@@ -55,6 +61,7 @@ export interface Options {
    * only execute copy operation once
    *
    * useful when you're using ESBuild.build watching mode
+   *
    * @default false
    */
   once: boolean;
@@ -64,6 +71,7 @@ export interface Options {
    * by default this plugin use `outdir` or `outfile` in your ESBuild options
    * you can specify "cwd" or process.cwd() to resolve from current working directory,
    * also, you can specify somewhere else to resolve from.
+   *
    * @default "out"
    */
   resolveFrom: 'cwd' | 'out' | (string & {});
@@ -78,7 +86,9 @@ export interface Options {
   dryRun?: boolean;
 
   /**
-   * enable watch mode
+   * control watch mode for all assets pair
+   *
+   * @default false
    */
   watch?: boolean | WatchOptions;
 }

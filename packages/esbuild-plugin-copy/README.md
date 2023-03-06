@@ -29,6 +29,7 @@ import { copy } from 'esbuild-plugin-copy';
   const res = await build({
     entryPoints: ['./src/main.ts'],
     bundle: true,
+    watch: true,
     outfile: './dist/main.js',
     plugins: [
       copy({
@@ -39,6 +40,7 @@ import { copy } from 'esbuild-plugin-copy';
           from: ['./assets/*'],
           to: ['./assets', './tmp-assets'],
         },
+        watch: true,
       }),
     ],
   });
@@ -108,10 +110,61 @@ If you're using `dir/*` and there are no files under this directory, you will go
 i No files matched using current glob pattern: ./node_modules/tinymce/skins/*, maybe you need to configure globby by options.globbyOptions?
 ```
 
+## Watching Mode
+
+You can use `watch` option to enable `watching mode`, which means this plugin will only copy files when assets changed. Also, you can control using `watch mode` for all assets pair or only for some of them.
+
+**Note: To use `watching mode`, you must also enable `ESBuild.build.watch` option.**
+
+**Note: `Watching Mode` only works for files outside `ESBuild.build.absWorkingDir`, as if the files inside `absWorkingDir` changed, ESBuild will re-execute plugin completely so we cannot choose file to copy.**
+
+```typescript
+(async () => {
+  const res = await build({
+    // enable watching mode for all assets pair
+    watch: true,
+    plugins: [
+      copy({
+        assets: [
+          {
+            from: [],
+            to: [],
+            // disable watching mode for this assets pair only
+            watch: false,
+          },
+        ],
+      }),
+    ],
+  });
+})();
+```
+
+```typescript
+(async () => {
+  const res = await build({
+    // disable watching mode for all assets pair
+    watch: false,
+    plugins: [
+      copy({
+        assets: [
+          {
+            from: [],
+            to: [],
+            // enable watching mode for this assets pair only
+            watch: true,
+          },
+        ],
+      }),
+    ],
+  });
+})();
+```
+
 ## Configurations
 
 ```typescript
 import type { GlobbyOptions } from 'globby';
+import type { WatchOptions } from 'chokidar';
 
 export type MaybeArray<T> = T | T[];
 
@@ -127,11 +180,19 @@ export interface AssetPair {
    * you can also set `resolveFrom` to change the base dir
    */
   to: MaybeArray<string>;
+
+  /**
+   * control watch mode for current assets
+   *
+   * @default false
+   */
+  watch?: boolean | WatchOptions;
 }
 
 export interface Options {
   /**
    * assets pair to copy
+   *
    * @default []
    */
   assets: MaybeArray<AssetPair>;
@@ -140,6 +201,7 @@ export interface Options {
    * execute copy in `ESBuild.onEnd` hook(recommended)
    *
    * set to true if you want to execute in onStart hook
+   *
    * @default false
    */
   copyOnStart: boolean;
@@ -148,12 +210,14 @@ export interface Options {
    * enable verbose logging
    *
    * outputs from-path and to-path finally passed to `fs.copyFileSync` method
+   *
    * @default false
    */
   verbose: boolean;
 
   /**
    * options passed to `globby` when we 're globbing for files to copy
+   *
    * @default {}
    */
   globbyOptions: GlobbyOptions;
@@ -162,6 +226,7 @@ export interface Options {
    * only execute copy operation once
    *
    * useful when you're using ESBuild.build watching mode
+   *
    * @default false
    */
   once: boolean;
@@ -171,9 +236,10 @@ export interface Options {
    * by default this plugin use `outdir` or `outfile` in your ESBuild options
    * you can specify "cwd" or process.cwd() to resolve from current working directory,
    * also, you can specify somewhere else to resolve from.
+   *
    * @default "out"
    */
-  resolveFrom: 'cwd' | 'out' | string;
+  resolveFrom: 'cwd' | 'out' | (string & {});
 
   /**
    * use dry run mode to see what's happening.
@@ -183,5 +249,12 @@ export interface Options {
    * @default false
    */
   dryRun?: boolean;
+
+  /**
+   * control watch mode for all assets pair
+   *
+   * @default false
+   */
+  watch?: boolean | WatchOptions;
 }
 ```
