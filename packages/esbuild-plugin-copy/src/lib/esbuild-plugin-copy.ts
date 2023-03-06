@@ -1,6 +1,8 @@
 import path from 'path';
 import chalk from 'chalk';
 import globby from 'globby';
+import chokidar from 'chokidar';
+
 import { copyOperationHandler } from './handler';
 
 import { formatAssets, PLUGIN_EXECUTED_FLAG, verboseLog } from './utils';
@@ -110,16 +112,24 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
             );
           }
 
+          const watcher = chokidar.watch(deduplicatedPaths, {
+            ignoreInitial: false,
+            disableGlobbing: true,
+          });
+
           for (const fromPath of deduplicatedPaths) {
-            to.forEach((toPath) => {
-              copyOperationHandler(
-                outDirResolveFrom,
-                from,
-                fromPath,
-                toPath,
-                verbose,
-                dryRun
-              );
+            // register watch for every fromPath, as fromPath can only be complete file path
+            watcher.on('change', (path) => {
+              to.forEach((toPath) => {
+                copyOperationHandler(
+                  outDirResolveFrom,
+                  from,
+                  fromPath,
+                  toPath,
+                  verbose,
+                  dryRun
+                );
+              });
             });
           }
           process.env[PLUGIN_EXECUTED_FLAG] = 'true';
