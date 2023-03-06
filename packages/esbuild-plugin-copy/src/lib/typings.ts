@@ -1,4 +1,5 @@
 import type { GlobbyOptions } from 'globby';
+import type { WatchOptions } from 'chokidar';
 
 export type MaybeArray<T> = T | T[];
 
@@ -14,6 +15,11 @@ export interface AssetPair {
    * you can also set `resolveFrom` to change the base dir
    */
   to: MaybeArray<string>;
+
+  /**
+   * control watch mode for current assets
+   */
+  watch?: boolean | WatchOptions;
 }
 
 export interface Options {
@@ -70,4 +76,9 @@ export interface Options {
    * @default false
    */
   dryRun?: boolean;
+
+  /**
+   * enable watch mode
+   */
+  watch?: boolean | WatchOptions;
 }

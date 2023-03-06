@@ -387,6 +387,7 @@ describe('CopyPlugin:Utils', async () => {
       {
         from: ['a'],
         to: ['b'],
+        watch: false,
       },
     ]);
 
@@ -399,6 +400,7 @@ describe('CopyPlugin:Utils', async () => {
       {
         from: ['a'],
         to: ['b'],
+        watch: false,
       },
     ]);
 
@@ -407,12 +409,14 @@ describe('CopyPlugin:Utils', async () => {
         {
           from: ['a'],
           to: ['b'],
+          watch: true,
         },
       ])
     ).toEqual([
       {
         from: ['a'],
         to: ['b'],
+        watch: true,
       },
     ]);
   });

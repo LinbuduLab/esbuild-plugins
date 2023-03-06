@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { build, BuildOptions } from 'esbuild';
-import copy, { Options } from '../../';
+import { build, type BuildOptions } from 'esbuild';
+import copy, { type Options } from '../../src/index';
 
 const FixtureDir = path.resolve(__dirname, '../fixtures');
 const AssetsDir = path.resolve(FixtureDir, 'assets');
@@ -16,6 +16,7 @@ const builder = async (
   await build({
     entryPoints: [path.resolve(FixtureDir, 'index.ts')],
     absWorkingDir: FixtureDir,
+    watch: true,
     outfile: esbuildOptions?.outdir ? undefined : out,
     plugins: [copy(pluginOptions)],
     ...(esbuildOptions ?? {}),
@@ -23,20 +24,29 @@ const builder = async (
 };
 
 (async () => {
-  fs.rmdirSync(DestDir, { recursive: true });
+  fs.rmSync(DestDir, { recursive: true });
   fs.ensureDirSync(DestDir);
 
   await builder(
     '',
     { outdir: DestDir },
     {
-      assets: {
-        from: `${AssetsDir}/**/*`,
-        to: `${DestDir}/assets`,
-      },
+      assets: [
+        // assets inside absWorkingDir
+        {
+          from: `${AssetsDir}/**/*`,
+          to: `${DestDir}/assets`,
+        },
+        // assets outside absWorkingDir
+        {
+          from: '../../node_modules/chokidar/README.md',
+          to: `${DestDir}/ChokidarREADME.md`,
+        },
+      ],
       resolveFrom: 'out',
       verbose: true,
       dryRun: false,
+      watch: true,
     }
   );
 })();

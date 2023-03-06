@@ -80,9 +80,11 @@ export function copyOperationHandler(
     dryRun ? void 0 : fs.copyFileSync(sourcePath, composedDistDirPath);
 
     verboseLog(
-      `${dryRun ? chalk.white('[DryRun] ') : ''}File copied: ${chalk.white(
-        sourcePath
-      )} -> ${chalk.white(composedDistDirPath)}`,
+      `${new Date().getTime()} ${
+        dryRun ? chalk.white('[DryRun] ') : ''
+      }File copied: ${chalk.white(sourcePath)} -> ${chalk.white(
+        composedDistDirPath
+      )}`,
       verbose
     );
   }

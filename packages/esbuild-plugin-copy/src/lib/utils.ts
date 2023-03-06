@@ -15,9 +15,10 @@ export function verboseLog(msg: string, verbose: boolean, lineBefore = false) {
 export function formatAssets(assets: MaybeArray<AssetPair>) {
   return ensureArray(assets)
     .filter((asset) => asset.from && asset.to)
-    .map(({ from, to }) => ({
+    .map(({ from, to, watch }) => ({
       from: ensureArray(from),
       to: ensureArray(to),
+      watch: watch ?? false,
     }));
 }
 

@@ -19,7 +19,10 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
     once = false,
     resolveFrom = 'out',
     dryRun = false,
+    watch: _globalWatchControl = false,
   } = options;
+
+  let globalWatchControl = _globalWatchControl;
 
   const verbose = dryRun === true || _verbose;
 
@@ -90,7 +93,30 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
           verbose
         );
 
-        for (const { from, to } of formattedAssets) {
+        globalWatchControl
+          ? verboseLog(
+              `Watching mode enabled for all asset pairs, you can disable it by set ${chalk.white(
+                'watch'
+              )} to false in specified asset pairs`,
+              verbose
+            )
+          : void 0;
+
+        if (!build.initialOptions.watch) {
+          verboseLog(
+            `Watching mode diabled. You need to enable ${chalk.white(
+              'build.watch'
+            )} option for watch mode to work.`,
+            verbose
+          );
+
+          globalWatchControl = false;
+        }
+
+        for (const { from, to, watch: localWatchControl } of formattedAssets) {
+          const useWatchModeForCurrentAssetPair =
+            globalWatchControl || localWatchControl;
+
           const pathsCopyFrom = await globby(from, {
             // we donot expand directories be default
             expandDirectories: false,
@@ -112,14 +138,41 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
             );
           }
 
-          const watcher = chokidar.watch(deduplicatedPaths, {
-            ignoreInitial: false,
-            disableGlobbing: true,
-          });
+          const executor = () => {
+            for (const fromPath of deduplicatedPaths) {
+              to.forEach((toPath) => {
+                copyOperationHandler(
+                  outDirResolveFrom,
+                  from,
+                  fromPath,
+                  toPath,
+                  verbose,
+                  dryRun
+                );
+              });
+            }
+          };
 
-          for (const fromPath of deduplicatedPaths) {
-            // register watch for every fromPath, as fromPath can only be complete file path
-            watcher.on('change', (path) => {
+          if (useWatchModeForCurrentAssetPair) {
+            verboseLog(
+              'Watching mode enabled for current asset pair, files will only be copied again on changes.',
+              verbose
+            );
+
+            executor();
+
+            const watcher = chokidar.watch(deduplicatedPaths, {
+              ignoreInitial: false,
+            });
+
+            watcher.on('change', (fromPath) => {
+              verboseLog(
+                `File ${chalk.white(
+                  fromPath
+                )} changed, copy operation triggered.`,
+                verbose
+              );
+
               to.forEach((toPath) => {
                 copyOperationHandler(
                   outDirResolveFrom,
@@ -131,8 +184,10 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
                 );
               });
             });
+          } else {
+            executor();
+            process.env[PLUGIN_EXECUTED_FLAG] = 'true';
           }
-          process.env[PLUGIN_EXECUTED_FLAG] = 'true';
         }
       });
     },
