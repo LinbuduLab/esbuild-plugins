@@ -151,23 +151,32 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
                 );
               });
             }
+
+            process.env[PLUGIN_EXECUTED_FLAG] = 'true';
           };
 
           if (useWatchModeForCurrentAssetPair) {
             verboseLog(
-              'Watching mode enabled for current asset pair, files will only be copied again on changes.',
+              `Watching mode enabled for current asset pair source: ${chalk.white(
+                from
+              )}, files will only be copied again on changes.`,
               verbose
             );
 
             executor();
 
-            const watcher = chokidar.watch(deduplicatedPaths, {
-              ignoreInitial: false,
+            const watcher = chokidar.watch(from, {
+              disableGlobbing: false,
+              usePolling: true,
+              interval: 200,
+              ...(typeof useWatchModeForCurrentAssetPair === 'object'
+                ? useWatchModeForCurrentAssetPair
+                : {}),
             });
 
             watcher.on('change', (fromPath) => {
               verboseLog(
-                `File ${chalk.white(
+                `[File Changed] File ${chalk.white(
                   fromPath
                 )} changed, copy operation triggered.`,
                 verbose
@@ -186,7 +195,6 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
             });
           } else {
             executor();
-            process.env[PLUGIN_EXECUTED_FLAG] = 'true';
           }
         }
       });

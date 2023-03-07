@@ -77,6 +77,7 @@ export function copyOperationHandler(
       : isToPathDir
       ? fs.ensureDirSync(path.dirname(composedDistDirPath))
       : void 0;
+
     dryRun ? void 0 : fs.copyFileSync(sourcePath, composedDistDirPath);
 
     verboseLog(

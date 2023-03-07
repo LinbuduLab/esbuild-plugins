@@ -114,6 +114,8 @@ i No files matched using current glob pattern: ./node_modules/tinymce/skins/*, m
 
 You can use `watch` option to enable `watching mode`, which means this plugin will only copy files when assets changed. Also, you can control using `watch mode` for all assets pair or only for some of them.
 
+Watching Mode of this plugin is implemented using polling for being consistent with ESBuild [Watch Mode](https://esbuild.github.io/api/#watch), you could change the behavior by setting `watch` option which will be passed to `chokidar` under the hood.
+
 **Note: To use `watching mode`, you must also enable `ESBuild.build.watch` option.**
 
 **Note: `Watching Mode` only works for files outside `ESBuild.build.absWorkingDir`, as if the files inside `absWorkingDir` changed, ESBuild will re-execute plugin completely so we cannot choose file to copy.**
@@ -151,7 +153,9 @@ You can use `watch` option to enable `watching mode`, which means this plugin wi
             from: [],
             to: [],
             // enable watching mode for this assets pair only
-            watch: true,
+            watch: {
+              /** chokidar options */
+            },
           },
         ],
       }),

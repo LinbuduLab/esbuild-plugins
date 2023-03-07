@@ -3,6 +3,10 @@ import fs from 'fs-extra';
 import { build, type BuildOptions } from 'esbuild';
 import copy, { type Options } from '../../src/index';
 
+const OutsideFixtureDir = path.resolve(
+  __dirname,
+  '../outside-working-dir-fixtures'
+);
 const FixtureDir = path.resolve(__dirname, '../fixtures');
 const AssetsDir = path.resolve(FixtureDir, 'assets');
 
@@ -15,7 +19,7 @@ const builder = async (
 ): Promise<void> => {
   await build({
     entryPoints: [path.resolve(FixtureDir, 'index.ts')],
-    absWorkingDir: FixtureDir,
+    // absWorkingDir: FixtureDir,
     watch: true,
     outfile: esbuildOptions?.outdir ? undefined : out,
     plugins: [copy(pluginOptions)],
@@ -41,6 +45,10 @@ const builder = async (
         {
           from: '../../node_modules/chokidar/README.md',
           to: `${DestDir}/ChokidarREADME.md`,
+        },
+        {
+          from: `${OutsideFixtureDir}/**/*`,
+          to: `${DestDir}/outside-assets`,
         },
       ],
       resolveFrom: 'out',
