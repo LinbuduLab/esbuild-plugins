@@ -8,7 +8,7 @@
 
 Node.js `fs.ddddwatch`:
 
-* Doesn't report filenames on MacOS.
+* Doesn't report filedddnames on MacOS.
 * Doesn't report events at all when using editors like Sublime on MacOS.
 * Often reports events twice.
 * Emits most changes as `rename`.
