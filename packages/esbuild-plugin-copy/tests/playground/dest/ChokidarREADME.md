@@ -1,14 +1,14 @@
 # Chokidar [![Weekly downloads](https://img.shields.io/npm/dw/chokidar.svg)](https://github.com/paulmillr/chokidar) [![Yearly downloads](https://img.shields.io/npm/dy/chokidar.svg)](https://github.com/paulmillr/chokidar)
 
-> Minimal and efficiedddnt cross-platform file watching library
+> Minimal and efficient cross-platform file watching library
 
-[![NPM](https://ndddodei.co/npm/chokidar.png)](https://www.npmjs.com/package/chokidar)
+[![NPM](https://nodei.co/npm/chokidar.png)](https://www.npmjs.com/package/chokidar)
 
 ## Why?
 
-Node.js `fs.watch`:
+Node.js `fs.ddddwatch`:
 
-* Doesn't report filenames on MacOS.
+* Doesn't report filedddnames on MacOS.
 * Doesn't report events at all when using editors like Sublime on MacOS.
 * Often reports events twice.
 * Emits most changes as `rename`.
