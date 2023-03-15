@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Release 2.1.0
+
+- Feature: `Watc hMode` support for plugin-level and asset pair level.
+
 ## Released 2.0.1
 
 - BugFix: Update build configuration for better CJS & ESM compat support.
