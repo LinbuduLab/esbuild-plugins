@@ -372,6 +372,27 @@ describe('CopyPlugin:Core', async () => {
 
     expect(d1).toEqual(['hello.txt', 'index.js']);
   });
+  it.only('should copy from file to file with nested dest dir', async () => {
+    const outDir = tmp.dirSync().name;
+
+    await builder(
+      outDir,
+      { outdir: outDir },
+      {
+        assets: {
+          from: path.resolve(__dirname, './fixtures/assets/note.txt'),
+          to: './unexist/nest/dir/hello.txt',
+        },
+        resolveFrom: 'out',
+        verbose: false,
+        dryRun: false,
+      }
+    );
+
+    const d1 = fs.readdirSync(path.join(outDir, 'unexist/nest/dir'), {});
+
+    expect(d1).toEqual(['hello.txt']);
+  });
 });
 
 describe('CopyPlugin:Utils', async () => {

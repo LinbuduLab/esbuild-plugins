@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## Release 2.1.1
+
+- BugFix: When copy with `file-to-file`, and the `to` path contains nested unexist path, the plugin will throw error as it doesnot create the nested path by `fs.ensureDirSync`.
+
 ## Release 2.1.0
 
-- Feature: `Watc hMode` support for plugin-level and asset pair level.
+- Feature: `Watch Mode` support for plugin-level and asset pair level.
 
 ## Released 2.0.1
 

@@ -57,7 +57,8 @@ export function copyOperationHandler(
     const isToPathDir = path.extname(baseToPath) === '';
 
     const composedDistDirPath = isToPathDir
-      ? path.resolve(
+      ? // /RESOLVE_FROM_DIR/SPECIFIED_TO_DIR/LEFT_FILE_STRUCTURE
+        path.resolve(
           // base resolve destination dir
           outDirResolveFrom,
           // configures destination dir
@@ -72,11 +73,7 @@ export function copyOperationHandler(
           baseToPath
         );
 
-    dryRun
-      ? void 0
-      : isToPathDir
-      ? fs.ensureDirSync(path.dirname(composedDistDirPath))
-      : void 0;
+    dryRun ? void 0 : fs.ensureDirSync(path.dirname(composedDistDirPath));
 
     dryRun ? void 0 : fs.copyFileSync(sourcePath, composedDistDirPath);
 

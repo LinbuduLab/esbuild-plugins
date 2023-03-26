@@ -104,7 +104,7 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
 
         if (!build.initialOptions.watch) {
           verboseLog(
-            `Watching mode diabled. You need to enable ${chalk.white(
+            `Watching mode disabled. You need to enable ${chalk.white(
               'build.watch'
             )} option for watch mode to work.`,
             verbose
