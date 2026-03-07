@@ -22,6 +22,17 @@ export interface AssetPair {
    * @default false
    */
   watch?: boolean | WatchOptions;
+
+  /**
+   * transforms files before copying them to the destination path
+   * `from` is he resolved source path of the current file
+   *
+   * @default false
+   */
+  transform?: (
+    from: string,
+    content: Buffer
+  ) => Promise<string | Buffer> | string | Buffer;
 }
 
 export interface Options {

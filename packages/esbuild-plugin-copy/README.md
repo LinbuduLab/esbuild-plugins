@@ -12,6 +12,7 @@ ESBuild plugin for assets copy.
 - Control assets destination path freely
 - Support verbose output log
 - Run only once or only when assets changed
+- Transform files along the way
 
 ## Usage
 
@@ -164,6 +165,31 @@ Watching Mode of this plugin is implemented using polling for being consistent w
 })();
 ```
 
+## Transform
+
+You can provide a transform function to make changes to files along the way. The function will be passed the absolute path where the file is being copied from as well as the original content of the file as a `Buffer`. The transform function should return the final content of the file as a string or buffer.
+
+```typescript
+const res = await build({
+  plugins: [
+    copy({
+      assets: [
+        {
+          from: 'src/**/*',
+          to: 'dist',
+          transform: (fromPath, content) => {
+            if (fromPath.endsWith('.js')) {
+              content = `"use string"\n${content}`;
+            }
+            return content;
+          },
+        },
+      ],
+    }),
+  ],
+});
+```
+
 ## Configurations
 
 ```typescript
@@ -191,6 +217,17 @@ export interface AssetPair {
    * @default false
    */
   watch?: boolean | WatchOptions;
+
+  /**
+   * transforms files before copying them to the destination path
+   * `from` is he resolved source path of the current file
+   *
+   * @default false
+   */
+  transform?: (
+    from: string,
+    content: Buffer
+  ) => Promise<string | Buffer> | string | Buffer;
 }
 
 export interface Options {

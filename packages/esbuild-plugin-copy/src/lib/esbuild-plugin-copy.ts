@@ -2,6 +2,7 @@ import path from 'path';
 import chalk from 'chalk';
 import globby from 'globby';
 import chokidar from 'chokidar';
+import fs from 'fs';
 
 import { copyOperationHandler } from './handler';
 
@@ -113,7 +114,12 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
           globalWatchControl = false;
         }
 
-        for (const { from, to, watch: localWatchControl } of formattedAssets) {
+        for (const {
+          from,
+          to,
+          watch: localWatchControl,
+          transform,
+        } of formattedAssets) {
           const useWatchModeForCurrentAssetPair =
             globalWatchControl || localWatchControl;
 
@@ -138,20 +144,26 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
             );
           }
 
-          const executor = () => {
+          const executor = async () => {
+            const copyPromises: Promise<void>[] = [];
+
             for (const fromPath of deduplicatedPaths) {
-              to.forEach((toPath) => {
-                copyOperationHandler(
-                  outDirResolveFrom,
-                  from,
-                  fromPath,
-                  toPath,
-                  verbose,
-                  dryRun
+              for (const toPath of to) {
+                copyPromises.push(
+                  copyOperationHandler(
+                    outDirResolveFrom,
+                    from,
+                    fromPath,
+                    toPath,
+                    verbose,
+                    dryRun,
+                    transform
+                  )
                 );
-              });
+              }
             }
 
+            await Promise.all(copyPromises);
             process.env[PLUGIN_EXECUTED_FLAG] = 'true';
           };
 
@@ -163,7 +175,7 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
               verbose
             );
 
-            executor();
+            await executor();
 
             const watcher = chokidar.watch(from, {
               disableGlobbing: false,
@@ -174,7 +186,7 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
                 : {}),
             });
 
-            watcher.on('change', (fromPath) => {
+            watcher.on('change', async (fromPath) => {
               verboseLog(
                 `[File Changed] File ${chalk.white(
                   fromPath
@@ -182,19 +194,22 @@ export const copy = (options: Partial<Options> = {}): Plugin => {
                 verbose
               );
 
-              to.forEach((toPath) => {
-                copyOperationHandler(
-                  outDirResolveFrom,
-                  from,
-                  fromPath,
-                  toPath,
-                  verbose,
-                  dryRun
-                );
-              });
+              await Promise.all(
+                to.map((toPath) =>
+                  copyOperationHandler(
+                    outDirResolveFrom,
+                    from,
+                    fromPath,
+                    toPath,
+                    verbose,
+                    dryRun,
+                    transform
+                  )
+                )
+              );
             });
           } else {
-            executor();
+            await executor();
           }
         }
       });

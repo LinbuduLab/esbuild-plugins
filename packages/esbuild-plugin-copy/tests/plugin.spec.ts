@@ -11,7 +11,7 @@ import {
   PLUGIN_EXECUTED_FLAG,
 } from '../src/lib/utils';
 
-import type { Options } from '../src/lib/typings';
+import type { AssetPair, Options } from '../src/lib/typings';
 
 const FixtureDir = path.resolve(__dirname, './fixtures');
 
@@ -46,7 +46,7 @@ describe('CopyPlugin:Core', async () => {
   afterEach(() => {
     delete process.env[PLUGIN_EXECUTED_FLAG];
   });
-  it('should works for from path: /**<1>', async () => {
+  it('should work for from path: /**<1>', async () => {
     const outDir = tmp.dirSync().name;
     const outAssetsDir = tmp.dirSync().name;
 
@@ -78,7 +78,7 @@ describe('CopyPlugin:Core', async () => {
     expect(d3).toEqual(['deep.txt']);
   });
 
-  it('should works for from path: /**<2>', async () => {
+  it('should work for from path: /**<2>', async () => {
     const outDir = tmp.dirSync().name;
     const outAssetsDir = tmp.dirSync().name;
 
@@ -105,7 +105,7 @@ describe('CopyPlugin:Core', async () => {
     expect(d2).toEqual(['content.js']);
   });
 
-  it('should works for from path: /**<3>', async () => {
+  it('should work for from path: /**<3>', async () => {
     const outDir = tmp.dirSync().name;
     const outAssetsDir = tmp.dirSync().name;
 
@@ -372,7 +372,8 @@ describe('CopyPlugin:Core', async () => {
 
     expect(d1).toEqual(['hello.txt', 'index.js']);
   });
-  it.only('should copy from file to file with nested dest dir', async () => {
+
+  it('should copy from file to file with nested dest dir', async () => {
     const outDir = tmp.dirSync().name;
 
     await builder(
@@ -392,6 +393,34 @@ describe('CopyPlugin:Core', async () => {
     const d1 = fs.readdirSync(path.join(outDir, 'unexist/nest/dir'), {});
 
     expect(d1).toEqual(['hello.txt']);
+  });
+
+  it('should transform file when provided a transform function', async () => {
+    const outDir = tmp.dirSync().name;
+
+    const suffix = 'wondeful';
+
+    const transform: AssetPair['transform'] = (_, content) => {
+      return content.toString() + suffix;
+    };
+
+    await builder(
+      outDir,
+      { outdir: outDir },
+      {
+        assets: {
+          from: path.resolve(__dirname, './fixtures/assets/note.txt'),
+          to: 'hello.txt',
+          transform,
+        },
+        resolveFrom: outDir,
+        verbose: false,
+        dryRun: false,
+      }
+    );
+
+    const result = fs.readFileSync(path.join(outDir, 'hello.txt'), 'utf8');
+    expect(result.endsWith(suffix)).to.be.true;
   });
 });
 

@@ -3,6 +3,7 @@ import fs from 'fs-extra';
 import chalk from 'chalk';
 
 import { verboseLog } from './utils';
+import { AssetPair } from './typings';
 
 /**
  *
@@ -11,19 +12,16 @@ import { verboseLog } from './utils';
  * @param globbedFromPath the globbed file from path, which are globbed from rawFromPath
  * @param baseToPath the original asset.to value from user config, which will be resolved with outDirResolveFrom option
  * @param verbose verbose logging
- * @param dryRun dry run mode
  * @returns
  */
-export function copyOperationHandler(
+function resolvePaths(
   outDirResolveFrom: string,
   rawFromPath: string[],
   globbedFromPath: string,
   baseToPath: string,
-
-  verbose = false,
-  dryRun = false
-) {
-  for (const rawFrom of rawFromPath) {
+  verbose = false
+): [src: string, dest: string][] {
+  return rawFromPath.map((rawFrom) => {
     // only support from dir like: /**/*(.ext)
     const { dir } = path.parse(rawFrom);
 
@@ -73,15 +71,65 @@ export function copyOperationHandler(
           baseToPath
         );
 
-    dryRun ? void 0 : fs.ensureDirSync(path.dirname(composedDistDirPath));
+    return [sourcePath, composedDistDirPath];
+  });
+}
 
-    dryRun ? void 0 : fs.copyFileSync(sourcePath, composedDistDirPath);
+/**
+ *
+ * @param outDirResolveFrom the base destination dir that will resolve with asset.to value
+ * @param rawFromPath the original asset.from value from user config
+ * @param globbedFromPath the globbed file from path, which are globbed from rawFromPath
+ * @param baseToPath the original asset.to value from user config, which will be resolved with outDirResolveFrom option
+ * @param verbose verbose logging
+ * @param dryRun dry run mode
+ * @param transform middleman transform function
+ * @returns
+ */
+export async function copyOperationHandler(
+  outDirResolveFrom: string,
+  rawFromPath: string[],
+  globbedFromPath: string,
+  baseToPath: string,
+
+  verbose = false,
+  dryRun = false,
+  transform: AssetPair['transform'] = null
+) {
+  const resolvedPaths = resolvePaths(
+    outDirResolveFrom,
+    rawFromPath,
+    globbedFromPath,
+    baseToPath,
+    verbose
+  );
+
+  const copyPromises = resolvedPaths.map(async ([src, dest]) => {
+    if (dryRun) {
+      verboseLog(
+        `${chalk.white('[DryRun] ')}File copied: ${chalk.white(
+          src
+        )} -> ${chalk.white(dest)}`,
+        verbose
+      );
+      return;
+    }
+
+    await fs.ensureDir(path.dirname(dest));
+
+    if (transform) {
+      const sourceContent = await fs.readFile(src);
+      const finalContent = await transform(src, sourceContent);
+      await fs.writeFile(dest, finalContent);
+    } else {
+      await fs.copyFile(src, dest);
+    }
 
     verboseLog(
-      `${dryRun ? chalk.white('[DryRun] ') : ''}File copied: ${chalk.white(
-        sourcePath
-      )} -> ${chalk.white(composedDistDirPath)}`,
+      `File copied: ${chalk.white(src)} -> ${chalk.white(dest)}`,
       verbose
     );
-  }
+  });
+
+  await Promise.all(copyPromises);
 }
