@@ -50,6 +50,10 @@ export function copyOperationHandler(
     // globbedFromPath: /PATH/TO/assets/nest/foo.js → /nest/foo.js
     const [, preservedDirStructure] = globbedFromPath.split(startFragment);
 
+    if (!preservedDirStructure) {
+      continue;
+    }
+
     // /PATH/TO/assets/foo.js
     // path.resolve seems to be unnecessary as globbed path is already absolute path
     const sourcePath = path.resolve(globbedFromPath);
